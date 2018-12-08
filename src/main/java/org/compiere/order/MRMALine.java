@@ -20,7 +20,7 @@ import java.sql.ResultSet;
 import java.util.Properties;
 import java.util.logging.Level;
 
-import static org.compiere.order.MBaseRMALineKt.getAllIDs;
+import static software.hsharp.core.orm.POKt.getAllIDs;
 import static software.hsharp.core.util.DBKt.*;
 
 /**

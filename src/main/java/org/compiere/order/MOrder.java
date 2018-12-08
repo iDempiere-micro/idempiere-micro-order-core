@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 
+import static org.compiere.order.SalesOrderRateInquiryProcessKt.createShippingTransaction;
 import static software.hsharp.core.orm.POKt.I_ZERO;
 import static software.hsharp.core.util.DBKt.*;
 
@@ -1163,7 +1164,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
       MShippingTransaction st = null;
       try {
         st =
-            SalesOrderRateInquiryProcess.createShippingTransaction(
+            createShippingTransaction(
                 getCtx(),
                 this,
                 MShippingTransaction.ACTION_RateInquiry,

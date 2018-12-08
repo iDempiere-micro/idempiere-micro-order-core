@@ -1,5 +1,6 @@
 package org.compiere.order;
 
+import kotliquery.Row;
 import org.compiere.model.I_C_OrderLine;
 import org.compiere.model.I_M_AttributeSetInstance;
 import org.compiere.orm.MTable;
@@ -45,6 +46,10 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   /** Load Constructor */
   public X_C_OrderLine(Properties ctx, ResultSet rs, String trxName) {
     super(ctx, rs, trxName);
+  }
+
+  public X_C_OrderLine(Properties ctx, Row row) {
+    super(ctx, row);
   }
 
   /**

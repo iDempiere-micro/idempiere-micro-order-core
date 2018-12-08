@@ -1,5 +1,6 @@
 package org.compiere.order;
 
+import kotliquery.Row;
 import org.compiere.model.IDocLine;
 import org.compiere.model.I_C_Order;
 import org.compiere.model.I_C_OrderLine;
@@ -163,6 +164,9 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
    */
   public MOrderLine(Properties ctx, ResultSet rs, String trxName) {
     super(ctx, rs, trxName);
+  } //	MOrderLine
+  public MOrderLine(Properties ctx, Row row) {
+    super(ctx, row);
   } //	MOrderLine
 
   protected int m_M_PriceList_ID = 0;
