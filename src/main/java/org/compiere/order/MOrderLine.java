@@ -1,5 +1,12 @@
 package org.compiere.order;
 
+import static software.hsharp.core.util.DBKt.*;
+
+import java.math.BigDecimal;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Properties;
+import java.util.logging.Level;
 import kotliquery.Row;
 import org.compiere.model.IDocLine;
 import org.compiere.model.I_C_Order;
@@ -12,17 +19,9 @@ import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.Env;
 
-import java.math.BigDecimal;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Properties;
-import java.util.logging.Level;
-
-import static software.hsharp.core.util.DBKt.*;
-
 /**
  * Order Line Model. <code>
- * 			MOrderLine ol = new MOrderLine(m_order);
+ * MOrderLine ol = new MOrderLine(m_order);
  * ol.setM_Product_ID(wbl.getM_Product_ID());
  * ol.setQtyOrdered(wbl.getQuantity());
  * ol.setPrice();
@@ -33,70 +32,35 @@ import static software.hsharp.core.util.DBKt.*;
  * </code>
  *
  * @author Jorg Janke
- * @version $Id: MOrderLine.java,v 1.6 2006/10/02 05:18:39 jjanke Exp $
  * @author Teo Sarca, SC ARHIPAC SERVICE SRL
  *     <li>BF [ 2588043 ] Insufficient message ProductNotOnPriceList
  * @author Michael Judd, www.akunagroup.com
  *     <li>BF [ 1733602 ] Price List including Tax Error - when a user changes the orderline or
  *         invoice line for a product on a price list that includes tax, the net amount is
  *         incorrectly calculated.
+ * @version $Id: MOrderLine.java,v 1.6 2006/10/02 05:18:39 jjanke Exp $
  */
 public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine {
   /** */
   private static final long serialVersionUID = -7152360636393521683L;
-
-  /**
-   * Get Order Unreserved Qty
-   *
-   * @param ctx context
-   * @param M_Warehouse_ID wh
-   * @param M_Product_ID product
-   * @param M_AttributeSetInstance_ID asi
-   * @param excludeC_OrderLine_ID exclude C_OrderLine_ID
-   * @return Unreserved Qty
-   */
-  public static BigDecimal getNotReserved(
-      Properties ctx,
-      int M_Warehouse_ID,
-      int M_Product_ID,
-      int M_AttributeSetInstance_ID,
-      int excludeC_OrderLine_ID) {
-    BigDecimal retValue = Env.ZERO;
-    String sql =
-        "SELECT SUM(QtyOrdered-QtyDelivered-QtyReserved) "
-            + "FROM C_OrderLine ol"
-            + " INNER JOIN C_Order o ON (ol.C_Order_ID=o.C_Order_ID) "
-            + "WHERE ol.M_Warehouse_ID=?" //	#1
-            + " AND M_Product_ID=?" //	#2
-            + " AND o.IsSOTrx='Y' AND o.DocStatus='DR'"
-            + " AND QtyOrdered-QtyDelivered-QtyReserved<>0"
-            + " AND ol.C_OrderLine_ID<>?";
-    if (M_AttributeSetInstance_ID != 0) sql += " AND M_AttributeSetInstance_ID=?";
-
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
-    try {
-      pstmt = prepareStatement(sql, null);
-      pstmt.setInt(1, M_Warehouse_ID);
-      pstmt.setInt(2, M_Product_ID);
-      pstmt.setInt(3, excludeC_OrderLine_ID);
-      if (M_AttributeSetInstance_ID != 0) pstmt.setInt(4, M_AttributeSetInstance_ID);
-      rs = pstmt.executeQuery();
-      if (rs.next()) retValue = rs.getBigDecimal(1);
-    } catch (Exception e) {
-      s_log.log(Level.SEVERE, sql, e);
-    } finally {
-      close(rs, pstmt);
-      rs = null;
-      pstmt = null;
-    }
-    if (retValue == null) s_log.fine("-");
-    else if (s_log.isLoggable(Level.FINE)) s_log.fine(retValue.toString());
-    return retValue;
-  } //	getNotReserved
-
   /** Logger */
   protected static CLogger s_log = CLogger.getCLogger(MOrderLine.class);
+
+  protected int m_M_PriceList_ID = 0;
+  //
+  protected boolean m_IsSOTrx = true;
+  //	Product Pricing
+  protected IProductPricing m_productPrice = null;
+  /** Tax */
+  protected MTax m_tax = null;
+  /** Cached Currency Precision */
+  protected Integer m_precision = null;
+  /** Product */
+  protected MProduct m_product = null;
+  /** Charge */
+  protected MCharge m_charge = null;
+  /** Parent */
+  protected I_C_Order m_parent = null;
 
   /**
    * ************************************************************************ Default Constructor
@@ -154,7 +118,6 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
     setC_Order_ID(order.getC_Order_ID()); // 	parent
     setOrder(order);
   } //	MOrderLine
-
   /**
    * Load Constructor
    *
@@ -165,27 +128,60 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
   public MOrderLine(Properties ctx, ResultSet rs, String trxName) {
     super(ctx, rs, trxName);
   } //	MOrderLine
+
   public MOrderLine(Properties ctx, Row row) {
     super(ctx, row);
   } //	MOrderLine
 
-  protected int m_M_PriceList_ID = 0;
-  //
-  protected boolean m_IsSOTrx = true;
-  //	Product Pricing
-  protected IProductPricing m_productPrice = null;
+  /**
+   * Get Order Unreserved Qty
+   *
+   * @param ctx context
+   * @param M_Warehouse_ID wh
+   * @param M_Product_ID product
+   * @param M_AttributeSetInstance_ID asi
+   * @param excludeC_OrderLine_ID exclude C_OrderLine_ID
+   * @return Unreserved Qty
+   */
+  public static BigDecimal getNotReserved(
+      Properties ctx,
+      int M_Warehouse_ID,
+      int M_Product_ID,
+      int M_AttributeSetInstance_ID,
+      int excludeC_OrderLine_ID) {
+    BigDecimal retValue = Env.ZERO;
+    String sql =
+        "SELECT SUM(QtyOrdered-QtyDelivered-QtyReserved) "
+            + "FROM C_OrderLine ol"
+            + " INNER JOIN C_Order o ON (ol.C_Order_ID=o.C_Order_ID) "
+            + "WHERE ol.M_Warehouse_ID=?" //	#1
+            + " AND M_Product_ID=?" //	#2
+            + " AND o.IsSOTrx='Y' AND o.DocStatus='DR'"
+            + " AND QtyOrdered-QtyDelivered-QtyReserved<>0"
+            + " AND ol.C_OrderLine_ID<>?";
+    if (M_AttributeSetInstance_ID != 0) sql += " AND M_AttributeSetInstance_ID=?";
 
-  /** Tax */
-  protected MTax m_tax = null;
-
-  /** Cached Currency Precision */
-  protected Integer m_precision = null;
-  /** Product */
-  protected MProduct m_product = null;
-  /** Charge */
-  protected MCharge m_charge = null;
-  /** Parent */
-  protected I_C_Order m_parent = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    try {
+      pstmt = prepareStatement(sql, null);
+      pstmt.setInt(1, M_Warehouse_ID);
+      pstmt.setInt(2, M_Product_ID);
+      pstmt.setInt(3, excludeC_OrderLine_ID);
+      if (M_AttributeSetInstance_ID != 0) pstmt.setInt(4, M_AttributeSetInstance_ID);
+      rs = pstmt.executeQuery();
+      if (rs.next()) retValue = rs.getBigDecimal(1);
+    } catch (Exception e) {
+      s_log.log(Level.SEVERE, sql, e);
+    } finally {
+      close(rs, pstmt);
+      rs = null;
+      pstmt = null;
+    }
+    if (retValue == null) s_log.fine("-");
+    else if (s_log.isLoggable(Level.FINE)) s_log.fine(retValue.toString());
+    return retValue;
+  } //	getNotReserved
 
   /**
    * Set Defaults from Order. Does not set Parent !!
@@ -395,6 +391,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
       m_charge = MCharge.get(getCtx(), getC_Charge_ID());
     return m_charge;
   }
+
   /**
    * Get Tax
    *
@@ -435,23 +432,6 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
   } //	getPrecision
 
   /**
-   * Set Product
-   *
-   * @param product product
-   */
-  public void setProduct(MProduct product) {
-    m_product = product;
-    if (m_product != null) {
-      setM_Product_ID(m_product.getM_Product_ID());
-      setC_UOM_ID(m_product.getC_UOM_ID());
-    } else {
-      setM_Product_ID(0);
-      set_ValueNoCheck("C_UOM_ID", null);
-    }
-    setM_AttributeSetInstance_ID(0);
-  } //	setProduct
-
-  /**
    * Set M_Product_ID
    *
    * @param M_Product_ID product
@@ -485,6 +465,23 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
       m_product = MProduct.get(getCtx(), getM_Product_ID());
     return m_product;
   } //	getProduct
+
+  /**
+   * Set Product
+   *
+   * @param product product
+   */
+  public void setProduct(MProduct product) {
+    m_product = product;
+    if (m_product != null) {
+      setM_Product_ID(m_product.getM_Product_ID());
+      setC_UOM_ID(m_product.getC_UOM_ID());
+    } else {
+      setM_Product_ID(0);
+      set_ValueNoCheck("C_UOM_ID", null);
+    }
+    setM_AttributeSetInstance_ID(0);
+  } //	setProduct
 
   /**
    * Set M_AttributeSetInstance_ID
@@ -665,6 +662,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
     super.setC_Charge_ID(C_Charge_ID);
     if (C_Charge_ID > 0) set_ValueNoCheck("C_UOM_ID", null);
   } //	setC_Charge_ID
+
   /** Set Discount */
   public void setDiscount() {
     BigDecimal list = getPriceList();

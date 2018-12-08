@@ -1,13 +1,12 @@
 package org.compiere.order;
 
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.Properties;
 import org.compiere.model.I_C_PaymentTerm;
 import org.compiere.orm.BasePONameValue;
 import org.idempiere.common.util.Env;
 import org.idempiere.orm.I_Persistent;
-
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.util.Properties;
 
 /**
  * Generated Model for C_PaymentTerm
@@ -17,6 +16,30 @@ import java.util.Properties;
  */
 public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
 
+  /** NetDay AD_Reference_ID=167 */
+  public static final int NETDAY_AD_Reference_ID = 167;
+  /** Sunday = 7 */
+  public static final String NETDAY_Sunday = "7";
+  /** Monday = 1 */
+  public static final String NETDAY_Monday = "1";
+  /** Tuesday = 2 */
+  public static final String NETDAY_Tuesday = "2";
+  /** Wednesday = 3 */
+  public static final String NETDAY_Wednesday = "3";
+  /** Thursday = 4 */
+  public static final String NETDAY_Thursday = "4";
+  /** Friday = 5 */
+  public static final String NETDAY_Friday = "5";
+  /** Saturday = 6 */
+  public static final String NETDAY_Saturday = "6";
+  /** PaymentTermUsage AD_Reference_ID=53382 */
+  public static final int PAYMENTTERMUSAGE_AD_Reference_ID = 53382;
+  /** Both = B */
+  public static final String PAYMENTTERMUSAGE_Both = "B";
+  /** Sales = S */
+  public static final String PAYMENTTERMUSAGE_Sales = "S";
+  /** Purchases = P */
+  public static final String PAYMENTTERMUSAGE_Purchases = "P";
   /** */
   private static final long serialVersionUID = 20171031L;
 
@@ -44,15 +67,6 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
   }
 
   /**
-   * Set After Delivery.
-   *
-   * @param AfterDelivery Due after delivery rather than after invoicing
-   */
-  public void setAfterDelivery(boolean AfterDelivery) {
-    set_Value(I_C_PaymentTerm.COLUMNNAME_AfterDelivery, Boolean.valueOf(AfterDelivery));
-  }
-
-  /**
    * Get After Delivery.
    *
    * @return Due after delivery rather than after invoicing
@@ -64,6 +78,26 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
       return "Y".equals(oo);
     }
     return false;
+  }
+
+  /**
+   * Set After Delivery.
+   *
+   * @param AfterDelivery Due after delivery rather than after invoicing
+   */
+  public void setAfterDelivery(boolean AfterDelivery) {
+    set_Value(I_C_PaymentTerm.COLUMNNAME_AfterDelivery, Boolean.valueOf(AfterDelivery));
+  }
+
+  /**
+   * Get Payment Term.
+   *
+   * @return The terms of Payment (timing, discount)
+   */
+  public int getC_PaymentTerm_ID() {
+    Integer ii = (Integer) get_Value(I_C_PaymentTerm.COLUMNNAME_C_PaymentTerm_ID);
+    if (ii == null) return 0;
+    return ii;
   }
 
   /**
@@ -79,14 +113,12 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
   }
 
   /**
-   * Get Payment Term.
+   * Get C_PaymentTerm_UU.
    *
-   * @return The terms of Payment (timing, discount)
+   * @return C_PaymentTerm_UU
    */
-  public int getC_PaymentTerm_ID() {
-    Integer ii = (Integer) get_Value(I_C_PaymentTerm.COLUMNNAME_C_PaymentTerm_ID);
-    if (ii == null) return 0;
-    return ii;
+  public String getC_PaymentTerm_UU() {
+    return (String) get_Value(I_C_PaymentTerm.COLUMNNAME_C_PaymentTerm_UU);
   }
 
   /**
@@ -99,24 +131,6 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
   }
 
   /**
-   * Get C_PaymentTerm_UU.
-   *
-   * @return C_PaymentTerm_UU
-   */
-  public String getC_PaymentTerm_UU() {
-    return (String) get_Value(I_C_PaymentTerm.COLUMNNAME_C_PaymentTerm_UU);
-  }
-
-  /**
-   * Set Description.
-   *
-   * @param Description Optional short description of the record
-   */
-  public void setDescription(String Description) {
-    set_Value(I_C_PaymentTerm.COLUMNNAME_Description, Description);
-  }
-
-  /**
    * Get Description.
    *
    * @return Optional short description of the record
@@ -126,12 +140,12 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
   }
 
   /**
-   * Set Discount %.
+   * Set Description.
    *
-   * @param Discount Discount in percent
+   * @param Description Optional short description of the record
    */
-  public void setDiscount(BigDecimal Discount) {
-    set_Value(I_C_PaymentTerm.COLUMNNAME_Discount, Discount);
+  public void setDescription(String Description) {
+    set_Value(I_C_PaymentTerm.COLUMNNAME_Description, Description);
   }
 
   /**
@@ -146,12 +160,12 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
   }
 
   /**
-   * Set Discount 2 %.
+   * Set Discount %.
    *
-   * @param Discount2 Discount in percent
+   * @param Discount Discount in percent
    */
-  public void setDiscount2(BigDecimal Discount2) {
-    set_Value(I_C_PaymentTerm.COLUMNNAME_Discount2, Discount2);
+  public void setDiscount(BigDecimal Discount) {
+    set_Value(I_C_PaymentTerm.COLUMNNAME_Discount, Discount);
   }
 
   /**
@@ -166,12 +180,12 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
   }
 
   /**
-   * Set Discount Days.
+   * Set Discount 2 %.
    *
-   * @param DiscountDays Number of days from invoice date to be eligible for discount
+   * @param Discount2 Discount in percent
    */
-  public void setDiscountDays(int DiscountDays) {
-    set_Value(I_C_PaymentTerm.COLUMNNAME_DiscountDays, Integer.valueOf(DiscountDays));
+  public void setDiscount2(BigDecimal Discount2) {
+    set_Value(I_C_PaymentTerm.COLUMNNAME_Discount2, Discount2);
   }
 
   /**
@@ -186,12 +200,12 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
   }
 
   /**
-   * Set Discount Days 2.
+   * Set Discount Days.
    *
-   * @param DiscountDays2 Number of days from invoice date to be eligible for discount
+   * @param DiscountDays Number of days from invoice date to be eligible for discount
    */
-  public void setDiscountDays2(int DiscountDays2) {
-    set_Value(I_C_PaymentTerm.COLUMNNAME_DiscountDays2, Integer.valueOf(DiscountDays2));
+  public void setDiscountDays(int DiscountDays) {
+    set_Value(I_C_PaymentTerm.COLUMNNAME_DiscountDays, Integer.valueOf(DiscountDays));
   }
 
   /**
@@ -206,12 +220,12 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
   }
 
   /**
-   * Set Document Note.
+   * Set Discount Days 2.
    *
-   * @param DocumentNote Additional information for a Document
+   * @param DiscountDays2 Number of days from invoice date to be eligible for discount
    */
-  public void setDocumentNote(String DocumentNote) {
-    set_Value(I_C_PaymentTerm.COLUMNNAME_DocumentNote, DocumentNote);
+  public void setDiscountDays2(int DiscountDays2) {
+    set_Value(I_C_PaymentTerm.COLUMNNAME_DiscountDays2, Integer.valueOf(DiscountDays2));
   }
 
   /**
@@ -224,12 +238,12 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
   }
 
   /**
-   * Set Fix month cutoff.
+   * Set Document Note.
    *
-   * @param FixMonthCutoff Last day to include for next due date
+   * @param DocumentNote Additional information for a Document
    */
-  public void setFixMonthCutoff(int FixMonthCutoff) {
-    set_Value(I_C_PaymentTerm.COLUMNNAME_FixMonthCutoff, Integer.valueOf(FixMonthCutoff));
+  public void setDocumentNote(String DocumentNote) {
+    set_Value(I_C_PaymentTerm.COLUMNNAME_DocumentNote, DocumentNote);
   }
 
   /**
@@ -244,12 +258,12 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
   }
 
   /**
-   * Set Fix month day.
+   * Set Fix month cutoff.
    *
-   * @param FixMonthDay Day of the month of the due date
+   * @param FixMonthCutoff Last day to include for next due date
    */
-  public void setFixMonthDay(int FixMonthDay) {
-    set_Value(I_C_PaymentTerm.COLUMNNAME_FixMonthDay, Integer.valueOf(FixMonthDay));
+  public void setFixMonthCutoff(int FixMonthCutoff) {
+    set_Value(I_C_PaymentTerm.COLUMNNAME_FixMonthCutoff, Integer.valueOf(FixMonthCutoff));
   }
 
   /**
@@ -264,12 +278,12 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
   }
 
   /**
-   * Set Fix month offset.
+   * Set Fix month day.
    *
-   * @param FixMonthOffset Number of months (0=same, 1=following)
+   * @param FixMonthDay Day of the month of the due date
    */
-  public void setFixMonthOffset(int FixMonthOffset) {
-    set_Value(I_C_PaymentTerm.COLUMNNAME_FixMonthOffset, Integer.valueOf(FixMonthOffset));
+  public void setFixMonthDay(int FixMonthDay) {
+    set_Value(I_C_PaymentTerm.COLUMNNAME_FixMonthDay, Integer.valueOf(FixMonthDay));
   }
 
   /**
@@ -284,12 +298,12 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
   }
 
   /**
-   * Set Grace Days.
+   * Set Fix month offset.
    *
-   * @param GraceDays Days after due date to send first dunning letter
+   * @param FixMonthOffset Number of months (0=same, 1=following)
    */
-  public void setGraceDays(int GraceDays) {
-    set_Value(I_C_PaymentTerm.COLUMNNAME_GraceDays, Integer.valueOf(GraceDays));
+  public void setFixMonthOffset(int FixMonthOffset) {
+    set_Value(I_C_PaymentTerm.COLUMNNAME_FixMonthOffset, Integer.valueOf(FixMonthOffset));
   }
 
   /**
@@ -301,6 +315,15 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
     Integer ii = (Integer) get_Value(I_C_PaymentTerm.COLUMNNAME_GraceDays);
     if (ii == null) return 0;
     return ii;
+  }
+
+  /**
+   * Set Grace Days.
+   *
+   * @param GraceDays Days after due date to send first dunning letter
+   */
+  public void setGraceDays(int GraceDays) {
+    set_Value(I_C_PaymentTerm.COLUMNNAME_GraceDays, Integer.valueOf(GraceDays));
   }
 
   /**
@@ -395,32 +418,6 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
     return false;
   }
 
-  /** NetDay AD_Reference_ID=167 */
-  public static final int NETDAY_AD_Reference_ID = 167;
-  /** Sunday = 7 */
-  public static final String NETDAY_Sunday = "7";
-  /** Monday = 1 */
-  public static final String NETDAY_Monday = "1";
-  /** Tuesday = 2 */
-  public static final String NETDAY_Tuesday = "2";
-  /** Wednesday = 3 */
-  public static final String NETDAY_Wednesday = "3";
-  /** Thursday = 4 */
-  public static final String NETDAY_Thursday = "4";
-  /** Friday = 5 */
-  public static final String NETDAY_Friday = "5";
-  /** Saturday = 6 */
-  public static final String NETDAY_Saturday = "6";
-  /**
-   * Set Net Day.
-   *
-   * @param NetDay Day when payment is due net
-   */
-  public void setNetDay(String NetDay) {
-
-    set_Value(I_C_PaymentTerm.COLUMNNAME_NetDay, NetDay);
-  }
-
   /**
    * Get Net Day.
    *
@@ -431,12 +428,13 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
   }
 
   /**
-   * Set Net Days.
+   * Set Net Day.
    *
-   * @param NetDays Net Days in which payment is due
+   * @param NetDay Day when payment is due net
    */
-  public void setNetDays(int NetDays) {
-    set_Value(I_C_PaymentTerm.COLUMNNAME_NetDays, Integer.valueOf(NetDays));
+  public void setNetDay(String NetDay) {
+
+    set_Value(I_C_PaymentTerm.COLUMNNAME_NetDay, NetDay);
   }
 
   /**
@@ -450,23 +448,13 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
     return ii;
   }
 
-  /** PaymentTermUsage AD_Reference_ID=53382 */
-  public static final int PAYMENTTERMUSAGE_AD_Reference_ID = 53382;
-  /** Both = B */
-  public static final String PAYMENTTERMUSAGE_Both = "B";
-  /** Sales = S */
-  public static final String PAYMENTTERMUSAGE_Sales = "S";
-  /** Purchases = P */
-  public static final String PAYMENTTERMUSAGE_Purchases = "P";
   /**
-   * Set Payment Term Usage.
+   * Set Net Days.
    *
-   * @param PaymentTermUsage Payment term usage indicates if this payment term is used for sales,
-   *     purchases or both.
+   * @param NetDays Net Days in which payment is due
    */
-  public void setPaymentTermUsage(String PaymentTermUsage) {
-
-    set_Value(I_C_PaymentTerm.COLUMNNAME_PaymentTermUsage, PaymentTermUsage);
+  public void setNetDays(int NetDays) {
+    set_Value(I_C_PaymentTerm.COLUMNNAME_NetDays, Integer.valueOf(NetDays));
   }
 
   /**
@@ -479,12 +467,14 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
   }
 
   /**
-   * Set Process Now.
+   * Set Payment Term Usage.
    *
-   * @param Processing Process Now
+   * @param PaymentTermUsage Payment term usage indicates if this payment term is used for sales,
+   *     purchases or both.
    */
-  public void setProcessing(boolean Processing) {
-    set_Value(I_C_PaymentTerm.COLUMNNAME_Processing, Boolean.valueOf(Processing));
+  public void setPaymentTermUsage(String PaymentTermUsage) {
+
+    set_Value(I_C_PaymentTerm.COLUMNNAME_PaymentTermUsage, PaymentTermUsage);
   }
 
   /**
@@ -499,6 +489,15 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
       return "Y".equals(oo);
     }
     return false;
+  }
+
+  /**
+   * Set Process Now.
+   *
+   * @param Processing Process Now
+   */
+  public void setProcessing(boolean Processing) {
+    set_Value(I_C_PaymentTerm.COLUMNNAME_Processing, Boolean.valueOf(Processing));
   }
 
   @Override

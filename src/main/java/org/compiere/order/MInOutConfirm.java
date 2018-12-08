@@ -15,7 +15,6 @@ import org.idempiere.common.util.Env;
  * Shipment Confirmation Model
  *
  * @author Jorg Janke
- * @version $Id: MInOutConfirm.java,v 1.3 2006/07/30 00:51:03 jjanke Exp $
  * @author Teo Sarca, www.arhipac.ro
  *     <li>BF [ 2800460 ] System generate Material Receipt with no lines
  *         https://sourceforge.net/tracker/?func=detail&atid=879332&aid=2800460&group_id=176962
@@ -24,6 +23,7 @@ import org.idempiere.common.util.Env;
  *         https://sourceforge.net/tracker/?func=detail&atid=879332&aid=2993853&group_id=176962
  *     <li>FR [ 2994115 ] Add C_DocType.IsPrepareSplitDoc flag
  *         https://sourceforge.net/tracker/?func=detail&aid=2994115&group_id=176962&atid=879335
+ * @version $Id: MInOutConfirm.java,v 1.3 2006/07/30 00:51:03 jjanke Exp $
  */
 public class MInOutConfirm extends X_M_InOutConfirm {
   /** */
@@ -31,6 +31,8 @@ public class MInOutConfirm extends X_M_InOutConfirm {
 
   /** Static Logger */
   protected static CLogger s_log = CLogger.getCLogger(MInOutConfirm.class);
+  /** Just Prepared Flag */
+  protected boolean m_justPrepared = false;
 
   /**
    * ************************************************************************ Standard Constructor
@@ -164,9 +166,6 @@ public class MInOutConfirm extends X_M_InOutConfirm {
     }
     super.setIsApproved(IsApproved);
   } //	setIsApproved
-
-  /** Just Prepared Flag */
-  protected boolean m_justPrepared = false;
 
   /**
    * Unlock Document.

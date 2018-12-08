@@ -7,7 +7,8 @@ import org.idempiere.common.exceptions.AdempiereException
  * Thrown when an exception related to a BPartner happened.
  * @author Teo Sarca, www.arhipac.ro
  */
-abstract class BPartnerException internal constructor(ad_message: String, bp: I_C_BPartner?) : AdempiereException("@" + ad_message + "@ - " + if (bp == null) "?" else bp.value + "_" + bp.name) {
+abstract class BPartnerException internal constructor(ad_message: String, bp: I_C_BPartner?) :
+    AdempiereException("@" + ad_message + "@ - " + if (bp == null) "?" else bp.value + "_" + bp.name) {
     /**
      * @return the c_BPartner_ID
      */

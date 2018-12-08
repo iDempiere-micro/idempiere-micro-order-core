@@ -1,14 +1,13 @@
 package org.compiere.order;
 
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.Properties;
 import org.compiere.model.I_M_ShipperPackaging;
 import org.compiere.orm.BasePOName;
 import org.compiere.orm.MTable;
 import org.idempiere.common.util.Env;
 import org.idempiere.orm.I_Persistent;
-
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.util.Properties;
 
 /**
  * Generated Model for M_ShipperPackaging
@@ -75,16 +74,6 @@ public class X_M_ShipperPackaging extends BasePOName implements I_M_ShipperPacka
   }
 
   /**
-   * Set Shipper.
-   *
-   * @param M_Shipper_ID Method or manner of product delivery
-   */
-  public void setM_Shipper_ID(int M_Shipper_ID) {
-    if (M_Shipper_ID < 1) set_ValueNoCheck(COLUMNNAME_M_Shipper_ID, null);
-    else set_ValueNoCheck(COLUMNNAME_M_Shipper_ID, Integer.valueOf(M_Shipper_ID));
-  }
-
-  /**
    * Get Shipper.
    *
    * @return Method or manner of product delivery
@@ -95,11 +84,32 @@ public class X_M_ShipperPackaging extends BasePOName implements I_M_ShipperPacka
     return ii;
   }
 
+  /**
+   * Set Shipper.
+   *
+   * @param M_Shipper_ID Method or manner of product delivery
+   */
+  public void setM_Shipper_ID(int M_Shipper_ID) {
+    if (M_Shipper_ID < 1) set_ValueNoCheck(COLUMNNAME_M_Shipper_ID, null);
+    else set_ValueNoCheck(COLUMNNAME_M_Shipper_ID, Integer.valueOf(M_Shipper_ID));
+  }
+
   public org.compiere.model.I_M_ShipperPackagingCfg getM_ShipperPackagingCfg()
       throws RuntimeException {
     return (org.compiere.model.I_M_ShipperPackagingCfg)
         MTable.get(getCtx(), org.compiere.model.I_M_ShipperPackagingCfg.Table_Name)
             .getPO(getM_ShipperPackagingCfg_ID(), get_TrxName());
+  }
+
+  /**
+   * Get Shipper Packaging Configuration.
+   *
+   * @return Shipper Packaging Configuration
+   */
+  public int getM_ShipperPackagingCfg_ID() {
+    Integer ii = (Integer) get_Value(COLUMNNAME_M_ShipperPackagingCfg_ID);
+    if (ii == null) return 0;
+    return ii;
   }
 
   /**
@@ -113,12 +123,12 @@ public class X_M_ShipperPackaging extends BasePOName implements I_M_ShipperPacka
   }
 
   /**
-   * Get Shipper Packaging Configuration.
+   * Get Shipper Packaging.
    *
-   * @return Shipper Packaging Configuration
+   * @return Shipper Packaging
    */
-  public int getM_ShipperPackagingCfg_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_M_ShipperPackagingCfg_ID);
+  public int getM_ShipperPackaging_ID() {
+    Integer ii = (Integer) get_Value(COLUMNNAME_M_ShipperPackaging_ID);
     if (ii == null) return 0;
     return ii;
   }
@@ -134,14 +144,12 @@ public class X_M_ShipperPackaging extends BasePOName implements I_M_ShipperPacka
   }
 
   /**
-   * Get Shipper Packaging.
+   * Get M_ShipperPackaging_UU.
    *
-   * @return Shipper Packaging
+   * @return M_ShipperPackaging_UU
    */
-  public int getM_ShipperPackaging_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_M_ShipperPackaging_ID);
-    if (ii == null) return 0;
-    return ii;
+  public String getM_ShipperPackaging_UU() {
+    return (String) get_Value(COLUMNNAME_M_ShipperPackaging_UU);
   }
 
   /**
@@ -154,12 +162,14 @@ public class X_M_ShipperPackaging extends BasePOName implements I_M_ShipperPacka
   }
 
   /**
-   * Get M_ShipperPackaging_UU.
+   * Get Weight.
    *
-   * @return M_ShipperPackaging_UU
+   * @return Weight of a product
    */
-  public String getM_ShipperPackaging_UU() {
-    return (String) get_Value(COLUMNNAME_M_ShipperPackaging_UU);
+  public BigDecimal getWeight() {
+    BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_Weight);
+    if (bd == null) return Env.ZERO;
+    return bd;
   }
 
   /**
@@ -169,17 +179,6 @@ public class X_M_ShipperPackaging extends BasePOName implements I_M_ShipperPacka
    */
   public void setWeight(BigDecimal Weight) {
     set_Value(COLUMNNAME_Weight, Weight);
-  }
-
-  /**
-   * Get Weight.
-   *
-   * @return Weight of a product
-   */
-  public BigDecimal getWeight() {
-    BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_Weight);
-    if (bd == null) return Env.ZERO;
-    return bd;
   }
 
   @Override

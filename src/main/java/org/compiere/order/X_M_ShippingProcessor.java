@@ -1,12 +1,11 @@
 package org.compiere.order;
 
+import java.sql.ResultSet;
+import java.util.Properties;
 import org.compiere.model.I_M_ShippingProcessor;
 import org.compiere.orm.BasePOName;
 import org.compiere.orm.MTable;
 import org.idempiere.orm.I_Persistent;
-
-import java.sql.ResultSet;
-import java.util.Properties;
 
 /**
  * Generated Model for M_ShippingProcessor
@@ -45,15 +44,6 @@ public class X_M_ShippingProcessor extends BasePOName
   }
 
   /**
-   * Set Connection Key.
-   *
-   * @param ConnectionKey Connection Key
-   */
-  public void setConnectionKey(String ConnectionKey) {
-    set_Value(COLUMNNAME_ConnectionKey, ConnectionKey);
-  }
-
-  /**
    * Get Connection Key.
    *
    * @return Connection Key
@@ -63,12 +53,12 @@ public class X_M_ShippingProcessor extends BasePOName
   }
 
   /**
-   * Set Connection Password.
+   * Set Connection Key.
    *
-   * @param ConnectionPassword Connection Password
+   * @param ConnectionKey Connection Key
    */
-  public void setConnectionPassword(String ConnectionPassword) {
-    set_Value(COLUMNNAME_ConnectionPassword, ConnectionPassword);
+  public void setConnectionKey(String ConnectionKey) {
+    set_Value(COLUMNNAME_ConnectionKey, ConnectionKey);
   }
 
   /**
@@ -80,11 +70,31 @@ public class X_M_ShippingProcessor extends BasePOName
     return (String) get_Value(COLUMNNAME_ConnectionPassword);
   }
 
+  /**
+   * Set Connection Password.
+   *
+   * @param ConnectionPassword Connection Password
+   */
+  public void setConnectionPassword(String ConnectionPassword) {
+    set_Value(COLUMNNAME_ConnectionPassword, ConnectionPassword);
+  }
+
   public org.compiere.model.I_M_ShippingProcessorCfg getM_ShippingProcessorCfg()
       throws RuntimeException {
     return (org.compiere.model.I_M_ShippingProcessorCfg)
         MTable.get(getCtx(), org.compiere.model.I_M_ShippingProcessorCfg.Table_Name)
             .getPO(getM_ShippingProcessorCfg_ID(), get_TrxName());
+  }
+
+  /**
+   * Get Shipping Processor Configuration.
+   *
+   * @return Shipping Processor Configuration
+   */
+  public int getM_ShippingProcessorCfg_ID() {
+    Integer ii = (Integer) get_Value(COLUMNNAME_M_ShippingProcessorCfg_ID);
+    if (ii == null) return 0;
+    return ii;
   }
 
   /**
@@ -99,12 +109,12 @@ public class X_M_ShippingProcessor extends BasePOName
   }
 
   /**
-   * Get Shipping Processor Configuration.
+   * Get Shipping Processor.
    *
-   * @return Shipping Processor Configuration
+   * @return Shipping Processor
    */
-  public int getM_ShippingProcessorCfg_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_M_ShippingProcessorCfg_ID);
+  public int getM_ShippingProcessor_ID() {
+    Integer ii = (Integer) get_Value(COLUMNNAME_M_ShippingProcessor_ID);
     if (ii == null) return 0;
     return ii;
   }
@@ -121,14 +131,12 @@ public class X_M_ShippingProcessor extends BasePOName
   }
 
   /**
-   * Get Shipping Processor.
+   * Get M_ShippingProcessor_UU.
    *
-   * @return Shipping Processor
+   * @return M_ShippingProcessor_UU
    */
-  public int getM_ShippingProcessor_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_M_ShippingProcessor_ID);
-    if (ii == null) return 0;
-    return ii;
+  public String getM_ShippingProcessor_UU() {
+    return (String) get_Value(COLUMNNAME_M_ShippingProcessor_UU);
   }
 
   /**
@@ -141,12 +149,12 @@ public class X_M_ShippingProcessor extends BasePOName
   }
 
   /**
-   * Get M_ShippingProcessor_UU.
+   * Get User ID.
    *
-   * @return M_ShippingProcessor_UU
+   * @return User ID or account number
    */
-  public String getM_ShippingProcessor_UU() {
-    return (String) get_Value(COLUMNNAME_M_ShippingProcessor_UU);
+  public String getUserID() {
+    return (String) get_Value(COLUMNNAME_UserID);
   }
 
   /**
@@ -156,15 +164,6 @@ public class X_M_ShippingProcessor extends BasePOName
    */
   public void setUserID(String UserID) {
     set_Value(COLUMNNAME_UserID, UserID);
-  }
-
-  /**
-   * Get User ID.
-   *
-   * @return User ID or account number
-   */
-  public String getUserID() {
-    return (String) get_Value(COLUMNNAME_UserID);
   }
 
   @Override

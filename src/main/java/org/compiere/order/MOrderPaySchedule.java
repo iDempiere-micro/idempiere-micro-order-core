@@ -1,9 +1,7 @@
 package org.compiere.order;
 
-import org.compiere.orm.TimeUtil;
-import org.compiere.product.MCurrency;
-import org.idempiere.common.util.CLogger;
-import org.idempiere.common.util.Env;
+import static software.hsharp.core.util.DBKt.close;
+import static software.hsharp.core.util.DBKt.prepareStatement;
 
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
@@ -12,9 +10,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
-
-import static software.hsharp.core.util.DBKt.close;
-import static software.hsharp.core.util.DBKt.prepareStatement;
+import org.compiere.orm.TimeUtil;
+import org.compiere.product.MCurrency;
+import org.idempiere.common.util.CLogger;
+import org.idempiere.common.util.Env;
 
 /**
  * Order Payment Schedule Model
@@ -25,52 +24,10 @@ import static software.hsharp.core.util.DBKt.prepareStatement;
 public class MOrderPaySchedule extends X_C_OrderPaySchedule {
   /** */
   private static final long serialVersionUID = 2158181283878369676L;
-
-  /**
-   * Get Payment Schedule of the Order
-   *
-   * @param ctx context
-   * @param C_Order_ID order id (direct)
-   * @param C_OrderPaySchedule_ID id (indirect)
-   * @param trxName transaction
-   * @return array of schedule
-   */
-  public static MOrderPaySchedule[] getOrderPaySchedule(
-      Properties ctx, int C_Order_ID, int C_OrderPaySchedule_ID, String trxName) {
-    String sql = "SELECT * FROM C_OrderPaySchedule ips WHERE IsActive='Y' ";
-    if (C_Order_ID != 0) sql += "AND C_Order_ID=? ";
-    else
-      sql +=
-          "AND EXISTS (SELECT * FROM C_OrderPaySchedule x"
-              + " WHERE x.C_OrderPaySchedule_ID=? AND ips.C_Order_ID=x.C_Order_ID) ";
-    sql += "ORDER BY DueDate";
-    //
-    ArrayList<MOrderPaySchedule> list = new ArrayList<MOrderPaySchedule>();
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
-    try {
-      pstmt = prepareStatement(sql, trxName);
-      if (C_Order_ID != 0) pstmt.setInt(1, C_Order_ID);
-      else pstmt.setInt(1, C_OrderPaySchedule_ID);
-      rs = pstmt.executeQuery();
-      while (rs.next()) {
-        list.add(new MOrderPaySchedule(ctx, rs, trxName));
-      }
-    } catch (Exception e) {
-      s_log.log(Level.SEVERE, "getOrderPaySchedule", e);
-    } finally {
-      close(rs, pstmt);
-      rs = null;
-      pstmt = null;
-    }
-
-    MOrderPaySchedule[] retValue = new MOrderPaySchedule[list.size()];
-    list.toArray(retValue);
-    return retValue;
-  } //	getSchedule
-
   /** Static Logger */
   private static CLogger s_log = CLogger.getCLogger(MOrderPaySchedule.class);
+  /** Parent */
+  private MOrder m_parent = null;
 
   /**
    * ************************************************************************ Standard Constructor
@@ -142,8 +99,48 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
     setDiscountDate(discountDate);
   } //	MOrderPaySchedule
 
-  /** Parent */
-  private MOrder m_parent = null;
+  /**
+   * Get Payment Schedule of the Order
+   *
+   * @param ctx context
+   * @param C_Order_ID order id (direct)
+   * @param C_OrderPaySchedule_ID id (indirect)
+   * @param trxName transaction
+   * @return array of schedule
+   */
+  public static MOrderPaySchedule[] getOrderPaySchedule(
+      Properties ctx, int C_Order_ID, int C_OrderPaySchedule_ID, String trxName) {
+    String sql = "SELECT * FROM C_OrderPaySchedule ips WHERE IsActive='Y' ";
+    if (C_Order_ID != 0) sql += "AND C_Order_ID=? ";
+    else
+      sql +=
+          "AND EXISTS (SELECT * FROM C_OrderPaySchedule x"
+              + " WHERE x.C_OrderPaySchedule_ID=? AND ips.C_Order_ID=x.C_Order_ID) ";
+    sql += "ORDER BY DueDate";
+    //
+    ArrayList<MOrderPaySchedule> list = new ArrayList<MOrderPaySchedule>();
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    try {
+      pstmt = prepareStatement(sql, trxName);
+      if (C_Order_ID != 0) pstmt.setInt(1, C_Order_ID);
+      else pstmt.setInt(1, C_OrderPaySchedule_ID);
+      rs = pstmt.executeQuery();
+      while (rs.next()) {
+        list.add(new MOrderPaySchedule(ctx, rs, trxName));
+      }
+    } catch (Exception e) {
+      s_log.log(Level.SEVERE, "getOrderPaySchedule", e);
+    } finally {
+      close(rs, pstmt);
+      rs = null;
+      pstmt = null;
+    }
+
+    MOrderPaySchedule[] retValue = new MOrderPaySchedule[list.size()];
+    list.toArray(retValue);
+    return retValue;
+  } //	getSchedule
 
   /** @return Returns the parent. */
   public MOrder getParent() {

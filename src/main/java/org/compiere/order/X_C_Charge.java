@@ -1,5 +1,8 @@
 package org.compiere.order;
 
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.Properties;
 import org.compiere.model.HasName;
 import org.compiere.model.I_C_Charge;
 import org.compiere.orm.MTable;
@@ -7,10 +10,6 @@ import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 import org.idempiere.common.util.KeyNamePair;
 import org.idempiere.orm.I_Persistent;
-
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.util.Properties;
 
 /**
  * Generated Model for C_Charge
@@ -59,6 +58,17 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
   }
 
   /**
+   * Get Business Partner .
+   *
+   * @return Identifies a Business Partner
+   */
+  public int getC_BPartner_ID() {
+    Integer ii = (Integer) get_Value(COLUMNNAME_C_BPartner_ID);
+    if (ii == null) return 0;
+    return ii;
+  }
+
+  /**
    * Set Business Partner .
    *
    * @param C_BPartner_ID Identifies a Business Partner
@@ -69,12 +79,12 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
   }
 
   /**
-   * Get Business Partner .
+   * Get Charge.
    *
-   * @return Identifies a Business Partner
+   * @return Additional document charges
    */
-  public int getC_BPartner_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_C_BPartner_ID);
+  public int getC_Charge_ID() {
+    Integer ii = (Integer) get_Value(COLUMNNAME_C_Charge_ID);
     if (ii == null) return 0;
     return ii;
   }
@@ -89,31 +99,10 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
     else set_ValueNoCheck(COLUMNNAME_C_Charge_ID, Integer.valueOf(C_Charge_ID));
   }
 
-  /**
-   * Get Charge.
-   *
-   * @return Additional document charges
-   */
-  public int getC_Charge_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_C_Charge_ID);
-    if (ii == null) return 0;
-    return ii;
-  }
-
   public org.compiere.model.I_C_ChargeType getC_ChargeType() throws RuntimeException {
     return (org.compiere.model.I_C_ChargeType)
         MTable.get(getCtx(), org.compiere.model.I_C_ChargeType.Table_Name)
             .getPO(getC_ChargeType_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Charge Type.
-   *
-   * @param C_ChargeType_ID Charge Type
-   */
-  public void setC_ChargeType_ID(int C_ChargeType_ID) {
-    if (C_ChargeType_ID < 1) set_Value(COLUMNNAME_C_ChargeType_ID, null);
-    else set_Value(COLUMNNAME_C_ChargeType_ID, Integer.valueOf(C_ChargeType_ID));
   }
 
   /**
@@ -128,12 +117,13 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
   }
 
   /**
-   * Set C_Charge_UU.
+   * Set Charge Type.
    *
-   * @param C_Charge_UU C_Charge_UU
+   * @param C_ChargeType_ID Charge Type
    */
-  public void setC_Charge_UU(String C_Charge_UU) {
-    set_Value(COLUMNNAME_C_Charge_UU, C_Charge_UU);
+  public void setC_ChargeType_ID(int C_ChargeType_ID) {
+    if (C_ChargeType_ID < 1) set_Value(COLUMNNAME_C_ChargeType_ID, null);
+    else set_Value(COLUMNNAME_C_ChargeType_ID, Integer.valueOf(C_ChargeType_ID));
   }
 
   /**
@@ -146,12 +136,12 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
   }
 
   /**
-   * Set Charge amount.
+   * Set C_Charge_UU.
    *
-   * @param ChargeAmt Charge Amount
+   * @param C_Charge_UU C_Charge_UU
    */
-  public void setChargeAmt(BigDecimal ChargeAmt) {
-    set_Value(COLUMNNAME_ChargeAmt, ChargeAmt);
+  public void setC_Charge_UU(String C_Charge_UU) {
+    set_Value(COLUMNNAME_C_Charge_UU, C_Charge_UU);
   }
 
   /**
@@ -165,20 +155,19 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
     return bd;
   }
 
+  /**
+   * Set Charge amount.
+   *
+   * @param ChargeAmt Charge Amount
+   */
+  public void setChargeAmt(BigDecimal ChargeAmt) {
+    set_Value(COLUMNNAME_ChargeAmt, ChargeAmt);
+  }
+
   public org.compiere.model.I_C_TaxCategory getC_TaxCategory() throws RuntimeException {
     return (org.compiere.model.I_C_TaxCategory)
         MTable.get(getCtx(), org.compiere.model.I_C_TaxCategory.Table_Name)
             .getPO(getC_TaxCategory_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Tax Category.
-   *
-   * @param C_TaxCategory_ID Tax Category
-   */
-  public void setC_TaxCategory_ID(int C_TaxCategory_ID) {
-    if (C_TaxCategory_ID < 1) set_Value(COLUMNNAME_C_TaxCategory_ID, null);
-    else set_Value(COLUMNNAME_C_TaxCategory_ID, Integer.valueOf(C_TaxCategory_ID));
   }
 
   /**
@@ -193,12 +182,13 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
   }
 
   /**
-   * Set Description.
+   * Set Tax Category.
    *
-   * @param Description Optional short description of the record
+   * @param C_TaxCategory_ID Tax Category
    */
-  public void setDescription(String Description) {
-    set_Value(COLUMNNAME_Description, Description);
+  public void setC_TaxCategory_ID(int C_TaxCategory_ID) {
+    if (C_TaxCategory_ID < 1) set_Value(COLUMNNAME_C_TaxCategory_ID, null);
+    else set_Value(COLUMNNAME_C_TaxCategory_ID, Integer.valueOf(C_TaxCategory_ID));
   }
 
   /**
@@ -208,6 +198,15 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
    */
   public String getDescription() {
     return (String) get_Value(COLUMNNAME_Description);
+  }
+
+  /**
+   * Set Description.
+   *
+   * @param Description Optional short description of the record
+   */
+  public void setDescription(String Description) {
+    set_Value(COLUMNNAME_Description, Description);
   }
 
   /**
@@ -280,21 +279,21 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
   }
 
   /**
-   * Set Name.
-   *
-   * @param Name Alphanumeric identifier of the entity
-   */
-  public void setName(String Name) {
-    set_Value(HasName.Companion.getCOLUMNNAME_Name(), Name);
-  }
-
-  /**
    * Get Name.
    *
    * @return Alphanumeric identifier of the entity
    */
   public String getName() {
     return (String) get_Value(HasName.Companion.getCOLUMNNAME_Name());
+  }
+
+  /**
+   * Set Name.
+   *
+   * @param Name Alphanumeric identifier of the entity
+   */
+  public void setName(String Name) {
+    set_Value(HasName.Companion.getCOLUMNNAME_Name(), Name);
   }
 
   /**

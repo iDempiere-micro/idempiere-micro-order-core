@@ -1,15 +1,14 @@
 package org.compiere.order;
 
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.Properties;
 import org.compiere.model.I_M_ShippingTransactionLine;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 import org.idempiere.common.util.KeyNamePair;
 import org.idempiere.orm.I_Persistent;
-
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.util.Properties;
 
 /**
  * Generated Model for M_ShippingTransactionLine
@@ -59,16 +58,6 @@ public class X_M_ShippingTransactionLine extends PO
   }
 
   /**
-   * Set UOM for Length.
-   *
-   * @param C_UOM_Length_ID Standard Unit of Measure for Length
-   */
-  public void setC_UOM_Length_ID(int C_UOM_Length_ID) {
-    if (C_UOM_Length_ID < 1) set_Value(COLUMNNAME_C_UOM_Length_ID, null);
-    else set_Value(COLUMNNAME_C_UOM_Length_ID, Integer.valueOf(C_UOM_Length_ID));
-  }
-
-  /**
    * Get UOM for Length.
    *
    * @return Standard Unit of Measure for Length
@@ -79,20 +68,20 @@ public class X_M_ShippingTransactionLine extends PO
     return ii;
   }
 
+  /**
+   * Set UOM for Length.
+   *
+   * @param C_UOM_Length_ID Standard Unit of Measure for Length
+   */
+  public void setC_UOM_Length_ID(int C_UOM_Length_ID) {
+    if (C_UOM_Length_ID < 1) set_Value(COLUMNNAME_C_UOM_Length_ID, null);
+    else set_Value(COLUMNNAME_C_UOM_Length_ID, Integer.valueOf(C_UOM_Length_ID));
+  }
+
   public org.compiere.model.I_C_UOM getC_UOM_Weight() throws RuntimeException {
     return (org.compiere.model.I_C_UOM)
         MTable.get(getCtx(), org.compiere.model.I_C_UOM.Table_Name)
             .getPO(getC_UOM_Weight_ID(), get_TrxName());
-  }
-
-  /**
-   * Set UOM for Weight.
-   *
-   * @param C_UOM_Weight_ID Standard Unit of Measure for Weight
-   */
-  public void setC_UOM_Weight_ID(int C_UOM_Weight_ID) {
-    if (C_UOM_Weight_ID < 1) set_Value(COLUMNNAME_C_UOM_Weight_ID, null);
-    else set_Value(COLUMNNAME_C_UOM_Weight_ID, Integer.valueOf(C_UOM_Weight_ID));
   }
 
   /**
@@ -107,12 +96,13 @@ public class X_M_ShippingTransactionLine extends PO
   }
 
   /**
-   * Set Description.
+   * Set UOM for Weight.
    *
-   * @param Description Optional short description of the record
+   * @param C_UOM_Weight_ID Standard Unit of Measure for Weight
    */
-  public void setDescription(String Description) {
-    set_Value(COLUMNNAME_Description, Description);
+  public void setC_UOM_Weight_ID(int C_UOM_Weight_ID) {
+    if (C_UOM_Weight_ID < 1) set_Value(COLUMNNAME_C_UOM_Weight_ID, null);
+    else set_Value(COLUMNNAME_C_UOM_Weight_ID, Integer.valueOf(C_UOM_Weight_ID));
   }
 
   /**
@@ -125,12 +115,12 @@ public class X_M_ShippingTransactionLine extends PO
   }
 
   /**
-   * Set Height.
+   * Set Description.
    *
-   * @param Height Height
+   * @param Description Optional short description of the record
    */
-  public void setHeight(BigDecimal Height) {
-    set_Value(COLUMNNAME_Height, Height);
+  public void setDescription(String Description) {
+    set_Value(COLUMNNAME_Description, Description);
   }
 
   /**
@@ -145,12 +135,12 @@ public class X_M_ShippingTransactionLine extends PO
   }
 
   /**
-   * Set Length.
+   * Set Height.
    *
-   * @param Length Length
+   * @param Height Height
    */
-  public void setLength(BigDecimal Length) {
-    set_Value(COLUMNNAME_Length, Length);
+  public void setHeight(BigDecimal Height) {
+    set_Value(COLUMNNAME_Height, Height);
   }
 
   /**
@@ -165,12 +155,12 @@ public class X_M_ShippingTransactionLine extends PO
   }
 
   /**
-   * Set Master Tracking No.
+   * Set Length.
    *
-   * @param MasterTrackingNo Master Tracking No
+   * @param Length Length
    */
-  public void setMasterTrackingNo(String MasterTrackingNo) {
-    set_Value(COLUMNNAME_MasterTrackingNo, MasterTrackingNo);
+  public void setLength(BigDecimal Length) {
+    set_Value(COLUMNNAME_Length, Length);
   }
 
   /**
@@ -182,20 +172,19 @@ public class X_M_ShippingTransactionLine extends PO
     return (String) get_Value(COLUMNNAME_MasterTrackingNo);
   }
 
+  /**
+   * Set Master Tracking No.
+   *
+   * @param MasterTrackingNo Master Tracking No
+   */
+  public void setMasterTrackingNo(String MasterTrackingNo) {
+    set_Value(COLUMNNAME_MasterTrackingNo, MasterTrackingNo);
+  }
+
   public org.compiere.model.I_M_PackageMPS getM_PackageMPS() throws RuntimeException {
     return (org.compiere.model.I_M_PackageMPS)
         MTable.get(getCtx(), org.compiere.model.I_M_PackageMPS.Table_Name)
             .getPO(getM_PackageMPS_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Package MPS.
-   *
-   * @param M_PackageMPS_ID Package MPS
-   */
-  public void setM_PackageMPS_ID(int M_PackageMPS_ID) {
-    if (M_PackageMPS_ID < 1) set_Value(COLUMNNAME_M_PackageMPS_ID, null);
-    else set_Value(COLUMNNAME_M_PackageMPS_ID, Integer.valueOf(M_PackageMPS_ID));
   }
 
   /**
@@ -209,11 +198,32 @@ public class X_M_ShippingTransactionLine extends PO
     return ii;
   }
 
+  /**
+   * Set Package MPS.
+   *
+   * @param M_PackageMPS_ID Package MPS
+   */
+  public void setM_PackageMPS_ID(int M_PackageMPS_ID) {
+    if (M_PackageMPS_ID < 1) set_Value(COLUMNNAME_M_PackageMPS_ID, null);
+    else set_Value(COLUMNNAME_M_PackageMPS_ID, Integer.valueOf(M_PackageMPS_ID));
+  }
+
   public org.compiere.model.I_M_ShippingTransaction getM_ShippingTransaction()
       throws RuntimeException {
     return (org.compiere.model.I_M_ShippingTransaction)
         MTable.get(getCtx(), org.compiere.model.I_M_ShippingTransaction.Table_Name)
             .getPO(getM_ShippingTransaction_ID(), get_TrxName());
+  }
+
+  /**
+   * Get Shipping Transaction.
+   *
+   * @return Shipping Transaction
+   */
+  public int getM_ShippingTransaction_ID() {
+    Integer ii = (Integer) get_Value(COLUMNNAME_M_ShippingTransaction_ID);
+    if (ii == null) return 0;
+    return ii;
   }
 
   /**
@@ -229,23 +239,23 @@ public class X_M_ShippingTransactionLine extends PO
   }
 
   /**
-   * Get Shipping Transaction.
-   *
-   * @return Shipping Transaction
-   */
-  public int getM_ShippingTransaction_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_M_ShippingTransaction_ID);
-    if (ii == null) return 0;
-    return ii;
-  }
-
-  /**
    * Get Record ID/ColumnName
    *
    * @return ID/ColumnName pair
    */
   public KeyNamePair getKeyNamePair() {
     return new KeyNamePair(getId(), String.valueOf(getM_ShippingTransaction_ID()));
+  }
+
+  /**
+   * Get Shipping Transaction Line.
+   *
+   * @return Shipping Transaction Line
+   */
+  public int getM_ShippingTransactionLine_ID() {
+    Integer ii = (Integer) get_Value(COLUMNNAME_M_ShippingTransactionLine_ID);
+    if (ii == null) return 0;
+    return ii;
   }
 
   /**
@@ -262,26 +272,6 @@ public class X_M_ShippingTransactionLine extends PO
   }
 
   /**
-   * Get Shipping Transaction Line.
-   *
-   * @return Shipping Transaction Line
-   */
-  public int getM_ShippingTransactionLine_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_M_ShippingTransactionLine_ID);
-    if (ii == null) return 0;
-    return ii;
-  }
-
-  /**
-   * Set M_ShippingTransactionLine_UU.
-   *
-   * @param M_ShippingTransactionLine_UU M_ShippingTransactionLine_UU
-   */
-  public void setM_ShippingTransactionLine_UU(String M_ShippingTransactionLine_UU) {
-    set_Value(COLUMNNAME_M_ShippingTransactionLine_UU, M_ShippingTransactionLine_UU);
-  }
-
-  /**
    * Get M_ShippingTransactionLine_UU.
    *
    * @return M_ShippingTransactionLine_UU
@@ -291,12 +281,12 @@ public class X_M_ShippingTransactionLine extends PO
   }
 
   /**
-   * Set Price.
+   * Set M_ShippingTransactionLine_UU.
    *
-   * @param Price Price
+   * @param M_ShippingTransactionLine_UU M_ShippingTransactionLine_UU
    */
-  public void setPrice(BigDecimal Price) {
-    set_Value(COLUMNNAME_Price, Price);
+  public void setM_ShippingTransactionLine_UU(String M_ShippingTransactionLine_UU) {
+    set_Value(COLUMNNAME_M_ShippingTransactionLine_UU, M_ShippingTransactionLine_UU);
   }
 
   /**
@@ -311,12 +301,12 @@ public class X_M_ShippingTransactionLine extends PO
   }
 
   /**
-   * Set Processed.
+   * Set Price.
    *
-   * @param Processed The document has been processed
+   * @param Price Price
    */
-  public void setProcessed(boolean Processed) {
-    set_Value(COLUMNNAME_Processed, Boolean.valueOf(Processed));
+  public void setPrice(BigDecimal Price) {
+    set_Value(COLUMNNAME_Price, Price);
   }
 
   /**
@@ -334,12 +324,12 @@ public class X_M_ShippingTransactionLine extends PO
   }
 
   /**
-   * Set Sequence.
+   * Set Processed.
    *
-   * @param SeqNo Method of ordering records; lowest number comes first
+   * @param Processed The document has been processed
    */
-  public void setSeqNo(int SeqNo) {
-    set_Value(COLUMNNAME_SeqNo, Integer.valueOf(SeqNo));
+  public void setProcessed(boolean Processed) {
+    set_Value(COLUMNNAME_Processed, Boolean.valueOf(Processed));
   }
 
   /**
@@ -354,12 +344,12 @@ public class X_M_ShippingTransactionLine extends PO
   }
 
   /**
-   * Set Tracking No.
+   * Set Sequence.
    *
-   * @param TrackingNo Number to track the shipment
+   * @param SeqNo Method of ordering records; lowest number comes first
    */
-  public void setTrackingNo(String TrackingNo) {
-    set_Value(COLUMNNAME_TrackingNo, TrackingNo);
+  public void setSeqNo(int SeqNo) {
+    set_Value(COLUMNNAME_SeqNo, Integer.valueOf(SeqNo));
   }
 
   /**
@@ -372,12 +362,12 @@ public class X_M_ShippingTransactionLine extends PO
   }
 
   /**
-   * Set Weight.
+   * Set Tracking No.
    *
-   * @param Weight Weight of a product
+   * @param TrackingNo Number to track the shipment
    */
-  public void setWeight(BigDecimal Weight) {
-    set_Value(COLUMNNAME_Weight, Weight);
+  public void setTrackingNo(String TrackingNo) {
+    set_Value(COLUMNNAME_TrackingNo, TrackingNo);
   }
 
   /**
@@ -392,12 +382,12 @@ public class X_M_ShippingTransactionLine extends PO
   }
 
   /**
-   * Set Width.
+   * Set Weight.
    *
-   * @param Width Width
+   * @param Weight Weight of a product
    */
-  public void setWidth(BigDecimal Width) {
-    set_Value(COLUMNNAME_Width, Width);
+  public void setWeight(BigDecimal Weight) {
+    set_Value(COLUMNNAME_Weight, Weight);
   }
 
   /**
@@ -409,6 +399,15 @@ public class X_M_ShippingTransactionLine extends PO
     BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_Width);
     if (bd == null) return Env.ZERO;
     return bd;
+  }
+
+  /**
+   * Set Width.
+   *
+   * @param Width Width
+   */
+  public void setWidth(BigDecimal Width) {
+    set_Value(COLUMNNAME_Width, Width);
   }
 
   @Override

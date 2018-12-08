@@ -14,6 +14,8 @@ import org.idempiere.common.util.Env;
 public class MPaySchedule extends X_C_PaySchedule {
   /** */
   private static final long serialVersionUID = 7773501661681911294L;
+  /** Parent */
+  public I_C_PaymentTerm m_parent = null;
 
   /**
    * Standard Constructor
@@ -45,9 +47,6 @@ public class MPaySchedule extends X_C_PaySchedule {
   public MPaySchedule(Properties ctx, ResultSet rs, String trxName) {
     super(ctx, rs, trxName);
   } //	MPaySchedule
-
-  /** Parent */
-  public I_C_PaymentTerm m_parent = null;
 
   /** @return Returns the parent. */
   public I_C_PaymentTerm getParent() {

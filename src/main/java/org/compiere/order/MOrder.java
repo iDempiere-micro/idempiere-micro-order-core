@@ -1,5 +1,17 @@
 package org.compiere.order;
 
+import static org.compiere.order.SalesOrderRateInquiryProcessKt.createShippingTransaction;
+import static software.hsharp.core.orm.POKt.I_ZERO;
+import static software.hsharp.core.util.DBKt.*;
+
+import java.io.File;
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
 import org.compiere.crm.MBPartner;
 import org.compiere.model.*;
 import org.compiere.orm.*;
@@ -13,19 +25,6 @@ import org.idempiere.common.exceptions.FillMandatoryException;
 import org.idempiere.common.util.Env;
 import org.idempiere.common.util.Util;
 
-import java.io.File;
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Properties;
-import java.util.logging.Level;
-
-import static org.compiere.order.SalesOrderRateInquiryProcessKt.createShippingTransaction;
-import static software.hsharp.core.orm.POKt.I_ZERO;
-import static software.hsharp.core.util.DBKt.*;
-
 /**
  * Order Model. Please do not set DocStatus and C_DocType_ID directly. They are set in the process()
  * method. Use DocAction and C_DocTypeTarget_ID instead.
@@ -33,104 +32,46 @@ import static software.hsharp.core.util.DBKt.*;
  * @author Jorg Janke
  * @author victor.perez@e-evolution.com, e-Evolution http://www.e-evolution.com
  *     <li>FR [ 2520591 ] Support multiples calendar for Org
- * @see http://sourceforge.net/tracker2/?func=detail&atid=879335&aid=2520591&group_id=176962
- * @version $Id: MOrder.java,v 1.5 2006/10/06 00:42:24 jjanke Exp $
  * @author Teo Sarca, www.arhipac.ro
  *     <li>BF [ 2419978 ] Voiding PO, requisition don't set on NULL
  *     <li>BF [ 2892578 ] Order should autoset only active price lists
  *         https://sourceforge.net/tracker/?func=detail&aid=2892578&group_id=176962&atid=879335
  * @author Michael Judd, www.akunagroup.com
  *     <li>BF [ 2804888 ] Incorrect reservation of products with attributes
+ * @version $Id: MOrder.java,v 1.5 2006/10/06 00:42:24 jjanke Exp $
+ * @see http://sourceforge.net/tracker2/?func=detail&atid=879335&aid=2520591&group_id=176962
  */
 public class MOrder extends X_C_Order implements I_C_Order {
+  /** Sales Order Sub Type - SO */
+  public static final String DocSubTypeSO_Standard = "SO";
+  /** Sales Order Sub Type - OB */
+  public static final String DocSubTypeSO_Quotation = "OB";
+  /** Sales Order Sub Type - ON */
+  public static final String DocSubTypeSO_Proposal = "ON";
+  /** Sales Order Sub Type - PR */
+  public static final String DocSubTypeSO_Prepay = "PR";
+  /** Sales Order Sub Type - WR */
+  public static final String DocSubTypeSO_POS = "WR";
+  /** Sales Order Sub Type - WP */
+  public static final String DocSubTypeSO_Warehouse = "WP";
+  /** Sales Order Sub Type - WI */
+  public static final String DocSubTypeSO_OnCredit = "WI";
+  /** Sales Order Sub Type - RM */
+  public static final String DocSubTypeSO_RMA = "RM";
   /** */
   private static final long serialVersionUID = -7784588474522162502L;
 
-  /**
-   * Create new Order by copying
-   *
-   * @param from order
-   * @param dateDoc date of the document date
-   * @param C_DocTypeTarget_ID target document type
-   * @param isSOTrx sales order
-   * @param counter create counter links
-   * @param copyASI copy line attributes Attribute Set Instance, Resaouce Assignment
-   * @param trxName trx
-   * @return Order
-   */
-  public static MOrder copyFrom(
-      MOrder from,
-      Timestamp dateDoc,
-      int C_DocTypeTarget_ID,
-      boolean isSOTrx,
-      boolean counter,
-      boolean copyASI,
-      String trxName) {
-    MOrder to = new MOrder(from.getCtx(), 0, trxName);
-    return doCopyFrom(from, dateDoc, C_DocTypeTarget_ID, isSOTrx, counter, copyASI, trxName, to);
-  }
-
-  protected static MOrder doCopyFrom(
-      MOrder from,
-      Timestamp dateDoc,
-      int C_DocTypeTarget_ID,
-      boolean isSOTrx,
-      boolean counter,
-      boolean copyASI,
-      String trxName,
-      MOrder to) {
-    to.set_TrxName(trxName);
-    copyValues(from, to, from.getClientId(), from.getOrgId());
-    to.set_ValueNoCheck("C_Order_ID", I_ZERO);
-    to.set_ValueNoCheck("DocumentNo", null);
-    //
-    to.setDocStatus(DOCSTATUS_Drafted); // 	Draft
-    to.setDocAction(DOCACTION_Complete);
-    //
-    to.setC_DocType_ID(0);
-    to.setC_DocTypeTarget_ID(C_DocTypeTarget_ID);
-    to.setIsSOTrx(isSOTrx);
-    //
-    to.setIsSelected(false);
-    to.setDateOrdered(dateDoc);
-    to.setDateAcct(dateDoc);
-    to.setDatePromised(dateDoc); // 	assumption
-    to.setDatePrinted(null);
-    to.setIsPrinted(false);
-    //
-    to.setIsApproved(false);
-    to.setIsCreditApproved(false);
-    to.setC_Payment_ID(0);
-    to.setC_CashLine_ID(0);
-    //	Amounts are updated  when adding lines
-    to.setGrandTotal(Env.ZERO);
-    to.setTotalLines(Env.ZERO);
-    //
-    to.setIsDelivered(false);
-    to.setIsInvoiced(false);
-    to.setIsSelfService(false);
-    to.setIsTransferred(false);
-    to.setPosted(false);
-    to.setProcessed(false);
-    if (counter) {
-      to.setRef_Order_ID(from.getC_Order_ID());
-      MOrg org = MOrg.get(from.getCtx(), from.getOrgId());
-      int counterC_BPartner_ID = org.getLinkedC_BPartner_ID(trxName);
-      if (counterC_BPartner_ID == 0) return null;
-      to.setBPartner(MBPartner.get(from.getCtx(), counterC_BPartner_ID));
-    } else to.setRef_Order_ID(0);
-    //
-    if (!to.save(trxName)) throw new IllegalStateException("Could not create Order");
-    if (counter) from.setRef_Order_ID(to.getC_Order_ID());
-
-    if (to.copyLinesFrom(from, counter, copyASI) == 0)
-      throw new IllegalStateException("Could not create Order Lines");
-
-    // don't copy linked PO/SO
-    to.setLink_Order_ID(0);
-
-    return to;
-  } //	copyFrom
+  protected static volatile boolean recursiveCall = false;
+  /** Order Lines */
+  protected MOrderLine[] m_lines = null;
+  /** Tax Lines */
+  protected MOrderTax[] m_taxes = null;
+  /** Force Creation of order */
+  protected boolean m_forceCreation = false;
+  /** Process Message */
+  protected String m_processMsg = null;
+  /** Just Prepared Flag */
+  protected boolean m_justPrepared = false;
 
   /**
    * ************************************************************************ Default Constructor
@@ -194,12 +135,92 @@ public class MOrder extends X_C_Order implements I_C_Order {
     super(ctx, rs, trxName);
   } //	MOrder
 
-  /** Order Lines */
-  protected MOrderLine[] m_lines = null;
-  /** Tax Lines */
-  protected MOrderTax[] m_taxes = null;
-  /** Force Creation of order */
-  protected boolean m_forceCreation = false;
+  /**
+   * Create new Order by copying
+   *
+   * @param from order
+   * @param dateDoc date of the document date
+   * @param C_DocTypeTarget_ID target document type
+   * @param isSOTrx sales order
+   * @param counter create counter links
+   * @param copyASI copy line attributes Attribute Set Instance, Resaouce Assignment
+   * @param trxName trx
+   * @return Order
+   */
+  public static MOrder copyFrom(
+      MOrder from,
+      Timestamp dateDoc,
+      int C_DocTypeTarget_ID,
+      boolean isSOTrx,
+      boolean counter,
+      boolean copyASI,
+      String trxName) {
+    MOrder to = new MOrder(from.getCtx(), 0, trxName);
+    return doCopyFrom(from, dateDoc, C_DocTypeTarget_ID, isSOTrx, counter, copyASI, trxName, to);
+  }
+
+  /** ********************************************************************** */
+  protected static MOrder doCopyFrom(
+      MOrder from,
+      Timestamp dateDoc,
+      int C_DocTypeTarget_ID,
+      boolean isSOTrx,
+      boolean counter,
+      boolean copyASI,
+      String trxName,
+      MOrder to) {
+    to.set_TrxName(trxName);
+    copyValues(from, to, from.getClientId(), from.getOrgId());
+    to.set_ValueNoCheck("C_Order_ID", I_ZERO);
+    to.set_ValueNoCheck("DocumentNo", null);
+    //
+    to.setDocStatus(DOCSTATUS_Drafted); // 	Draft
+    to.setDocAction(DOCACTION_Complete);
+    //
+    to.setC_DocType_ID(0);
+    to.setC_DocTypeTarget_ID(C_DocTypeTarget_ID);
+    to.setIsSOTrx(isSOTrx);
+    //
+    to.setIsSelected(false);
+    to.setDateOrdered(dateDoc);
+    to.setDateAcct(dateDoc);
+    to.setDatePromised(dateDoc); // 	assumption
+    to.setDatePrinted(null);
+    to.setIsPrinted(false);
+    //
+    to.setIsApproved(false);
+    to.setIsCreditApproved(false);
+    to.setC_Payment_ID(0);
+    to.setC_CashLine_ID(0);
+    //	Amounts are updated  when adding lines
+    to.setGrandTotal(Env.ZERO);
+    to.setTotalLines(Env.ZERO);
+    //
+    to.setIsDelivered(false);
+    to.setIsInvoiced(false);
+    to.setIsSelfService(false);
+    to.setIsTransferred(false);
+    to.setPosted(false);
+    to.setProcessed(false);
+    if (counter) {
+      to.setRef_Order_ID(from.getC_Order_ID());
+      MOrg org = MOrg.get(from.getCtx(), from.getOrgId());
+      int counterC_BPartner_ID = org.getLinkedC_BPartner_ID(trxName);
+      if (counterC_BPartner_ID == 0) return null;
+      to.setBPartner(MBPartner.get(from.getCtx(), counterC_BPartner_ID));
+    } else to.setRef_Order_ID(0);
+    //
+    if (!to.save(trxName)) throw new IllegalStateException("Could not create Order");
+    if (counter) from.setRef_Order_ID(to.getC_Order_ID());
+
+    if (to.copyLinesFrom(from, counter, copyASI) == 0)
+      throw new IllegalStateException("Could not create Order Lines");
+
+    // don't copy linked PO/SO
+    to.setLink_Order_ID(0);
+
+    return to;
+  } //	copyFrom
 
   /**
    * Overwrite Client/Org if required
@@ -296,25 +317,6 @@ public class MOrder extends X_C_Order implements I_C_Order {
   public void setIsDropShip(boolean IsDropShip) {
     super.setIsDropShip(IsDropShip);
   } //	setIsDropShip
-
-  /** ********************************************************************** */
-
-  /** Sales Order Sub Type - SO */
-  public static final String DocSubTypeSO_Standard = "SO";
-  /** Sales Order Sub Type - OB */
-  public static final String DocSubTypeSO_Quotation = "OB";
-  /** Sales Order Sub Type - ON */
-  public static final String DocSubTypeSO_Proposal = "ON";
-  /** Sales Order Sub Type - PR */
-  public static final String DocSubTypeSO_Prepay = "PR";
-  /** Sales Order Sub Type - WR */
-  public static final String DocSubTypeSO_POS = "WR";
-  /** Sales Order Sub Type - WP */
-  public static final String DocSubTypeSO_Warehouse = "WP";
-  /** Sales Order Sub Type - WI */
-  public static final String DocSubTypeSO_OnCredit = "WI";
-  /** Sales Order Sub Type - RM */
-  public static final String DocSubTypeSO_RMA = "RM";
 
   /**
    * Set Target Sales Document Type
@@ -794,7 +796,6 @@ public class MOrder extends X_C_Order implements I_C_Order {
     return valid;
   } //	validatePaySchedule
 
-  protected static volatile boolean recursiveCall = false;
   /**
    * ************************************************************************ Before Save
    *
@@ -860,7 +861,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
               "SELECT M_PriceList_ID FROM M_PriceList "
                   + "WHERE AD_Client_ID=? AND IsSOPriceList=? AND IsActive=?"
                   + "ORDER BY IsDefault DESC",
-                  getClientId(),
+              getClientId(),
               isSOTrx(),
               true);
       if (ii != 0) setM_PriceList_ID(ii);
@@ -1056,11 +1057,6 @@ public class MOrder extends X_C_Order implements I_C_Order {
     // IDEMPIERE-2060
     return true;
   } //	beforeDelete
-
-  /** Process Message */
-  protected String m_processMsg = null;
-  /** Just Prepared Flag */
-  protected boolean m_justPrepared = false;
 
   /**
    * Unlock Document.

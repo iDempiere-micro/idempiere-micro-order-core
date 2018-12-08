@@ -1,15 +1,14 @@
 package org.compiere.order;
 
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.Properties;
 import org.compiere.model.I_M_RMALine;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 import org.idempiere.common.util.KeyNamePair;
 import org.idempiere.orm.I_Persistent;
-
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.util.Properties;
 
 /**
  * Generated Model for M_RMALine
@@ -51,15 +50,6 @@ public class X_M_RMALine extends PO implements I_Persistent {
   }
 
   /**
-   * Set Amount.
-   *
-   * @param Amt Amount
-   */
-  public void setAmt(BigDecimal Amt) {
-    set_Value(I_M_RMALine.COLUMNNAME_Amt, Amt);
-  }
-
-  /**
    * Get Amount.
    *
    * @return Amount
@@ -70,20 +60,19 @@ public class X_M_RMALine extends PO implements I_Persistent {
     return bd;
   }
 
+  /**
+   * Set Amount.
+   *
+   * @param Amt Amount
+   */
+  public void setAmt(BigDecimal Amt) {
+    set_Value(I_M_RMALine.COLUMNNAME_Amt, Amt);
+  }
+
   public org.compiere.model.I_C_Charge getC_Charge() throws RuntimeException {
     return (org.compiere.model.I_C_Charge)
         MTable.get(getCtx(), org.compiere.model.I_C_Charge.Table_Name)
             .getPO(getC_Charge_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Charge.
-   *
-   * @param C_Charge_ID Additional document charges
-   */
-  public void setC_Charge_ID(int C_Charge_ID) {
-    if (C_Charge_ID < 1) set_Value(I_M_RMALine.COLUMNNAME_C_Charge_ID, null);
-    else set_Value(I_M_RMALine.COLUMNNAME_C_Charge_ID, Integer.valueOf(C_Charge_ID));
   }
 
   /**
@@ -97,20 +86,20 @@ public class X_M_RMALine extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Charge.
+   *
+   * @param C_Charge_ID Additional document charges
+   */
+  public void setC_Charge_ID(int C_Charge_ID) {
+    if (C_Charge_ID < 1) set_Value(I_M_RMALine.COLUMNNAME_C_Charge_ID, null);
+    else set_Value(I_M_RMALine.COLUMNNAME_C_Charge_ID, Integer.valueOf(C_Charge_ID));
+  }
+
   public org.compiere.model.I_C_Tax getC_Tax() throws RuntimeException {
     return (org.compiere.model.I_C_Tax)
         MTable.get(getCtx(), org.compiere.model.I_C_Tax.Table_Name)
             .getPO(getC_Tax_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Tax.
-   *
-   * @param C_Tax_ID Tax identifier
-   */
-  public void setC_Tax_ID(int C_Tax_ID) {
-    if (C_Tax_ID < 1) set_Value(I_M_RMALine.COLUMNNAME_C_Tax_ID, null);
-    else set_Value(I_M_RMALine.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
   }
 
   /**
@@ -125,12 +114,13 @@ public class X_M_RMALine extends PO implements I_Persistent {
   }
 
   /**
-   * Set Description.
+   * Set Tax.
    *
-   * @param Description Optional short description of the record
+   * @param C_Tax_ID Tax identifier
    */
-  public void setDescription(String Description) {
-    set_Value(I_M_RMALine.COLUMNNAME_Description, Description);
+  public void setC_Tax_ID(int C_Tax_ID) {
+    if (C_Tax_ID < 1) set_Value(I_M_RMALine.COLUMNNAME_C_Tax_ID, null);
+    else set_Value(I_M_RMALine.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
   }
 
   /**
@@ -143,12 +133,12 @@ public class X_M_RMALine extends PO implements I_Persistent {
   }
 
   /**
-   * Set Line No.
+   * Set Description.
    *
-   * @param Line Unique line for this document
+   * @param Description Optional short description of the record
    */
-  public void setLine(int Line) {
-    set_Value(I_M_RMALine.COLUMNNAME_Line, Integer.valueOf(Line));
+  public void setDescription(String Description) {
+    set_Value(I_M_RMALine.COLUMNNAME_Description, Description);
   }
 
   /**
@@ -163,12 +153,12 @@ public class X_M_RMALine extends PO implements I_Persistent {
   }
 
   /**
-   * Set Line Amount.
+   * Set Line No.
    *
-   * @param LineNetAmt Line Extended Amount (Quantity * Actual Price) without Freight and Charges
+   * @param Line Unique line for this document
    */
-  public void setLineNetAmt(BigDecimal LineNetAmt) {
-    set_Value(I_M_RMALine.COLUMNNAME_LineNetAmt, LineNetAmt);
+  public void setLine(int Line) {
+    set_Value(I_M_RMALine.COLUMNNAME_Line, Integer.valueOf(Line));
   }
 
   /**
@@ -182,20 +172,19 @@ public class X_M_RMALine extends PO implements I_Persistent {
     return bd;
   }
 
+  /**
+   * Set Line Amount.
+   *
+   * @param LineNetAmt Line Extended Amount (Quantity * Actual Price) without Freight and Charges
+   */
+  public void setLineNetAmt(BigDecimal LineNetAmt) {
+    set_Value(I_M_RMALine.COLUMNNAME_LineNetAmt, LineNetAmt);
+  }
+
   public org.compiere.model.I_M_InOutLine getM_InOutLine() throws RuntimeException {
     return (org.compiere.model.I_M_InOutLine)
         MTable.get(getCtx(), org.compiere.model.I_M_InOutLine.Table_Name)
             .getPO(getM_InOutLine_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Shipment/Receipt Line.
-   *
-   * @param M_InOutLine_ID Line on Shipment or Receipt document
-   */
-  public void setM_InOutLine_ID(int M_InOutLine_ID) {
-    if (M_InOutLine_ID < 1) set_Value(I_M_RMALine.COLUMNNAME_M_InOutLine_ID, null);
-    else set_Value(I_M_RMALine.COLUMNNAME_M_InOutLine_ID, Integer.valueOf(M_InOutLine_ID));
   }
 
   /**
@@ -209,20 +198,20 @@ public class X_M_RMALine extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Shipment/Receipt Line.
+   *
+   * @param M_InOutLine_ID Line on Shipment or Receipt document
+   */
+  public void setM_InOutLine_ID(int M_InOutLine_ID) {
+    if (M_InOutLine_ID < 1) set_Value(I_M_RMALine.COLUMNNAME_M_InOutLine_ID, null);
+    else set_Value(I_M_RMALine.COLUMNNAME_M_InOutLine_ID, Integer.valueOf(M_InOutLine_ID));
+  }
+
   public org.compiere.model.I_M_Product getM_Product() throws RuntimeException {
     return (org.compiere.model.I_M_Product)
         MTable.get(getCtx(), org.compiere.model.I_M_Product.Table_Name)
             .getPO(getM_Product_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Product.
-   *
-   * @param M_Product_ID Product, Service, Item
-   */
-  public void setM_Product_ID(int M_Product_ID) {
-    if (M_Product_ID < 1) set_Value(I_M_RMALine.COLUMNNAME_M_Product_ID, null);
-    else set_Value(I_M_RMALine.COLUMNNAME_M_Product_ID, Integer.valueOf(M_Product_ID));
   }
 
   /**
@@ -236,20 +225,20 @@ public class X_M_RMALine extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Product.
+   *
+   * @param M_Product_ID Product, Service, Item
+   */
+  public void setM_Product_ID(int M_Product_ID) {
+    if (M_Product_ID < 1) set_Value(I_M_RMALine.COLUMNNAME_M_Product_ID, null);
+    else set_Value(I_M_RMALine.COLUMNNAME_M_Product_ID, Integer.valueOf(M_Product_ID));
+  }
+
   public org.compiere.model.I_M_RMA getM_RMA() throws RuntimeException {
     return (org.compiere.model.I_M_RMA)
         MTable.get(getCtx(), org.compiere.model.I_M_RMA.Table_Name)
             .getPO(getM_RMA_ID(), get_TrxName());
-  }
-
-  /**
-   * Set RMA.
-   *
-   * @param M_RMA_ID Return Material Authorization
-   */
-  public void setM_RMA_ID(int M_RMA_ID) {
-    if (M_RMA_ID < 1) set_ValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMA_ID, null);
-    else set_ValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMA_ID, Integer.valueOf(M_RMA_ID));
   }
 
   /**
@@ -264,22 +253,22 @@ public class X_M_RMALine extends PO implements I_Persistent {
   }
 
   /**
+   * Set RMA.
+   *
+   * @param M_RMA_ID Return Material Authorization
+   */
+  public void setM_RMA_ID(int M_RMA_ID) {
+    if (M_RMA_ID < 1) set_ValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMA_ID, null);
+    else set_ValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMA_ID, Integer.valueOf(M_RMA_ID));
+  }
+
+  /**
    * Get Record ID/ColumnName
    *
    * @return ID/ColumnName pair
    */
   public KeyNamePair getKeyNamePair() {
     return new KeyNamePair(getId(), String.valueOf(getM_RMA_ID()));
-  }
-
-  /**
-   * Set RMA Line.
-   *
-   * @param M_RMALine_ID Return Material Authorization Line
-   */
-  public void setM_RMALine_ID(int M_RMALine_ID) {
-    if (M_RMALine_ID < 1) set_ValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMALine_ID, null);
-    else set_ValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMALine_ID, Integer.valueOf(M_RMALine_ID));
   }
 
   /**
@@ -294,12 +283,13 @@ public class X_M_RMALine extends PO implements I_Persistent {
   }
 
   /**
-   * Set M_RMALine_UU.
+   * Set RMA Line.
    *
-   * @param M_RMALine_UU M_RMALine_UU
+   * @param M_RMALine_ID Return Material Authorization Line
    */
-  public void setM_RMALine_UU(String M_RMALine_UU) {
-    set_Value(I_M_RMALine.COLUMNNAME_M_RMALine_UU, M_RMALine_UU);
+  public void setM_RMALine_ID(int M_RMALine_ID) {
+    if (M_RMALine_ID < 1) set_ValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMALine_ID, null);
+    else set_ValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMALine_ID, Integer.valueOf(M_RMALine_ID));
   }
 
   /**
@@ -312,12 +302,12 @@ public class X_M_RMALine extends PO implements I_Persistent {
   }
 
   /**
-   * Set Processed.
+   * Set M_RMALine_UU.
    *
-   * @param Processed The document has been processed
+   * @param M_RMALine_UU M_RMALine_UU
    */
-  public void setProcessed(boolean Processed) {
-    set_Value(I_M_RMALine.COLUMNNAME_Processed, Boolean.valueOf(Processed));
+  public void setM_RMALine_UU(String M_RMALine_UU) {
+    set_Value(I_M_RMALine.COLUMNNAME_M_RMALine_UU, M_RMALine_UU);
   }
 
   /**
@@ -335,12 +325,12 @@ public class X_M_RMALine extends PO implements I_Persistent {
   }
 
   /**
-   * Set Quantity.
+   * Set Processed.
    *
-   * @param Qty Quantity
+   * @param Processed The document has been processed
    */
-  public void setQty(BigDecimal Qty) {
-    set_Value(I_M_RMALine.COLUMNNAME_Qty, Qty);
+  public void setProcessed(boolean Processed) {
+    set_Value(I_M_RMALine.COLUMNNAME_Processed, Boolean.valueOf(Processed));
   }
 
   /**
@@ -355,12 +345,12 @@ public class X_M_RMALine extends PO implements I_Persistent {
   }
 
   /**
-   * Set Delivered Quantity.
+   * Set Quantity.
    *
-   * @param QtyDelivered Delivered Quantity
+   * @param Qty Quantity
    */
-  public void setQtyDelivered(BigDecimal QtyDelivered) {
-    set_Value(I_M_RMALine.COLUMNNAME_QtyDelivered, QtyDelivered);
+  public void setQty(BigDecimal Qty) {
+    set_Value(I_M_RMALine.COLUMNNAME_Qty, Qty);
   }
 
   /**
@@ -375,12 +365,12 @@ public class X_M_RMALine extends PO implements I_Persistent {
   }
 
   /**
-   * Set Quantity Invoiced.
+   * Set Delivered Quantity.
    *
-   * @param QtyInvoiced Invoiced Quantity
+   * @param QtyDelivered Delivered Quantity
    */
-  public void setQtyInvoiced(BigDecimal QtyInvoiced) {
-    set_Value(I_M_RMALine.COLUMNNAME_QtyInvoiced, QtyInvoiced);
+  public void setQtyDelivered(BigDecimal QtyDelivered) {
+    set_Value(I_M_RMALine.COLUMNNAME_QtyDelivered, QtyDelivered);
   }
 
   /**
@@ -394,20 +384,19 @@ public class X_M_RMALine extends PO implements I_Persistent {
     return bd;
   }
 
+  /**
+   * Set Quantity Invoiced.
+   *
+   * @param QtyInvoiced Invoiced Quantity
+   */
+  public void setQtyInvoiced(BigDecimal QtyInvoiced) {
+    set_Value(I_M_RMALine.COLUMNNAME_QtyInvoiced, QtyInvoiced);
+  }
+
   public org.compiere.model.I_M_RMALine getRef_RMALine() throws RuntimeException {
     return (org.compiere.model.I_M_RMALine)
         MTable.get(getCtx(), org.compiere.model.I_M_RMALine.Table_Name)
             .getPO(getRef_RMALine_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Referenced RMA Line.
-   *
-   * @param Ref_RMALine_ID Referenced RMA Line
-   */
-  public void setRef_RMALine_ID(int Ref_RMALine_ID) {
-    if (Ref_RMALine_ID < 1) set_Value(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID, null);
-    else set_Value(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID, Integer.valueOf(Ref_RMALine_ID));
   }
 
   /**
@@ -419,6 +408,16 @@ public class X_M_RMALine extends PO implements I_Persistent {
     Integer ii = (Integer) get_Value(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID);
     if (ii == null) return 0;
     return ii;
+  }
+
+  /**
+   * Set Referenced RMA Line.
+   *
+   * @param Ref_RMALine_ID Referenced RMA Line
+   */
+  public void setRef_RMALine_ID(int Ref_RMALine_ID) {
+    if (Ref_RMALine_ID < 1) set_Value(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID, null);
+    else set_Value(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID, Integer.valueOf(Ref_RMALine_ID));
   }
 
   @Override

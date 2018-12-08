@@ -1,5 +1,12 @@
 package org.compiere.order;
 
+import static software.hsharp.core.orm.POKt.getAllIDs;
+import static software.hsharp.core.util.DBKt.*;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.Properties;
+import java.util.logging.Level;
 import org.compiere.model.I_C_InvoiceLine;
 import org.compiere.model.I_C_Order;
 import org.compiere.model.I_M_RMA;
@@ -15,14 +22,6 @@ import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.util.Env;
 import org.idempiere.icommon.model.IPO;
 
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.util.Properties;
-import java.util.logging.Level;
-
-import static software.hsharp.core.orm.POKt.getAllIDs;
-import static software.hsharp.core.util.DBKt.*;
-
 /**
  * RMA Line Model
  *
@@ -32,7 +31,21 @@ import static software.hsharp.core.util.DBKt.*;
 public class MRMALine extends X_M_RMALine implements I_M_RMALine {
   /** */
   private static final long serialVersionUID = -3459158383642518763L;
+  /** Shipment Line */
+  protected MInOutLine m_ioLine = null;
 
+  protected int precision = 0;
+  protected BigDecimal unitAmount = Env.ZERO;
+  protected BigDecimal originalQty = Env.ZERO;
+  protected int taxId = 0;
+  /** Product */
+  private MProduct m_product = null;
+  /** Charge */
+  private MCharge m_charge = null;
+  /** Tax */
+  private MTax m_tax = null;
+  /** Parent */
+  private MRMA m_parent = null;
   /**
    * Standard Constructor
    *
@@ -49,7 +62,6 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
 
     init();
   } //	MRMALine
-
   /**
    * Load Constructor
    *
@@ -61,22 +73,6 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
     super(ctx, rs, trxName);
     init();
   } //	MRMALine
-
-  /** Shipment Line */
-  protected MInOutLine m_ioLine = null;
-  /** Product */
-  private MProduct m_product = null;
-  /** Charge */
-  private MCharge m_charge = null;
-  /** Tax */
-  private MTax m_tax = null;
-  /** Parent */
-  private MRMA m_parent = null;
-
-  protected int precision = 0;
-  protected BigDecimal unitAmount = Env.ZERO;
-  protected BigDecimal originalQty = Env.ZERO;
-  protected int taxId = 0;
 
   /** Initialise parameters that are required */
   protected void init() {

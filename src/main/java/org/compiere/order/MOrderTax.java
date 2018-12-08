@@ -1,5 +1,13 @@
 package org.compiere.order;
 
+import static software.hsharp.core.util.DBKt.close;
+import static software.hsharp.core.util.DBKt.prepareStatement;
+
+import java.math.BigDecimal;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Properties;
+import java.util.logging.Level;
 import org.compiere.model.I_C_OrderLine;
 import org.compiere.model.I_C_OrderTax;
 import org.compiere.model.I_C_Tax;
@@ -7,15 +15,6 @@ import org.compiere.tax.MTax;
 import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.Env;
 import org.idempiere.icommon.model.IPO;
-
-import java.math.BigDecimal;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Properties;
-import java.util.logging.Level;
-
-import static software.hsharp.core.util.DBKt.close;
-import static software.hsharp.core.util.DBKt.prepareStatement;
 
 /**
  * Order Tax Model
@@ -26,6 +25,39 @@ import static software.hsharp.core.util.DBKt.prepareStatement;
 public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
   /** */
   private static final long serialVersionUID = -6776007249310373908L;
+  /** Static Logger */
+  private static CLogger s_log = CLogger.getCLogger(MOrderTax.class);
+  /** Tax */
+  private MTax m_tax = null;
+  /** Cached Precision */
+  private Integer m_precision = null;
+
+  /**
+   * ************************************************************************ Persistence
+   * Constructor
+   *
+   * @param ctx context
+   * @param ignored ignored
+   * @param trxName transaction
+   */
+  public MOrderTax(Properties ctx, int ignored, String trxName) {
+    super(ctx, 0, trxName);
+    if (ignored != 0) throw new IllegalArgumentException("Multi-Key");
+    setTaxAmt(Env.ZERO);
+    setTaxBaseAmt(Env.ZERO);
+    setIsTaxIncluded(false);
+  } //	MOrderTax
+
+  /**
+   * Load Constructor. Set Precision and TaxIncluded for tax calculations!
+   *
+   * @param ctx context
+   * @param rs result set
+   * @param trxName transaction
+   */
+  public MOrderTax(Properties ctx, ResultSet rs, String trxName) {
+    super(ctx, rs, trxName);
+  } //	MOrderTax
 
   /**
    * Get Tax Line for Order Line
@@ -96,41 +128,6 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
     if (s_log.isLoggable(Level.FINE)) s_log.fine("(new) " + retValue);
     return retValue;
   } //	get
-
-  /** Static Logger */
-  private static CLogger s_log = CLogger.getCLogger(MOrderTax.class);
-
-  /**
-   * ************************************************************************ Persistence
-   * Constructor
-   *
-   * @param ctx context
-   * @param ignored ignored
-   * @param trxName transaction
-   */
-  public MOrderTax(Properties ctx, int ignored, String trxName) {
-    super(ctx, 0, trxName);
-    if (ignored != 0) throw new IllegalArgumentException("Multi-Key");
-    setTaxAmt(Env.ZERO);
-    setTaxBaseAmt(Env.ZERO);
-    setIsTaxIncluded(false);
-  } //	MOrderTax
-
-  /**
-   * Load Constructor. Set Precision and TaxIncluded for tax calculations!
-   *
-   * @param ctx context
-   * @param rs result set
-   * @param trxName transaction
-   */
-  public MOrderTax(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
-  } //	MOrderTax
-
-  /** Tax */
-  private MTax m_tax = null;
-  /** Cached Precision */
-  private Integer m_precision = null;
 
   /**
    * Get Precision

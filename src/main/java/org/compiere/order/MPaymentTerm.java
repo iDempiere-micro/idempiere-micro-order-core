@@ -1,11 +1,7 @@
 package org.compiere.order;
 
-import org.compiere.model.I_C_OrderPaySchedule;
-import org.compiere.model.I_C_PaymentTerm;
-import org.compiere.orm.Query;
-import org.compiere.util.Msg;
-import org.idempiere.common.exceptions.AdempiereException;
-import org.idempiere.common.util.Env;
+import static software.hsharp.core.util.DBKt.close;
+import static software.hsharp.core.util.DBKt.prepareStatement;
 
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
@@ -14,22 +10,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
-
-import static software.hsharp.core.util.DBKt.close;
-import static software.hsharp.core.util.DBKt.prepareStatement;
+import org.compiere.model.I_C_OrderPaySchedule;
+import org.compiere.model.I_C_PaymentTerm;
+import org.compiere.orm.Query;
+import org.compiere.util.Msg;
+import org.idempiere.common.exceptions.AdempiereException;
+import org.idempiere.common.util.Env;
 
 /**
  * Payment Term Model
  *
  * @author Jorg Janke
- * @version $Id: MPaymentTerm.java,v 1.3 2006/07/30 00:51:03 jjanke Exp $
  * @author Cristina Ghita, www.arhipac.ro
  *     <li>BF [ 2889886 ] Net days in payment term
  *         https://sourceforge.net/tracker/index.php?func=detail&aid=2889886&group_id=176962&atid=879332
+ * @version $Id: MPaymentTerm.java,v 1.3 2006/07/30 00:51:03 jjanke Exp $
  */
 public class MPaymentTerm extends X_C_PaymentTerm implements I_C_PaymentTerm {
   /** */
   private static final long serialVersionUID = -4506224598566445450L;
+  /** Payment Schedule children */
+  protected MPaySchedule[] m_schedule;
 
   /**
    * Standard Constructor
@@ -63,9 +64,6 @@ public class MPaymentTerm extends X_C_PaymentTerm implements I_C_PaymentTerm {
   public MPaymentTerm(Properties ctx, ResultSet rs, String trxName) {
     super(ctx, rs, trxName);
   } //	MPaymentTerm
-
-  /** Payment Schedule children */
-  protected MPaySchedule[] m_schedule;
 
   /**
    * Get Payment Schedule

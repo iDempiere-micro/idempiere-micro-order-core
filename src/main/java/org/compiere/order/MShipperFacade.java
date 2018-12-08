@@ -1,12 +1,11 @@
 package org.compiere.order;
 
-import org.idempiere.common.base.Service;
-import org.idempiere.common.util.CLogger;
+import static software.hsharp.core.util.DBKt.getSQLValueString;
 
 import java.util.List;
 import java.util.logging.Level;
-
-import static software.hsharp.core.util.DBKt.getSQLValueString;
+import org.idempiere.common.base.Service;
+import org.idempiere.common.util.CLogger;
 
 /**
  * Facade for MShipper, providing accessor method for custom field
@@ -14,13 +13,37 @@ import static software.hsharp.core.util.DBKt.getSQLValueString;
  * @author Low Heng Sin
  */
 public class MShipperFacade {
+  private static final CLogger s_log = CLogger.getCLogger(MShipperFacade.class);
   private MShipper m_shipper;
   private MShippingProcessor m_processor;
-  private static final CLogger s_log = CLogger.getCLogger(MShipperFacade.class);
 
   public MShipperFacade(MShipper shipper) {
     m_shipper = shipper;
     m_processor = getShippingProcessor();
+  }
+
+  /**
+   * @param sf
+   * @return shipment process instance or null if not found
+   */
+  public static IShipmentProcessor getShipmentProcessor(MShipperFacade sf) {
+    if (s_log.isLoggable(Level.FINE)) s_log.fine("create for " + sf);
+
+    String className = sf.getShippingProcessorClass();
+    if (className == null || className.length() == 0) {
+      s_log.log(Level.SEVERE, "Shipment processor class not define for shipper " + sf);
+      return null;
+    }
+
+    List<IShipmentProcessorFactory> factoryList =
+        Service.Companion.locator().list(IShipmentProcessorFactory.class).getServices();
+    if (factoryList == null) return null;
+    for (IShipmentProcessorFactory factory : factoryList) {
+      IShipmentProcessor processor = factory.newShipmentProcessorInstance(className);
+      if (processor != null) return processor;
+    }
+
+    return null;
   }
 
   public MShipper getMShipper() {
@@ -141,29 +164,5 @@ public class MShipperFacade {
 
   public boolean isInternational() {
     return m_shipper.isInternational();
-  }
-
-  /**
-   * @param sf
-   * @return shipment process instance or null if not found
-   */
-  public static IShipmentProcessor getShipmentProcessor(MShipperFacade sf) {
-    if (s_log.isLoggable(Level.FINE)) s_log.fine("create for " + sf);
-
-    String className = sf.getShippingProcessorClass();
-    if (className == null || className.length() == 0) {
-      s_log.log(Level.SEVERE, "Shipment processor class not define for shipper " + sf);
-      return null;
-    }
-
-    List<IShipmentProcessorFactory> factoryList =
-        Service.Companion.locator().list(IShipmentProcessorFactory.class).getServices();
-    if (factoryList == null) return null;
-    for (IShipmentProcessorFactory factory : factoryList) {
-      IShipmentProcessor processor = factory.newShipmentProcessorInstance(className);
-      if (processor != null) return processor;
-    }
-
-    return null;
   }
 }

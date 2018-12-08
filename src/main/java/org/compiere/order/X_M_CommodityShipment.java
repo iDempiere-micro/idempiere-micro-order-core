@@ -1,12 +1,11 @@
 package org.compiere.order;
 
+import java.sql.ResultSet;
+import java.util.Properties;
 import org.compiere.model.I_M_CommodityShipment;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.orm.I_Persistent;
-
-import java.sql.ResultSet;
-import java.util.Properties;
 
 /**
  * Generated Model for M_CommodityShipment
@@ -48,16 +47,6 @@ public class X_M_CommodityShipment extends PO implements I_M_CommodityShipment, 
   }
 
   /**
-   * Set Country Of Manufacture.
-   *
-   * @param CountryOfManufacture_ID Country Of Manufacture
-   */
-  public void setCountryOfManufacture_ID(int CountryOfManufacture_ID) {
-    if (CountryOfManufacture_ID < 1) set_Value(COLUMNNAME_CountryOfManufacture_ID, null);
-    else set_Value(COLUMNNAME_CountryOfManufacture_ID, Integer.valueOf(CountryOfManufacture_ID));
-  }
-
-  /**
    * Get Country Of Manufacture.
    *
    * @return Country Of Manufacture
@@ -69,12 +58,13 @@ public class X_M_CommodityShipment extends PO implements I_M_CommodityShipment, 
   }
 
   /**
-   * Set Description.
+   * Set Country Of Manufacture.
    *
-   * @param Description Optional short description of the record
+   * @param CountryOfManufacture_ID Country Of Manufacture
    */
-  public void setDescription(String Description) {
-    set_Value(COLUMNNAME_Description, Description);
+  public void setCountryOfManufacture_ID(int CountryOfManufacture_ID) {
+    if (CountryOfManufacture_ID < 1) set_Value(COLUMNNAME_CountryOfManufacture_ID, null);
+    else set_Value(COLUMNNAME_CountryOfManufacture_ID, Integer.valueOf(CountryOfManufacture_ID));
   }
 
   /**
@@ -87,12 +77,12 @@ public class X_M_CommodityShipment extends PO implements I_M_CommodityShipment, 
   }
 
   /**
-   * Set Export License Number.
+   * Set Description.
    *
-   * @param ExportLicenseNum Export License Number
+   * @param Description Optional short description of the record
    */
-  public void setExportLicenseNum(String ExportLicenseNum) {
-    set_Value(COLUMNNAME_ExportLicenseNum, ExportLicenseNum);
+  public void setDescription(String Description) {
+    set_Value(COLUMNNAME_Description, Description);
   }
 
   /**
@@ -105,12 +95,12 @@ public class X_M_CommodityShipment extends PO implements I_M_CommodityShipment, 
   }
 
   /**
-   * Set Harmonized Code.
+   * Set Export License Number.
    *
-   * @param HarmonizedCode Harmonized Code
+   * @param ExportLicenseNum Export License Number
    */
-  public void setHarmonizedCode(String HarmonizedCode) {
-    set_Value(COLUMNNAME_HarmonizedCode, HarmonizedCode);
+  public void setExportLicenseNum(String ExportLicenseNum) {
+    set_Value(COLUMNNAME_ExportLicenseNum, ExportLicenseNum);
   }
 
   /**
@@ -123,14 +113,12 @@ public class X_M_CommodityShipment extends PO implements I_M_CommodityShipment, 
   }
 
   /**
-   * Set Commodity Shipment.
+   * Set Harmonized Code.
    *
-   * @param M_CommodityShipment_ID Commodity Shipment
+   * @param HarmonizedCode Harmonized Code
    */
-  public void setM_CommodityShipment_ID(int M_CommodityShipment_ID) {
-    if (M_CommodityShipment_ID < 1) set_ValueNoCheck(COLUMNNAME_M_CommodityShipment_ID, null);
-    else
-      set_ValueNoCheck(COLUMNNAME_M_CommodityShipment_ID, Integer.valueOf(M_CommodityShipment_ID));
+  public void setHarmonizedCode(String HarmonizedCode) {
+    set_Value(COLUMNNAME_HarmonizedCode, HarmonizedCode);
   }
 
   /**
@@ -145,12 +133,14 @@ public class X_M_CommodityShipment extends PO implements I_M_CommodityShipment, 
   }
 
   /**
-   * Set M_CommodityShipment_UU.
+   * Set Commodity Shipment.
    *
-   * @param M_CommodityShipment_UU M_CommodityShipment_UU
+   * @param M_CommodityShipment_ID Commodity Shipment
    */
-  public void setM_CommodityShipment_UU(String M_CommodityShipment_UU) {
-    set_Value(COLUMNNAME_M_CommodityShipment_UU, M_CommodityShipment_UU);
+  public void setM_CommodityShipment_ID(int M_CommodityShipment_ID) {
+    if (M_CommodityShipment_ID < 1) set_ValueNoCheck(COLUMNNAME_M_CommodityShipment_ID, null);
+    else
+      set_ValueNoCheck(COLUMNNAME_M_CommodityShipment_ID, Integer.valueOf(M_CommodityShipment_ID));
   }
 
   /**
@@ -162,20 +152,19 @@ public class X_M_CommodityShipment extends PO implements I_M_CommodityShipment, 
     return (String) get_Value(COLUMNNAME_M_CommodityShipment_UU);
   }
 
+  /**
+   * Set M_CommodityShipment_UU.
+   *
+   * @param M_CommodityShipment_UU M_CommodityShipment_UU
+   */
+  public void setM_CommodityShipment_UU(String M_CommodityShipment_UU) {
+    set_Value(COLUMNNAME_M_CommodityShipment_UU, M_CommodityShipment_UU);
+  }
+
   public org.compiere.model.I_M_Product getM_Product() throws RuntimeException {
     return (org.compiere.model.I_M_Product)
         MTable.get(getCtx(), org.compiere.model.I_M_Product.Table_Name)
             .getPO(getM_Product_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Product.
-   *
-   * @param M_Product_ID Product, Service, Item
-   */
-  public void setM_Product_ID(int M_Product_ID) {
-    if (M_Product_ID < 1) set_Value(COLUMNNAME_M_Product_ID, null);
-    else set_Value(COLUMNNAME_M_Product_ID, Integer.valueOf(M_Product_ID));
   }
 
   /**
@@ -187,6 +176,16 @@ public class X_M_CommodityShipment extends PO implements I_M_CommodityShipment, 
     Integer ii = (Integer) get_Value(COLUMNNAME_M_Product_ID);
     if (ii == null) return 0;
     return ii;
+  }
+
+  /**
+   * Set Product.
+   *
+   * @param M_Product_ID Product, Service, Item
+   */
+  public void setM_Product_ID(int M_Product_ID) {
+    if (M_Product_ID < 1) set_Value(COLUMNNAME_M_Product_ID, null);
+    else set_Value(COLUMNNAME_M_Product_ID, Integer.valueOf(M_Product_ID));
   }
 
   @Override

@@ -1,12 +1,11 @@
 package org.compiere.order;
 
+import java.sql.ResultSet;
+import java.util.Properties;
 import org.compiere.model.I_M_ShipperPickupTypes;
 import org.compiere.orm.BasePOName;
 import org.compiere.orm.MTable;
 import org.idempiere.orm.I_Persistent;
-
-import java.sql.ResultSet;
-import java.util.Properties;
 
 /**
  * Generated Model for M_ShipperPickupTypes
@@ -74,16 +73,6 @@ public class X_M_ShipperPickupTypes extends BasePOName
   }
 
   /**
-   * Set Shipper.
-   *
-   * @param M_Shipper_ID Method or manner of product delivery
-   */
-  public void setM_Shipper_ID(int M_Shipper_ID) {
-    if (M_Shipper_ID < 1) set_ValueNoCheck(COLUMNNAME_M_Shipper_ID, null);
-    else set_ValueNoCheck(COLUMNNAME_M_Shipper_ID, Integer.valueOf(M_Shipper_ID));
-  }
-
-  /**
    * Get Shipper.
    *
    * @return Method or manner of product delivery
@@ -94,11 +83,32 @@ public class X_M_ShipperPickupTypes extends BasePOName
     return ii;
   }
 
+  /**
+   * Set Shipper.
+   *
+   * @param M_Shipper_ID Method or manner of product delivery
+   */
+  public void setM_Shipper_ID(int M_Shipper_ID) {
+    if (M_Shipper_ID < 1) set_ValueNoCheck(COLUMNNAME_M_Shipper_ID, null);
+    else set_ValueNoCheck(COLUMNNAME_M_Shipper_ID, Integer.valueOf(M_Shipper_ID));
+  }
+
   public org.compiere.model.I_M_ShipperPickupTypesCfg getM_ShipperPickupTypesCfg()
       throws RuntimeException {
     return (org.compiere.model.I_M_ShipperPickupTypesCfg)
         MTable.get(getCtx(), org.compiere.model.I_M_ShipperPickupTypesCfg.Table_Name)
             .getPO(getM_ShipperPickupTypesCfg_ID(), get_TrxName());
+  }
+
+  /**
+   * Get Shipper Pickup Types Configuration.
+   *
+   * @return Shipper Pickup Types Configuration
+   */
+  public int getM_ShipperPickupTypesCfg_ID() {
+    Integer ii = (Integer) get_Value(COLUMNNAME_M_ShipperPickupTypesCfg_ID);
+    if (ii == null) return 0;
+    return ii;
   }
 
   /**
@@ -113,12 +123,12 @@ public class X_M_ShipperPickupTypes extends BasePOName
   }
 
   /**
-   * Get Shipper Pickup Types Configuration.
+   * Get Shipper Pickup Types.
    *
-   * @return Shipper Pickup Types Configuration
+   * @return Shipper Pickup Types
    */
-  public int getM_ShipperPickupTypesCfg_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_M_ShipperPickupTypesCfg_ID);
+  public int getM_ShipperPickupTypes_ID() {
+    Integer ii = (Integer) get_Value(COLUMNNAME_M_ShipperPickupTypes_ID);
     if (ii == null) return 0;
     return ii;
   }
@@ -136,14 +146,12 @@ public class X_M_ShipperPickupTypes extends BasePOName
   }
 
   /**
-   * Get Shipper Pickup Types.
+   * Get M_ShipperPickupTypes_UU.
    *
-   * @return Shipper Pickup Types
+   * @return M_ShipperPickupTypes_UU
    */
-  public int getM_ShipperPickupTypes_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_M_ShipperPickupTypes_ID);
-    if (ii == null) return 0;
-    return ii;
+  public String getM_ShipperPickupTypes_UU() {
+    return (String) get_Value(COLUMNNAME_M_ShipperPickupTypes_UU);
   }
 
   /**
@@ -153,15 +161,6 @@ public class X_M_ShipperPickupTypes extends BasePOName
    */
   public void setM_ShipperPickupTypes_UU(String M_ShipperPickupTypes_UU) {
     set_Value(COLUMNNAME_M_ShipperPickupTypes_UU, M_ShipperPickupTypes_UU);
-  }
-
-  /**
-   * Get M_ShipperPickupTypes_UU.
-   *
-   * @return M_ShipperPickupTypes_UU
-   */
-  public String getM_ShipperPickupTypes_UU() {
-    return (String) get_Value(COLUMNNAME_M_ShipperPickupTypes_UU);
   }
 
   @Override

@@ -1,16 +1,15 @@
 package org.compiere.order;
 
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.Properties;
 import org.compiere.model.I_C_Order;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 import org.idempiere.common.util.KeyNamePair;
 import org.idempiere.orm.I_Persistent;
-
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
-import java.util.Properties;
 
 /**
  * Generated Model for C_Order
@@ -20,6 +19,132 @@ import java.util.Properties;
  */
 public class X_C_Order extends PO implements I_Persistent {
 
+  /** DeliveryRule AD_Reference_ID=151 */
+  public static final int DELIVERYRULE_AD_Reference_ID = 151;
+  /** After Receipt = R */
+  public static final String DELIVERYRULE_AfterReceipt = "R";
+  /** Availability = A */
+  public static final String DELIVERYRULE_Availability = "A";
+  /** Complete Line = L */
+  public static final String DELIVERYRULE_CompleteLine = "L";
+  /** Complete Order = O */
+  public static final String DELIVERYRULE_CompleteOrder = "O";
+  /** Force = F */
+  public static final String DELIVERYRULE_Force = "F";
+  /** Manual = M */
+  public static final String DELIVERYRULE_Manual = "M";
+  /** DeliveryViaRule AD_Reference_ID=152 */
+  public static final int DELIVERYVIARULE_AD_Reference_ID = 152;
+  /** Pickup = P */
+  public static final String DELIVERYVIARULE_Pickup = "P";
+  /** Delivery = D */
+  public static final String DELIVERYVIARULE_Delivery = "D";
+  /** Shipper = S */
+  public static final String DELIVERYVIARULE_Shipper = "S";
+  /** DocAction AD_Reference_ID=135 */
+  public static final int DOCACTION_AD_Reference_ID = 135;
+  /** Complete = CO */
+  public static final String DOCACTION_Complete = "CO";
+  /** Approve = AP */
+  public static final String DOCACTION_Approve = "AP";
+  /** Reject = RJ */
+  public static final String DOCACTION_Reject = "RJ";
+  /** Post = PO */
+  public static final String DOCACTION_Post = "PO";
+  /** Void = VO */
+  public static final String DOCACTION_Void = "VO";
+  /** Close = CL */
+  public static final String DOCACTION_Close = "CL";
+  /** Reverse - Correct = RC */
+  public static final String DOCACTION_Reverse_Correct = "RC";
+  /** Reverse - Accrual = RA */
+  public static final String DOCACTION_Reverse_Accrual = "RA";
+  /** Invalidate = IN */
+  public static final String DOCACTION_Invalidate = "IN";
+  /** Re-activate = RE */
+  public static final String DOCACTION_Re_Activate = "RE";
+  /** <None> = -- */
+  public static final String DOCACTION_None = "--";
+  /** Prepare = PR */
+  public static final String DOCACTION_Prepare = "PR";
+  /** Unlock = XL */
+  public static final String DOCACTION_Unlock = "XL";
+  /** Wait Complete = WC */
+  public static final String DOCACTION_WaitComplete = "WC";
+  /** DocStatus AD_Reference_ID=131 */
+  public static final int DOCSTATUS_AD_Reference_ID = 131;
+  /** Drafted = DR */
+  public static final String DOCSTATUS_Drafted = "DR";
+  /** Completed = CO */
+  public static final String DOCSTATUS_Completed = "CO";
+  /** Approved = AP */
+  public static final String DOCSTATUS_Approved = "AP";
+  /** Not Approved = NA */
+  public static final String DOCSTATUS_NotApproved = "NA";
+  /** Voided = VO */
+  public static final String DOCSTATUS_Voided = "VO";
+  /** Invalid = IN */
+  public static final String DOCSTATUS_Invalid = "IN";
+  /** Reversed = RE */
+  public static final String DOCSTATUS_Reversed = "RE";
+  /** Closed = CL */
+  public static final String DOCSTATUS_Closed = "CL";
+  /** Unknown = ?? */
+  public static final String DOCSTATUS_Unknown = "??";
+  /** In Progress = IP */
+  public static final String DOCSTATUS_InProgress = "IP";
+  /** Waiting Payment = WP */
+  public static final String DOCSTATUS_WaitingPayment = "WP";
+  /** Waiting Confirmation = WC */
+  public static final String DOCSTATUS_WaitingConfirmation = "WC";
+  /** FreightCostRule AD_Reference_ID=153 */
+  public static final int FREIGHTCOSTRULE_AD_Reference_ID = 153;
+  /** Freight included = I */
+  public static final String FREIGHTCOSTRULE_FreightIncluded = "I";
+  /** Fix price = F */
+  public static final String FREIGHTCOSTRULE_FixPrice = "F";
+  /** Calculated = C */
+  public static final String FREIGHTCOSTRULE_Calculated = "C";
+  /** Line = L */
+  public static final String FREIGHTCOSTRULE_Line = "L";
+  /** InvoiceRule AD_Reference_ID=150 */
+  public static final int INVOICERULE_AD_Reference_ID = 150;
+  /** After Order delivered = O */
+  public static final String INVOICERULE_AfterOrderDelivered = "O";
+  /** After Delivery = D */
+  public static final String INVOICERULE_AfterDelivery = "D";
+  /** Customer Schedule after Delivery = S */
+  public static final String INVOICERULE_CustomerScheduleAfterDelivery = "S";
+  /** Immediate = I */
+  public static final String INVOICERULE_Immediate = "I";
+  /** PaymentRule AD_Reference_ID=195 */
+  public static final int PAYMENTRULE_AD_Reference_ID = 195;
+  /** Cash = B */
+  public static final String PAYMENTRULE_Cash = "B";
+  /** Credit Card = K */
+  public static final String PAYMENTRULE_CreditCard = "K";
+  /** Direct Deposit = T */
+  public static final String PAYMENTRULE_DirectDeposit = "T";
+  /** Check = S */
+  public static final String PAYMENTRULE_Check = "S";
+  /** On Credit = P */
+  public static final String PAYMENTRULE_OnCredit = "P";
+  /** Direct Debit = D */
+  public static final String PAYMENTRULE_DirectDebit = "D";
+  /** Mixed POS Payment = M */
+  public static final String PAYMENTRULE_MixedPOSPayment = "M";
+  /** PriorityRule AD_Reference_ID=154 */
+  public static final int PRIORITYRULE_AD_Reference_ID = 154;
+  /** High = 3 */
+  public static final String PRIORITYRULE_High = "3";
+  /** Medium = 5 */
+  public static final String PRIORITYRULE_Medium = "5";
+  /** Low = 7 */
+  public static final String PRIORITYRULE_Low = "7";
+  /** Urgent = 1 */
+  public static final String PRIORITYRULE_Urgent = "1";
+  /** Minor = 9 */
+  public static final String PRIORITYRULE_Minor = "9";
   /** */
   private static final long serialVersionUID = 20171031L;
 
@@ -65,16 +190,6 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Trx Organization.
-   *
-   * @param AD_OrgTrx_ID Performing or initiating organization
-   */
-  public void setAD_OrgTrx_ID(int AD_OrgTrx_ID) {
-    if (AD_OrgTrx_ID < 1) set_Value(I_C_Order.COLUMNNAME_AD_OrgTrx_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_AD_OrgTrx_ID, Integer.valueOf(AD_OrgTrx_ID));
-  }
-
-  /**
    * Get Trx Organization.
    *
    * @return Performing or initiating organization
@@ -85,20 +200,20 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Trx Organization.
+   *
+   * @param AD_OrgTrx_ID Performing or initiating organization
+   */
+  public void setAD_OrgTrx_ID(int AD_OrgTrx_ID) {
+    if (AD_OrgTrx_ID < 1) set_Value(I_C_Order.COLUMNNAME_AD_OrgTrx_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_AD_OrgTrx_ID, Integer.valueOf(AD_OrgTrx_ID));
+  }
+
   public org.compiere.model.I_AD_User getAD_User() throws RuntimeException {
     return (org.compiere.model.I_AD_User)
         MTable.get(getCtx(), org.compiere.model.I_AD_User.Table_Name)
             .getPO(getAD_User_ID(), get_TrxName());
-  }
-
-  /**
-   * Set User/Contact.
-   *
-   * @param AD_User_ID User within the system - Internal or Business Partner Contact
-   */
-  public void setAD_User_ID(int AD_User_ID) {
-    if (AD_User_ID < 1) set_Value(I_C_Order.COLUMNNAME_AD_User_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_AD_User_ID, Integer.valueOf(AD_User_ID));
   }
 
   /**
@@ -113,12 +228,13 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set AmountRefunded.
+   * Set User/Contact.
    *
-   * @param AmountRefunded AmountRefunded
+   * @param AD_User_ID User within the system - Internal or Business Partner Contact
    */
-  public void setAmountRefunded(BigDecimal AmountRefunded) {
-    set_Value(I_C_Order.COLUMNNAME_AmountRefunded, AmountRefunded);
+  public void setAD_User_ID(int AD_User_ID) {
+    if (AD_User_ID < 1) set_Value(I_C_Order.COLUMNNAME_AD_User_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_AD_User_ID, Integer.valueOf(AD_User_ID));
   }
 
   /**
@@ -133,12 +249,12 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set AmountTendered.
+   * Set AmountRefunded.
    *
-   * @param AmountTendered AmountTendered
+   * @param AmountRefunded AmountRefunded
    */
-  public void setAmountTendered(BigDecimal AmountTendered) {
-    set_Value(I_C_Order.COLUMNNAME_AmountTendered, AmountTendered);
+  public void setAmountRefunded(BigDecimal AmountRefunded) {
+    set_Value(I_C_Order.COLUMNNAME_AmountRefunded, AmountRefunded);
   }
 
   /**
@@ -152,20 +268,19 @@ public class X_C_Order extends PO implements I_Persistent {
     return bd;
   }
 
+  /**
+   * Set AmountTendered.
+   *
+   * @param AmountTendered AmountTendered
+   */
+  public void setAmountTendered(BigDecimal AmountTendered) {
+    set_Value(I_C_Order.COLUMNNAME_AmountTendered, AmountTendered);
+  }
+
   public org.compiere.model.I_C_BPartner getBill_BPartner() throws RuntimeException {
     return (org.compiere.model.I_C_BPartner)
         MTable.get(getCtx(), org.compiere.model.I_C_BPartner.Table_Name)
             .getPO(getBill_BPartner_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Invoice Partner.
-   *
-   * @param Bill_BPartner_ID Business Partner to be invoiced
-   */
-  public void setBill_BPartner_ID(int Bill_BPartner_ID) {
-    if (Bill_BPartner_ID < 1) set_Value(I_C_Order.COLUMNNAME_Bill_BPartner_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_Bill_BPartner_ID, Integer.valueOf(Bill_BPartner_ID));
   }
 
   /**
@@ -179,20 +294,20 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Invoice Partner.
+   *
+   * @param Bill_BPartner_ID Business Partner to be invoiced
+   */
+  public void setBill_BPartner_ID(int Bill_BPartner_ID) {
+    if (Bill_BPartner_ID < 1) set_Value(I_C_Order.COLUMNNAME_Bill_BPartner_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_Bill_BPartner_ID, Integer.valueOf(Bill_BPartner_ID));
+  }
+
   public org.compiere.model.I_C_BPartner_Location getBill_Location() throws RuntimeException {
     return (org.compiere.model.I_C_BPartner_Location)
         MTable.get(getCtx(), org.compiere.model.I_C_BPartner_Location.Table_Name)
             .getPO(getBill_Location_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Invoice Location.
-   *
-   * @param Bill_Location_ID Business Partner Location for invoicing
-   */
-  public void setBill_Location_ID(int Bill_Location_ID) {
-    if (Bill_Location_ID < 1) set_Value(I_C_Order.COLUMNNAME_Bill_Location_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_Bill_Location_ID, Integer.valueOf(Bill_Location_ID));
   }
 
   /**
@@ -206,20 +321,20 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Invoice Location.
+   *
+   * @param Bill_Location_ID Business Partner Location for invoicing
+   */
+  public void setBill_Location_ID(int Bill_Location_ID) {
+    if (Bill_Location_ID < 1) set_Value(I_C_Order.COLUMNNAME_Bill_Location_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_Bill_Location_ID, Integer.valueOf(Bill_Location_ID));
+  }
+
   public org.compiere.model.I_AD_User getBill_User() throws RuntimeException {
     return (org.compiere.model.I_AD_User)
         MTable.get(getCtx(), org.compiere.model.I_AD_User.Table_Name)
             .getPO(getBill_User_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Invoice Contact.
-   *
-   * @param Bill_User_ID Business Partner Contact for invoicing
-   */
-  public void setBill_User_ID(int Bill_User_ID) {
-    if (Bill_User_ID < 1) set_Value(I_C_Order.COLUMNNAME_Bill_User_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_Bill_User_ID, Integer.valueOf(Bill_User_ID));
   }
 
   /**
@@ -233,20 +348,20 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Invoice Contact.
+   *
+   * @param Bill_User_ID Business Partner Contact for invoicing
+   */
+  public void setBill_User_ID(int Bill_User_ID) {
+    if (Bill_User_ID < 1) set_Value(I_C_Order.COLUMNNAME_Bill_User_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_Bill_User_ID, Integer.valueOf(Bill_User_ID));
+  }
+
   public org.compiere.model.I_C_Activity getC_Activity() throws RuntimeException {
     return (org.compiere.model.I_C_Activity)
         MTable.get(getCtx(), org.compiere.model.I_C_Activity.Table_Name)
             .getPO(getC_Activity_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Activity.
-   *
-   * @param C_Activity_ID Business Activity
-   */
-  public void setC_Activity_ID(int C_Activity_ID) {
-    if (C_Activity_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_Activity_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_C_Activity_ID, Integer.valueOf(C_Activity_ID));
   }
 
   /**
@@ -260,20 +375,20 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Activity.
+   *
+   * @param C_Activity_ID Business Activity
+   */
+  public void setC_Activity_ID(int C_Activity_ID) {
+    if (C_Activity_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_Activity_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_C_Activity_ID, Integer.valueOf(C_Activity_ID));
+  }
+
   public org.compiere.model.I_C_BPartner getC_BPartner() throws RuntimeException {
     return (org.compiere.model.I_C_BPartner)
         MTable.get(getCtx(), org.compiere.model.I_C_BPartner.Table_Name)
             .getPO(getC_BPartner_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Business Partner .
-   *
-   * @param C_BPartner_ID Identifies a Business Partner
-   */
-  public void setC_BPartner_ID(int C_BPartner_ID) {
-    if (C_BPartner_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_BPartner_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_C_BPartner_ID, Integer.valueOf(C_BPartner_ID));
   }
 
   /**
@@ -287,10 +402,31 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Business Partner .
+   *
+   * @param C_BPartner_ID Identifies a Business Partner
+   */
+  public void setC_BPartner_ID(int C_BPartner_ID) {
+    if (C_BPartner_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_BPartner_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_C_BPartner_ID, Integer.valueOf(C_BPartner_ID));
+  }
+
   public org.compiere.model.I_C_BPartner_Location getC_BPartner_Location() throws RuntimeException {
     return (org.compiere.model.I_C_BPartner_Location)
         MTable.get(getCtx(), org.compiere.model.I_C_BPartner_Location.Table_Name)
             .getPO(getC_BPartner_Location_ID(), get_TrxName());
+  }
+
+  /**
+   * Get Partner Location.
+   *
+   * @return Identifies the (ship to) address for this Business Partner
+   */
+  public int getC_BPartner_Location_ID() {
+    Integer ii = (Integer) get_Value(I_C_Order.COLUMNNAME_C_BPartner_Location_ID);
+    if (ii == null) return 0;
+    return ii;
   }
 
   /**
@@ -305,31 +441,10 @@ public class X_C_Order extends PO implements I_Persistent {
           I_C_Order.COLUMNNAME_C_BPartner_Location_ID, Integer.valueOf(C_BPartner_Location_ID));
   }
 
-  /**
-   * Get Partner Location.
-   *
-   * @return Identifies the (ship to) address for this Business Partner
-   */
-  public int getC_BPartner_Location_ID() {
-    Integer ii = (Integer) get_Value(I_C_Order.COLUMNNAME_C_BPartner_Location_ID);
-    if (ii == null) return 0;
-    return ii;
-  }
-
   public org.compiere.model.I_C_Campaign getC_Campaign() throws RuntimeException {
     return (org.compiere.model.I_C_Campaign)
         MTable.get(getCtx(), org.compiere.model.I_C_Campaign.Table_Name)
             .getPO(getC_Campaign_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Campaign.
-   *
-   * @param C_Campaign_ID Marketing Campaign
-   */
-  public void setC_Campaign_ID(int C_Campaign_ID) {
-    if (C_Campaign_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_Campaign_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_C_Campaign_ID, Integer.valueOf(C_Campaign_ID));
   }
 
   /**
@@ -343,20 +458,20 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Campaign.
+   *
+   * @param C_Campaign_ID Marketing Campaign
+   */
+  public void setC_Campaign_ID(int C_Campaign_ID) {
+    if (C_Campaign_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_Campaign_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_C_Campaign_ID, Integer.valueOf(C_Campaign_ID));
+  }
+
   public org.compiere.model.I_C_CashLine getC_CashLine() throws RuntimeException {
     return (org.compiere.model.I_C_CashLine)
         MTable.get(getCtx(), org.compiere.model.I_C_CashLine.Table_Name)
             .getPO(getC_CashLine_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Cash Journal Line.
-   *
-   * @param C_CashLine_ID Cash Journal Line
-   */
-  public void setC_CashLine_ID(int C_CashLine_ID) {
-    if (C_CashLine_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_CashLine_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_C_CashLine_ID, Integer.valueOf(C_CashLine_ID));
   }
 
   /**
@@ -370,20 +485,20 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Cash Journal Line.
+   *
+   * @param C_CashLine_ID Cash Journal Line
+   */
+  public void setC_CashLine_ID(int C_CashLine_ID) {
+    if (C_CashLine_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_CashLine_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_C_CashLine_ID, Integer.valueOf(C_CashLine_ID));
+  }
+
   public org.compiere.model.I_C_CashPlanLine getC_CashPlanLine() throws RuntimeException {
     return (org.compiere.model.I_C_CashPlanLine)
         MTable.get(getCtx(), org.compiere.model.I_C_CashPlanLine.Table_Name)
             .getPO(getC_CashPlanLine_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Cash Plan Line.
-   *
-   * @param C_CashPlanLine_ID Cash Plan Line
-   */
-  public void setC_CashPlanLine_ID(int C_CashPlanLine_ID) {
-    if (C_CashPlanLine_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_CashPlanLine_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_C_CashPlanLine_ID, Integer.valueOf(C_CashPlanLine_ID));
   }
 
   /**
@@ -397,20 +512,20 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Cash Plan Line.
+   *
+   * @param C_CashPlanLine_ID Cash Plan Line
+   */
+  public void setC_CashPlanLine_ID(int C_CashPlanLine_ID) {
+    if (C_CashPlanLine_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_CashPlanLine_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_C_CashPlanLine_ID, Integer.valueOf(C_CashPlanLine_ID));
+  }
+
   public org.compiere.model.I_C_Charge getC_Charge() throws RuntimeException {
     return (org.compiere.model.I_C_Charge)
         MTable.get(getCtx(), org.compiere.model.I_C_Charge.Table_Name)
             .getPO(getC_Charge_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Charge.
-   *
-   * @param C_Charge_ID Additional document charges
-   */
-  public void setC_Charge_ID(int C_Charge_ID) {
-    if (C_Charge_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_Charge_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_C_Charge_ID, Integer.valueOf(C_Charge_ID));
   }
 
   /**
@@ -424,20 +539,20 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Charge.
+   *
+   * @param C_Charge_ID Additional document charges
+   */
+  public void setC_Charge_ID(int C_Charge_ID) {
+    if (C_Charge_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_Charge_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_C_Charge_ID, Integer.valueOf(C_Charge_ID));
+  }
+
   public org.compiere.model.I_C_ConversionType getC_ConversionType() throws RuntimeException {
     return (org.compiere.model.I_C_ConversionType)
         MTable.get(getCtx(), org.compiere.model.I_C_ConversionType.Table_Name)
             .getPO(getC_ConversionType_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Currency Type.
-   *
-   * @param C_ConversionType_ID Currency Conversion Rate Type
-   */
-  public void setC_ConversionType_ID(int C_ConversionType_ID) {
-    if (C_ConversionType_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_ConversionType_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_C_ConversionType_ID, Integer.valueOf(C_ConversionType_ID));
   }
 
   /**
@@ -451,20 +566,20 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Currency Type.
+   *
+   * @param C_ConversionType_ID Currency Conversion Rate Type
+   */
+  public void setC_ConversionType_ID(int C_ConversionType_ID) {
+    if (C_ConversionType_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_ConversionType_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_C_ConversionType_ID, Integer.valueOf(C_ConversionType_ID));
+  }
+
   public org.compiere.model.I_C_Currency getC_Currency() throws RuntimeException {
     return (org.compiere.model.I_C_Currency)
         MTable.get(getCtx(), org.compiere.model.I_C_Currency.Table_Name)
             .getPO(getC_Currency_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Currency.
-   *
-   * @param C_Currency_ID The Currency for this record
-   */
-  public void setC_Currency_ID(int C_Currency_ID) {
-    if (C_Currency_ID < 1) set_ValueNoCheck(I_C_Order.COLUMNNAME_C_Currency_ID, null);
-    else set_ValueNoCheck(I_C_Order.COLUMNNAME_C_Currency_ID, Integer.valueOf(C_Currency_ID));
   }
 
   /**
@@ -478,20 +593,20 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Currency.
+   *
+   * @param C_Currency_ID The Currency for this record
+   */
+  public void setC_Currency_ID(int C_Currency_ID) {
+    if (C_Currency_ID < 1) set_ValueNoCheck(I_C_Order.COLUMNNAME_C_Currency_ID, null);
+    else set_ValueNoCheck(I_C_Order.COLUMNNAME_C_Currency_ID, Integer.valueOf(C_Currency_ID));
+  }
+
   public org.compiere.model.I_C_DocType getC_DocType() throws RuntimeException {
     return (org.compiere.model.I_C_DocType)
         MTable.get(getCtx(), org.compiere.model.I_C_DocType.Table_Name)
             .getPO(getC_DocType_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Document Type.
-   *
-   * @param C_DocType_ID Document type or rules
-   */
-  public void setC_DocType_ID(int C_DocType_ID) {
-    if (C_DocType_ID < 0) set_ValueNoCheck(I_C_Order.COLUMNNAME_C_DocType_ID, null);
-    else set_ValueNoCheck(I_C_Order.COLUMNNAME_C_DocType_ID, Integer.valueOf(C_DocType_ID));
   }
 
   /**
@@ -505,20 +620,20 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Document Type.
+   *
+   * @param C_DocType_ID Document type or rules
+   */
+  public void setC_DocType_ID(int C_DocType_ID) {
+    if (C_DocType_ID < 0) set_ValueNoCheck(I_C_Order.COLUMNNAME_C_DocType_ID, null);
+    else set_ValueNoCheck(I_C_Order.COLUMNNAME_C_DocType_ID, Integer.valueOf(C_DocType_ID));
+  }
+
   public org.compiere.model.I_C_DocType getC_DocTypeTarget() throws RuntimeException {
     return (org.compiere.model.I_C_DocType)
         MTable.get(getCtx(), org.compiere.model.I_C_DocType.Table_Name)
             .getPO(getC_DocTypeTarget_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Target Document Type.
-   *
-   * @param C_DocTypeTarget_ID Target document type for conversing documents
-   */
-  public void setC_DocTypeTarget_ID(int C_DocTypeTarget_ID) {
-    if (C_DocTypeTarget_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_DocTypeTarget_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_C_DocTypeTarget_ID, C_DocTypeTarget_ID);
   }
 
   /**
@@ -533,12 +648,13 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Charge amount.
+   * Set Target Document Type.
    *
-   * @param ChargeAmt Charge Amount
+   * @param C_DocTypeTarget_ID Target document type for conversing documents
    */
-  public void setChargeAmt(BigDecimal ChargeAmt) {
-    set_Value(I_C_Order.COLUMNNAME_ChargeAmt, ChargeAmt);
+  public void setC_DocTypeTarget_ID(int C_DocTypeTarget_ID) {
+    if (C_DocTypeTarget_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_DocTypeTarget_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_C_DocTypeTarget_ID, C_DocTypeTarget_ID);
   }
 
   /**
@@ -552,20 +668,19 @@ public class X_C_Order extends PO implements I_Persistent {
     return bd;
   }
 
+  /**
+   * Set Charge amount.
+   *
+   * @param ChargeAmt Charge Amount
+   */
+  public void setChargeAmt(BigDecimal ChargeAmt) {
+    set_Value(I_C_Order.COLUMNNAME_ChargeAmt, ChargeAmt);
+  }
+
   public org.compiere.model.I_C_Opportunity getC_Opportunity() throws RuntimeException {
     return (org.compiere.model.I_C_Opportunity)
         MTable.get(getCtx(), org.compiere.model.I_C_Opportunity.Table_Name)
             .getPO(getC_Opportunity_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Sales Opportunity.
-   *
-   * @param C_Opportunity_ID Sales Opportunity
-   */
-  public void setC_Opportunity_ID(int C_Opportunity_ID) {
-    if (C_Opportunity_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_Opportunity_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_C_Opportunity_ID, Integer.valueOf(C_Opportunity_ID));
   }
 
   /**
@@ -580,12 +695,13 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Copy From.
+   * Set Sales Opportunity.
    *
-   * @param CopyFrom Copy From Record
+   * @param C_Opportunity_ID Sales Opportunity
    */
-  public void setCopyFrom(String CopyFrom) {
-    set_Value(I_C_Order.COLUMNNAME_CopyFrom, CopyFrom);
+  public void setC_Opportunity_ID(int C_Opportunity_ID) {
+    if (C_Opportunity_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_Opportunity_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_C_Opportunity_ID, Integer.valueOf(C_Opportunity_ID));
   }
 
   /**
@@ -598,13 +714,12 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Order.
+   * Set Copy From.
    *
-   * @param C_Order_ID Order
+   * @param CopyFrom Copy From Record
    */
-  public void setC_Order_ID(int C_Order_ID) {
-    if (C_Order_ID < 1) set_ValueNoCheck(I_C_Order.COLUMNNAME_C_Order_ID, null);
-    else set_ValueNoCheck(I_C_Order.COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
+  public void setCopyFrom(String CopyFrom) {
+    set_Value(I_C_Order.COLUMNNAME_CopyFrom, CopyFrom);
   }
 
   /**
@@ -618,20 +733,20 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Order.
+   *
+   * @param C_Order_ID Order
+   */
+  public void setC_Order_ID(int C_Order_ID) {
+    if (C_Order_ID < 1) set_ValueNoCheck(I_C_Order.COLUMNNAME_C_Order_ID, null);
+    else set_ValueNoCheck(I_C_Order.COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
+  }
+
   public org.compiere.model.I_C_OrderSource getC_OrderSource() throws RuntimeException {
     return (org.compiere.model.I_C_OrderSource)
         MTable.get(getCtx(), org.compiere.model.I_C_OrderSource.Table_Name)
             .getPO(getC_OrderSource_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Order Source.
-   *
-   * @param C_OrderSource_ID Order Source
-   */
-  public void setC_OrderSource_ID(int C_OrderSource_ID) {
-    if (C_OrderSource_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_OrderSource_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_C_OrderSource_ID, Integer.valueOf(C_OrderSource_ID));
   }
 
   /**
@@ -646,12 +761,13 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set C_Order_UU.
+   * Set Order Source.
    *
-   * @param C_Order_UU C_Order_UU
+   * @param C_OrderSource_ID Order Source
    */
-  public void setC_Order_UU(String C_Order_UU) {
-    set_Value(I_C_Order.COLUMNNAME_C_Order_UU, C_Order_UU);
+  public void setC_OrderSource_ID(int C_OrderSource_ID) {
+    if (C_OrderSource_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_OrderSource_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_C_OrderSource_ID, Integer.valueOf(C_OrderSource_ID));
   }
 
   /**
@@ -663,20 +779,19 @@ public class X_C_Order extends PO implements I_Persistent {
     return (String) get_Value(I_C_Order.COLUMNNAME_C_Order_UU);
   }
 
+  /**
+   * Set C_Order_UU.
+   *
+   * @param C_Order_UU C_Order_UU
+   */
+  public void setC_Order_UU(String C_Order_UU) {
+    set_Value(I_C_Order.COLUMNNAME_C_Order_UU, C_Order_UU);
+  }
+
   public org.compiere.model.I_C_Payment getC_Payment() throws RuntimeException {
     return (org.compiere.model.I_C_Payment)
         MTable.get(getCtx(), org.compiere.model.I_C_Payment.Table_Name)
             .getPO(getC_Payment_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Payment.
-   *
-   * @param C_Payment_ID Payment identifier
-   */
-  public void setC_Payment_ID(int C_Payment_ID) {
-    if (C_Payment_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_Payment_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_C_Payment_ID, Integer.valueOf(C_Payment_ID));
   }
 
   /**
@@ -690,20 +805,20 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Payment.
+   *
+   * @param C_Payment_ID Payment identifier
+   */
+  public void setC_Payment_ID(int C_Payment_ID) {
+    if (C_Payment_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_Payment_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_C_Payment_ID, Integer.valueOf(C_Payment_ID));
+  }
+
   public org.compiere.model.I_C_PaymentTerm getC_PaymentTerm() throws RuntimeException {
     return (org.compiere.model.I_C_PaymentTerm)
         MTable.get(getCtx(), org.compiere.model.I_C_PaymentTerm.Table_Name)
             .getPO(getC_PaymentTerm_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Payment Term.
-   *
-   * @param C_PaymentTerm_ID The terms of Payment (timing, discount)
-   */
-  public void setC_PaymentTerm_ID(int C_PaymentTerm_ID) {
-    if (C_PaymentTerm_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_PaymentTerm_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_C_PaymentTerm_ID, Integer.valueOf(C_PaymentTerm_ID));
   }
 
   /**
@@ -717,20 +832,20 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Payment Term.
+   *
+   * @param C_PaymentTerm_ID The terms of Payment (timing, discount)
+   */
+  public void setC_PaymentTerm_ID(int C_PaymentTerm_ID) {
+    if (C_PaymentTerm_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_PaymentTerm_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_C_PaymentTerm_ID, Integer.valueOf(C_PaymentTerm_ID));
+  }
+
   public org.compiere.model.I_C_POS getC_POS() throws RuntimeException {
     return (org.compiere.model.I_C_POS)
         MTable.get(getCtx(), org.compiere.model.I_C_POS.Table_Name)
             .getPO(getC_POS_ID(), get_TrxName());
-  }
-
-  /**
-   * Set POS Terminal.
-   *
-   * @param C_POS_ID Point of Sales Terminal
-   */
-  public void setC_POS_ID(int C_POS_ID) {
-    if (C_POS_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_POS_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_C_POS_ID, Integer.valueOf(C_POS_ID));
   }
 
   /**
@@ -744,20 +859,20 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set POS Terminal.
+   *
+   * @param C_POS_ID Point of Sales Terminal
+   */
+  public void setC_POS_ID(int C_POS_ID) {
+    if (C_POS_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_POS_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_C_POS_ID, Integer.valueOf(C_POS_ID));
+  }
+
   public org.compiere.model.I_C_Project getC_Project() throws RuntimeException {
     return (org.compiere.model.I_C_Project)
         MTable.get(getCtx(), org.compiere.model.I_C_Project.Table_Name)
             .getPO(getC_Project_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Project.
-   *
-   * @param C_Project_ID Financial Project
-   */
-  public void setC_Project_ID(int C_Project_ID) {
-    if (C_Project_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_Project_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_C_Project_ID, Integer.valueOf(C_Project_ID));
   }
 
   /**
@@ -772,12 +887,13 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Account Date.
+   * Set Project.
    *
-   * @param DateAcct Accounting Date
+   * @param C_Project_ID Financial Project
    */
-  public void setDateAcct(Timestamp DateAcct) {
-    set_Value(I_C_Order.COLUMNNAME_DateAcct, DateAcct);
+  public void setC_Project_ID(int C_Project_ID) {
+    if (C_Project_ID < 1) set_Value(I_C_Order.COLUMNNAME_C_Project_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_C_Project_ID, Integer.valueOf(C_Project_ID));
   }
 
   /**
@@ -790,12 +906,12 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Date Ordered.
+   * Set Account Date.
    *
-   * @param DateOrdered Date of Order
+   * @param DateAcct Accounting Date
    */
-  public void setDateOrdered(Timestamp DateOrdered) {
-    set_Value(I_C_Order.COLUMNNAME_DateOrdered, DateOrdered);
+  public void setDateAcct(Timestamp DateAcct) {
+    set_Value(I_C_Order.COLUMNNAME_DateAcct, DateAcct);
   }
 
   /**
@@ -808,12 +924,12 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Date printed.
+   * Set Date Ordered.
    *
-   * @param DatePrinted Date the document was printed.
+   * @param DateOrdered Date of Order
    */
-  public void setDatePrinted(Timestamp DatePrinted) {
-    set_Value(I_C_Order.COLUMNNAME_DatePrinted, DatePrinted);
+  public void setDateOrdered(Timestamp DateOrdered) {
+    set_Value(I_C_Order.COLUMNNAME_DateOrdered, DateOrdered);
   }
 
   /**
@@ -826,12 +942,12 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Date Promised.
+   * Set Date printed.
    *
-   * @param DatePromised Date Order was promised
+   * @param DatePrinted Date the document was printed.
    */
-  public void setDatePromised(Timestamp DatePromised) {
-    set_Value(I_C_Order.COLUMNNAME_DatePromised, DatePromised);
+  public void setDatePrinted(Timestamp DatePrinted) {
+    set_Value(I_C_Order.COLUMNNAME_DatePrinted, DatePrinted);
   }
 
   /**
@@ -843,28 +959,13 @@ public class X_C_Order extends PO implements I_Persistent {
     return (Timestamp) get_Value(I_C_Order.COLUMNNAME_DatePromised);
   }
 
-  /** DeliveryRule AD_Reference_ID=151 */
-  public static final int DELIVERYRULE_AD_Reference_ID = 151;
-  /** After Receipt = R */
-  public static final String DELIVERYRULE_AfterReceipt = "R";
-  /** Availability = A */
-  public static final String DELIVERYRULE_Availability = "A";
-  /** Complete Line = L */
-  public static final String DELIVERYRULE_CompleteLine = "L";
-  /** Complete Order = O */
-  public static final String DELIVERYRULE_CompleteOrder = "O";
-  /** Force = F */
-  public static final String DELIVERYRULE_Force = "F";
-  /** Manual = M */
-  public static final String DELIVERYRULE_Manual = "M";
   /**
-   * Set Delivery Rule.
+   * Set Date Promised.
    *
-   * @param DeliveryRule Defines the timing of Delivery
+   * @param DatePromised Date Order was promised
    */
-  public void setDeliveryRule(String DeliveryRule) {
-
-    set_Value(I_C_Order.COLUMNNAME_DeliveryRule, DeliveryRule);
+  public void setDatePromised(Timestamp DatePromised) {
+    set_Value(I_C_Order.COLUMNNAME_DatePromised, DatePromised);
   }
 
   /**
@@ -876,22 +977,14 @@ public class X_C_Order extends PO implements I_Persistent {
     return (String) get_Value(I_C_Order.COLUMNNAME_DeliveryRule);
   }
 
-  /** DeliveryViaRule AD_Reference_ID=152 */
-  public static final int DELIVERYVIARULE_AD_Reference_ID = 152;
-  /** Pickup = P */
-  public static final String DELIVERYVIARULE_Pickup = "P";
-  /** Delivery = D */
-  public static final String DELIVERYVIARULE_Delivery = "D";
-  /** Shipper = S */
-  public static final String DELIVERYVIARULE_Shipper = "S";
   /**
-   * Set Delivery Via.
+   * Set Delivery Rule.
    *
-   * @param DeliveryViaRule How the order will be delivered
+   * @param DeliveryRule Defines the timing of Delivery
    */
-  public void setDeliveryViaRule(String DeliveryViaRule) {
+  public void setDeliveryRule(String DeliveryRule) {
 
-    set_Value(I_C_Order.COLUMNNAME_DeliveryViaRule, DeliveryViaRule);
+    set_Value(I_C_Order.COLUMNNAME_DeliveryRule, DeliveryRule);
   }
 
   /**
@@ -904,12 +997,13 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Description.
+   * Set Delivery Via.
    *
-   * @param Description Optional short description of the record
+   * @param DeliveryViaRule How the order will be delivered
    */
-  public void setDescription(String Description) {
-    set_Value(I_C_Order.COLUMNNAME_Description, Description);
+  public void setDeliveryViaRule(String DeliveryViaRule) {
+
+    set_Value(I_C_Order.COLUMNNAME_DeliveryViaRule, DeliveryViaRule);
   }
 
   /**
@@ -921,44 +1015,13 @@ public class X_C_Order extends PO implements I_Persistent {
     return (String) get_Value(I_C_Order.COLUMNNAME_Description);
   }
 
-  /** DocAction AD_Reference_ID=135 */
-  public static final int DOCACTION_AD_Reference_ID = 135;
-  /** Complete = CO */
-  public static final String DOCACTION_Complete = "CO";
-  /** Approve = AP */
-  public static final String DOCACTION_Approve = "AP";
-  /** Reject = RJ */
-  public static final String DOCACTION_Reject = "RJ";
-  /** Post = PO */
-  public static final String DOCACTION_Post = "PO";
-  /** Void = VO */
-  public static final String DOCACTION_Void = "VO";
-  /** Close = CL */
-  public static final String DOCACTION_Close = "CL";
-  /** Reverse - Correct = RC */
-  public static final String DOCACTION_Reverse_Correct = "RC";
-  /** Reverse - Accrual = RA */
-  public static final String DOCACTION_Reverse_Accrual = "RA";
-  /** Invalidate = IN */
-  public static final String DOCACTION_Invalidate = "IN";
-  /** Re-activate = RE */
-  public static final String DOCACTION_Re_Activate = "RE";
-  /** <None> = -- */
-  public static final String DOCACTION_None = "--";
-  /** Prepare = PR */
-  public static final String DOCACTION_Prepare = "PR";
-  /** Unlock = XL */
-  public static final String DOCACTION_Unlock = "XL";
-  /** Wait Complete = WC */
-  public static final String DOCACTION_WaitComplete = "WC";
   /**
-   * Set Document Action.
+   * Set Description.
    *
-   * @param DocAction The targeted status of the document
+   * @param Description Optional short description of the record
    */
-  public void setDocAction(String DocAction) {
-
-    set_Value(I_C_Order.COLUMNNAME_DocAction, DocAction);
+  public void setDescription(String Description) {
+    set_Value(I_C_Order.COLUMNNAME_Description, Description);
   }
 
   /**
@@ -970,40 +1033,14 @@ public class X_C_Order extends PO implements I_Persistent {
     return (String) get_Value(I_C_Order.COLUMNNAME_DocAction);
   }
 
-  /** DocStatus AD_Reference_ID=131 */
-  public static final int DOCSTATUS_AD_Reference_ID = 131;
-  /** Drafted = DR */
-  public static final String DOCSTATUS_Drafted = "DR";
-  /** Completed = CO */
-  public static final String DOCSTATUS_Completed = "CO";
-  /** Approved = AP */
-  public static final String DOCSTATUS_Approved = "AP";
-  /** Not Approved = NA */
-  public static final String DOCSTATUS_NotApproved = "NA";
-  /** Voided = VO */
-  public static final String DOCSTATUS_Voided = "VO";
-  /** Invalid = IN */
-  public static final String DOCSTATUS_Invalid = "IN";
-  /** Reversed = RE */
-  public static final String DOCSTATUS_Reversed = "RE";
-  /** Closed = CL */
-  public static final String DOCSTATUS_Closed = "CL";
-  /** Unknown = ?? */
-  public static final String DOCSTATUS_Unknown = "??";
-  /** In Progress = IP */
-  public static final String DOCSTATUS_InProgress = "IP";
-  /** Waiting Payment = WP */
-  public static final String DOCSTATUS_WaitingPayment = "WP";
-  /** Waiting Confirmation = WC */
-  public static final String DOCSTATUS_WaitingConfirmation = "WC";
   /**
-   * Set Document Status.
+   * Set Document Action.
    *
-   * @param DocStatus The current status of the document
+   * @param DocAction The targeted status of the document
    */
-  public void setDocStatus(String DocStatus) {
+  public void setDocAction(String DocAction) {
 
-    set_Value(I_C_Order.COLUMNNAME_DocStatus, DocStatus);
+    set_Value(I_C_Order.COLUMNNAME_DocAction, DocAction);
   }
 
   /**
@@ -1016,12 +1053,13 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Document No.
+   * Set Document Status.
    *
-   * @param DocumentNo Document sequence number of the document
+   * @param DocStatus The current status of the document
    */
-  public void setDocumentNo(String DocumentNo) {
-    set_ValueNoCheck(I_C_Order.COLUMNNAME_DocumentNo, DocumentNo);
+  public void setDocStatus(String DocStatus) {
+
+    set_Value(I_C_Order.COLUMNNAME_DocStatus, DocStatus);
   }
 
   /**
@@ -1031,6 +1069,15 @@ public class X_C_Order extends PO implements I_Persistent {
    */
   public String getDocumentNo() {
     return (String) get_Value(I_C_Order.COLUMNNAME_DocumentNo);
+  }
+
+  /**
+   * Set Document No.
+   *
+   * @param DocumentNo Document sequence number of the document
+   */
+  public void setDocumentNo(String DocumentNo) {
+    set_ValueNoCheck(I_C_Order.COLUMNNAME_DocumentNo, DocumentNo);
   }
 
   /**
@@ -1049,17 +1096,6 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Drop Ship Business Partner.
-   *
-   * @param DropShip_BPartner_ID Business Partner to ship to
-   */
-  public void setDropShip_BPartner_ID(int DropShip_BPartner_ID) {
-    if (DropShip_BPartner_ID < 1) set_Value(I_C_Order.COLUMNNAME_DropShip_BPartner_ID, null);
-    else
-      set_Value(I_C_Order.COLUMNNAME_DropShip_BPartner_ID, Integer.valueOf(DropShip_BPartner_ID));
-  }
-
-  /**
    * Get Drop Ship Business Partner.
    *
    * @return Business Partner to ship to
@@ -1070,21 +1106,21 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Drop Ship Business Partner.
+   *
+   * @param DropShip_BPartner_ID Business Partner to ship to
+   */
+  public void setDropShip_BPartner_ID(int DropShip_BPartner_ID) {
+    if (DropShip_BPartner_ID < 1) set_Value(I_C_Order.COLUMNNAME_DropShip_BPartner_ID, null);
+    else
+      set_Value(I_C_Order.COLUMNNAME_DropShip_BPartner_ID, Integer.valueOf(DropShip_BPartner_ID));
+  }
+
   public org.compiere.model.I_C_BPartner_Location getDropShip_Location() throws RuntimeException {
     return (org.compiere.model.I_C_BPartner_Location)
         MTable.get(getCtx(), org.compiere.model.I_C_BPartner_Location.Table_Name)
             .getPO(getDropShip_Location_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Drop Shipment Location.
-   *
-   * @param DropShip_Location_ID Business Partner Location for shipping to
-   */
-  public void setDropShip_Location_ID(int DropShip_Location_ID) {
-    if (DropShip_Location_ID < 1) set_Value(I_C_Order.COLUMNNAME_DropShip_Location_ID, null);
-    else
-      set_Value(I_C_Order.COLUMNNAME_DropShip_Location_ID, Integer.valueOf(DropShip_Location_ID));
   }
 
   /**
@@ -1098,20 +1134,21 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Drop Shipment Location.
+   *
+   * @param DropShip_Location_ID Business Partner Location for shipping to
+   */
+  public void setDropShip_Location_ID(int DropShip_Location_ID) {
+    if (DropShip_Location_ID < 1) set_Value(I_C_Order.COLUMNNAME_DropShip_Location_ID, null);
+    else
+      set_Value(I_C_Order.COLUMNNAME_DropShip_Location_ID, Integer.valueOf(DropShip_Location_ID));
+  }
+
   public org.compiere.model.I_AD_User getDropShip_User() throws RuntimeException {
     return (org.compiere.model.I_AD_User)
         MTable.get(getCtx(), org.compiere.model.I_AD_User.Table_Name)
             .getPO(getDropShip_User_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Drop Shipment Contact.
-   *
-   * @param DropShip_User_ID Business Partner Contact for drop shipment
-   */
-  public void setDropShip_User_ID(int DropShip_User_ID) {
-    if (DropShip_User_ID < 1) set_Value(I_C_Order.COLUMNNAME_DropShip_User_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_DropShip_User_ID, Integer.valueOf(DropShip_User_ID));
   }
 
   /**
@@ -1126,12 +1163,13 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Freight Amount.
+   * Set Drop Shipment Contact.
    *
-   * @param FreightAmt Freight Amount
+   * @param DropShip_User_ID Business Partner Contact for drop shipment
    */
-  public void setFreightAmt(BigDecimal FreightAmt) {
-    set_Value(I_C_Order.COLUMNNAME_FreightAmt, FreightAmt);
+  public void setDropShip_User_ID(int DropShip_User_ID) {
+    if (DropShip_User_ID < 1) set_Value(I_C_Order.COLUMNNAME_DropShip_User_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_DropShip_User_ID, Integer.valueOf(DropShip_User_ID));
   }
 
   /**
@@ -1145,24 +1183,13 @@ public class X_C_Order extends PO implements I_Persistent {
     return bd;
   }
 
-  /** FreightCostRule AD_Reference_ID=153 */
-  public static final int FREIGHTCOSTRULE_AD_Reference_ID = 153;
-  /** Freight included = I */
-  public static final String FREIGHTCOSTRULE_FreightIncluded = "I";
-  /** Fix price = F */
-  public static final String FREIGHTCOSTRULE_FixPrice = "F";
-  /** Calculated = C */
-  public static final String FREIGHTCOSTRULE_Calculated = "C";
-  /** Line = L */
-  public static final String FREIGHTCOSTRULE_Line = "L";
   /**
-   * Set Freight Cost Rule.
+   * Set Freight Amount.
    *
-   * @param FreightCostRule Method for charging Freight
+   * @param FreightAmt Freight Amount
    */
-  public void setFreightCostRule(String FreightCostRule) {
-
-    set_Value(I_C_Order.COLUMNNAME_FreightCostRule, FreightCostRule);
+  public void setFreightAmt(BigDecimal FreightAmt) {
+    set_Value(I_C_Order.COLUMNNAME_FreightAmt, FreightAmt);
   }
 
   /**
@@ -1175,12 +1202,13 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Grand Total.
+   * Set Freight Cost Rule.
    *
-   * @param GrandTotal Total amount of document
+   * @param FreightCostRule Method for charging Freight
    */
-  public void setGrandTotal(BigDecimal GrandTotal) {
-    set_ValueNoCheck(I_C_Order.COLUMNNAME_GrandTotal, GrandTotal);
+  public void setFreightCostRule(String FreightCostRule) {
+
+    set_Value(I_C_Order.COLUMNNAME_FreightCostRule, FreightCostRule);
   }
 
   /**
@@ -1194,24 +1222,13 @@ public class X_C_Order extends PO implements I_Persistent {
     return bd;
   }
 
-  /** InvoiceRule AD_Reference_ID=150 */
-  public static final int INVOICERULE_AD_Reference_ID = 150;
-  /** After Order delivered = O */
-  public static final String INVOICERULE_AfterOrderDelivered = "O";
-  /** After Delivery = D */
-  public static final String INVOICERULE_AfterDelivery = "D";
-  /** Customer Schedule after Delivery = S */
-  public static final String INVOICERULE_CustomerScheduleAfterDelivery = "S";
-  /** Immediate = I */
-  public static final String INVOICERULE_Immediate = "I";
   /**
-   * Set Invoice Rule.
+   * Set Grand Total.
    *
-   * @param InvoiceRule Frequency and method of invoicing
+   * @param GrandTotal Total amount of document
    */
-  public void setInvoiceRule(String InvoiceRule) {
-
-    set_Value(I_C_Order.COLUMNNAME_InvoiceRule, InvoiceRule);
+  public void setGrandTotal(BigDecimal GrandTotal) {
+    set_ValueNoCheck(I_C_Order.COLUMNNAME_GrandTotal, GrandTotal);
   }
 
   /**
@@ -1221,6 +1238,16 @@ public class X_C_Order extends PO implements I_Persistent {
    */
   public String getInvoiceRule() {
     return (String) get_Value(I_C_Order.COLUMNNAME_InvoiceRule);
+  }
+
+  /**
+   * Set Invoice Rule.
+   *
+   * @param InvoiceRule Frequency and method of invoicing
+   */
+  public void setInvoiceRule(String InvoiceRule) {
+
+    set_Value(I_C_Order.COLUMNNAME_InvoiceRule, InvoiceRule);
   }
 
   /**
@@ -1552,17 +1579,6 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Linked Order.
-   *
-   * @param Link_Order_ID This field links a sales order to the purchase order that is generated
-   *     from it.
-   */
-  public void setLink_Order_ID(int Link_Order_ID) {
-    if (Link_Order_ID < 1) set_ValueNoCheck(I_C_Order.COLUMNNAME_Link_Order_ID, null);
-    else set_ValueNoCheck(I_C_Order.COLUMNNAME_Link_Order_ID, Integer.valueOf(Link_Order_ID));
-  }
-
-  /**
    * Get Linked Order.
    *
    * @return This field links a sales order to the purchase order that is generated from it.
@@ -1573,21 +1589,21 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Linked Order.
+   *
+   * @param Link_Order_ID This field links a sales order to the purchase order that is generated
+   *     from it.
+   */
+  public void setLink_Order_ID(int Link_Order_ID) {
+    if (Link_Order_ID < 1) set_ValueNoCheck(I_C_Order.COLUMNNAME_Link_Order_ID, null);
+    else set_ValueNoCheck(I_C_Order.COLUMNNAME_Link_Order_ID, Integer.valueOf(Link_Order_ID));
+  }
+
   public org.compiere.model.I_M_FreightCategory getM_FreightCategory() throws RuntimeException {
     return (org.compiere.model.I_M_FreightCategory)
         MTable.get(getCtx(), org.compiere.model.I_M_FreightCategory.Table_Name)
             .getPO(getM_FreightCategory_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Freight Category.
-   *
-   * @param M_FreightCategory_ID Category of the Freight
-   */
-  public void setM_FreightCategory_ID(int M_FreightCategory_ID) {
-    if (M_FreightCategory_ID < 1) set_Value(I_C_Order.COLUMNNAME_M_FreightCategory_ID, null);
-    else
-      set_Value(I_C_Order.COLUMNNAME_M_FreightCategory_ID, Integer.valueOf(M_FreightCategory_ID));
   }
 
   /**
@@ -1601,20 +1617,21 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Freight Category.
+   *
+   * @param M_FreightCategory_ID Category of the Freight
+   */
+  public void setM_FreightCategory_ID(int M_FreightCategory_ID) {
+    if (M_FreightCategory_ID < 1) set_Value(I_C_Order.COLUMNNAME_M_FreightCategory_ID, null);
+    else
+      set_Value(I_C_Order.COLUMNNAME_M_FreightCategory_ID, Integer.valueOf(M_FreightCategory_ID));
+  }
+
   public org.compiere.model.I_M_PriceList getM_PriceList() throws RuntimeException {
     return (org.compiere.model.I_M_PriceList)
         MTable.get(getCtx(), org.compiere.model.I_M_PriceList.Table_Name)
             .getPO(getM_PriceList_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Price List.
-   *
-   * @param M_PriceList_ID Unique identifier of a Price List
-   */
-  public void setM_PriceList_ID(int M_PriceList_ID) {
-    if (M_PriceList_ID < 1) set_Value(I_C_Order.COLUMNNAME_M_PriceList_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_M_PriceList_ID, Integer.valueOf(M_PriceList_ID));
   }
 
   /**
@@ -1628,20 +1645,20 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Price List.
+   *
+   * @param M_PriceList_ID Unique identifier of a Price List
+   */
+  public void setM_PriceList_ID(int M_PriceList_ID) {
+    if (M_PriceList_ID < 1) set_Value(I_C_Order.COLUMNNAME_M_PriceList_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_M_PriceList_ID, Integer.valueOf(M_PriceList_ID));
+  }
+
   public org.compiere.model.I_M_Shipper getM_Shipper() throws RuntimeException {
     return (org.compiere.model.I_M_Shipper)
         MTable.get(getCtx(), org.compiere.model.I_M_Shipper.Table_Name)
             .getPO(getM_Shipper_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Shipper.
-   *
-   * @param M_Shipper_ID Method or manner of product delivery
-   */
-  public void setM_Shipper_ID(int M_Shipper_ID) {
-    if (M_Shipper_ID < 1) set_Value(I_C_Order.COLUMNNAME_M_Shipper_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_M_Shipper_ID, Integer.valueOf(M_Shipper_ID));
   }
 
   /**
@@ -1655,10 +1672,31 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Shipper.
+   *
+   * @param M_Shipper_ID Method or manner of product delivery
+   */
+  public void setM_Shipper_ID(int M_Shipper_ID) {
+    if (M_Shipper_ID < 1) set_Value(I_C_Order.COLUMNNAME_M_Shipper_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_M_Shipper_ID, Integer.valueOf(M_Shipper_ID));
+  }
+
   public org.compiere.model.I_M_Warehouse getM_Warehouse() throws RuntimeException {
     return (org.compiere.model.I_M_Warehouse)
         MTable.get(getCtx(), org.compiere.model.I_M_Warehouse.Table_Name)
             .getPO(getM_Warehouse_ID(), get_TrxName());
+  }
+
+  /**
+   * Get Warehouse.
+   *
+   * @return Storage Warehouse and Service Point
+   */
+  public int getM_Warehouse_ID() {
+    Integer ii = (Integer) get_Value(I_C_Order.COLUMNNAME_M_Warehouse_ID);
+    if (ii == null) return 0;
+    return ii;
   }
 
   /**
@@ -1672,12 +1710,12 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Get Warehouse.
+   * Get Payment BPartner.
    *
-   * @return Storage Warehouse and Service Point
+   * @return Business Partner responsible for the payment
    */
-  public int getM_Warehouse_ID() {
-    Integer ii = (Integer) get_Value(I_C_Order.COLUMNNAME_M_Warehouse_ID);
+  public int getPay_BPartner_ID() {
+    Integer ii = (Integer) get_Value(I_C_Order.COLUMNNAME_Pay_BPartner_ID);
     if (ii == null) return 0;
     return ii;
   }
@@ -1693,12 +1731,12 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Get Payment BPartner.
+   * Get Payment Location.
    *
-   * @return Business Partner responsible for the payment
+   * @return Location of the Business Partner responsible for the payment
    */
-  public int getPay_BPartner_ID() {
-    Integer ii = (Integer) get_Value(I_C_Order.COLUMNNAME_Pay_BPartner_ID);
+  public int getPay_Location_ID() {
+    Integer ii = (Integer) get_Value(I_C_Order.COLUMNNAME_Pay_Location_ID);
     if (ii == null) return 0;
     return ii;
   }
@@ -1714,43 +1752,6 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Get Payment Location.
-   *
-   * @return Location of the Business Partner responsible for the payment
-   */
-  public int getPay_Location_ID() {
-    Integer ii = (Integer) get_Value(I_C_Order.COLUMNNAME_Pay_Location_ID);
-    if (ii == null) return 0;
-    return ii;
-  }
-
-  /** PaymentRule AD_Reference_ID=195 */
-  public static final int PAYMENTRULE_AD_Reference_ID = 195;
-  /** Cash = B */
-  public static final String PAYMENTRULE_Cash = "B";
-  /** Credit Card = K */
-  public static final String PAYMENTRULE_CreditCard = "K";
-  /** Direct Deposit = T */
-  public static final String PAYMENTRULE_DirectDeposit = "T";
-  /** Check = S */
-  public static final String PAYMENTRULE_Check = "S";
-  /** On Credit = P */
-  public static final String PAYMENTRULE_OnCredit = "P";
-  /** Direct Debit = D */
-  public static final String PAYMENTRULE_DirectDebit = "D";
-  /** Mixed POS Payment = M */
-  public static final String PAYMENTRULE_MixedPOSPayment = "M";
-  /**
-   * Set Payment Rule.
-   *
-   * @param PaymentRule How you pay the invoice
-   */
-  public void setPaymentRule(String PaymentRule) {
-
-    set_Value(I_C_Order.COLUMNNAME_PaymentRule, PaymentRule);
-  }
-
-  /**
    * Get Payment Rule.
    *
    * @return How you pay the invoice
@@ -1760,13 +1761,13 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Order Reference.
+   * Set Payment Rule.
    *
-   * @param POReference Transaction Reference Number (Sales Order, Purchase Order) of your Business
-   *     Partner
+   * @param PaymentRule How you pay the invoice
    */
-  public void setPOReference(String POReference) {
-    set_Value(I_C_Order.COLUMNNAME_POReference, POReference);
+  public void setPaymentRule(String PaymentRule) {
+
+    set_Value(I_C_Order.COLUMNNAME_PaymentRule, PaymentRule);
   }
 
   /**
@@ -1779,12 +1780,13 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Posted.
+   * Set Order Reference.
    *
-   * @param Posted Posting status
+   * @param POReference Transaction Reference Number (Sales Order, Purchase Order) of your Business
+   *     Partner
    */
-  public void setPosted(boolean Posted) {
-    set_Value(I_C_Order.COLUMNNAME_Posted, Boolean.valueOf(Posted));
+  public void setPOReference(String POReference) {
+    set_Value(I_C_Order.COLUMNNAME_POReference, POReference);
   }
 
   /**
@@ -1801,26 +1803,13 @@ public class X_C_Order extends PO implements I_Persistent {
     return false;
   }
 
-  /** PriorityRule AD_Reference_ID=154 */
-  public static final int PRIORITYRULE_AD_Reference_ID = 154;
-  /** High = 3 */
-  public static final String PRIORITYRULE_High = "3";
-  /** Medium = 5 */
-  public static final String PRIORITYRULE_Medium = "5";
-  /** Low = 7 */
-  public static final String PRIORITYRULE_Low = "7";
-  /** Urgent = 1 */
-  public static final String PRIORITYRULE_Urgent = "1";
-  /** Minor = 9 */
-  public static final String PRIORITYRULE_Minor = "9";
   /**
-   * Set Priority.
+   * Set Posted.
    *
-   * @param PriorityRule Priority of a document
+   * @param Posted Posting status
    */
-  public void setPriorityRule(String PriorityRule) {
-
-    set_Value(I_C_Order.COLUMNNAME_PriorityRule, PriorityRule);
+  public void setPosted(boolean Posted) {
+    set_Value(I_C_Order.COLUMNNAME_Posted, Boolean.valueOf(Posted));
   }
 
   /**
@@ -1833,12 +1822,13 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Processed.
+   * Set Priority.
    *
-   * @param Processed The document has been processed
+   * @param PriorityRule Priority of a document
    */
-  public void setProcessed(boolean Processed) {
-    set_ValueNoCheck(I_C_Order.COLUMNNAME_Processed, Boolean.valueOf(Processed));
+  public void setPriorityRule(String PriorityRule) {
+
+    set_Value(I_C_Order.COLUMNNAME_PriorityRule, PriorityRule);
   }
 
   /**
@@ -1856,13 +1846,12 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Processed On.
+   * Set Processed.
    *
-   * @param ProcessedOn The date+time (expressed in decimal format) when the document has been
-   *     processed
+   * @param Processed The document has been processed
    */
-  public void setProcessedOn(BigDecimal ProcessedOn) {
-    set_Value(I_C_Order.COLUMNNAME_ProcessedOn, ProcessedOn);
+  public void setProcessed(boolean Processed) {
+    set_ValueNoCheck(I_C_Order.COLUMNNAME_Processed, Boolean.valueOf(Processed));
   }
 
   /**
@@ -1877,12 +1866,13 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Process Now.
+   * Set Processed On.
    *
-   * @param Processing Process Now
+   * @param ProcessedOn The date+time (expressed in decimal format) when the document has been
+   *     processed
    */
-  public void setProcessing(boolean Processing) {
-    set_Value(I_C_Order.COLUMNNAME_Processing, Boolean.valueOf(Processing));
+  public void setProcessedOn(BigDecimal ProcessedOn) {
+    set_Value(I_C_Order.COLUMNNAME_ProcessedOn, ProcessedOn);
   }
 
   /**
@@ -1900,12 +1890,12 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Promotion Code.
+   * Set Process Now.
    *
-   * @param PromotionCode User entered promotion code at sales time
+   * @param Processing Process Now
    */
-  public void setPromotionCode(String PromotionCode) {
-    set_Value(I_C_Order.COLUMNNAME_PromotionCode, PromotionCode);
+  public void setProcessing(boolean Processing) {
+    set_Value(I_C_Order.COLUMNNAME_Processing, Boolean.valueOf(Processing));
   }
 
   /**
@@ -1917,20 +1907,19 @@ public class X_C_Order extends PO implements I_Persistent {
     return (String) get_Value(I_C_Order.COLUMNNAME_PromotionCode);
   }
 
+  /**
+   * Set Promotion Code.
+   *
+   * @param PromotionCode User entered promotion code at sales time
+   */
+  public void setPromotionCode(String PromotionCode) {
+    set_Value(I_C_Order.COLUMNNAME_PromotionCode, PromotionCode);
+  }
+
   public org.compiere.model.I_C_Order getQuotationOrder() throws RuntimeException {
     return (org.compiere.model.I_C_Order)
         MTable.get(getCtx(), org.compiere.model.I_C_Order.Table_Name)
             .getPO(getQuotationOrder_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Quotation.
-   *
-   * @param QuotationOrder_ID Quotation used for generating this order
-   */
-  public void setQuotationOrder_ID(int QuotationOrder_ID) {
-    if (QuotationOrder_ID < 1) set_Value(I_C_Order.COLUMNNAME_QuotationOrder_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_QuotationOrder_ID, Integer.valueOf(QuotationOrder_ID));
   }
 
   /**
@@ -1944,20 +1933,20 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Quotation.
+   *
+   * @param QuotationOrder_ID Quotation used for generating this order
+   */
+  public void setQuotationOrder_ID(int QuotationOrder_ID) {
+    if (QuotationOrder_ID < 1) set_Value(I_C_Order.COLUMNNAME_QuotationOrder_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_QuotationOrder_ID, Integer.valueOf(QuotationOrder_ID));
+  }
+
   public org.compiere.model.I_C_Order getRef_Order() throws RuntimeException {
     return (org.compiere.model.I_C_Order)
         MTable.get(getCtx(), org.compiere.model.I_C_Order.Table_Name)
             .getPO(getRef_Order_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Referenced Order.
-   *
-   * @param Ref_Order_ID Reference to corresponding Sales/Purchase Order
-   */
-  public void setRef_Order_ID(int Ref_Order_ID) {
-    if (Ref_Order_ID < 1) set_Value(I_C_Order.COLUMNNAME_Ref_Order_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_Ref_Order_ID, Integer.valueOf(Ref_Order_ID));
   }
 
   /**
@@ -1971,20 +1960,20 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Referenced Order.
+   *
+   * @param Ref_Order_ID Reference to corresponding Sales/Purchase Order
+   */
+  public void setRef_Order_ID(int Ref_Order_ID) {
+    if (Ref_Order_ID < 1) set_Value(I_C_Order.COLUMNNAME_Ref_Order_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_Ref_Order_ID, Integer.valueOf(Ref_Order_ID));
+  }
+
   public org.compiere.model.I_AD_User getSalesRep() throws RuntimeException {
     return (org.compiere.model.I_AD_User)
         MTable.get(getCtx(), org.compiere.model.I_AD_User.Table_Name)
             .getPO(getSalesRep_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Sales Representative.
-   *
-   * @param SalesRep_ID Sales Representative or Company Agent
-   */
-  public void setSalesRep_ID(int SalesRep_ID) {
-    if (SalesRep_ID < 1) set_Value(I_C_Order.COLUMNNAME_SalesRep_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_SalesRep_ID, Integer.valueOf(SalesRep_ID));
   }
 
   /**
@@ -1999,12 +1988,13 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Send EMail.
+   * Set Sales Representative.
    *
-   * @param SendEMail Enable sending Document EMail
+   * @param SalesRep_ID Sales Representative or Company Agent
    */
-  public void setSendEMail(boolean SendEMail) {
-    set_Value(I_C_Order.COLUMNNAME_SendEMail, Boolean.valueOf(SendEMail));
+  public void setSalesRep_ID(int SalesRep_ID) {
+    if (SalesRep_ID < 1) set_Value(I_C_Order.COLUMNNAME_SalesRep_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_SalesRep_ID, Integer.valueOf(SalesRep_ID));
   }
 
   /**
@@ -2022,12 +2012,12 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Rate Inquiry.
+   * Set Send EMail.
    *
-   * @param ShippingRateInquiry Rate Inquiry
+   * @param SendEMail Enable sending Document EMail
    */
-  public void setShippingRateInquiry(String ShippingRateInquiry) {
-    set_Value(I_C_Order.COLUMNNAME_ShippingRateInquiry, ShippingRateInquiry);
+  public void setSendEMail(boolean SendEMail) {
+    set_Value(I_C_Order.COLUMNNAME_SendEMail, Boolean.valueOf(SendEMail));
   }
 
   /**
@@ -2040,12 +2030,12 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Total Lines.
+   * Set Rate Inquiry.
    *
-   * @param TotalLines Total of all document lines
+   * @param ShippingRateInquiry Rate Inquiry
    */
-  public void setTotalLines(BigDecimal TotalLines) {
-    set_ValueNoCheck(I_C_Order.COLUMNNAME_TotalLines, TotalLines);
+  public void setShippingRateInquiry(String ShippingRateInquiry) {
+    set_Value(I_C_Order.COLUMNNAME_ShippingRateInquiry, ShippingRateInquiry);
   }
 
   /**
@@ -2059,20 +2049,19 @@ public class X_C_Order extends PO implements I_Persistent {
     return bd;
   }
 
+  /**
+   * Set Total Lines.
+   *
+   * @param TotalLines Total of all document lines
+   */
+  public void setTotalLines(BigDecimal TotalLines) {
+    set_ValueNoCheck(I_C_Order.COLUMNNAME_TotalLines, TotalLines);
+  }
+
   public org.compiere.model.I_C_ElementValue getUser1() throws RuntimeException {
     return (org.compiere.model.I_C_ElementValue)
         MTable.get(getCtx(), org.compiere.model.I_C_ElementValue.Table_Name)
             .getPO(getUser1_ID(), get_TrxName());
-  }
-
-  /**
-   * Set User Element List 1.
-   *
-   * @param User1_ID User defined list element #1
-   */
-  public void setUser1_ID(int User1_ID) {
-    if (User1_ID < 1) set_Value(I_C_Order.COLUMNNAME_User1_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_User1_ID, Integer.valueOf(User1_ID));
   }
 
   /**
@@ -2086,20 +2075,20 @@ public class X_C_Order extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set User Element List 1.
+   *
+   * @param User1_ID User defined list element #1
+   */
+  public void setUser1_ID(int User1_ID) {
+    if (User1_ID < 1) set_Value(I_C_Order.COLUMNNAME_User1_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_User1_ID, Integer.valueOf(User1_ID));
+  }
+
   public org.compiere.model.I_C_ElementValue getUser2() throws RuntimeException {
     return (org.compiere.model.I_C_ElementValue)
         MTable.get(getCtx(), org.compiere.model.I_C_ElementValue.Table_Name)
             .getPO(getUser2_ID(), get_TrxName());
-  }
-
-  /**
-   * Set User Element List 2.
-   *
-   * @param User2_ID User defined list element #2
-   */
-  public void setUser2_ID(int User2_ID) {
-    if (User2_ID < 1) set_Value(I_C_Order.COLUMNNAME_User2_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_User2_ID, Integer.valueOf(User2_ID));
   }
 
   /**
@@ -2114,12 +2103,13 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Volume.
+   * Set User Element List 2.
    *
-   * @param Volume Volume of a product
+   * @param User2_ID User defined list element #2
    */
-  public void setVolume(BigDecimal Volume) {
-    set_Value(I_C_Order.COLUMNNAME_Volume, Volume);
+  public void setUser2_ID(int User2_ID) {
+    if (User2_ID < 1) set_Value(I_C_Order.COLUMNNAME_User2_ID, null);
+    else set_Value(I_C_Order.COLUMNNAME_User2_ID, Integer.valueOf(User2_ID));
   }
 
   /**
@@ -2134,12 +2124,12 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /**
-   * Set Weight.
+   * Set Volume.
    *
-   * @param Weight Weight of a product
+   * @param Volume Volume of a product
    */
-  public void setWeight(BigDecimal Weight) {
-    set_Value(I_C_Order.COLUMNNAME_Weight, Weight);
+  public void setVolume(BigDecimal Volume) {
+    set_Value(I_C_Order.COLUMNNAME_Volume, Volume);
   }
 
   /**
@@ -2151,6 +2141,15 @@ public class X_C_Order extends PO implements I_Persistent {
     BigDecimal bd = (BigDecimal) get_Value(I_C_Order.COLUMNNAME_Weight);
     if (bd == null) return Env.ZERO;
     return bd;
+  }
+
+  /**
+   * Set Weight.
+   *
+   * @param Weight Weight of a product
+   */
+  public void setWeight(BigDecimal Weight) {
+    set_Value(I_C_Order.COLUMNNAME_Weight, Weight);
   }
 
   @Override

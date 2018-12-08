@@ -1,12 +1,11 @@
 package org.compiere.order;
 
+import java.sql.ResultSet;
+import java.util.Properties;
 import org.compiere.model.I_C_OnlineTrxHistory;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.orm.I_Persistent;
-
-import java.sql.ResultSet;
-import java.util.Properties;
 
 /**
  * Generated Model for C_OnlineTrxHistory
@@ -54,6 +53,17 @@ public class X_C_OnlineTrxHistory extends PO implements I_C_OnlineTrxHistory, I_
   }
 
   /**
+   * Get Table.
+   *
+   * @return Database Table information
+   */
+  public int getAD_Table_ID() {
+    Integer ii = (Integer) get_Value(COLUMNNAME_AD_Table_ID);
+    if (ii == null) return 0;
+    return ii;
+  }
+
+  /**
    * Set Table.
    *
    * @param AD_Table_ID Database Table information
@@ -64,12 +74,12 @@ public class X_C_OnlineTrxHistory extends PO implements I_C_OnlineTrxHistory, I_
   }
 
   /**
-   * Get Table.
+   * Get Online Transaction History.
    *
-   * @return Database Table information
+   * @return Online Transaction History
    */
-  public int getAD_Table_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_AD_Table_ID);
+  public int getC_OnlineTrxHistory_ID() {
+    Integer ii = (Integer) get_Value(COLUMNNAME_C_OnlineTrxHistory_ID);
     if (ii == null) return 0;
     return ii;
   }
@@ -85,14 +95,12 @@ public class X_C_OnlineTrxHistory extends PO implements I_C_OnlineTrxHistory, I_
   }
 
   /**
-   * Get Online Transaction History.
+   * Get C_OnlineTrxHistory_UU.
    *
-   * @return Online Transaction History
+   * @return C_OnlineTrxHistory_UU
    */
-  public int getC_OnlineTrxHistory_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_C_OnlineTrxHistory_ID);
-    if (ii == null) return 0;
-    return ii;
+  public String getC_OnlineTrxHistory_UU() {
+    return (String) get_Value(COLUMNNAME_C_OnlineTrxHistory_UU);
   }
 
   /**
@@ -102,15 +110,6 @@ public class X_C_OnlineTrxHistory extends PO implements I_C_OnlineTrxHistory, I_
    */
   public void setC_OnlineTrxHistory_UU(String C_OnlineTrxHistory_UU) {
     set_Value(COLUMNNAME_C_OnlineTrxHistory_UU, C_OnlineTrxHistory_UU);
-  }
-
-  /**
-   * Get C_OnlineTrxHistory_UU.
-   *
-   * @return C_OnlineTrxHistory_UU
-   */
-  public String getC_OnlineTrxHistory_UU() {
-    return (String) get_Value(COLUMNNAME_C_OnlineTrxHistory_UU);
   }
 
   /**
@@ -137,15 +136,6 @@ public class X_C_OnlineTrxHistory extends PO implements I_C_OnlineTrxHistory, I_
   }
 
   /**
-   * Set Processed.
-   *
-   * @param Processed The document has been processed
-   */
-  public void setProcessed(boolean Processed) {
-    set_Value(COLUMNNAME_Processed, Boolean.valueOf(Processed));
-  }
-
-  /**
    * Get Processed.
    *
    * @return The document has been processed
@@ -160,13 +150,12 @@ public class X_C_OnlineTrxHistory extends PO implements I_C_OnlineTrxHistory, I_
   }
 
   /**
-   * Set Record ID.
+   * Set Processed.
    *
-   * @param Record_ID Direct internal record ID
+   * @param Processed The document has been processed
    */
-  public void setRecord_ID(int Record_ID) {
-    if (Record_ID < 0) set_Value(COLUMNNAME_Record_ID, null);
-    else set_Value(COLUMNNAME_Record_ID, Integer.valueOf(Record_ID));
+  public void setProcessed(boolean Processed) {
+    set_Value(COLUMNNAME_Processed, Boolean.valueOf(Processed));
   }
 
   /**
@@ -181,12 +170,13 @@ public class X_C_OnlineTrxHistory extends PO implements I_C_OnlineTrxHistory, I_
   }
 
   /**
-   * Set Text Message.
+   * Set Record ID.
    *
-   * @param TextMsg Text Message
+   * @param Record_ID Direct internal record ID
    */
-  public void setTextMsg(String TextMsg) {
-    set_Value(COLUMNNAME_TextMsg, TextMsg);
+  public void setRecord_ID(int Record_ID) {
+    if (Record_ID < 0) set_Value(COLUMNNAME_Record_ID, null);
+    else set_Value(COLUMNNAME_Record_ID, Integer.valueOf(Record_ID));
   }
 
   /**
@@ -196,6 +186,15 @@ public class X_C_OnlineTrxHistory extends PO implements I_C_OnlineTrxHistory, I_
    */
   public String getTextMsg() {
     return (String) get_Value(COLUMNNAME_TextMsg);
+  }
+
+  /**
+   * Set Text Message.
+   *
+   * @param TextMsg Text Message
+   */
+  public void setTextMsg(String TextMsg) {
+    set_Value(COLUMNNAME_TextMsg, TextMsg);
   }
 
   @Override

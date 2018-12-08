@@ -1,16 +1,15 @@
 package org.compiere.order;
 
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.Properties;
 import org.compiere.model.I_C_OrderPaySchedule;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 import org.idempiere.common.util.KeyNamePair;
 import org.idempiere.orm.I_Persistent;
-
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
-import java.util.Properties;
 
 /**
  * Generated Model for C_OrderPaySchedule
@@ -60,6 +59,17 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
   }
 
   /**
+   * Get Order.
+   *
+   * @return Order
+   */
+  public int getC_Order_ID() {
+    Integer ii = (Integer) get_Value(COLUMNNAME_C_Order_ID);
+    if (ii == null) return 0;
+    return ii;
+  }
+
+  /**
    * Set Order.
    *
    * @param C_Order_ID Order
@@ -70,12 +80,12 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
   }
 
   /**
-   * Get Order.
+   * Get Order Payment Schedule.
    *
-   * @return Order
+   * @return Order Payment Schedule
    */
-  public int getC_Order_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_C_Order_ID);
+  public int getC_OrderPaySchedule_ID() {
+    Integer ii = (Integer) get_Value(COLUMNNAME_C_OrderPaySchedule_ID);
     if (ii == null) return 0;
     return ii;
   }
@@ -91,14 +101,12 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
   }
 
   /**
-   * Get Order Payment Schedule.
+   * Get C_OrderPaySchedule_UU.
    *
-   * @return Order Payment Schedule
+   * @return C_OrderPaySchedule_UU
    */
-  public int getC_OrderPaySchedule_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_C_OrderPaySchedule_ID);
-    if (ii == null) return 0;
-    return ii;
+  public String getC_OrderPaySchedule_UU() {
+    return (String) get_Value(COLUMNNAME_C_OrderPaySchedule_UU);
   }
 
   /**
@@ -110,29 +118,10 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
     set_Value(COLUMNNAME_C_OrderPaySchedule_UU, C_OrderPaySchedule_UU);
   }
 
-  /**
-   * Get C_OrderPaySchedule_UU.
-   *
-   * @return C_OrderPaySchedule_UU
-   */
-  public String getC_OrderPaySchedule_UU() {
-    return (String) get_Value(COLUMNNAME_C_OrderPaySchedule_UU);
-  }
-
   public org.compiere.model.I_C_PaySchedule getC_PaySchedule() throws RuntimeException {
     return (org.compiere.model.I_C_PaySchedule)
         MTable.get(getCtx(), org.compiere.model.I_C_PaySchedule.Table_Name)
             .getPO(getC_PaySchedule_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Payment Schedule.
-   *
-   * @param C_PaySchedule_ID Payment Schedule Template
-   */
-  public void setC_PaySchedule_ID(int C_PaySchedule_ID) {
-    if (C_PaySchedule_ID < 1) set_ValueNoCheck(COLUMNNAME_C_PaySchedule_ID, null);
-    else set_ValueNoCheck(COLUMNNAME_C_PaySchedule_ID, Integer.valueOf(C_PaySchedule_ID));
   }
 
   /**
@@ -147,12 +136,13 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
   }
 
   /**
-   * Set Discount Amount.
+   * Set Payment Schedule.
    *
-   * @param DiscountAmt Calculated amount of discount
+   * @param C_PaySchedule_ID Payment Schedule Template
    */
-  public void setDiscountAmt(BigDecimal DiscountAmt) {
-    set_Value(COLUMNNAME_DiscountAmt, DiscountAmt);
+  public void setC_PaySchedule_ID(int C_PaySchedule_ID) {
+    if (C_PaySchedule_ID < 1) set_ValueNoCheck(COLUMNNAME_C_PaySchedule_ID, null);
+    else set_ValueNoCheck(COLUMNNAME_C_PaySchedule_ID, Integer.valueOf(C_PaySchedule_ID));
   }
 
   /**
@@ -167,12 +157,12 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
   }
 
   /**
-   * Set Discount Date.
+   * Set Discount Amount.
    *
-   * @param DiscountDate Last Date for payments with discount
+   * @param DiscountAmt Calculated amount of discount
    */
-  public void setDiscountDate(Timestamp DiscountDate) {
-    set_Value(COLUMNNAME_DiscountDate, DiscountDate);
+  public void setDiscountAmt(BigDecimal DiscountAmt) {
+    set_Value(COLUMNNAME_DiscountAmt, DiscountAmt);
   }
 
   /**
@@ -185,21 +175,21 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
   }
 
   /**
+   * Set Discount Date.
+   *
+   * @param DiscountDate Last Date for payments with discount
+   */
+  public void setDiscountDate(Timestamp DiscountDate) {
+    set_Value(COLUMNNAME_DiscountDate, DiscountDate);
+  }
+
+  /**
    * Get Record ID/ColumnName
    *
    * @return ID/ColumnName pair
    */
   public KeyNamePair getKeyNamePair() {
     return new KeyNamePair(getId(), String.valueOf(getDiscountDate()));
-  }
-
-  /**
-   * Set Amount due.
-   *
-   * @param DueAmt Amount of the payment due
-   */
-  public void setDueAmt(BigDecimal DueAmt) {
-    set_Value(COLUMNNAME_DueAmt, DueAmt);
   }
 
   /**
@@ -214,12 +204,12 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
   }
 
   /**
-   * Set Due Date.
+   * Set Amount due.
    *
-   * @param DueDate Date when the payment is due
+   * @param DueAmt Amount of the payment due
    */
-  public void setDueDate(Timestamp DueDate) {
-    set_Value(COLUMNNAME_DueDate, DueDate);
+  public void setDueAmt(BigDecimal DueAmt) {
+    set_Value(COLUMNNAME_DueAmt, DueAmt);
   }
 
   /**
@@ -229,6 +219,15 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
    */
   public Timestamp getDueDate() {
     return (Timestamp) get_Value(COLUMNNAME_DueDate);
+  }
+
+  /**
+   * Set Due Date.
+   *
+   * @param DueDate Date when the payment is due
+   */
+  public void setDueDate(Timestamp DueDate) {
+    set_Value(COLUMNNAME_DueDate, DueDate);
   }
 
   /**
@@ -255,15 +254,6 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
   }
 
   /**
-   * Set Processed.
-   *
-   * @param Processed The document has been processed
-   */
-  public void setProcessed(boolean Processed) {
-    set_Value(COLUMNNAME_Processed, Boolean.valueOf(Processed));
-  }
-
-  /**
    * Get Processed.
    *
    * @return The document has been processed
@@ -278,12 +268,12 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
   }
 
   /**
-   * Set Process Now.
+   * Set Processed.
    *
-   * @param Processing Process Now
+   * @param Processed The document has been processed
    */
-  public void setProcessing(boolean Processing) {
-    set_Value(COLUMNNAME_Processing, Boolean.valueOf(Processing));
+  public void setProcessed(boolean Processed) {
+    set_Value(COLUMNNAME_Processed, Boolean.valueOf(Processed));
   }
 
   /**
@@ -298,6 +288,15 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
       return "Y".equals(oo);
     }
     return false;
+  }
+
+  /**
+   * Set Process Now.
+   *
+   * @param Processing Process Now
+   */
+  public void setProcessing(boolean Processing) {
+    set_Value(COLUMNNAME_Processing, Boolean.valueOf(Processing));
   }
 
   @Override

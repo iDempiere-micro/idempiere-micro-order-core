@@ -1,17 +1,16 @@
 package org.compiere.order;
 
+import static software.hsharp.core.util.DBKt.executeUpdate;
+import static software.hsharp.core.util.DBKt.executeUpdateEx;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import org.compiere.model.*;
 import org.compiere.tax.ITaxProvider;
 import org.compiere.tax.MTax;
 import org.compiere.util.Msg;
 import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.Env;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-
-import static software.hsharp.core.util.DBKt.executeUpdate;
-import static software.hsharp.core.util.DBKt.executeUpdateEx;
 
 /**
  * Standard tax provider

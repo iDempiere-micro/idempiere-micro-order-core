@@ -1,14 +1,13 @@
 package org.compiere.order;
 
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.Properties;
 import org.compiere.model.I_M_RMATax;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 import org.idempiere.orm.I_Persistent;
-
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.util.Properties;
 
 /**
  * Generated Model for M_RMATax
@@ -56,16 +55,6 @@ public class X_M_RMATax extends PO implements I_Persistent {
   }
 
   /**
-   * Set Tax.
-   *
-   * @param C_Tax_ID Tax identifier
-   */
-  public void setC_Tax_ID(int C_Tax_ID) {
-    if (C_Tax_ID < 1) set_ValueNoCheck(I_M_RMATax.COLUMNNAME_C_Tax_ID, null);
-    else set_ValueNoCheck(I_M_RMATax.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
-  }
-
-  /**
    * Get Tax.
    *
    * @return Tax identifier
@@ -76,21 +65,20 @@ public class X_M_RMATax extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Tax.
+   *
+   * @param C_Tax_ID Tax identifier
+   */
+  public void setC_Tax_ID(int C_Tax_ID) {
+    if (C_Tax_ID < 1) set_ValueNoCheck(I_M_RMATax.COLUMNNAME_C_Tax_ID, null);
+    else set_ValueNoCheck(I_M_RMATax.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
+  }
+
   public org.compiere.model.I_C_TaxProvider getC_TaxProvider() throws RuntimeException {
     return (org.compiere.model.I_C_TaxProvider)
         MTable.get(getCtx(), org.compiere.model.I_C_TaxProvider.Table_Name)
             .getPO(getC_TaxProvider_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Tax Provider.
-   *
-   * @param C_TaxProvider_ID Tax Provider
-   */
-  public void setC_TaxProvider_ID(int C_TaxProvider_ID) {
-    if (C_TaxProvider_ID < 1) set_ValueNoCheck(I_M_RMATax.COLUMNNAME_C_TaxProvider_ID, null);
-    else
-      set_ValueNoCheck(I_M_RMATax.COLUMNNAME_C_TaxProvider_ID, Integer.valueOf(C_TaxProvider_ID));
   }
 
   /**
@@ -102,6 +90,17 @@ public class X_M_RMATax extends PO implements I_Persistent {
     Integer ii = (Integer) get_Value(I_M_RMATax.COLUMNNAME_C_TaxProvider_ID);
     if (ii == null) return 0;
     return ii;
+  }
+
+  /**
+   * Set Tax Provider.
+   *
+   * @param C_TaxProvider_ID Tax Provider
+   */
+  public void setC_TaxProvider_ID(int C_TaxProvider_ID) {
+    if (C_TaxProvider_ID < 1) set_ValueNoCheck(I_M_RMATax.COLUMNNAME_C_TaxProvider_ID, null);
+    else
+      set_ValueNoCheck(I_M_RMATax.COLUMNNAME_C_TaxProvider_ID, Integer.valueOf(C_TaxProvider_ID));
   }
 
   /**
@@ -134,16 +133,6 @@ public class X_M_RMATax extends PO implements I_Persistent {
   }
 
   /**
-   * Set RMA.
-   *
-   * @param M_RMA_ID Return Material Authorization
-   */
-  public void setM_RMA_ID(int M_RMA_ID) {
-    if (M_RMA_ID < 1) set_ValueNoCheck(I_M_RMATax.COLUMNNAME_M_RMA_ID, null);
-    else set_ValueNoCheck(I_M_RMATax.COLUMNNAME_M_RMA_ID, Integer.valueOf(M_RMA_ID));
-  }
-
-  /**
    * Get RMA.
    *
    * @return Return Material Authorization
@@ -155,12 +144,13 @@ public class X_M_RMATax extends PO implements I_Persistent {
   }
 
   /**
-   * Set M_RMATax_UU.
+   * Set RMA.
    *
-   * @param M_RMATax_UU M_RMATax_UU
+   * @param M_RMA_ID Return Material Authorization
    */
-  public void setM_RMATax_UU(String M_RMATax_UU) {
-    set_Value(I_M_RMATax.COLUMNNAME_M_RMATax_UU, M_RMATax_UU);
+  public void setM_RMA_ID(int M_RMA_ID) {
+    if (M_RMA_ID < 1) set_ValueNoCheck(I_M_RMATax.COLUMNNAME_M_RMA_ID, null);
+    else set_ValueNoCheck(I_M_RMATax.COLUMNNAME_M_RMA_ID, Integer.valueOf(M_RMA_ID));
   }
 
   /**
@@ -173,12 +163,12 @@ public class X_M_RMATax extends PO implements I_Persistent {
   }
 
   /**
-   * Set Processed.
+   * Set M_RMATax_UU.
    *
-   * @param Processed The document has been processed
+   * @param M_RMATax_UU M_RMATax_UU
    */
-  public void setProcessed(boolean Processed) {
-    set_Value(I_M_RMATax.COLUMNNAME_Processed, Boolean.valueOf(Processed));
+  public void setM_RMATax_UU(String M_RMATax_UU) {
+    set_Value(I_M_RMATax.COLUMNNAME_M_RMATax_UU, M_RMATax_UU);
   }
 
   /**
@@ -196,12 +186,12 @@ public class X_M_RMATax extends PO implements I_Persistent {
   }
 
   /**
-   * Set Tax Amount.
+   * Set Processed.
    *
-   * @param TaxAmt Tax Amount for a document
+   * @param Processed The document has been processed
    */
-  public void setTaxAmt(BigDecimal TaxAmt) {
-    set_ValueNoCheck(I_M_RMATax.COLUMNNAME_TaxAmt, TaxAmt);
+  public void setProcessed(boolean Processed) {
+    set_Value(I_M_RMATax.COLUMNNAME_Processed, Boolean.valueOf(Processed));
   }
 
   /**
@@ -216,12 +206,12 @@ public class X_M_RMATax extends PO implements I_Persistent {
   }
 
   /**
-   * Set Tax base Amount.
+   * Set Tax Amount.
    *
-   * @param TaxBaseAmt Base for calculating the tax amount
+   * @param TaxAmt Tax Amount for a document
    */
-  public void setTaxBaseAmt(BigDecimal TaxBaseAmt) {
-    set_ValueNoCheck(I_M_RMATax.COLUMNNAME_TaxBaseAmt, TaxBaseAmt);
+  public void setTaxAmt(BigDecimal TaxAmt) {
+    set_ValueNoCheck(I_M_RMATax.COLUMNNAME_TaxAmt, TaxAmt);
   }
 
   /**
@@ -233,6 +223,15 @@ public class X_M_RMATax extends PO implements I_Persistent {
     BigDecimal bd = (BigDecimal) get_Value(I_M_RMATax.COLUMNNAME_TaxBaseAmt);
     if (bd == null) return Env.ZERO;
     return bd;
+  }
+
+  /**
+   * Set Tax base Amount.
+   *
+   * @param TaxBaseAmt Base for calculating the tax amount
+   */
+  public void setTaxBaseAmt(BigDecimal TaxBaseAmt) {
+    set_ValueNoCheck(I_M_RMATax.COLUMNNAME_TaxBaseAmt, TaxBaseAmt);
   }
 
   @Override

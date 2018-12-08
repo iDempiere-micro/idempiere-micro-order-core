@@ -1,5 +1,13 @@
 package org.compiere.order;
 
+import static software.hsharp.core.util.DBKt.close;
+import static software.hsharp.core.util.DBKt.prepareStatement;
+
+import java.math.BigDecimal;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Properties;
+import java.util.logging.Level;
 import org.compiere.model.I_C_Tax;
 import org.compiere.model.I_M_RMALine;
 import org.compiere.model.I_M_RMATax;
@@ -8,19 +16,43 @@ import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.Env;
 import org.idempiere.icommon.model.IPO;
 
-import java.math.BigDecimal;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Properties;
-import java.util.logging.Level;
-
-import static software.hsharp.core.util.DBKt.close;
-import static software.hsharp.core.util.DBKt.prepareStatement;
-
 /** @author Elaine */
 public class MRMATax extends X_M_RMATax implements I_M_RMATax {
   /** */
   private static final long serialVersionUID = -8702466449639865049L;
+  /** Static Logger */
+  private static CLogger s_log = CLogger.getCLogger(MRMATax.class);
+  /** Tax */
+  private MTax m_tax = null;
+  /** Cached Precision */
+  private Integer m_precision = null;
+
+  /**
+   * ************************************************************************ Persistence
+   * Constructor
+   *
+   * @param ctx context
+   * @param ignored ignored
+   * @param trxName transaction
+   */
+  public MRMATax(Properties ctx, int ignored, String trxName) {
+    super(ctx, 0, trxName);
+    if (ignored != 0) throw new IllegalArgumentException("Multi-Key");
+    setTaxAmt(Env.ZERO);
+    setTaxBaseAmt(Env.ZERO);
+    setIsTaxIncluded(false);
+  }
+
+  /**
+   * Load Constructor. Set Precision and TaxIncluded for tax calculations!
+   *
+   * @param ctx context
+   * @param rs result set
+   * @param trxName transaction
+   */
+  public MRMATax(Properties ctx, ResultSet rs, String trxName) {
+    super(ctx, rs, trxName);
+  }
 
   /**
    * Get Tax Line for RMA Line
@@ -91,41 +123,6 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
     if (s_log.isLoggable(Level.FINE)) s_log.fine("(new) " + retValue);
     return retValue;
   }
-
-  /** Static Logger */
-  private static CLogger s_log = CLogger.getCLogger(MRMATax.class);
-
-  /**
-   * ************************************************************************ Persistence
-   * Constructor
-   *
-   * @param ctx context
-   * @param ignored ignored
-   * @param trxName transaction
-   */
-  public MRMATax(Properties ctx, int ignored, String trxName) {
-    super(ctx, 0, trxName);
-    if (ignored != 0) throw new IllegalArgumentException("Multi-Key");
-    setTaxAmt(Env.ZERO);
-    setTaxBaseAmt(Env.ZERO);
-    setIsTaxIncluded(false);
-  }
-
-  /**
-   * Load Constructor. Set Precision and TaxIncluded for tax calculations!
-   *
-   * @param ctx context
-   * @param rs result set
-   * @param trxName transaction
-   */
-  public MRMATax(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
-  }
-
-  /** Tax */
-  private MTax m_tax = null;
-  /** Cached Precision */
-  private Integer m_precision = null;
 
   /**
    * Get Precision

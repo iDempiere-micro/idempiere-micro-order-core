@@ -1,5 +1,11 @@
 package org.compiere.order;
 
+import static software.hsharp.core.util.DBKt.getSQLValueEx;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.List;
+import java.util.Properties;
 import org.compiere.model.I_M_AttributeSet;
 import org.compiere.model.I_M_InOutLine;
 import org.compiere.orm.Query;
@@ -11,75 +17,24 @@ import org.idempiere.common.exceptions.FillMandatoryException;
 import org.idempiere.common.util.Env;
 import org.idempiere.common.util.Util;
 
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.util.List;
-import java.util.Properties;
-
-import static software.hsharp.core.util.DBKt.getSQLValueEx;
-
 /**
  * InOut Line
  *
  * @author Jorg Janke
- * @version $Id: MInOutLine.java,v 1.5 2006/07/30 00:51:03 jjanke Exp $
  * @author Teo Sarca, www.arhipac.ro
  *     <li>BF [ 2784194 ] Check Warehouse-Locator conflict
  *         https://sourceforge.net/tracker/?func=detail&aid=2784194&group_id=176962&atid=879332
+ * @version $Id: MInOutLine.java,v 1.5 2006/07/30 00:51:03 jjanke Exp $
  */
 public class MInOutLine extends X_M_InOutLine {
   /** */
   private static final long serialVersionUID = 8630611882798722864L;
-
-  /**
-   * Get Ship lines Of Order Line
-   *
-   * @param ctx context
-   * @param C_OrderLine_ID line
-   * @param where optional addition where clause
-   * @param trxName transaction
-   * @return array of receipt lines
-   */
-  public static MInOutLine[] getOfOrderLine(
-      Properties ctx, int C_OrderLine_ID, String where, String trxName) {
-    String whereClause = "C_OrderLine_ID=?" + (!Util.isEmpty(where, true) ? " AND " + where : "");
-    List<MInOutLine> list =
-        new Query(ctx, I_M_InOutLine.Table_Name, whereClause, trxName)
-            .setParameters(C_OrderLine_ID)
-            .list();
-    return list.toArray(new MInOutLine[list.size()]);
-  } //	getOfOrderLine
-
-  /**
-   * Get Ship lines Of RMA Line
-   *
-   * @param ctx context
-   * @param M_RMALine_ID line
-   * @param where optional addition where clause
-   * @param trxName transaction
-   * @return array of receipt lines
-   */
-  public static MInOutLine[] getOfRMALine(
-      Properties ctx, int M_RMALine_ID, String where, String trxName) {
-    String whereClause = "M_RMALine_ID=? " + (!Util.isEmpty(where, true) ? " AND " + where : "");
-    List<MInOutLine> list =
-        new Query(ctx, I_M_InOutLine.Table_Name, whereClause, trxName)
-            .setParameters(M_RMALine_ID)
-            .list();
-    return list.toArray(new MInOutLine[list.size()]);
-  } //	getOfRMALine
-
-  /**
-   * Get Ship lines Of Order Line
-   *
-   * @param ctx context
-   * @param C_OrderLine_ID line
-   * @param trxName transaction
-   * @return array of receipt lines2
-   */
-  public static MInOutLine[] get(Properties ctx, int C_OrderLine_ID, String trxName) {
-    return getOfOrderLine(ctx, C_OrderLine_ID, null, trxName);
-  } //	get
+  /** Product */
+  private MProduct m_product = null;
+  /** Warehouse */
+  private int m_M_Warehouse_ID = 0;
+  /** Parent */
+  private MInOut m_parent = null;
 
   /**
    * ************************************************************************ Standard Constructor
@@ -131,12 +86,55 @@ public class MInOutLine extends X_M_InOutLine {
     m_parent = inout;
   } //	MInOutLine
 
-  /** Product */
-  private MProduct m_product = null;
-  /** Warehouse */
-  private int m_M_Warehouse_ID = 0;
-  /** Parent */
-  private MInOut m_parent = null;
+  /**
+   * Get Ship lines Of Order Line
+   *
+   * @param ctx context
+   * @param C_OrderLine_ID line
+   * @param where optional addition where clause
+   * @param trxName transaction
+   * @return array of receipt lines
+   */
+  public static MInOutLine[] getOfOrderLine(
+      Properties ctx, int C_OrderLine_ID, String where, String trxName) {
+    String whereClause = "C_OrderLine_ID=?" + (!Util.isEmpty(where, true) ? " AND " + where : "");
+    List<MInOutLine> list =
+        new Query(ctx, I_M_InOutLine.Table_Name, whereClause, trxName)
+            .setParameters(C_OrderLine_ID)
+            .list();
+    return list.toArray(new MInOutLine[list.size()]);
+  } //	getOfOrderLine
+
+  /**
+   * Get Ship lines Of RMA Line
+   *
+   * @param ctx context
+   * @param M_RMALine_ID line
+   * @param where optional addition where clause
+   * @param trxName transaction
+   * @return array of receipt lines
+   */
+  public static MInOutLine[] getOfRMALine(
+      Properties ctx, int M_RMALine_ID, String where, String trxName) {
+    String whereClause = "M_RMALine_ID=? " + (!Util.isEmpty(where, true) ? " AND " + where : "");
+    List<MInOutLine> list =
+        new Query(ctx, I_M_InOutLine.Table_Name, whereClause, trxName)
+            .setParameters(M_RMALine_ID)
+            .list();
+    return list.toArray(new MInOutLine[list.size()]);
+  } //	getOfRMALine
+
+  /**
+   * Get Ship lines Of Order Line
+   *
+   * @param ctx context
+   * @param C_OrderLine_ID line
+   * @param trxName transaction
+   * @return array of receipt lines2
+   */
+  public static MInOutLine[] get(Properties ctx, int C_OrderLine_ID, String trxName) {
+    return getOfOrderLine(ctx, C_OrderLine_ID, null, trxName);
+  } //	get
 
   /**
    * Get Parent

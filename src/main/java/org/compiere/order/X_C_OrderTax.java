@@ -1,14 +1,13 @@
 package org.compiere.order;
 
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.Properties;
 import org.compiere.model.I_C_OrderTax;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 import org.idempiere.orm.I_Persistent;
-
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.util.Properties;
 
 /**
  * Generated Model for C_OrderTax
@@ -56,16 +55,6 @@ public class X_C_OrderTax extends PO implements I_Persistent {
   }
 
   /**
-   * Set Order.
-   *
-   * @param C_Order_ID Order
-   */
-  public void setC_Order_ID(int C_Order_ID) {
-    if (C_Order_ID < 1) set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_C_Order_ID, null);
-    else set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
-  }
-
-  /**
    * Get Order.
    *
    * @return Order
@@ -77,12 +66,13 @@ public class X_C_OrderTax extends PO implements I_Persistent {
   }
 
   /**
-   * Set C_OrderTax_UU.
+   * Set Order.
    *
-   * @param C_OrderTax_UU C_OrderTax_UU
+   * @param C_Order_ID Order
    */
-  public void setC_OrderTax_UU(String C_OrderTax_UU) {
-    set_Value(I_C_OrderTax.COLUMNNAME_C_OrderTax_UU, C_OrderTax_UU);
+  public void setC_Order_ID(int C_Order_ID) {
+    if (C_Order_ID < 1) set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_C_Order_ID, null);
+    else set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
   }
 
   /**
@@ -94,20 +84,19 @@ public class X_C_OrderTax extends PO implements I_Persistent {
     return (String) get_Value(I_C_OrderTax.COLUMNNAME_C_OrderTax_UU);
   }
 
+  /**
+   * Set C_OrderTax_UU.
+   *
+   * @param C_OrderTax_UU C_OrderTax_UU
+   */
+  public void setC_OrderTax_UU(String C_OrderTax_UU) {
+    set_Value(I_C_OrderTax.COLUMNNAME_C_OrderTax_UU, C_OrderTax_UU);
+  }
+
   public org.compiere.model.I_C_Tax getC_Tax() throws RuntimeException {
     return (org.compiere.model.I_C_Tax)
         MTable.get(getCtx(), org.compiere.model.I_C_Tax.Table_Name)
             .getPO(getC_Tax_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Tax.
-   *
-   * @param C_Tax_ID Tax identifier
-   */
-  public void setC_Tax_ID(int C_Tax_ID) {
-    if (C_Tax_ID < 1) set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_C_Tax_ID, null);
-    else set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
   }
 
   /**
@@ -121,21 +110,20 @@ public class X_C_OrderTax extends PO implements I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Tax.
+   *
+   * @param C_Tax_ID Tax identifier
+   */
+  public void setC_Tax_ID(int C_Tax_ID) {
+    if (C_Tax_ID < 1) set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_C_Tax_ID, null);
+    else set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
+  }
+
   public org.compiere.model.I_C_TaxProvider getC_TaxProvider() throws RuntimeException {
     return (org.compiere.model.I_C_TaxProvider)
         MTable.get(getCtx(), org.compiere.model.I_C_TaxProvider.Table_Name)
             .getPO(getC_TaxProvider_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Tax Provider.
-   *
-   * @param C_TaxProvider_ID Tax Provider
-   */
-  public void setC_TaxProvider_ID(int C_TaxProvider_ID) {
-    if (C_TaxProvider_ID < 1) set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_C_TaxProvider_ID, null);
-    else
-      set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_C_TaxProvider_ID, Integer.valueOf(C_TaxProvider_ID));
   }
 
   /**
@@ -147,6 +135,17 @@ public class X_C_OrderTax extends PO implements I_Persistent {
     Integer ii = (Integer) get_Value(I_C_OrderTax.COLUMNNAME_C_TaxProvider_ID);
     if (ii == null) return 0;
     return ii;
+  }
+
+  /**
+   * Set Tax Provider.
+   *
+   * @param C_TaxProvider_ID Tax Provider
+   */
+  public void setC_TaxProvider_ID(int C_TaxProvider_ID) {
+    if (C_TaxProvider_ID < 1) set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_C_TaxProvider_ID, null);
+    else
+      set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_C_TaxProvider_ID, Integer.valueOf(C_TaxProvider_ID));
   }
 
   /**
@@ -173,15 +172,6 @@ public class X_C_OrderTax extends PO implements I_Persistent {
   }
 
   /**
-   * Set Processed.
-   *
-   * @param Processed The document has been processed
-   */
-  public void setProcessed(boolean Processed) {
-    set_Value(I_C_OrderTax.COLUMNNAME_Processed, Boolean.valueOf(Processed));
-  }
-
-  /**
    * Get Processed.
    *
    * @return The document has been processed
@@ -196,12 +186,12 @@ public class X_C_OrderTax extends PO implements I_Persistent {
   }
 
   /**
-   * Set Tax Amount.
+   * Set Processed.
    *
-   * @param TaxAmt Tax Amount for a document
+   * @param Processed The document has been processed
    */
-  public void setTaxAmt(BigDecimal TaxAmt) {
-    set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_TaxAmt, TaxAmt);
+  public void setProcessed(boolean Processed) {
+    set_Value(I_C_OrderTax.COLUMNNAME_Processed, Boolean.valueOf(Processed));
   }
 
   /**
@@ -216,12 +206,12 @@ public class X_C_OrderTax extends PO implements I_Persistent {
   }
 
   /**
-   * Set Tax base Amount.
+   * Set Tax Amount.
    *
-   * @param TaxBaseAmt Base for calculating the tax amount
+   * @param TaxAmt Tax Amount for a document
    */
-  public void setTaxBaseAmt(BigDecimal TaxBaseAmt) {
-    set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_TaxBaseAmt, TaxBaseAmt);
+  public void setTaxAmt(BigDecimal TaxAmt) {
+    set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_TaxAmt, TaxAmt);
   }
 
   /**
@@ -233,6 +223,15 @@ public class X_C_OrderTax extends PO implements I_Persistent {
     BigDecimal bd = (BigDecimal) get_Value(I_C_OrderTax.COLUMNNAME_TaxBaseAmt);
     if (bd == null) return Env.ZERO;
     return bd;
+  }
+
+  /**
+   * Set Tax base Amount.
+   *
+   * @param TaxBaseAmt Base for calculating the tax amount
+   */
+  public void setTaxBaseAmt(BigDecimal TaxBaseAmt) {
+    set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_TaxBaseAmt, TaxBaseAmt);
   }
 
   @Override

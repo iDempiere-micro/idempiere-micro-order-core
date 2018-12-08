@@ -1,5 +1,15 @@
 package org.compiere.order;
 
+import static software.hsharp.core.orm.POKt.I_ZERO;
+import static software.hsharp.core.util.DBKt.*;
+
+import java.io.File;
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
 import org.compiere.crm.MBPartner;
 import org.compiere.crm.MUser;
 import org.compiere.model.I_C_BPartner_Location;
@@ -12,42 +22,41 @@ import org.compiere.orm.PO;
 import org.compiere.orm.Query;
 import org.compiere.util.Msg;
 import org.idempiere.common.util.Env;
-import software.hsharp.core.util.DB;
-
-import java.io.File;
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.Properties;
-import java.util.logging.Level;
-
-import static software.hsharp.core.orm.POKt.I_ZERO;
-import static software.hsharp.core.util.DBKt.*;
 
 /**
  * Shipment Model
  *
  * @author Jorg Janke
- * @version $Id: MInOut.java,v 1.4 2006/07/30 00:51:03 jjanke Exp $
- *     <p>Modifications: Added the RMA functionality (Ashley Ramdass)
  * @author Karsten Thiemann, Schaeffer AG
  *     <li>Bug [ 1759431 ] Problems with VCreateFrom
  * @author victor.perez@e-evolution.com, e-Evolution http://www.e-evolution.com
  *     <li>FR [ 1948157 ] Is necessary the reference for document reverse
  *     <li>FR [ 2520591 ] Support multiples calendar for Org
- * @see http://sourceforge.net/tracker2/?func=detail&atid=879335&aid=2520591&group_id=176962
  * @author Armen Rizal, Goodwill Consulting
  *     <li>BF [ 1745154 ] Cost in Reversing Material Related Docs
- * @see http://sourceforge.net/tracker/?func=detail&atid=879335&aid=1948157&group_id=176962
  * @author Teo Sarca, teo.sarca@gmail.com
  *     <li>BF [ 2993853 ] Voiding/Reversing Receipt should void confirmations
  *         https://sourceforge.net/tracker/?func=detail&atid=879332&aid=2993853&group_id=176962
+ * @version $Id: MInOut.java,v 1.4 2006/07/30 00:51:03 jjanke Exp $
+ *     <p>Modifications: Added the RMA functionality (Ashley Ramdass)
+ * @see http://sourceforge.net/tracker2/?func=detail&atid=879335&aid=2520591&group_id=176962
+ * @see http://sourceforge.net/tracker/?func=detail&atid=879335&aid=1948157&group_id=176962
  */
 public class MInOut extends X_M_InOut {
   /** */
   private static final long serialVersionUID = 1226522383231204912L;
-
+  /** Lines */
+  protected MInOutLine[] m_lines = null;
+  /** Confirmations */
+  protected MInOutConfirm[] m_confirms = null;
+  /** BPartner */
+  protected MBPartner m_partner = null;
+  /** Reversal Flag */
+  protected boolean m_reversal = false;
+  /** Process Message */
+  protected String m_processMsg = null;
+  /** Just Prepared Flag */
+  protected boolean m_justPrepared = false;
   /**
    * ************************************************************************ Standard Constructor
    *
@@ -85,7 +94,6 @@ public class MInOut extends X_M_InOut {
       setPosted(false);
     }
   } //	MInOut
-
   /**
    * Load Constructor
    *
@@ -296,13 +304,6 @@ public class MInOut extends X_M_InOut {
     setDropShip_User_ID(original.getDropShip_User_ID());
   } //	MInOut
 
-  /** Lines */
-  protected MInOutLine[] m_lines = null;
-  /** Confirmations */
-  protected MInOutConfirm[] m_confirms = null;
-  /** BPartner */
-  protected MBPartner m_partner = null;
-
   /**
    * Get Document Status
    *
@@ -505,8 +506,14 @@ public class MInOut extends X_M_InOut {
     return count;
   } //	copyLinesFrom
 
-  /** Reversal Flag */
-  protected boolean m_reversal = false;
+  /**
+   * Is Reversal
+   *
+   * @return reversal
+   */
+  public boolean isReversal() {
+    return m_reversal;
+  } //	isReversal
 
   /**
    * Set Reversal
@@ -516,14 +523,6 @@ public class MInOut extends X_M_InOut {
   protected void setReversal(boolean reversal) {
     m_reversal = reversal;
   } //	setReversal
-  /**
-   * Is Reversal
-   *
-   * @return reversal
-   */
-  public boolean isReversal() {
-    return m_reversal;
-  } //	isReversal
 
   /**
    * Set Processed. Propagate to Lines/Taxes
@@ -552,6 +551,34 @@ public class MInOut extends X_M_InOut {
     if (m_partner == null) m_partner = new MBPartner(getCtx(), getC_BPartner_ID(), get_TrxName());
     return m_partner;
   } //	getPartner
+
+  /**
+   * Set Business Partner Defaults & Details
+   *
+   * @param bp business partner
+   */
+  public void setBPartner(MBPartner bp) {
+    if (bp == null) return;
+
+    setC_BPartner_ID(bp.getC_BPartner_ID());
+
+    //	Set Locations
+    I_C_BPartner_Location[] locs = bp.getLocations(false);
+    if (locs != null) {
+      for (int i = 0; i < locs.length; i++) {
+        if (locs[i].isShipTo()) setC_BPartner_Location_ID(locs[i].getC_BPartner_Location_ID());
+      }
+      //	set to first if not set
+      if (getC_BPartner_Location_ID() == 0 && locs.length > 0)
+        setC_BPartner_Location_ID(locs[0].getC_BPartner_Location_ID());
+    }
+    if (getC_BPartner_Location_ID() == 0) log.log(Level.SEVERE, "Has no To Address: " + bp);
+
+    //	Set Contact
+    MUser[] contacts = bp.getContacts(false);
+    if (contacts != null && contacts.length > 0) // 	get first User
+    setAD_User_ID(contacts[0].getAD_User_ID());
+  } //	setBPartner
 
   /**
    * Set Document Type
@@ -584,34 +611,6 @@ public class MInOut extends X_M_InOut {
     if (isSOTrx()) setC_DocType_ID(MDocType.DOCBASETYPE_MaterialDelivery);
     else setC_DocType_ID(MDocType.DOCBASETYPE_MaterialReceipt);
   } //	setC_DocType_ID
-
-  /**
-   * Set Business Partner Defaults & Details
-   *
-   * @param bp business partner
-   */
-  public void setBPartner(MBPartner bp) {
-    if (bp == null) return;
-
-    setC_BPartner_ID(bp.getC_BPartner_ID());
-
-    //	Set Locations
-    I_C_BPartner_Location[] locs = bp.getLocations(false);
-    if (locs != null) {
-      for (int i = 0; i < locs.length; i++) {
-        if (locs[i].isShipTo()) setC_BPartner_Location_ID(locs[i].getC_BPartner_Location_ID());
-      }
-      //	set to first if not set
-      if (getC_BPartner_Location_ID() == 0 && locs.length > 0)
-        setC_BPartner_Location_ID(locs[0].getC_BPartner_Location_ID());
-    }
-    if (getC_BPartner_Location_ID() == 0) log.log(Level.SEVERE, "Has no To Address: " + bp);
-
-    //	Set Contact
-    MUser[] contacts = bp.getContacts(false);
-    if (contacts != null && contacts.length > 0) // 	get first User
-    setAD_User_ID(contacts[0].getAD_User_ID());
-  } //	setBPartner
 
   /**
    * Before Save
@@ -673,11 +672,6 @@ public class MInOut extends X_M_InOut {
     }
     return true;
   } //	afterSave
-
-  /** Process Message */
-  protected String m_processMsg = null;
-  /** Just Prepared Flag */
-  protected boolean m_justPrepared = false;
 
   /**
    * Unlock Document.

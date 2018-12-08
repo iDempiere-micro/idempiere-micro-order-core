@@ -1,5 +1,12 @@
 package org.compiere.order;
 
+import static software.hsharp.core.util.DBKt.*;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
 import org.compiere.crm.*;
 import org.compiere.orm.MOrg;
 import org.compiere.orm.MOrgInfo;
@@ -10,17 +17,13 @@ import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.util.Env;
 import org.idempiere.common.util.Util;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.List;
-import java.util.Properties;
-import java.util.logging.Level;
-
-import static software.hsharp.core.util.DBKt.*;
-
 public class MShippingTransaction extends X_M_ShippingTransaction {
   /** */
   private static final long serialVersionUID = -2444841696998774096L;
+  /** Error Message */
+  private String m_errorMessage = null;
+
+  private PartyInfo senderInfo, recipientInfo;
 
   public MShippingTransaction(Properties ctx, int M_ShippingTransaction_ID, String trxName) {
     super(ctx, M_ShippingTransaction_ID, trxName);
@@ -48,15 +51,12 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
     return list.toArray(new MShippingTransactionLine[list.size()]);
   }
 
-  /** Error Message */
-  private String m_errorMessage = null;
+  public String getErrorMessage() {
+    return m_errorMessage;
+  }
 
   public void setErrorMessage(String errorMessage) {
     m_errorMessage = errorMessage;
-  }
-
-  public String getErrorMessage() {
-    return m_errorMessage;
   }
 
   public boolean processOnline() {
@@ -265,8 +265,6 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
     return c.getCountryCode();
   }
 
-  private PartyInfo senderInfo, recipientInfo;
-
   public PartyInfo getSenderInfo() {
     if (senderInfo != null) return senderInfo;
 
@@ -372,6 +370,10 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
     return partyInfo;
   }
 
+  public void setADClientID(int AD_Client_ID) {
+    super.setADClientID(AD_Client_ID);
+  }
+
   public class PartyInfo {
     private String companyName;
     private String contactName;
@@ -418,9 +420,5 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
     public void setLocationId(int locationId) {
       this.locationId = locationId;
     }
-  }
-
-  public void setADClientID(int AD_Client_ID) {
-    super.setADClientID(AD_Client_ID);
   }
 }

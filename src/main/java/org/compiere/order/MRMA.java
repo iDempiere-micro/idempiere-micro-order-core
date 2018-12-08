@@ -1,5 +1,17 @@
 package org.compiere.order;
 
+import static software.hsharp.core.orm.POKt.I_ZERO;
+import static software.hsharp.core.orm.POKt.getAllIDs;
+import static software.hsharp.core.util.DBKt.executeUpdateEx;
+
+import java.io.File;
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
 import org.compiere.model.I_M_RMA;
 import org.compiere.model.I_M_RMALine;
 import org.compiere.model.I_M_RMATax;
@@ -15,19 +27,6 @@ import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.util.Env;
 import org.idempiere.orm.PO;
 
-import java.io.File;
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Properties;
-import java.util.logging.Level;
-
-import static software.hsharp.core.orm.POKt.I_ZERO;
-import static software.hsharp.core.orm.POKt.getAllIDs;
-import static software.hsharp.core.util.DBKt.executeUpdateEx;
-
 /**
  * RMA Model
  *
@@ -38,6 +37,16 @@ import static software.hsharp.core.util.DBKt.executeUpdateEx;
 public class MRMA extends X_M_RMA implements I_M_RMA {
   /** */
   private static final long serialVersionUID = -6449007672684459651L;
+  /** Lines */
+  protected MRMALine[] m_lines = null;
+  /** The Shipment */
+  protected MInOut m_inout = null;
+  /** Process Message */
+  protected String m_processMsg = null;
+  /** Just Prepared Flag */
+  protected boolean m_justPrepared = false;
+  /** Tax Lines */
+  private MRMATax[] m_taxes = null;
 
   /**
    * Standard Constructor
@@ -71,12 +80,63 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
     super(ctx, rs, trxName);
   } //	MRMA
 
-  /** Lines */
-  protected MRMALine[] m_lines = null;
-  /** Tax Lines */
-  private MRMATax[] m_taxes = null;
-  /** The Shipment */
-  protected MInOut m_inout = null;
+  /**
+   * Create new RMA by copying
+   *
+   * @param from RMA
+   * @param C_DocType_ID doc type
+   * @param isSOTrx sales order
+   * @param counter create counter links
+   * @param trxName trx
+   * @return MRMA
+   */
+  public static MRMA copyFrom(
+      MRMA from, int C_DocType_ID, boolean isSOTrx, boolean counter, String trxName) {
+    MRMA to = new MRMA(from.getCtx(), 0, null);
+    return doCopyFrom(from, C_DocType_ID, isSOTrx, counter, trxName, to);
+  }
+
+  protected static MRMA doCopyFrom(
+      MRMA from, int C_DocType_ID, boolean isSOTrx, boolean counter, String trxName, MRMA to) {
+    to.set_TrxName(trxName);
+    copyValues(from, to, from.getClientId(), from.getOrgId());
+    to.set_ValueNoCheck("M_RMA_ID", I_ZERO);
+    to.set_ValueNoCheck("DocumentNo", null);
+    to.setDocStatus(X_M_RMA.DOCSTATUS_Drafted); // 	Draft
+    to.setDocAction(X_M_RMA.DOCACTION_Complete);
+    to.setC_DocType_ID(C_DocType_ID);
+    to.setIsSOTrx(isSOTrx);
+    to.setIsApproved(false);
+    to.setProcessed(false);
+    to.setProcessing(false);
+
+    to.setName(from.getName());
+    to.setDescription(from.getDescription());
+    to.setSalesRep_ID(from.getSalesRep_ID());
+    to.setHelp(from.getHelp());
+    to.setM_RMAType_ID(from.getM_RMAType_ID());
+    to.setAmt(from.getAmt());
+
+    to.setC_Order_ID(0);
+    //	Try to find Order/Shipment/Receipt link
+    if (from.getC_Order_ID() != 0) {
+      MOrder peer = new MOrder(from.getCtx(), from.getC_Order_ID(), from.get_TrxName());
+      if (peer.getRef_Order_ID() != 0) to.setC_Order_ID(peer.getRef_Order_ID());
+    }
+    if (from.getInOut_ID() != 0) {
+      MInOut peer = new MInOut(from.getCtx(), from.getInOut_ID(), from.get_TrxName());
+      if (peer.getRef_InOut_ID() != 0) to.setInOut_ID(peer.getRef_InOut_ID());
+    }
+    to.setRef_RMA_ID(from.getM_RMA_ID());
+
+    to.saveEx(trxName);
+    if (counter) from.setRef_RMA_ID(to.getM_RMA_ID());
+
+    if (to.copyLinesFrom(from, counter) == 0)
+      throw new IllegalStateException("Could not create RMA Lines");
+
+    return to;
+  } //	copyFrom
 
   /**
    * Get Lines
@@ -224,11 +284,6 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
     return true;
   } //	beforeSave
 
-  /** Process Message */
-  protected String m_processMsg = null;
-  /** Just Prepared Flag */
-  protected boolean m_justPrepared = false;
-
   /**
    * Unlock Document.
    *
@@ -306,64 +361,6 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
       if (value != null) setDocumentNo(value);
     }
   }
-
-  /**
-   * Create new RMA by copying
-   *
-   * @param from RMA
-   * @param C_DocType_ID doc type
-   * @param isSOTrx sales order
-   * @param counter create counter links
-   * @param trxName trx
-   * @return MRMA
-   */
-  public static MRMA copyFrom(
-      MRMA from, int C_DocType_ID, boolean isSOTrx, boolean counter, String trxName) {
-    MRMA to = new MRMA(from.getCtx(), 0, null);
-    return doCopyFrom(from, C_DocType_ID, isSOTrx, counter, trxName, to);
-  }
-
-  protected static MRMA doCopyFrom(
-      MRMA from, int C_DocType_ID, boolean isSOTrx, boolean counter, String trxName, MRMA to) {
-    to.set_TrxName(trxName);
-    copyValues(from, to, from.getClientId(), from.getOrgId());
-    to.set_ValueNoCheck("M_RMA_ID", I_ZERO);
-    to.set_ValueNoCheck("DocumentNo", null);
-    to.setDocStatus(X_M_RMA.DOCSTATUS_Drafted); // 	Draft
-    to.setDocAction(X_M_RMA.DOCACTION_Complete);
-    to.setC_DocType_ID(C_DocType_ID);
-    to.setIsSOTrx(isSOTrx);
-    to.setIsApproved(false);
-    to.setProcessed(false);
-    to.setProcessing(false);
-
-    to.setName(from.getName());
-    to.setDescription(from.getDescription());
-    to.setSalesRep_ID(from.getSalesRep_ID());
-    to.setHelp(from.getHelp());
-    to.setM_RMAType_ID(from.getM_RMAType_ID());
-    to.setAmt(from.getAmt());
-
-    to.setC_Order_ID(0);
-    //	Try to find Order/Shipment/Receipt link
-    if (from.getC_Order_ID() != 0) {
-      MOrder peer = new MOrder(from.getCtx(), from.getC_Order_ID(), from.get_TrxName());
-      if (peer.getRef_Order_ID() != 0) to.setC_Order_ID(peer.getRef_Order_ID());
-    }
-    if (from.getInOut_ID() != 0) {
-      MInOut peer = new MInOut(from.getCtx(), from.getInOut_ID(), from.get_TrxName());
-      if (peer.getRef_InOut_ID() != 0) to.setInOut_ID(peer.getRef_InOut_ID());
-    }
-    to.setRef_RMA_ID(from.getM_RMA_ID());
-
-    to.saveEx(trxName);
-    if (counter) from.setRef_RMA_ID(to.getM_RMA_ID());
-
-    if (to.copyLinesFrom(from, counter) == 0)
-      throw new IllegalStateException("Could not create RMA Lines");
-
-    return to;
-  } //	copyFrom
 
   /**
    * Copy Lines From other RMA
@@ -477,8 +474,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
     whereClause.append(getId());
     whereClause.append(" AND C_Charge_ID IS NOT null");
 
-    int rmaLineIds[] =
-        getAllIDs(MRMALine.Table_Name, whereClause.toString());
+    int rmaLineIds[] = getAllIDs(MRMALine.Table_Name, whereClause.toString());
 
     ArrayList<MRMALine> chargeLineList = new ArrayList<MRMALine>();
 

@@ -1,15 +1,14 @@
 package org.compiere.order;
 
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.Properties;
 import org.compiere.model.I_I_Order;
 import org.compiere.orm.BasePOName;
 import org.compiere.orm.MTable;
 import org.idempiere.common.util.Env;
 import org.idempiere.orm.I_Persistent;
-
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
-import java.util.Properties;
 
 /**
  * Generated Model for I_Order
@@ -19,6 +18,20 @@ import java.util.Properties;
  */
 public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
 
+  /** DeliveryRule AD_Reference_ID=151 */
+  public static final int DELIVERYRULE_AD_Reference_ID = 151;
+  /** After Receipt = R */
+  public static final String DELIVERYRULE_AfterReceipt = "R";
+  /** Availability = A */
+  public static final String DELIVERYRULE_Availability = "A";
+  /** Complete Line = L */
+  public static final String DELIVERYRULE_CompleteLine = "L";
+  /** Complete Order = O */
+  public static final String DELIVERYRULE_CompleteOrder = "O";
+  /** Force = F */
+  public static final String DELIVERYRULE_Force = "F";
+  /** Manual = M */
+  public static final String DELIVERYRULE_Manual = "M";
   /** */
   private static final long serialVersionUID = 20171031L;
 
@@ -47,15 +60,6 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Address 1.
-   *
-   * @param Address1 Address line 1 for this location
-   */
-  public void setAddress1(String Address1) {
-    set_Value(COLUMNNAME_Address1, Address1);
-  }
-
-  /**
    * Get Address 1.
    *
    * @return Address line 1 for this location
@@ -65,12 +69,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Address 2.
+   * Set Address 1.
    *
-   * @param Address2 Address line 2 for this location
+   * @param Address1 Address line 1 for this location
    */
-  public void setAddress2(String Address2) {
-    set_Value(COLUMNNAME_Address2, Address2);
+  public void setAddress1(String Address1) {
+    set_Value(COLUMNNAME_Address1, Address1);
   }
 
   /**
@@ -83,13 +87,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Trx Organization.
+   * Set Address 2.
    *
-   * @param AD_OrgTrx_ID Performing or initiating organization
+   * @param Address2 Address line 2 for this location
    */
-  public void setAD_OrgTrx_ID(int AD_OrgTrx_ID) {
-    if (AD_OrgTrx_ID < 1) set_Value(COLUMNNAME_AD_OrgTrx_ID, null);
-    else set_Value(COLUMNNAME_AD_OrgTrx_ID, Integer.valueOf(AD_OrgTrx_ID));
+  public void setAddress2(String Address2) {
+    set_Value(COLUMNNAME_Address2, Address2);
   }
 
   /**
@@ -103,20 +106,20 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Trx Organization.
+   *
+   * @param AD_OrgTrx_ID Performing or initiating organization
+   */
+  public void setAD_OrgTrx_ID(int AD_OrgTrx_ID) {
+    if (AD_OrgTrx_ID < 1) set_Value(COLUMNNAME_AD_OrgTrx_ID, null);
+    else set_Value(COLUMNNAME_AD_OrgTrx_ID, Integer.valueOf(AD_OrgTrx_ID));
+  }
+
   public org.compiere.model.I_AD_User getAD_User() throws RuntimeException {
     return (org.compiere.model.I_AD_User)
         MTable.get(getCtx(), org.compiere.model.I_AD_User.Table_Name)
             .getPO(getAD_User_ID(), get_TrxName());
-  }
-
-  /**
-   * Set User/Contact.
-   *
-   * @param AD_User_ID User within the system - Internal or Business Partner Contact
-   */
-  public void setAD_User_ID(int AD_User_ID) {
-    if (AD_User_ID < 1) set_Value(COLUMNNAME_AD_User_ID, null);
-    else set_Value(COLUMNNAME_AD_User_ID, Integer.valueOf(AD_User_ID));
   }
 
   /**
@@ -130,20 +133,20 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return ii;
   }
 
+  /**
+   * Set User/Contact.
+   *
+   * @param AD_User_ID User within the system - Internal or Business Partner Contact
+   */
+  public void setAD_User_ID(int AD_User_ID) {
+    if (AD_User_ID < 1) set_Value(COLUMNNAME_AD_User_ID, null);
+    else set_Value(COLUMNNAME_AD_User_ID, Integer.valueOf(AD_User_ID));
+  }
+
   public org.compiere.model.I_C_BPartner_Location getBillTo() throws RuntimeException {
     return (org.compiere.model.I_C_BPartner_Location)
         MTable.get(getCtx(), org.compiere.model.I_C_BPartner_Location.Table_Name)
             .getPO(getBillTo_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Invoice To.
-   *
-   * @param BillTo_ID Bill to Address
-   */
-  public void setBillTo_ID(int BillTo_ID) {
-    if (BillTo_ID < 1) set_Value(COLUMNNAME_BillTo_ID, null);
-    else set_Value(COLUMNNAME_BillTo_ID, Integer.valueOf(BillTo_ID));
   }
 
   /**
@@ -158,12 +161,13 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Business Partner Key.
+   * Set Invoice To.
    *
-   * @param BPartnerValue Key of the Business Partner
+   * @param BillTo_ID Bill to Address
    */
-  public void setBPartnerValue(String BPartnerValue) {
-    set_Value(COLUMNNAME_BPartnerValue, BPartnerValue);
+  public void setBillTo_ID(int BillTo_ID) {
+    if (BillTo_ID < 1) set_Value(COLUMNNAME_BillTo_ID, null);
+    else set_Value(COLUMNNAME_BillTo_ID, Integer.valueOf(BillTo_ID));
   }
 
   /**
@@ -175,20 +179,19 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return (String) get_Value(COLUMNNAME_BPartnerValue);
   }
 
+  /**
+   * Set Business Partner Key.
+   *
+   * @param BPartnerValue Key of the Business Partner
+   */
+  public void setBPartnerValue(String BPartnerValue) {
+    set_Value(COLUMNNAME_BPartnerValue, BPartnerValue);
+  }
+
   public org.compiere.model.I_C_Activity getC_Activity() throws RuntimeException {
     return (org.compiere.model.I_C_Activity)
         MTable.get(getCtx(), org.compiere.model.I_C_Activity.Table_Name)
             .getPO(getC_Activity_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Activity.
-   *
-   * @param C_Activity_ID Business Activity
-   */
-  public void setC_Activity_ID(int C_Activity_ID) {
-    if (C_Activity_ID < 1) set_Value(COLUMNNAME_C_Activity_ID, null);
-    else set_Value(COLUMNNAME_C_Activity_ID, Integer.valueOf(C_Activity_ID));
   }
 
   /**
@@ -202,20 +205,20 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Activity.
+   *
+   * @param C_Activity_ID Business Activity
+   */
+  public void setC_Activity_ID(int C_Activity_ID) {
+    if (C_Activity_ID < 1) set_Value(COLUMNNAME_C_Activity_ID, null);
+    else set_Value(COLUMNNAME_C_Activity_ID, Integer.valueOf(C_Activity_ID));
+  }
+
   public org.compiere.model.I_C_BPartner getC_BPartner() throws RuntimeException {
     return (org.compiere.model.I_C_BPartner)
         MTable.get(getCtx(), org.compiere.model.I_C_BPartner.Table_Name)
             .getPO(getC_BPartner_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Business Partner .
-   *
-   * @param C_BPartner_ID Identifies a Business Partner
-   */
-  public void setC_BPartner_ID(int C_BPartner_ID) {
-    if (C_BPartner_ID < 1) set_Value(COLUMNNAME_C_BPartner_ID, null);
-    else set_Value(COLUMNNAME_C_BPartner_ID, Integer.valueOf(C_BPartner_ID));
   }
 
   /**
@@ -229,20 +232,20 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Business Partner .
+   *
+   * @param C_BPartner_ID Identifies a Business Partner
+   */
+  public void setC_BPartner_ID(int C_BPartner_ID) {
+    if (C_BPartner_ID < 1) set_Value(COLUMNNAME_C_BPartner_ID, null);
+    else set_Value(COLUMNNAME_C_BPartner_ID, Integer.valueOf(C_BPartner_ID));
+  }
+
   public org.compiere.model.I_C_BPartner_Location getC_BPartner_Location() throws RuntimeException {
     return (org.compiere.model.I_C_BPartner_Location)
         MTable.get(getCtx(), org.compiere.model.I_C_BPartner_Location.Table_Name)
             .getPO(getC_BPartner_Location_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Partner Location.
-   *
-   * @param C_BPartner_Location_ID Identifies the (ship to) address for this Business Partner
-   */
-  public void setC_BPartner_Location_ID(int C_BPartner_Location_ID) {
-    if (C_BPartner_Location_ID < 1) set_Value(COLUMNNAME_C_BPartner_Location_ID, null);
-    else set_Value(COLUMNNAME_C_BPartner_Location_ID, Integer.valueOf(C_BPartner_Location_ID));
   }
 
   /**
@@ -256,20 +259,20 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Partner Location.
+   *
+   * @param C_BPartner_Location_ID Identifies the (ship to) address for this Business Partner
+   */
+  public void setC_BPartner_Location_ID(int C_BPartner_Location_ID) {
+    if (C_BPartner_Location_ID < 1) set_Value(COLUMNNAME_C_BPartner_Location_ID, null);
+    else set_Value(COLUMNNAME_C_BPartner_Location_ID, Integer.valueOf(C_BPartner_Location_ID));
+  }
+
   public org.compiere.model.I_C_Campaign getC_Campaign() throws RuntimeException {
     return (org.compiere.model.I_C_Campaign)
         MTable.get(getCtx(), org.compiere.model.I_C_Campaign.Table_Name)
             .getPO(getC_Campaign_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Campaign.
-   *
-   * @param C_Campaign_ID Marketing Campaign
-   */
-  public void setC_Campaign_ID(int C_Campaign_ID) {
-    if (C_Campaign_ID < 1) set_Value(COLUMNNAME_C_Campaign_ID, null);
-    else set_Value(COLUMNNAME_C_Campaign_ID, Integer.valueOf(C_Campaign_ID));
   }
 
   /**
@@ -283,20 +286,20 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Campaign.
+   *
+   * @param C_Campaign_ID Marketing Campaign
+   */
+  public void setC_Campaign_ID(int C_Campaign_ID) {
+    if (C_Campaign_ID < 1) set_Value(COLUMNNAME_C_Campaign_ID, null);
+    else set_Value(COLUMNNAME_C_Campaign_ID, Integer.valueOf(C_Campaign_ID));
+  }
+
   public org.compiere.model.I_C_Charge getC_Charge() throws RuntimeException {
     return (org.compiere.model.I_C_Charge)
         MTable.get(getCtx(), org.compiere.model.I_C_Charge.Table_Name)
             .getPO(getC_Charge_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Charge.
-   *
-   * @param C_Charge_ID Additional document charges
-   */
-  public void setC_Charge_ID(int C_Charge_ID) {
-    if (C_Charge_ID < 1) set_Value(COLUMNNAME_C_Charge_ID, null);
-    else set_Value(COLUMNNAME_C_Charge_ID, Integer.valueOf(C_Charge_ID));
   }
 
   /**
@@ -310,20 +313,20 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Charge.
+   *
+   * @param C_Charge_ID Additional document charges
+   */
+  public void setC_Charge_ID(int C_Charge_ID) {
+    if (C_Charge_ID < 1) set_Value(COLUMNNAME_C_Charge_ID, null);
+    else set_Value(COLUMNNAME_C_Charge_ID, Integer.valueOf(C_Charge_ID));
+  }
+
   public org.compiere.model.I_C_Country getC_Country() throws RuntimeException {
     return (org.compiere.model.I_C_Country)
         MTable.get(getCtx(), org.compiere.model.I_C_Country.Table_Name)
             .getPO(getC_Country_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Country.
-   *
-   * @param C_Country_ID Country
-   */
-  public void setC_Country_ID(int C_Country_ID) {
-    if (C_Country_ID < 1) set_Value(COLUMNNAME_C_Country_ID, null);
-    else set_Value(COLUMNNAME_C_Country_ID, Integer.valueOf(C_Country_ID));
   }
 
   /**
@@ -337,20 +340,20 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Country.
+   *
+   * @param C_Country_ID Country
+   */
+  public void setC_Country_ID(int C_Country_ID) {
+    if (C_Country_ID < 1) set_Value(COLUMNNAME_C_Country_ID, null);
+    else set_Value(COLUMNNAME_C_Country_ID, Integer.valueOf(C_Country_ID));
+  }
+
   public org.compiere.model.I_C_Currency getC_Currency() throws RuntimeException {
     return (org.compiere.model.I_C_Currency)
         MTable.get(getCtx(), org.compiere.model.I_C_Currency.Table_Name)
             .getPO(getC_Currency_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Currency.
-   *
-   * @param C_Currency_ID The Currency for this record
-   */
-  public void setC_Currency_ID(int C_Currency_ID) {
-    if (C_Currency_ID < 1) set_Value(COLUMNNAME_C_Currency_ID, null);
-    else set_Value(COLUMNNAME_C_Currency_ID, Integer.valueOf(C_Currency_ID));
   }
 
   /**
@@ -364,20 +367,20 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Currency.
+   *
+   * @param C_Currency_ID The Currency for this record
+   */
+  public void setC_Currency_ID(int C_Currency_ID) {
+    if (C_Currency_ID < 1) set_Value(COLUMNNAME_C_Currency_ID, null);
+    else set_Value(COLUMNNAME_C_Currency_ID, Integer.valueOf(C_Currency_ID));
+  }
+
   public org.compiere.model.I_C_DocType getC_DocType() throws RuntimeException {
     return (org.compiere.model.I_C_DocType)
         MTable.get(getCtx(), org.compiere.model.I_C_DocType.Table_Name)
             .getPO(getC_DocType_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Document Type.
-   *
-   * @param C_DocType_ID Document type or rules
-   */
-  public void setC_DocType_ID(int C_DocType_ID) {
-    if (C_DocType_ID < 0) set_Value(COLUMNNAME_C_DocType_ID, null);
-    else set_Value(COLUMNNAME_C_DocType_ID, Integer.valueOf(C_DocType_ID));
   }
 
   /**
@@ -392,12 +395,13 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Charge Name.
+   * Set Document Type.
    *
-   * @param ChargeName Name of the Charge
+   * @param C_DocType_ID Document type or rules
    */
-  public void setChargeName(String ChargeName) {
-    set_Value(COLUMNNAME_ChargeName, ChargeName);
+  public void setC_DocType_ID(int C_DocType_ID) {
+    if (C_DocType_ID < 0) set_Value(COLUMNNAME_C_DocType_ID, null);
+    else set_Value(COLUMNNAME_C_DocType_ID, Integer.valueOf(C_DocType_ID));
   }
 
   /**
@@ -410,12 +414,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set City.
+   * Set Charge Name.
    *
-   * @param City Identifies a City
+   * @param ChargeName Name of the Charge
    */
-  public void setCity(String City) {
-    set_Value(COLUMNNAME_City, City);
+  public void setChargeName(String ChargeName) {
+    set_Value(COLUMNNAME_ChargeName, ChargeName);
   }
 
   /**
@@ -427,20 +431,19 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return (String) get_Value(COLUMNNAME_City);
   }
 
+  /**
+   * Set City.
+   *
+   * @param City Identifies a City
+   */
+  public void setCity(String City) {
+    set_Value(COLUMNNAME_City, City);
+  }
+
   public org.compiere.model.I_C_Location getC_Location() throws RuntimeException {
     return (org.compiere.model.I_C_Location)
         MTable.get(getCtx(), org.compiere.model.I_C_Location.Table_Name)
             .getPO(getC_Location_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Address.
-   *
-   * @param C_Location_ID Location or Address
-   */
-  public void setC_Location_ID(int C_Location_ID) {
-    if (C_Location_ID < 1) set_Value(COLUMNNAME_C_Location_ID, null);
-    else set_Value(COLUMNNAME_C_Location_ID, Integer.valueOf(C_Location_ID));
   }
 
   /**
@@ -455,12 +458,13 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Contact Name.
+   * Set Address.
    *
-   * @param ContactName Business Partner Contact Name
+   * @param C_Location_ID Location or Address
    */
-  public void setContactName(String ContactName) {
-    set_Value(COLUMNNAME_ContactName, ContactName);
+  public void setC_Location_ID(int C_Location_ID) {
+    if (C_Location_ID < 1) set_Value(COLUMNNAME_C_Location_ID, null);
+    else set_Value(COLUMNNAME_C_Location_ID, Integer.valueOf(C_Location_ID));
   }
 
   /**
@@ -472,20 +476,19 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return (String) get_Value(COLUMNNAME_ContactName);
   }
 
+  /**
+   * Set Contact Name.
+   *
+   * @param ContactName Business Partner Contact Name
+   */
+  public void setContactName(String ContactName) {
+    set_Value(COLUMNNAME_ContactName, ContactName);
+  }
+
   public org.compiere.model.I_C_Order getC_Order() throws RuntimeException {
     return (org.compiere.model.I_C_Order)
         MTable.get(getCtx(), org.compiere.model.I_C_Order.Table_Name)
             .getPO(getC_Order_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Order.
-   *
-   * @param C_Order_ID Order
-   */
-  public void setC_Order_ID(int C_Order_ID) {
-    if (C_Order_ID < 1) set_Value(COLUMNNAME_C_Order_ID, null);
-    else set_Value(COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
   }
 
   /**
@@ -499,20 +502,20 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Order.
+   *
+   * @param C_Order_ID Order
+   */
+  public void setC_Order_ID(int C_Order_ID) {
+    if (C_Order_ID < 1) set_Value(COLUMNNAME_C_Order_ID, null);
+    else set_Value(COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
+  }
+
   public org.compiere.model.I_C_OrderLine getC_OrderLine() throws RuntimeException {
     return (org.compiere.model.I_C_OrderLine)
         MTable.get(getCtx(), org.compiere.model.I_C_OrderLine.Table_Name)
             .getPO(getC_OrderLine_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Sales Order Line.
-   *
-   * @param C_OrderLine_ID Sales Order Line
-   */
-  public void setC_OrderLine_ID(int C_OrderLine_ID) {
-    if (C_OrderLine_ID < 1) set_Value(COLUMNNAME_C_OrderLine_ID, null);
-    else set_Value(COLUMNNAME_C_OrderLine_ID, Integer.valueOf(C_OrderLine_ID));
   }
 
   /**
@@ -526,20 +529,20 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Sales Order Line.
+   *
+   * @param C_OrderLine_ID Sales Order Line
+   */
+  public void setC_OrderLine_ID(int C_OrderLine_ID) {
+    if (C_OrderLine_ID < 1) set_Value(COLUMNNAME_C_OrderLine_ID, null);
+    else set_Value(COLUMNNAME_C_OrderLine_ID, Integer.valueOf(C_OrderLine_ID));
+  }
+
   public org.compiere.model.I_C_OrderSource getC_OrderSource() throws RuntimeException {
     return (org.compiere.model.I_C_OrderSource)
         MTable.get(getCtx(), org.compiere.model.I_C_OrderSource.Table_Name)
             .getPO(getC_OrderSource_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Order Source.
-   *
-   * @param C_OrderSource_ID Order Source
-   */
-  public void setC_OrderSource_ID(int C_OrderSource_ID) {
-    if (C_OrderSource_ID < 1) set_Value(COLUMNNAME_C_OrderSource_ID, null);
-    else set_Value(COLUMNNAME_C_OrderSource_ID, Integer.valueOf(C_OrderSource_ID));
   }
 
   /**
@@ -554,12 +557,13 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Order Source Key.
+   * Set Order Source.
    *
-   * @param C_OrderSourceValue Order Source Key
+   * @param C_OrderSource_ID Order Source
    */
-  public void setC_OrderSourceValue(String C_OrderSourceValue) {
-    set_Value(COLUMNNAME_C_OrderSourceValue, C_OrderSourceValue);
+  public void setC_OrderSource_ID(int C_OrderSource_ID) {
+    if (C_OrderSource_ID < 1) set_Value(COLUMNNAME_C_OrderSource_ID, null);
+    else set_Value(COLUMNNAME_C_OrderSource_ID, Integer.valueOf(C_OrderSource_ID));
   }
 
   /**
@@ -572,13 +576,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set ISO Country Code.
+   * Set Order Source Key.
    *
-   * @param CountryCode Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
-   *     - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+   * @param C_OrderSourceValue Order Source Key
    */
-  public void setCountryCode(String CountryCode) {
-    set_Value(COLUMNNAME_CountryCode, CountryCode);
+  public void setC_OrderSourceValue(String C_OrderSourceValue) {
+    set_Value(COLUMNNAME_C_OrderSourceValue, C_OrderSourceValue);
   }
 
   /**
@@ -591,20 +594,20 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return (String) get_Value(COLUMNNAME_CountryCode);
   }
 
+  /**
+   * Set ISO Country Code.
+   *
+   * @param CountryCode Upper-case two-letter alphanumeric ISO Country code according to ISO 3166-1
+   *     - http://www.chemie.fu-berlin.de/diverse/doc/ISO_3166.html
+   */
+  public void setCountryCode(String CountryCode) {
+    set_Value(COLUMNNAME_CountryCode, CountryCode);
+  }
+
   public org.compiere.model.I_C_PaymentTerm getC_PaymentTerm() throws RuntimeException {
     return (org.compiere.model.I_C_PaymentTerm)
         MTable.get(getCtx(), org.compiere.model.I_C_PaymentTerm.Table_Name)
             .getPO(getC_PaymentTerm_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Payment Term.
-   *
-   * @param C_PaymentTerm_ID The terms of Payment (timing, discount)
-   */
-  public void setC_PaymentTerm_ID(int C_PaymentTerm_ID) {
-    if (C_PaymentTerm_ID < 1) set_Value(COLUMNNAME_C_PaymentTerm_ID, null);
-    else set_Value(COLUMNNAME_C_PaymentTerm_ID, Integer.valueOf(C_PaymentTerm_ID));
   }
 
   /**
@@ -618,20 +621,20 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Payment Term.
+   *
+   * @param C_PaymentTerm_ID The terms of Payment (timing, discount)
+   */
+  public void setC_PaymentTerm_ID(int C_PaymentTerm_ID) {
+    if (C_PaymentTerm_ID < 1) set_Value(COLUMNNAME_C_PaymentTerm_ID, null);
+    else set_Value(COLUMNNAME_C_PaymentTerm_ID, Integer.valueOf(C_PaymentTerm_ID));
+  }
+
   public org.compiere.model.I_C_Project getC_Project() throws RuntimeException {
     return (org.compiere.model.I_C_Project)
         MTable.get(getCtx(), org.compiere.model.I_C_Project.Table_Name)
             .getPO(getC_Project_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Project.
-   *
-   * @param C_Project_ID Financial Project
-   */
-  public void setC_Project_ID(int C_Project_ID) {
-    if (C_Project_ID < 1) set_Value(COLUMNNAME_C_Project_ID, null);
-    else set_Value(COLUMNNAME_C_Project_ID, Integer.valueOf(C_Project_ID));
   }
 
   /**
@@ -645,20 +648,20 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Project.
+   *
+   * @param C_Project_ID Financial Project
+   */
+  public void setC_Project_ID(int C_Project_ID) {
+    if (C_Project_ID < 1) set_Value(COLUMNNAME_C_Project_ID, null);
+    else set_Value(COLUMNNAME_C_Project_ID, Integer.valueOf(C_Project_ID));
+  }
+
   public org.compiere.model.I_C_Region getC_Region() throws RuntimeException {
     return (org.compiere.model.I_C_Region)
         MTable.get(getCtx(), org.compiere.model.I_C_Region.Table_Name)
             .getPO(getC_Region_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Region.
-   *
-   * @param C_Region_ID Identifies a geographical Region
-   */
-  public void setC_Region_ID(int C_Region_ID) {
-    if (C_Region_ID < 1) set_Value(COLUMNNAME_C_Region_ID, null);
-    else set_Value(COLUMNNAME_C_Region_ID, Integer.valueOf(C_Region_ID));
   }
 
   /**
@@ -672,20 +675,20 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Region.
+   *
+   * @param C_Region_ID Identifies a geographical Region
+   */
+  public void setC_Region_ID(int C_Region_ID) {
+    if (C_Region_ID < 1) set_Value(COLUMNNAME_C_Region_ID, null);
+    else set_Value(COLUMNNAME_C_Region_ID, Integer.valueOf(C_Region_ID));
+  }
+
   public org.compiere.model.I_C_Tax getC_Tax() throws RuntimeException {
     return (org.compiere.model.I_C_Tax)
         MTable.get(getCtx(), org.compiere.model.I_C_Tax.Table_Name)
             .getPO(getC_Tax_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Tax.
-   *
-   * @param C_Tax_ID Tax identifier
-   */
-  public void setC_Tax_ID(int C_Tax_ID) {
-    if (C_Tax_ID < 1) set_Value(COLUMNNAME_C_Tax_ID, null);
-    else set_Value(COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
   }
 
   /**
@@ -699,20 +702,20 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Tax.
+   *
+   * @param C_Tax_ID Tax identifier
+   */
+  public void setC_Tax_ID(int C_Tax_ID) {
+    if (C_Tax_ID < 1) set_Value(COLUMNNAME_C_Tax_ID, null);
+    else set_Value(COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
+  }
+
   public org.compiere.model.I_C_UOM getC_UOM() throws RuntimeException {
     return (org.compiere.model.I_C_UOM)
         MTable.get(getCtx(), org.compiere.model.I_C_UOM.Table_Name)
             .getPO(getC_UOM_ID(), get_TrxName());
-  }
-
-  /**
-   * Set UOM.
-   *
-   * @param C_UOM_ID Unit of Measure
-   */
-  public void setC_UOM_ID(int C_UOM_ID) {
-    if (C_UOM_ID < 1) set_Value(COLUMNNAME_C_UOM_ID, null);
-    else set_Value(COLUMNNAME_C_UOM_ID, Integer.valueOf(C_UOM_ID));
   }
 
   /**
@@ -727,12 +730,13 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Account Date.
+   * Set UOM.
    *
-   * @param DateAcct Accounting Date
+   * @param C_UOM_ID Unit of Measure
    */
-  public void setDateAcct(Timestamp DateAcct) {
-    set_Value(COLUMNNAME_DateAcct, DateAcct);
+  public void setC_UOM_ID(int C_UOM_ID) {
+    if (C_UOM_ID < 1) set_Value(COLUMNNAME_C_UOM_ID, null);
+    else set_Value(COLUMNNAME_C_UOM_ID, Integer.valueOf(C_UOM_ID));
   }
 
   /**
@@ -745,12 +749,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Date Ordered.
+   * Set Account Date.
    *
-   * @param DateOrdered Date of Order
+   * @param DateAcct Accounting Date
    */
-  public void setDateOrdered(Timestamp DateOrdered) {
-    set_Value(COLUMNNAME_DateOrdered, DateOrdered);
+  public void setDateAcct(Timestamp DateAcct) {
+    set_Value(COLUMNNAME_DateAcct, DateAcct);
   }
 
   /**
@@ -762,28 +766,13 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return (Timestamp) get_Value(COLUMNNAME_DateOrdered);
   }
 
-  /** DeliveryRule AD_Reference_ID=151 */
-  public static final int DELIVERYRULE_AD_Reference_ID = 151;
-  /** After Receipt = R */
-  public static final String DELIVERYRULE_AfterReceipt = "R";
-  /** Availability = A */
-  public static final String DELIVERYRULE_Availability = "A";
-  /** Complete Line = L */
-  public static final String DELIVERYRULE_CompleteLine = "L";
-  /** Complete Order = O */
-  public static final String DELIVERYRULE_CompleteOrder = "O";
-  /** Force = F */
-  public static final String DELIVERYRULE_Force = "F";
-  /** Manual = M */
-  public static final String DELIVERYRULE_Manual = "M";
   /**
-   * Set Delivery Rule.
+   * Set Date Ordered.
    *
-   * @param DeliveryRule Defines the timing of Delivery
+   * @param DateOrdered Date of Order
    */
-  public void setDeliveryRule(String DeliveryRule) {
-
-    set_Value(COLUMNNAME_DeliveryRule, DeliveryRule);
+  public void setDateOrdered(Timestamp DateOrdered) {
+    set_Value(COLUMNNAME_DateOrdered, DateOrdered);
   }
 
   /**
@@ -796,12 +785,13 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Description.
+   * Set Delivery Rule.
    *
-   * @param Description Optional short description of the record
+   * @param DeliveryRule Defines the timing of Delivery
    */
-  public void setDescription(String Description) {
-    set_Value(COLUMNNAME_Description, Description);
+  public void setDeliveryRule(String DeliveryRule) {
+
+    set_Value(COLUMNNAME_DeliveryRule, DeliveryRule);
   }
 
   /**
@@ -814,12 +804,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Document Type Name.
+   * Set Description.
    *
-   * @param DocTypeName Name of the Document Type
+   * @param Description Optional short description of the record
    */
-  public void setDocTypeName(String DocTypeName) {
-    set_Value(COLUMNNAME_DocTypeName, DocTypeName);
+  public void setDescription(String Description) {
+    set_Value(COLUMNNAME_Description, Description);
   }
 
   /**
@@ -832,12 +822,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Document No.
+   * Set Document Type Name.
    *
-   * @param DocumentNo Document sequence number of the document
+   * @param DocTypeName Name of the Document Type
    */
-  public void setDocumentNo(String DocumentNo) {
-    set_Value(COLUMNNAME_DocumentNo, DocumentNo);
+  public void setDocTypeName(String DocTypeName) {
+    set_Value(COLUMNNAME_DocTypeName, DocTypeName);
   }
 
   /**
@@ -850,12 +840,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set EMail Address.
+   * Set Document No.
    *
-   * @param EMail Electronic Mail Address
+   * @param DocumentNo Document sequence number of the document
    */
-  public void setEMail(String EMail) {
-    set_Value(COLUMNNAME_EMail, EMail);
+  public void setDocumentNo(String DocumentNo) {
+    set_Value(COLUMNNAME_DocumentNo, DocumentNo);
   }
 
   /**
@@ -868,12 +858,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Freight Amount.
+   * Set EMail Address.
    *
-   * @param FreightAmt Freight Amount
+   * @param EMail Electronic Mail Address
    */
-  public void setFreightAmt(BigDecimal FreightAmt) {
-    set_Value(COLUMNNAME_FreightAmt, FreightAmt);
+  public void setEMail(String EMail) {
+    set_Value(COLUMNNAME_EMail, EMail);
   }
 
   /**
@@ -888,12 +878,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Import Error Message.
+   * Set Freight Amount.
    *
-   * @param I_ErrorMsg Messages generated from import process
+   * @param FreightAmt Freight Amount
    */
-  public void setI_ErrorMsg(String I_ErrorMsg) {
-    set_Value(COLUMNNAME_I_ErrorMsg, I_ErrorMsg);
+  public void setFreightAmt(BigDecimal FreightAmt) {
+    set_Value(COLUMNNAME_FreightAmt, FreightAmt);
   }
 
   /**
@@ -906,12 +896,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Imported.
+   * Set Import Error Message.
    *
-   * @param I_IsImported Has this import been processed
+   * @param I_ErrorMsg Messages generated from import process
    */
-  public void setI_IsImported(boolean I_IsImported) {
-    set_Value(COLUMNNAME_I_IsImported, Boolean.valueOf(I_IsImported));
+  public void setI_ErrorMsg(String I_ErrorMsg) {
+    set_Value(COLUMNNAME_I_ErrorMsg, I_ErrorMsg);
   }
 
   /**
@@ -929,13 +919,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Import Order.
+   * Set Imported.
    *
-   * @param I_Order_ID Import Orders
+   * @param I_IsImported Has this import been processed
    */
-  public void setI_Order_ID(int I_Order_ID) {
-    if (I_Order_ID < 1) set_ValueNoCheck(COLUMNNAME_I_Order_ID, null);
-    else set_ValueNoCheck(COLUMNNAME_I_Order_ID, Integer.valueOf(I_Order_ID));
+  public void setI_IsImported(boolean I_IsImported) {
+    set_Value(COLUMNNAME_I_IsImported, Boolean.valueOf(I_IsImported));
   }
 
   /**
@@ -950,12 +939,13 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set I_Order_UU.
+   * Set Import Order.
    *
-   * @param I_Order_UU I_Order_UU
+   * @param I_Order_ID Import Orders
    */
-  public void setI_Order_UU(String I_Order_UU) {
-    set_Value(COLUMNNAME_I_Order_UU, I_Order_UU);
+  public void setI_Order_ID(int I_Order_ID) {
+    if (I_Order_ID < 1) set_ValueNoCheck(COLUMNNAME_I_Order_ID, null);
+    else set_ValueNoCheck(COLUMNNAME_I_Order_ID, Integer.valueOf(I_Order_ID));
   }
 
   /**
@@ -965,6 +955,15 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
    */
   public String getI_Order_UU() {
     return (String) get_Value(COLUMNNAME_I_Order_UU);
+  }
+
+  /**
+   * Set I_Order_UU.
+   *
+   * @param I_Order_UU I_Order_UU
+   */
+  public void setI_Order_UU(String I_Order_UU) {
+    set_Value(COLUMNNAME_I_Order_UU, I_Order_UU);
   }
 
   /**
@@ -991,15 +990,6 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Line Description.
-   *
-   * @param LineDescription Description of the Line
-   */
-  public void setLineDescription(String LineDescription) {
-    set_Value(COLUMNNAME_LineDescription, LineDescription);
-  }
-
-  /**
    * Get Line Description.
    *
    * @return Description of the Line
@@ -1008,20 +998,19 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return (String) get_Value(COLUMNNAME_LineDescription);
   }
 
+  /**
+   * Set Line Description.
+   *
+   * @param LineDescription Description of the Line
+   */
+  public void setLineDescription(String LineDescription) {
+    set_Value(COLUMNNAME_LineDescription, LineDescription);
+  }
+
   public org.compiere.model.I_M_PriceList getM_PriceList() throws RuntimeException {
     return (org.compiere.model.I_M_PriceList)
         MTable.get(getCtx(), org.compiere.model.I_M_PriceList.Table_Name)
             .getPO(getM_PriceList_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Price List.
-   *
-   * @param M_PriceList_ID Unique identifier of a Price List
-   */
-  public void setM_PriceList_ID(int M_PriceList_ID) {
-    if (M_PriceList_ID < 1) set_Value(COLUMNNAME_M_PriceList_ID, null);
-    else set_Value(COLUMNNAME_M_PriceList_ID, Integer.valueOf(M_PriceList_ID));
   }
 
   /**
@@ -1035,20 +1024,20 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Price List.
+   *
+   * @param M_PriceList_ID Unique identifier of a Price List
+   */
+  public void setM_PriceList_ID(int M_PriceList_ID) {
+    if (M_PriceList_ID < 1) set_Value(COLUMNNAME_M_PriceList_ID, null);
+    else set_Value(COLUMNNAME_M_PriceList_ID, Integer.valueOf(M_PriceList_ID));
+  }
+
   public org.compiere.model.I_M_Product getM_Product() throws RuntimeException {
     return (org.compiere.model.I_M_Product)
         MTable.get(getCtx(), org.compiere.model.I_M_Product.Table_Name)
             .getPO(getM_Product_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Product.
-   *
-   * @param M_Product_ID Product, Service, Item
-   */
-  public void setM_Product_ID(int M_Product_ID) {
-    if (M_Product_ID < 1) set_Value(COLUMNNAME_M_Product_ID, null);
-    else set_Value(COLUMNNAME_M_Product_ID, Integer.valueOf(M_Product_ID));
   }
 
   /**
@@ -1062,20 +1051,20 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Product.
+   *
+   * @param M_Product_ID Product, Service, Item
+   */
+  public void setM_Product_ID(int M_Product_ID) {
+    if (M_Product_ID < 1) set_Value(COLUMNNAME_M_Product_ID, null);
+    else set_Value(COLUMNNAME_M_Product_ID, Integer.valueOf(M_Product_ID));
+  }
+
   public org.compiere.model.I_M_Shipper getM_Shipper() throws RuntimeException {
     return (org.compiere.model.I_M_Shipper)
         MTable.get(getCtx(), org.compiere.model.I_M_Shipper.Table_Name)
             .getPO(getM_Shipper_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Shipper.
-   *
-   * @param M_Shipper_ID Method or manner of product delivery
-   */
-  public void setM_Shipper_ID(int M_Shipper_ID) {
-    if (M_Shipper_ID < 1) set_Value(COLUMNNAME_M_Shipper_ID, null);
-    else set_Value(COLUMNNAME_M_Shipper_ID, Integer.valueOf(M_Shipper_ID));
   }
 
   /**
@@ -1089,20 +1078,20 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return ii;
   }
 
+  /**
+   * Set Shipper.
+   *
+   * @param M_Shipper_ID Method or manner of product delivery
+   */
+  public void setM_Shipper_ID(int M_Shipper_ID) {
+    if (M_Shipper_ID < 1) set_Value(COLUMNNAME_M_Shipper_ID, null);
+    else set_Value(COLUMNNAME_M_Shipper_ID, Integer.valueOf(M_Shipper_ID));
+  }
+
   public org.compiere.model.I_M_Warehouse getM_Warehouse() throws RuntimeException {
     return (org.compiere.model.I_M_Warehouse)
         MTable.get(getCtx(), org.compiere.model.I_M_Warehouse.Table_Name)
             .getPO(getM_Warehouse_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Warehouse.
-   *
-   * @param M_Warehouse_ID Storage Warehouse and Service Point
-   */
-  public void setM_Warehouse_ID(int M_Warehouse_ID) {
-    if (M_Warehouse_ID < 1) set_Value(COLUMNNAME_M_Warehouse_ID, null);
-    else set_Value(COLUMNNAME_M_Warehouse_ID, Integer.valueOf(M_Warehouse_ID));
   }
 
   /**
@@ -1117,12 +1106,13 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Payment Term Key.
+   * Set Warehouse.
    *
-   * @param PaymentTermValue Key of the Payment Term
+   * @param M_Warehouse_ID Storage Warehouse and Service Point
    */
-  public void setPaymentTermValue(String PaymentTermValue) {
-    set_Value(COLUMNNAME_PaymentTermValue, PaymentTermValue);
+  public void setM_Warehouse_ID(int M_Warehouse_ID) {
+    if (M_Warehouse_ID < 1) set_Value(COLUMNNAME_M_Warehouse_ID, null);
+    else set_Value(COLUMNNAME_M_Warehouse_ID, Integer.valueOf(M_Warehouse_ID));
   }
 
   /**
@@ -1135,12 +1125,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Phone.
+   * Set Payment Term Key.
    *
-   * @param Phone Identifies a telephone number
+   * @param PaymentTermValue Key of the Payment Term
    */
-  public void setPhone(String Phone) {
-    set_Value(COLUMNNAME_Phone, Phone);
+  public void setPaymentTermValue(String PaymentTermValue) {
+    set_Value(COLUMNNAME_PaymentTermValue, PaymentTermValue);
   }
 
   /**
@@ -1153,12 +1143,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set ZIP.
+   * Set Phone.
    *
-   * @param Postal Postal code
+   * @param Phone Identifies a telephone number
    */
-  public void setPostal(String Postal) {
-    set_Value(COLUMNNAME_Postal, Postal);
+  public void setPhone(String Phone) {
+    set_Value(COLUMNNAME_Phone, Phone);
   }
 
   /**
@@ -1171,12 +1161,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Unit Price.
+   * Set ZIP.
    *
-   * @param PriceActual Actual Price
+   * @param Postal Postal code
    */
-  public void setPriceActual(BigDecimal PriceActual) {
-    set_Value(COLUMNNAME_PriceActual, PriceActual);
+  public void setPostal(String Postal) {
+    set_Value(COLUMNNAME_Postal, Postal);
   }
 
   /**
@@ -1191,12 +1181,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Processed.
+   * Set Unit Price.
    *
-   * @param Processed The document has been processed
+   * @param PriceActual Actual Price
    */
-  public void setProcessed(boolean Processed) {
-    set_Value(COLUMNNAME_Processed, Boolean.valueOf(Processed));
+  public void setPriceActual(BigDecimal PriceActual) {
+    set_Value(COLUMNNAME_PriceActual, PriceActual);
   }
 
   /**
@@ -1214,12 +1204,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Process Now.
+   * Set Processed.
    *
-   * @param Processing Process Now
+   * @param Processed The document has been processed
    */
-  public void setProcessing(boolean Processing) {
-    set_Value(COLUMNNAME_Processing, Boolean.valueOf(Processing));
+  public void setProcessed(boolean Processed) {
+    set_Value(COLUMNNAME_Processed, Boolean.valueOf(Processed));
   }
 
   /**
@@ -1237,12 +1227,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Product Key.
+   * Set Process Now.
    *
-   * @param ProductValue Key of the Product
+   * @param Processing Process Now
    */
-  public void setProductValue(String ProductValue) {
-    set_Value(COLUMNNAME_ProductValue, ProductValue);
+  public void setProcessing(boolean Processing) {
+    set_Value(COLUMNNAME_Processing, Boolean.valueOf(Processing));
   }
 
   /**
@@ -1255,12 +1245,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Ordered Quantity.
+   * Set Product Key.
    *
-   * @param QtyOrdered Ordered Quantity
+   * @param ProductValue Key of the Product
    */
-  public void setQtyOrdered(BigDecimal QtyOrdered) {
-    set_Value(COLUMNNAME_QtyOrdered, QtyOrdered);
+  public void setProductValue(String ProductValue) {
+    set_Value(COLUMNNAME_ProductValue, ProductValue);
   }
 
   /**
@@ -1275,12 +1265,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Region.
+   * Set Ordered Quantity.
    *
-   * @param RegionName Name of the Region
+   * @param QtyOrdered Ordered Quantity
    */
-  public void setRegionName(String RegionName) {
-    set_Value(COLUMNNAME_RegionName, RegionName);
+  public void setQtyOrdered(BigDecimal QtyOrdered) {
+    set_Value(COLUMNNAME_QtyOrdered, QtyOrdered);
   }
 
   /**
@@ -1292,20 +1282,19 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     return (String) get_Value(COLUMNNAME_RegionName);
   }
 
+  /**
+   * Set Region.
+   *
+   * @param RegionName Name of the Region
+   */
+  public void setRegionName(String RegionName) {
+    set_Value(COLUMNNAME_RegionName, RegionName);
+  }
+
   public org.compiere.model.I_AD_User getSalesRep() throws RuntimeException {
     return (org.compiere.model.I_AD_User)
         MTable.get(getCtx(), org.compiere.model.I_AD_User.Table_Name)
             .getPO(getSalesRep_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Sales Representative.
-   *
-   * @param SalesRep_ID Sales Representative or Company Agent
-   */
-  public void setSalesRep_ID(int SalesRep_ID) {
-    if (SalesRep_ID < 1) set_Value(COLUMNNAME_SalesRep_ID, null);
-    else set_Value(COLUMNNAME_SalesRep_ID, Integer.valueOf(SalesRep_ID));
   }
 
   /**
@@ -1320,12 +1309,13 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set SKU.
+   * Set Sales Representative.
    *
-   * @param SKU Stock Keeping Unit
+   * @param SalesRep_ID Sales Representative or Company Agent
    */
-  public void setSKU(String SKU) {
-    set_Value(COLUMNNAME_SKU, SKU);
+  public void setSalesRep_ID(int SalesRep_ID) {
+    if (SalesRep_ID < 1) set_Value(COLUMNNAME_SalesRep_ID, null);
+    else set_Value(COLUMNNAME_SalesRep_ID, Integer.valueOf(SalesRep_ID));
   }
 
   /**
@@ -1338,12 +1328,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Tax Amount.
+   * Set SKU.
    *
-   * @param TaxAmt Tax Amount for a document
+   * @param SKU Stock Keeping Unit
    */
-  public void setTaxAmt(BigDecimal TaxAmt) {
-    set_Value(COLUMNNAME_TaxAmt, TaxAmt);
+  public void setSKU(String SKU) {
+    set_Value(COLUMNNAME_SKU, SKU);
   }
 
   /**
@@ -1358,12 +1348,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set Tax Indicator.
+   * Set Tax Amount.
    *
-   * @param TaxIndicator Short form for Tax to be printed on documents
+   * @param TaxAmt Tax Amount for a document
    */
-  public void setTaxIndicator(String TaxIndicator) {
-    set_Value(COLUMNNAME_TaxIndicator, TaxIndicator);
+  public void setTaxAmt(BigDecimal TaxAmt) {
+    set_Value(COLUMNNAME_TaxAmt, TaxAmt);
   }
 
   /**
@@ -1376,12 +1366,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   }
 
   /**
-   * Set UPC/EAN.
+   * Set Tax Indicator.
    *
-   * @param UPC Bar Code (Universal Product Code or its superset European Article Number)
+   * @param TaxIndicator Short form for Tax to be printed on documents
    */
-  public void setUPC(String UPC) {
-    set_Value(COLUMNNAME_UPC, UPC);
+  public void setTaxIndicator(String TaxIndicator) {
+    set_Value(COLUMNNAME_TaxIndicator, TaxIndicator);
   }
 
   /**
@@ -1391,6 +1381,15 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
    */
   public String getUPC() {
     return (String) get_Value(COLUMNNAME_UPC);
+  }
+
+  /**
+   * Set UPC/EAN.
+   *
+   * @param UPC Bar Code (Universal Product Code or its superset European Article Number)
+   */
+  public void setUPC(String UPC) {
+    set_Value(COLUMNNAME_UPC, UPC);
   }
 
   @Override

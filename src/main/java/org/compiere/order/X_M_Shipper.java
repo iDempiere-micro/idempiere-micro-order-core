@@ -1,12 +1,11 @@
 package org.compiere.order;
 
+import java.sql.ResultSet;
+import java.util.Properties;
 import org.compiere.model.I_M_Shipper;
 import org.compiere.orm.BasePOName;
 import org.compiere.orm.MTable;
 import org.idempiere.orm.I_Persistent;
-
-import java.sql.ResultSet;
-import java.util.Properties;
 
 /**
  * Generated Model for M_Shipper
@@ -50,6 +49,17 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper, I_Persistent
   }
 
   /**
+   * Get Business Partner .
+   *
+   * @return Identifies a Business Partner
+   */
+  public int getC_BPartner_ID() {
+    Integer ii = (Integer) get_Value(COLUMNNAME_C_BPartner_ID);
+    if (ii == null) return 0;
+    return ii;
+  }
+
+  /**
    * Set Business Partner .
    *
    * @param C_BPartner_ID Identifies a Business Partner
@@ -60,14 +70,12 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper, I_Persistent
   }
 
   /**
-   * Get Business Partner .
+   * Get Create lines from.
    *
-   * @return Identifies a Business Partner
+   * @return Process which will generate a new document lines based on an existing document
    */
-  public int getC_BPartner_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_C_BPartner_ID);
-    if (ii == null) return 0;
-    return ii;
+  public String getCreateFrom() {
+    return (String) get_Value(COLUMNNAME_CreateFrom);
   }
 
   /**
@@ -80,19 +88,21 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper, I_Persistent
     set_Value(COLUMNNAME_CreateFrom, CreateFrom);
   }
 
-  /**
-   * Get Create lines from.
-   *
-   * @return Process which will generate a new document lines based on an existing document
-   */
-  public String getCreateFrom() {
-    return (String) get_Value(COLUMNNAME_CreateFrom);
-  }
-
   public org.compiere.model.I_M_ShipperCfg getM_ShipperCfg() throws RuntimeException {
     return (org.compiere.model.I_M_ShipperCfg)
         MTable.get(getCtx(), org.compiere.model.I_M_ShipperCfg.Table_Name)
             .getPO(getM_ShipperCfg_ID(), get_TrxName());
+  }
+
+  /**
+   * Get Shipper Configuration.
+   *
+   * @return Shipper Configuration
+   */
+  public int getM_ShipperCfg_ID() {
+    Integer ii = (Integer) get_Value(COLUMNNAME_M_ShipperCfg_ID);
+    if (ii == null) return 0;
+    return ii;
   }
 
   /**
@@ -106,12 +116,12 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper, I_Persistent
   }
 
   /**
-   * Get Shipper Configuration.
+   * Get Shipper.
    *
-   * @return Shipper Configuration
+   * @return Method or manner of product delivery
    */
-  public int getM_ShipperCfg_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_M_ShipperCfg_ID);
+  public int getM_Shipper_ID() {
+    Integer ii = (Integer) get_Value(COLUMNNAME_M_Shipper_ID);
     if (ii == null) return 0;
     return ii;
   }
@@ -127,14 +137,12 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper, I_Persistent
   }
 
   /**
-   * Get Shipper.
+   * Get M_Shipper_UU.
    *
-   * @return Method or manner of product delivery
+   * @return M_Shipper_UU
    */
-  public int getM_Shipper_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_M_Shipper_ID);
-    if (ii == null) return 0;
-    return ii;
+  public String getM_Shipper_UU() {
+    return (String) get_Value(COLUMNNAME_M_Shipper_UU);
   }
 
   /**
@@ -146,29 +154,10 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper, I_Persistent
     set_Value(COLUMNNAME_M_Shipper_UU, M_Shipper_UU);
   }
 
-  /**
-   * Get M_Shipper_UU.
-   *
-   * @return M_Shipper_UU
-   */
-  public String getM_Shipper_UU() {
-    return (String) get_Value(COLUMNNAME_M_Shipper_UU);
-  }
-
   public org.compiere.model.I_M_ShippingProcessor getM_ShippingProcessor() throws RuntimeException {
     return (org.compiere.model.I_M_ShippingProcessor)
         MTable.get(getCtx(), org.compiere.model.I_M_ShippingProcessor.Table_Name)
             .getPO(getM_ShippingProcessor_ID(), get_TrxName());
-  }
-
-  /**
-   * Set Shipping Processor.
-   *
-   * @param M_ShippingProcessor_ID Shipping Processor
-   */
-  public void setM_ShippingProcessor_ID(int M_ShippingProcessor_ID) {
-    if (M_ShippingProcessor_ID < 1) set_Value(COLUMNNAME_M_ShippingProcessor_ID, null);
-    else set_Value(COLUMNNAME_M_ShippingProcessor_ID, Integer.valueOf(M_ShippingProcessor_ID));
   }
 
   /**
@@ -180,6 +169,16 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper, I_Persistent
     Integer ii = (Integer) get_Value(COLUMNNAME_M_ShippingProcessor_ID);
     if (ii == null) return 0;
     return ii;
+  }
+
+  /**
+   * Set Shipping Processor.
+   *
+   * @param M_ShippingProcessor_ID Shipping Processor
+   */
+  public void setM_ShippingProcessor_ID(int M_ShippingProcessor_ID) {
+    if (M_ShippingProcessor_ID < 1) set_Value(COLUMNNAME_M_ShippingProcessor_ID, null);
+    else set_Value(COLUMNNAME_M_ShippingProcessor_ID, Integer.valueOf(M_ShippingProcessor_ID));
   }
 
   @Override
