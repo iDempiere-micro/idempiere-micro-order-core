@@ -8,7 +8,10 @@ import org.compiere.util.DisplayType
 import org.idempiere.common.exceptions.AdempiereException
 import software.hsharp.core.orm.getAllIDs
 import java.math.BigDecimal
+import java.util.Hashtable
 import java.util.Properties
+import kotlin.collections.ArrayList
+import kotlin.collections.set
 
 fun createShippingTransaction(
     ctx: Properties,
