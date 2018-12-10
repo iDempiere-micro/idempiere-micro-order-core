@@ -61,7 +61,7 @@
         <dependency>
             <groupId>com.github.iDempiere-micro</groupId>
             <artifactId>idempiere-micro-model-core</artifactId>
-            <version>0.0.6</version>
+            <version>0.0.7</version>
         </dependency>
         <dependency>
             <groupId>com.github.iDempiere-micro</groupId>
