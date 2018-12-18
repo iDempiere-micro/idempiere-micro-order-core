@@ -54,7 +54,7 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
   public org.compiere.model.I_C_BPartner getC_BPartner() throws RuntimeException {
     return (org.compiere.model.I_C_BPartner)
         MTable.get(getCtx(), org.compiere.model.I_C_BPartner.Table_Name)
-            .getPO(getC_BPartner_ID(), get_TrxName());
+            .getPO(getC_BPartner_ID(), null);
   }
 
   /**
@@ -102,7 +102,7 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
   public org.compiere.model.I_C_ChargeType getC_ChargeType() throws RuntimeException {
     return (org.compiere.model.I_C_ChargeType)
         MTable.get(getCtx(), org.compiere.model.I_C_ChargeType.Table_Name)
-            .getPO(getC_ChargeType_ID(), get_TrxName());
+            .getPO(getC_ChargeType_ID(), null);
   }
 
   /**
@@ -167,7 +167,7 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
   public org.compiere.model.I_C_TaxCategory getC_TaxCategory() throws RuntimeException {
     return (org.compiere.model.I_C_TaxCategory)
         MTable.get(getCtx(), org.compiere.model.I_C_TaxCategory.Table_Name)
-            .getPO(getC_TaxCategory_ID(), get_TrxName());
+            .getPO(getC_TaxCategory_ID(), null);
   }
 
   /**

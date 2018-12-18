@@ -72,7 +72,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
   public org.compiere.model.I_C_Charge getC_Charge() throws RuntimeException {
     return (org.compiere.model.I_C_Charge)
         MTable.get(getCtx(), org.compiere.model.I_C_Charge.Table_Name)
-            .getPO(getC_Charge_ID(), get_TrxName());
+            .getPO(getC_Charge_ID(), null);
   }
 
   /**
@@ -99,7 +99,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
   public org.compiere.model.I_C_Tax getC_Tax() throws RuntimeException {
     return (org.compiere.model.I_C_Tax)
         MTable.get(getCtx(), org.compiere.model.I_C_Tax.Table_Name)
-            .getPO(getC_Tax_ID(), get_TrxName());
+            .getPO(getC_Tax_ID(), null);
   }
 
   /**
@@ -184,7 +184,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
   public org.compiere.model.I_M_InOutLine getM_InOutLine() throws RuntimeException {
     return (org.compiere.model.I_M_InOutLine)
         MTable.get(getCtx(), org.compiere.model.I_M_InOutLine.Table_Name)
-            .getPO(getM_InOutLine_ID(), get_TrxName());
+            .getPO(getM_InOutLine_ID(), null);
   }
 
   /**
@@ -211,7 +211,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
   public org.compiere.model.I_M_Product getM_Product() throws RuntimeException {
     return (org.compiere.model.I_M_Product)
         MTable.get(getCtx(), org.compiere.model.I_M_Product.Table_Name)
-            .getPO(getM_Product_ID(), get_TrxName());
+            .getPO(getM_Product_ID(), null);
   }
 
   /**
@@ -238,7 +238,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
   public org.compiere.model.I_M_RMA getM_RMA() throws RuntimeException {
     return (org.compiere.model.I_M_RMA)
         MTable.get(getCtx(), org.compiere.model.I_M_RMA.Table_Name)
-            .getPO(getM_RMA_ID(), get_TrxName());
+            .getPO(getM_RMA_ID(), null);
   }
 
   /**
@@ -396,7 +396,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
   public org.compiere.model.I_M_RMALine getRef_RMALine() throws RuntimeException {
     return (org.compiere.model.I_M_RMALine)
         MTable.get(getCtx(), org.compiere.model.I_M_RMALine.Table_Name)
-            .getPO(getRef_RMALine_ID(), get_TrxName());
+            .getPO(getRef_RMALine_ID(), null);
   }
 
   /**

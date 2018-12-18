@@ -175,7 +175,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
     PreparedStatement pstmt = null;
     ResultSet rs = null;
     try {
-      pstmt = prepareStatement(sql, get_TrxName());
+      pstmt = prepareStatement(sql, null);
       pstmt.setInt(1, getC_Order_ID());
       pstmt.setInt(2, getC_Tax_ID());
       rs = pstmt.executeQuery();
@@ -187,7 +187,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
         taxAmt = taxAmt.add(tax.calculateTax(baseAmt, isTaxIncluded(), getPrecision()));
       }
     } catch (Exception e) {
-      log.log(Level.SEVERE, get_TrxName(), e);
+      log.log(Level.SEVERE, null, e);
       taxBaseAmt = null;
     } finally {
       close(rs, pstmt);

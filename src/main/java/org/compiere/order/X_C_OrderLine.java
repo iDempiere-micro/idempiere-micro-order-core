@@ -89,7 +89,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.compiere.model.I_C_Activity getC_Activity() throws RuntimeException {
     return (org.compiere.model.I_C_Activity)
         MTable.get(getCtx(), org.compiere.model.I_C_Activity.Table_Name)
-            .getPO(getC_Activity_ID(), get_TrxName());
+            .getPO(getC_Activity_ID(), null);
   }
 
   /**
@@ -116,7 +116,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.compiere.model.I_C_BPartner getC_BPartner() throws RuntimeException {
     return (org.compiere.model.I_C_BPartner)
         MTable.get(getCtx(), org.compiere.model.I_C_BPartner.Table_Name)
-            .getPO(getC_BPartner_ID(), get_TrxName());
+            .getPO(getC_BPartner_ID(), null);
   }
 
   /**
@@ -143,7 +143,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.compiere.model.I_C_BPartner_Location getC_BPartner_Location() throws RuntimeException {
     return (org.compiere.model.I_C_BPartner_Location)
         MTable.get(getCtx(), org.compiere.model.I_C_BPartner_Location.Table_Name)
-            .getPO(getC_BPartner_Location_ID(), get_TrxName());
+            .getPO(getC_BPartner_Location_ID(), null);
   }
 
   /**
@@ -173,7 +173,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.compiere.model.I_C_Campaign getC_Campaign() throws RuntimeException {
     return (org.compiere.model.I_C_Campaign)
         MTable.get(getCtx(), org.compiere.model.I_C_Campaign.Table_Name)
-            .getPO(getC_Campaign_ID(), get_TrxName());
+            .getPO(getC_Campaign_ID(), null);
   }
 
   /**
@@ -200,7 +200,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.compiere.model.I_C_Charge getC_Charge() throws RuntimeException {
     return (org.compiere.model.I_C_Charge)
         MTable.get(getCtx(), org.compiere.model.I_C_Charge.Table_Name)
-            .getPO(getC_Charge_ID(), get_TrxName());
+            .getPO(getC_Charge_ID(), null);
   }
 
   /**
@@ -227,7 +227,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.compiere.model.I_C_Currency getC_Currency() throws RuntimeException {
     return (org.compiere.model.I_C_Currency)
         MTable.get(getCtx(), org.compiere.model.I_C_Currency.Table_Name)
-            .getPO(getC_Currency_ID(), get_TrxName());
+            .getPO(getC_Currency_ID(), null);
   }
 
   /**
@@ -254,7 +254,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.compiere.model.I_C_Order getC_Order() throws RuntimeException {
     return (org.compiere.model.I_C_Order)
         MTable.get(getCtx(), org.compiere.model.I_C_Order.Table_Name)
-            .getPO(getC_Order_ID(), get_TrxName());
+            .getPO(getC_Order_ID(), null);
   }
 
   /**
@@ -329,7 +329,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.compiere.model.I_C_Project getC_Project() throws RuntimeException {
     return (org.compiere.model.I_C_Project)
         MTable.get(getCtx(), org.compiere.model.I_C_Project.Table_Name)
-            .getPO(getC_Project_ID(), get_TrxName());
+            .getPO(getC_Project_ID(), null);
   }
 
   /**
@@ -356,7 +356,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.compiere.model.I_C_ProjectPhase getC_ProjectPhase() throws RuntimeException {
     return (org.compiere.model.I_C_ProjectPhase)
         MTable.get(getCtx(), org.compiere.model.I_C_ProjectPhase.Table_Name)
-            .getPO(getC_ProjectPhase_ID(), get_TrxName());
+            .getPO(getC_ProjectPhase_ID(), null);
   }
 
   /**
@@ -385,7 +385,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.compiere.model.I_C_ProjectTask getC_ProjectTask() throws RuntimeException {
     return (org.compiere.model.I_C_ProjectTask)
         MTable.get(getCtx(), org.compiere.model.I_C_ProjectTask.Table_Name)
-            .getPO(getC_ProjectTask_ID(), get_TrxName());
+            .getPO(getC_ProjectTask_ID(), null);
   }
 
   /**
@@ -450,7 +450,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.compiere.model.I_C_Tax getC_Tax() throws RuntimeException {
     return (org.compiere.model.I_C_Tax)
         MTable.get(getCtx(), org.compiere.model.I_C_Tax.Table_Name)
-            .getPO(getC_Tax_ID(), get_TrxName());
+            .getPO(getC_Tax_ID(), null);
   }
 
   /**
@@ -477,7 +477,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.compiere.model.I_C_UOM getC_UOM() throws RuntimeException {
     return (org.compiere.model.I_C_UOM)
         MTable.get(getCtx(), org.compiere.model.I_C_UOM.Table_Name)
-            .getPO(getC_UOM_ID(), get_TrxName());
+            .getPO(getC_UOM_ID(), null);
   }
 
   /**
@@ -697,7 +697,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.compiere.model.I_C_OrderLine getLink_OrderLine() throws RuntimeException {
     return (org.compiere.model.I_C_OrderLine)
         MTable.get(getCtx(), org.compiere.model.I_C_OrderLine.Table_Name)
-            .getPO(getLink_OrderLine_ID(), get_TrxName());
+            .getPO(getLink_OrderLine_ID(), null);
   }
 
   /**
@@ -728,7 +728,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public I_M_AttributeSetInstance getMAttributeSetInstance() throws RuntimeException {
     return (I_M_AttributeSetInstance)
         MTable.get(getCtx(), I_M_AttributeSetInstance.Table_Name)
-            .getPO(getMAttributeSetInstance_ID(), get_TrxName());
+            .getPO(getMAttributeSetInstance_ID(), null);
   }
 
   /**
@@ -759,7 +759,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.compiere.model.I_M_Product getM_Product() throws RuntimeException {
     return (org.compiere.model.I_M_Product)
         MTable.get(getCtx(), org.compiere.model.I_M_Product.Table_Name)
-            .getPO(getM_Product_ID(), get_TrxName());
+            .getPO(getM_Product_ID(), null);
   }
 
   /**
@@ -786,7 +786,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.compiere.model.I_M_Promotion getM_Promotion() throws RuntimeException {
     return (org.compiere.model.I_M_Promotion)
         MTable.get(getCtx(), org.compiere.model.I_M_Promotion.Table_Name)
-            .getPO(getM_Promotion_ID(), get_TrxName());
+            .getPO(getM_Promotion_ID(), null);
   }
 
   /**
@@ -813,7 +813,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.compiere.model.I_M_Shipper getM_Shipper() throws RuntimeException {
     return (org.compiere.model.I_M_Shipper)
         MTable.get(getCtx(), org.compiere.model.I_M_Shipper.Table_Name)
-            .getPO(getM_Shipper_ID(), get_TrxName());
+            .getPO(getM_Shipper_ID(), null);
   }
 
   /**
@@ -840,7 +840,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.compiere.model.I_M_Warehouse getM_Warehouse() throws RuntimeException {
     return (org.compiere.model.I_M_Warehouse)
         MTable.get(getCtx(), org.compiere.model.I_M_Warehouse.Table_Name)
-            .getPO(getM_Warehouse_ID(), get_TrxName());
+            .getPO(getM_Warehouse_ID(), null);
   }
 
   /**
@@ -867,7 +867,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.eevolution.model.I_PP_Cost_Collector getPP_Cost_Collector() throws RuntimeException {
     return (org.eevolution.model.I_PP_Cost_Collector)
         MTable.get(getCtx(), org.eevolution.model.I_PP_Cost_Collector.Table_Name)
-            .getPO(getPP_Cost_Collector_ID(), get_TrxName());
+            .getPO(getPP_Cost_Collector_ID(), null);
   }
 
   /**
@@ -1139,7 +1139,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.compiere.model.I_C_OrderLine getRef_OrderLine() throws RuntimeException {
     return (org.compiere.model.I_C_OrderLine)
         MTable.get(getCtx(), org.compiere.model.I_C_OrderLine.Table_Name)
-            .getPO(getRef_OrderLine_ID(), get_TrxName());
+            .getPO(getRef_OrderLine_ID(), null);
   }
 
   /**
@@ -1229,7 +1229,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.compiere.model.I_C_ElementValue getUser1() throws RuntimeException {
     return (org.compiere.model.I_C_ElementValue)
         MTable.get(getCtx(), org.compiere.model.I_C_ElementValue.Table_Name)
-            .getPO(getUser1_ID(), get_TrxName());
+            .getPO(getUser1_ID(), null);
   }
 
   /**
@@ -1256,7 +1256,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public org.compiere.model.I_C_ElementValue getUser2() throws RuntimeException {
     return (org.compiere.model.I_C_ElementValue)
         MTable.get(getCtx(), org.compiere.model.I_C_ElementValue.Table_Name)
-            .getPO(getUser2_ID(), get_TrxName());
+            .getPO(getUser2_ID(), null);
   }
 
   /**

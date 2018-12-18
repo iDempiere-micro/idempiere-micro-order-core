@@ -1,15 +1,16 @@
 package org.compiere.order;
 
-import java.io.File;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
-import java.util.Properties;
-import java.util.logging.Level;
 import org.compiere.crm.MUser;
 import org.compiere.orm.MRefList;
 import org.compiere.util.Msg;
 import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.Env;
+
+import java.io.File;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.Properties;
+import java.util.logging.Level;
 
 /**
  * Shipment Confirmation Model
@@ -72,7 +73,7 @@ public class MInOutConfirm extends X_M_InOutConfirm {
    * @param confirmType confirmation type
    */
   public MInOutConfirm(MInOut ship, String confirmType) {
-    this(ship.getCtx(), 0, ship.get_TrxName());
+    this(ship.getCtx(), 0, null);
     setClientOrg(ship);
     setM_InOut_ID(ship.getM_InOut_ID());
     setConfirmType(confirmType);

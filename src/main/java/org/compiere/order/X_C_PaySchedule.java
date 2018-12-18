@@ -74,7 +74,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent
   public org.compiere.model.I_C_PaymentTerm getC_PaymentTerm() throws RuntimeException {
     return (org.compiere.model.I_C_PaymentTerm)
         MTable.get(getCtx(), org.compiere.model.I_C_PaymentTerm.Table_Name)
-            .getPO(getC_PaymentTerm_ID(), get_TrxName());
+            .getPO(getC_PaymentTerm_ID(), null);
   }
 
   /**

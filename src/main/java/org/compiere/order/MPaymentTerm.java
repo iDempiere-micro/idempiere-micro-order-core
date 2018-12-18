@@ -114,7 +114,7 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
    * @return true if payment schedule is valid
    */
   public boolean applyOrder(int C_Order_ID) {
-    MOrder order = new MOrder(getCtx(), C_Order_ID, get_TrxName());
+    MOrder order = new MOrder(getCtx(), C_Order_ID, null);
     if (order == null || order.getId() == 0) {
       log.log(Level.SEVERE, "apply - Not valid C_Order_ID=" + C_Order_ID);
       return false;
@@ -155,7 +155,7 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
    * @return false as no payment schedule
    */
   private boolean applyOrderNoSchedule(MOrder order) {
-    deleteOrderPaySchedule(order.getC_Order_ID(), order.get_TrxName());
+    deleteOrderPaySchedule(order.getC_Order_ID(), null);
     //	updateOrder
     if (order.getC_PaymentTerm_ID() != getC_PaymentTerm_ID())
       order.setC_PaymentTerm_ID(getC_PaymentTerm_ID());
@@ -170,21 +170,21 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
    * @return true if payment schedule is valid
    */
   private boolean applyOrderSchedule(MOrder order) {
-    deleteOrderPaySchedule(order.getC_Order_ID(), order.get_TrxName());
+    deleteOrderPaySchedule(order.getC_Order_ID(), null);
     //	Create Schedule
     MOrderPaySchedule ops = null;
     BigDecimal remainder = order.getGrandTotal();
     MPaySchedule[] m_schedule = getSchedule(true);
     for (int i = 0; i < m_schedule.length; i++) {
       ops = new MOrderPaySchedule(order, m_schedule[i]);
-      ops.saveEx(order.get_TrxName());
+      ops.saveEx(null);
       if (log.isLoggable(Level.FINE)) log.fine(ops.toString());
       remainder = remainder.subtract(ops.getDueAmt());
     } //	for all schedules
     //	Remainder - update last
     if (remainder.compareTo(Env.ZERO) != 0 && ops != null) {
       ops.setDueAmt(ops.getDueAmt().add(remainder));
-      ops.saveEx(order.get_TrxName());
+      ops.saveEx(null);
       if (log.isLoggable(Level.FINE)) log.fine("Remainder=" + remainder + " - " + ops);
     }
 
