@@ -1,12 +1,14 @@
 package org.compiere.order;
 
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.util.Properties;
+import kotliquery.Row;
 import org.compiere.model.I_C_PaymentTerm;
 import org.compiere.orm.BasePONameValue;
 import org.idempiere.common.util.Env;
 import org.idempiere.orm.I_Persistent;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.Properties;
 
 /**
  * Generated Model for C_PaymentTerm
@@ -51,6 +53,9 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
   /** Load Constructor */
   public X_C_PaymentTerm(Properties ctx, ResultSet rs, String trxName) {
     super(ctx, rs, trxName);
+  }
+  public X_C_PaymentTerm(Properties ctx, Row row) {
+    super(ctx, row);
   }
 
   /**
