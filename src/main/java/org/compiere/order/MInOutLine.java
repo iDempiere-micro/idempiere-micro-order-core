@@ -1,5 +1,6 @@
 package org.compiere.order;
 
+import kotliquery.Row;
 import org.compiere.model.I_M_AttributeSet;
 import org.compiere.model.I_M_InOutLine;
 import org.compiere.orm.Query;
@@ -72,6 +73,10 @@ public class MInOutLine extends X_M_InOutLine {
   public MInOutLine(Properties ctx, ResultSet rs, String trxName) {
     super(ctx, rs, trxName);
   } //	MInOutLine
+  public MInOutLine(Properties ctx, Row row) {
+    super(ctx, row);
+  }
+
 
   /**
    * Parent Constructor
