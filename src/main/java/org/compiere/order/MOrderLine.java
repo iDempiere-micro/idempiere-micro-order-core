@@ -128,7 +128,6 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
   public MOrderLine(Properties ctx, ResultSet rs, String trxName) {
     super(ctx, rs, trxName);
   } //	MOrderLine
-
   public MOrderLine(Properties ctx, Row row) {
     super(ctx, row);
   } //	MOrderLine

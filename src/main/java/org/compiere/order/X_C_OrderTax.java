@@ -1,13 +1,15 @@
 package org.compiere.order;
 
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.util.Properties;
+import kotliquery.Row;
 import org.compiere.model.I_C_OrderTax;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 import org.idempiere.orm.I_Persistent;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.Properties;
 
 /**
  * Generated Model for C_OrderTax
@@ -33,6 +35,9 @@ public class X_C_OrderTax extends PO implements I_Persistent {
   public X_C_OrderTax(Properties ctx, ResultSet rs, String trxName) {
     super(ctx, rs, trxName);
   }
+  public X_C_OrderTax(Properties ctx, Row row) {
+    super(ctx, row);
+  } //	MOrderTax
 
   /**
    * AccessLevel
