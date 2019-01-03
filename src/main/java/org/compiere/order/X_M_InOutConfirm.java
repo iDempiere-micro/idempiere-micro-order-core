@@ -140,7 +140,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm, I_Persiste
   public org.compiere.model.I_C_Invoice getC_Invoice() throws RuntimeException {
     return (org.compiere.model.I_C_Invoice)
         MTable.get(getCtx(), org.compiere.model.I_C_Invoice.Table_Name)
-            .getPO(getC_Invoice_ID(), get_TrxName());
+            .getPO(getC_Invoice_ID(), null);
   }
 
   /**
@@ -413,7 +413,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm, I_Persiste
   public org.compiere.model.I_M_InOut getM_InOut() throws RuntimeException {
     return (org.compiere.model.I_M_InOut)
         MTable.get(getCtx(), org.compiere.model.I_M_InOut.Table_Name)
-            .getPO(getM_InOut_ID(), get_TrxName());
+            .getPO(getM_InOut_ID(), null);
   }
 
   /**
@@ -440,7 +440,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm, I_Persiste
   public org.compiere.model.I_M_Inventory getM_Inventory() throws RuntimeException {
     return (org.compiere.model.I_M_Inventory)
         MTable.get(getCtx(), org.compiere.model.I_M_Inventory.Table_Name)
-            .getPO(getM_Inventory_ID(), get_TrxName());
+            .getPO(getM_Inventory_ID(), null);
   }
 
   /**

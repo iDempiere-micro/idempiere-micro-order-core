@@ -43,7 +43,7 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
                 getCtx(),
                 MShippingTransactionLine.Table_Name,
                 whereClauseFinal.toString(),
-                get_TrxName())
+                null)
             .setParameters(getId())
             .setOrderBy(MShippingTransactionLine.COLUMNNAME_SeqNo)
             .list();
@@ -69,11 +69,11 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
       if (processor == null) setErrorMessage(Msg.getMsg(Env.getCtx(), "ShippingNoProcessor"));
       else {
         if (getAction().equals(ACTION_ProcessShipment))
-          processed = processor.processShipment(getCtx(), this, get_TrxName());
+          processed = processor.processShipment(getCtx(), this, null);
         else if (getAction().equals(ACTION_RateInquiry))
-          processed = processor.rateInquiry(getCtx(), this, isPriviledgedRate(), get_TrxName());
+          processed = processor.rateInquiry(getCtx(), this, isPriviledgedRate(), null);
         else if (getAction().equals(ACTION_VoidShipment))
-          processed = processor.voidShipment(getCtx(), this, get_TrxName());
+          processed = processor.voidShipment(getCtx(), this, null);
         else throw new AdempiereException(Msg.getMsg(Env.getCtx(), "ActionNotSupported"));
 
         if (!processed)
@@ -84,7 +84,7 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
       setErrorMessage(Msg.getMsg(Env.getCtx(), "ShippingNotProcessed") + ":\n" + e.getMessage());
     }
 
-    MOnlineTrxHistory history = new MOnlineTrxHistory(getCtx(), 0, get_TrxName());
+    MOnlineTrxHistory history = new MOnlineTrxHistory(getCtx(), 0, null);
     history.setAD_Table_ID(Table_ID);
     history.setRecord_ID(getM_ShippingTransaction_ID());
     history.setIsError(!processed);
@@ -103,7 +103,7 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
   }
 
   public MShipper getMShipper() {
-    return new MShipper(getCtx(), getM_Shipper_ID(), get_TrxName());
+    return new MShipper(getCtx(), getM_Shipper_ID(), null);
   }
 
   public boolean isInternational() {
@@ -133,17 +133,17 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
   }
 
   public boolean isPrintLabelAsImage() {
-    MShipperLabels label = new MShipperLabels(getCtx(), getM_ShipperLabels_ID(), get_TrxName());
+    MShipperLabels label = new MShipperLabels(getCtx(), getM_ShipperLabels_ID(), null);
     return MShipperLabels.LABELPRINTMETHOD_Image.equals(label.getLabelPrintMethod());
   }
 
   public boolean isPrintZebraLabel() {
-    MShipperLabels label = new MShipperLabels(getCtx(), getM_ShipperLabels_ID(), get_TrxName());
+    MShipperLabels label = new MShipperLabels(getCtx(), getM_ShipperLabels_ID(), null);
     return MShipperLabels.LABELPRINTMETHOD_Zebra.equals(label.getLabelPrintMethod());
   }
 
   public boolean isPrintEltronLabel() {
-    MShipperLabels label = new MShipperLabels(getCtx(), getM_ShipperLabels_ID(), get_TrxName());
+    MShipperLabels label = new MShipperLabels(getCtx(), getM_ShipperLabels_ID(), null);
     return MShipperLabels.LABELPRINTMETHOD_Eltron.equals(label.getLabelPrintMethod());
   }
 
@@ -182,16 +182,16 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
   public String getPayorCountryCode() {
     if (!isPayBySender()) {
       MBPartnerLocation partnerLocation =
-          new MBPartnerLocation(getCtx(), getC_BPartner_Location_ID(), get_TrxName());
+          new MBPartnerLocation(getCtx(), getC_BPartner_Location_ID(), null);
       MLocation location =
-          new MLocation(getCtx(), partnerLocation.getC_Location_ID(), get_TrxName());
-      X_C_Country country = new X_C_Country(getCtx(), location.getC_Country_ID(), get_TrxName());
+          new MLocation(getCtx(), partnerLocation.getC_Location_ID(), null);
+      X_C_Country country = new X_C_Country(getCtx(), location.getC_Country_ID(), null);
       return country.getCountryCode();
     } else {
-      MOrg org = new MOrg(getCtx(), getOrgId(), get_TrxName());
+      MOrg org = new MOrg(getCtx(), getOrgId(), null);
       MOrgInfo info = new MOrgInfo(org);
-      MLocation location = new MLocation(getCtx(), info.getC_Location_ID(), get_TrxName());
-      X_C_Country country = new X_C_Country(getCtx(), location.getC_Country_ID(), get_TrxName());
+      MLocation location = new MLocation(getCtx(), info.getC_Location_ID(), null);
+      X_C_Country country = new X_C_Country(getCtx(), location.getC_Country_ID(), null);
       return country.getCountryCode();
     }
   }
@@ -298,9 +298,9 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
     /* DAP???
     if (partyInfo == null)
     {
-    	MOrg sender = new MOrg(getCtx(), getAD_Org_ID(), get_TrxName());
-        MUser senderContact = new MUser(getCtx(), getSalesRep_ID(), get_TrxName());
-        MWarehouse warehouse = new MWarehouse(getCtx(), getM_Warehouse_ID(), get_TrxName());
+    	MOrg sender = new MOrg(getCtx(), getAD_Org_ID(), null);
+        MUser senderContact = new MUser(getCtx(), getSalesRep_ID(), null);
+        MWarehouse warehouse = new MWarehouse(getCtx(), getM_Warehouse_ID(), null);
 
     	partyInfo = new PartyInfo();
     	partyInfo.setCompanyName(sender.getName());
@@ -352,10 +352,10 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
     		}
     */
     if (partyInfo == null) {
-      MBPartner recipient = new MBPartner(getCtx(), getC_BPartner_ID(), get_TrxName());
+      MBPartner recipient = new MBPartner(getCtx(), getC_BPartner_ID(), null);
       MBPartnerLocation ra =
-          new MBPartnerLocation(getCtx(), getC_BPartner_Location_ID(), get_TrxName());
-      MUser contact = new MUser(getCtx(), getAD_User_ID(), get_TrxName());
+          new MBPartnerLocation(getCtx(), getC_BPartner_Location_ID(), null);
+      MUser contact = new MUser(getCtx(), getAD_User_ID(), null);
 
       partyInfo = new PartyInfo();
       partyInfo.setCompanyName(recipient.getName());

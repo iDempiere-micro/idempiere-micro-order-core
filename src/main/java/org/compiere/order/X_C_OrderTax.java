@@ -1,13 +1,15 @@
 package org.compiere.order;
 
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.util.Properties;
+import kotliquery.Row;
 import org.compiere.model.I_C_OrderTax;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 import org.idempiere.orm.I_Persistent;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.Properties;
 
 /**
  * Generated Model for C_OrderTax
@@ -33,6 +35,9 @@ public class X_C_OrderTax extends PO implements I_Persistent {
   public X_C_OrderTax(Properties ctx, ResultSet rs, String trxName) {
     super(ctx, rs, trxName);
   }
+  public X_C_OrderTax(Properties ctx, Row row) {
+    super(ctx, row);
+  } //	MOrderTax
 
   /**
    * AccessLevel
@@ -51,7 +56,7 @@ public class X_C_OrderTax extends PO implements I_Persistent {
   public org.compiere.model.I_C_Order getC_Order() throws RuntimeException {
     return (org.compiere.model.I_C_Order)
         MTable.get(getCtx(), org.compiere.model.I_C_Order.Table_Name)
-            .getPO(getC_Order_ID(), get_TrxName());
+            .getPO(getC_Order_ID(), null);
   }
 
   /**
@@ -96,7 +101,7 @@ public class X_C_OrderTax extends PO implements I_Persistent {
   public org.compiere.model.I_C_Tax getC_Tax() throws RuntimeException {
     return (org.compiere.model.I_C_Tax)
         MTable.get(getCtx(), org.compiere.model.I_C_Tax.Table_Name)
-            .getPO(getC_Tax_ID(), get_TrxName());
+            .getPO(getC_Tax_ID(), null);
   }
 
   /**
@@ -123,7 +128,7 @@ public class X_C_OrderTax extends PO implements I_Persistent {
   public org.compiere.model.I_C_TaxProvider getC_TaxProvider() throws RuntimeException {
     return (org.compiere.model.I_C_TaxProvider)
         MTable.get(getCtx(), org.compiere.model.I_C_TaxProvider.Table_Name)
-            .getPO(getC_TaxProvider_ID(), get_TrxName());
+            .getPO(getC_TaxProvider_ID(), null);
   }
 
   /**

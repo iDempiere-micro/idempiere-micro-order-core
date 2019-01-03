@@ -462,11 +462,11 @@ public class MOrder extends X_C_Order implements I_C_Order {
       //
       //
       line.setProcessed(false);
-      if (line.save(get_TrxName())) count++;
+      if (line.save(null)) count++;
       //	Cross Link
       if (counter) {
         fromLines[i].setRef_OrderLine_ID(line.getC_OrderLine_ID());
-        fromLines[i].saveEx(get_TrxName());
+        fromLines[i].saveEx(null);
       }
     }
     if (fromLines.length != count)
@@ -559,7 +559,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
     if (orderClause.length() == 0) orderClause = MOrderLine.COLUMNNAME_Line;
     //
     List<MOrderLine> list =
-        new Query(getCtx(), I_C_OrderLine.Table_Name, whereClauseFinal.toString(), get_TrxName())
+        new Query(getCtx(), I_C_OrderLine.Table_Name, whereClauseFinal.toString(), null)
             .setParameters(getId())
             .setOrderBy(orderClause)
             .list();
@@ -579,7 +579,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
    */
   public MOrderLine[] getLines(boolean requery, String orderBy) {
     if (m_lines != null && !requery) {
-      set_TrxName(m_lines, get_TrxName());
+      set_TrxName(m_lines, null);
       return m_lines;
     }
     //
@@ -610,7 +610,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
     for (int i = 0; i < lines.length; i++) {
       MOrderLine line = lines[i];
       line.setLine(number);
-      line.saveEx(get_TrxName());
+      line.saveEx(null);
       number += step;
     }
     m_lines = null;
@@ -639,7 +639,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
     if (m_taxes != null && !requery) return m_taxes;
     //
     List<MOrderTax> list =
-        new Query(getCtx(), I_C_OrderTax.Table_Name, "C_Order_ID=?", get_TrxName())
+        new Query(getCtx(), I_C_OrderTax.Table_Name, "C_Order_ID=?", null)
             .setParameters(getId())
             .list();
     m_taxes = list.toArray(new MOrderTax[list.size()]);
@@ -658,7 +658,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
             + " AND il.C_OrderLine_ID=ol.C_OrderLine_ID"
             + " AND ol.C_Order_ID=?)";
     List<PO> list =
-        new Query(getCtx(), I_C_Invoice.Table_Name, whereClause, get_TrxName())
+        new Query(getCtx(), I_C_Invoice.Table_Name, whereClause, null)
             .setParameters(getId())
             .setOrderBy("C_Invoice_ID DESC")
             .list();
@@ -675,7 +675,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
         "SELECT C_Invoice_ID FROM C_Invoice "
             + "WHERE C_Order_ID=? AND DocStatus IN ('CO','CL') "
             + "ORDER BY C_Invoice_ID DESC";
-    int C_Invoice_ID = getSQLValue(get_TrxName(), sql, getId());
+    int C_Invoice_ID = getSQLValue(null, sql, getId());
     return C_Invoice_ID;
   } //	getC_Invoice_ID
 
@@ -691,7 +691,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
             + " AND iol.C_OrderLine_ID=ol.C_OrderLine_ID"
             + " AND ol.C_Order_ID=?)";
     List<PO> list =
-        new Query(getCtx(), I_M_InOut.Table_Name, whereClause, get_TrxName())
+        new Query(getCtx(), I_M_InOut.Table_Name, whereClause, null)
             .setParameters(getId())
             .setOrderBy("M_InOut_ID DESC")
             .list();
@@ -755,8 +755,8 @@ public class MOrder extends X_C_Order implements I_C_Order {
     if (getId() == 0) return;
     String set =
         "SET Processed='" + (processed ? "Y" : "N") + "' WHERE C_Order_ID=" + getC_Order_ID();
-    int noLine = executeUpdateEx("UPDATE C_OrderLine " + set, get_TrxName());
-    int noTax = executeUpdateEx("UPDATE C_OrderTax " + set, get_TrxName());
+    int noLine = executeUpdateEx("UPDATE C_OrderLine " + set, null);
+    int noTax = executeUpdateEx("UPDATE C_OrderTax " + set, null);
     m_lines = null;
     m_taxes = null;
     if (log.isLoggable(Level.FINE))
@@ -770,7 +770,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
    */
   public boolean validatePaySchedule() {
     MOrderPaySchedule[] schedule =
-        MOrderPaySchedule.getOrderPaySchedule(getCtx(), getC_Order_ID(), 0, get_TrxName());
+        MOrderPaySchedule.getOrderPaySchedule(getCtx(), getC_Order_ID(), 0, null);
     if (log.isLoggable(Level.FINE)) log.fine("#" + schedule.length);
     if (schedule.length == 0) {
       setIsPayScheduleValid(false);
@@ -790,7 +790,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
     for (int i = 0; i < schedule.length; i++) {
       if (schedule[i].isValid() != valid) {
         schedule[i].setIsValid(valid);
-        schedule[i].saveEx(get_TrxName());
+        schedule[i].saveEx(null);
       }
     }
     return valid;
@@ -925,7 +925,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
             || is_ValueChanged(COLUMNNAME_DateOrdered))) {
       int cnt =
           getSQLValueEx(
-              get_TrxName(),
+              null,
               "SELECT COUNT(*) FROM C_OrderLine WHERE C_Order_ID=? AND M_Product_ID>0",
               getC_Order_ID());
       if (cnt > 0) {
@@ -950,7 +950,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
     if (!recursiveCall && (!newRecord && is_ValueChanged(COLUMNNAME_C_PaymentTerm_ID))) {
       recursiveCall = true;
       try {
-        MPaymentTerm pt = new MPaymentTerm(getCtx(), getC_PaymentTerm_ID(), get_TrxName());
+        MPaymentTerm pt = new MPaymentTerm(getCtx(), getC_PaymentTerm_ID(), null);
         boolean valid = pt.applyOrder(this);
         setIsPayScheduleValid(valid);
       } catch (Exception e) {
@@ -984,7 +984,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
               + "FROM C_Order o WHERE i.C_Order_ID=o.C_Order_ID) "
               + "WHERE DocStatus NOT IN ('RE','CL') AND C_Order_ID="
               + getC_Order_ID();
-      int no = executeUpdateEx(sql, get_TrxName());
+      int no = executeUpdateEx(sql, null);
       if (log.isLoggable(Level.FINE)) log.fine("Description -> #" + no);
     }
 
@@ -1001,7 +1001,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
               + "WHERE DocStatus NOT IN ('RE','CL') AND C_Order_ID="
               + getC_Order_ID();
       //	Don't touch Closed/Reversed entries
-      int no = executeUpdate(sql, get_TrxName());
+      int no = executeUpdate(sql, null);
       if (log.isLoggable(Level.FINE)) log.fine("Payment -> #" + no);
     }
 
@@ -1015,7 +1015,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
               + "WHERE DocStatus NOT IN ('CO','RE','CL') AND Processed='N' AND C_Order_ID="
               + getC_Order_ID();
       //	Don't touch Completed/Closed/Reversed entries
-      int no = executeUpdate(sql, get_TrxName());
+      int no = executeUpdate(sql, null);
       if (log.isLoggable(Level.FINE)) log.fine("DateAcct -> #" + no);
     }
 
@@ -1081,7 +1081,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
   } //	invalidateIt
 
   protected boolean calculateFreightCharge() {
-    MClientInfo ci = MClientInfo.get(getCtx(), getClientId(), get_TrxName());
+    MClientInfo ci = MClientInfo.get(getCtx(), getClientId(), null);
     if (ci.getC_ChargeFreight_ID() == 0 && ci.getM_ProductFreight_ID() == 0) {
       m_processMsg =
           "Product or Charge for Freight is not defined at Client window > Client Info tab";
@@ -1146,7 +1146,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
             || (ol.getC_Charge_ID() > 0 && ol.getC_Charge_ID() == ci.getC_ChargeFreight_ID()))
           continue;
         else if (ol.getM_Product_ID() > 0) {
-          MProduct product = new MProduct(getCtx(), ol.getM_Product_ID(), get_TrxName());
+          MProduct product = new MProduct(getCtx(), ol.getM_Product_ID(), null);
 
           BigDecimal weight = product.getWeight();
           if (weight == null || weight.compareTo(BigDecimal.ZERO) == 0) {
@@ -1165,7 +1165,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
                 this,
                 MShippingTransaction.ACTION_RateInquiry,
                 isPriviledgedRate(),
-                get_TrxName());
+                null);
         ok = st.processOnline();
         st.saveEx();
       } catch (Exception e) {
@@ -1212,7 +1212,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
             + " AND	p.IsBOM='Y' AND p.IsVerified='Y' AND p.IsStocked='N')";
     //
     String sql = "SELECT COUNT(*) FROM C_OrderLine " + "WHERE C_Order_ID=? " + where;
-    int count = getSQLValue(get_TrxName(), sql, getC_Order_ID());
+    int count = getSQLValue(null, sql, getC_Order_ID());
     while (count != 0) {
       retValue = true;
       renumberLines(1000); // 	max 999 bom items
@@ -1226,7 +1226,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
         //	New Lines
         int lineNo = line.getLine();
         // find default BOM with valid dates and to this product
-        /*/MPPProductBOM bom = MPPProductBOM.get(product, getAD_Org_ID(),getDatePromised(), get_TrxName());
+        /*/MPPProductBOM bom = MPPProductBOM.get(product, getAD_Org_ID(),getDatePromised(), null);
         if(bom != null)
         {
         	MPPProductBOMLine[] bomlines = bom.getLines(getDatePromised());
@@ -1243,7 +1243,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
         			newLine.setDescription (bomline.getDescription ());
         		//
         		newLine.setPrice ();
-        		newLine.saveEx(get_TrxName());
+        		newLine.saveEx(null);
         	}
         }	*/
 
@@ -1254,7 +1254,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
           newLine.setQty(line.getQtyOrdered().multiply(bom.getBOMQty()));
           if (bom.getDescription() != null) newLine.setDescription(bom.getDescription());
           newLine.setPrice();
-          newLine.saveEx(get_TrxName());
+          newLine.saveEx(null);
         }
 
         //	Convert into Comment Line
@@ -1270,11 +1270,11 @@ public class MOrder extends X_C_Order implements I_C_Order {
         if (product.getDescription() != null) description += " " + product.getDescription();
         if (line.getDescription() != null) description += " " + line.getDescription();
         line.setDescription(description);
-        line.saveEx(get_TrxName());
+        line.saveEx(null);
       } //	for all lines with BOM
 
       m_lines = null; // 	force requery
-      count = getSQLValue(get_TrxName(), sql, getC_Invoice_ID());
+      count = getSQLValue(null, sql, getC_Invoice_ID());
       renumberLines(10);
     } //	while count != 0
     return retValue;
@@ -1288,7 +1288,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
   public boolean calculateTaxTotal() {
     log.fine("");
     //	Delete Taxes
-    executeUpdateEx("DELETE C_OrderTax WHERE C_Order_ID=" + getC_Order_ID(), get_TrxName());
+    executeUpdateEx("DELETE C_OrderTax WHERE C_Order_ID=" + getC_Order_ID(), null);
     m_taxes = null;
 
     MTaxProvider[] providers = getTaxProviders();
@@ -1314,7 +1314,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
     int numSchema = pt.getSchedule(false).length;
 
     MOrderPaySchedule[] schedule =
-        MOrderPaySchedule.getOrderPaySchedule(getCtx(), getC_Order_ID(), 0, get_TrxName());
+        MOrderPaySchedule.getOrderPaySchedule(getCtx(), getC_Order_ID(), 0, null);
 
     if (schedule.length > 0) {
       if (numSchema == 0)
@@ -1529,12 +1529,12 @@ public class MOrder extends X_C_Order implements I_C_Order {
     Hashtable<Integer, MTaxProvider> providers = new Hashtable<Integer, MTaxProvider>();
     MOrderLine[] lines = getLines();
     for (MOrderLine line : lines) {
-      MTax tax = new MTax(line.getCtx(), line.getC_Tax_ID(), line.get_TrxName());
+      MTax tax = new MTax(line.getCtx(), line.getC_Tax_ID(), null);
       MTaxProvider provider = providers.get(tax.getC_TaxProvider_ID());
       if (provider == null)
         providers.put(
             tax.getC_TaxProvider_ID(),
-            new MTaxProvider(tax.getCtx(), tax.getC_TaxProvider_ID(), tax.get_TrxName()));
+            new MTaxProvider(tax.getCtx(), tax.getC_TaxProvider_ID(), null));
     }
 
     MTaxProvider[] retValue = new MTaxProvider[providers.size()];

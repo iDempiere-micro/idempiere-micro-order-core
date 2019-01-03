@@ -1,11 +1,6 @@
 package org.compiere.order;
 
-import static software.hsharp.core.util.DBKt.getSQLValueEx;
-
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.util.List;
-import java.util.Properties;
+import kotliquery.Row;
 import org.compiere.model.I_M_AttributeSet;
 import org.compiere.model.I_M_InOutLine;
 import org.compiere.orm.Query;
@@ -16,6 +11,13 @@ import org.compiere.util.Msg;
 import org.idempiere.common.exceptions.FillMandatoryException;
 import org.idempiere.common.util.Env;
 import org.idempiere.common.util.Util;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.List;
+import java.util.Properties;
+
+import static software.hsharp.core.util.DBKt.getSQLValueEx;
 
 /**
  * InOut Line
@@ -71,6 +73,10 @@ public class MInOutLine extends X_M_InOutLine {
   public MInOutLine(Properties ctx, ResultSet rs, String trxName) {
     super(ctx, rs, trxName);
   } //	MInOutLine
+  public MInOutLine(Properties ctx, Row row) {
+    super(ctx, row);
+  }
+
 
   /**
    * Parent Constructor
@@ -78,7 +84,7 @@ public class MInOutLine extends X_M_InOutLine {
    * @param inout parent
    */
   public MInOutLine(MInOut inout) {
-    this(inout.getCtx(), 0, inout.get_TrxName());
+    this(inout.getCtx(), 0, null);
     setClientOrg(inout);
     setM_InOut_ID(inout.getM_InOut_ID());
     setM_Warehouse_ID(inout.getM_Warehouse_ID());
@@ -142,7 +148,7 @@ public class MInOutLine extends X_M_InOutLine {
    * @return parent
    */
   public MInOut getParent() {
-    if (m_parent == null) m_parent = new MInOut(getCtx(), getM_InOut_ID(), get_TrxName());
+    if (m_parent == null) m_parent = new MInOut(getCtx(), getM_InOut_ID(), null);
     return m_parent;
   } //	getParent
 
@@ -408,7 +414,7 @@ public class MInOutLine extends X_M_InOutLine {
     //	Get Line No
     if (getLine() == 0) {
       String sql = "SELECT COALESCE(MAX(Line),0)+10 FROM M_InOutLine WHERE M_InOut_ID=?";
-      int ii = getSQLValueEx(get_TrxName(), sql, getM_InOut_ID());
+      int ii = getSQLValueEx(null, sql, getM_InOut_ID());
       setLine(ii);
     }
     //	UOM
@@ -438,7 +444,7 @@ public class MInOutLine extends X_M_InOutLine {
         && isAutoGenerateLot
         && getMAttributeSetInstance_ID() == 0) {
       MAttributeSetInstance asi =
-          MAttributeSetInstance.generateLot(getCtx(), (MProduct) getM_Product(), get_TrxName());
+          MAttributeSetInstance.generateLot(getCtx(), (MProduct) getM_Product(), null);
       setM_AttributeSetInstance_ID(asi.getMAttributeSetInstance_ID());
     }
     //	if (getC_Charge_ID() == 0 && getM_Product_ID() == 0)
@@ -450,7 +456,7 @@ public class MInOutLine extends X_M_InOutLine {
      * M_AttributeSet_ID != 0; if (isInstance) { MAttributeSet mas = MAttributeSet.get(getCtx(),
      * M_AttributeSet_ID); isInstance = mas.isInstanceAttribute(); } // Max if (isInstance) {
      * MStorage storage = MStorage.get(getCtx(), getM_Locator_ID(), getM_Product_ID(),
-     * getMAttributeSetInstance_ID(), get_TrxName()); if (storage != null) { BigDecimal qty =
+     * getMAttributeSetInstance_ID(), null); if (storage != null) { BigDecimal qty =
      * storage.getQtyOnHand(); if (getMovementQty().compareTo(qty) > 0) { log.warning("Qty - Stock="
      * + qty + ", Movement=" + getMovementQty()); log.saveError("QtyInsufficient", "=" + qty);
      * return false; } } } } /*
@@ -504,7 +510,7 @@ public class MInOutLine extends X_M_InOutLine {
   public boolean sameOrderLineUOM() {
     if (getC_OrderLine_ID() <= 0) return false;
 
-    MOrderLine oLine = new MOrderLine(getCtx(), getC_OrderLine_ID(), get_TrxName());
+    MOrderLine oLine = new MOrderLine(getCtx(), getC_OrderLine_ID(), null);
 
     if (oLine.getC_UOM_ID() != getC_UOM_ID()) return false;
 

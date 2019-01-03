@@ -1,9 +1,11 @@
 package org.compiere.order;
 
-import java.sql.ResultSet;
-import java.util.Properties;
+import kotliquery.Row;
 import org.compiere.model.I_C_PaymentTerm;
 import org.idempiere.common.util.Env;
+
+import java.sql.ResultSet;
+import java.util.Properties;
 
 /**
  * Payment Term Schedule Model
@@ -47,11 +49,14 @@ public class MPaySchedule extends X_C_PaySchedule {
   public MPaySchedule(Properties ctx, ResultSet rs, String trxName) {
     super(ctx, rs, trxName);
   } //	MPaySchedule
+  public MPaySchedule(Properties ctx, Row row) {
+    super(ctx, row);
+  } //	MPaySchedule
 
   /** @return Returns the parent. */
   public I_C_PaymentTerm getParent() {
     if (m_parent == null)
-      m_parent = new MPaymentTerm(getCtx(), getC_PaymentTerm_ID(), get_TrxName());
+      m_parent = new MPaymentTerm(getCtx(), getC_PaymentTerm_ID(), null);
     return m_parent;
   } //	getParent
 

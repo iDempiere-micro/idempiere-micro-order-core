@@ -1,21 +1,19 @@
 package org.compiere.order;
 
-import static software.hsharp.core.util.DBKt.close;
-import static software.hsharp.core.util.DBKt.prepareStatement;
-
-import java.math.BigDecimal;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-import java.util.logging.Level;
+import kotliquery.Row;
 import org.compiere.model.I_C_OrderPaySchedule;
 import org.compiere.model.I_C_PaymentTerm;
 import org.compiere.orm.Query;
 import org.compiere.util.Msg;
 import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.util.Env;
+import org.jetbrains.annotations.NotNull;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
 
 /**
  * Payment Term Model
@@ -26,11 +24,9 @@ import org.idempiere.common.util.Env;
  *         https://sourceforge.net/tracker/index.php?func=detail&aid=2889886&group_id=176962&atid=879332
  * @version $Id: MPaymentTerm.java,v 1.3 2006/07/30 00:51:03 jjanke Exp $
  */
-public class MPaymentTerm extends X_C_PaymentTerm implements I_C_PaymentTerm {
+public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
   /** */
   private static final long serialVersionUID = -4506224598566445450L;
-  /** Payment Schedule children */
-  protected MPaySchedule[] m_schedule;
 
   /**
    * Standard Constructor
@@ -64,41 +60,9 @@ public class MPaymentTerm extends X_C_PaymentTerm implements I_C_PaymentTerm {
   public MPaymentTerm(Properties ctx, ResultSet rs, String trxName) {
     super(ctx, rs, trxName);
   } //	MPaymentTerm
-
-  /**
-   * Get Payment Schedule
-   *
-   * @param requery if true re-query
-   * @return array of schedule
-   */
-  public MPaySchedule[] getSchedule(boolean requery) {
-    if (m_schedule != null && !requery) return m_schedule;
-    String sql =
-        "SELECT * FROM C_PaySchedule WHERE C_PaymentTerm_ID=? AND IsActive='Y' ORDER BY NetDays";
-    ArrayList<MPaySchedule> list = new ArrayList<MPaySchedule>();
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
-    try {
-      pstmt = prepareStatement(sql, get_TrxName());
-      pstmt.setInt(1, getC_PaymentTerm_ID());
-      rs = pstmt.executeQuery();
-      while (rs.next()) {
-        MPaySchedule ps = new MPaySchedule(getCtx(), rs, get_TrxName());
-        ps.setParent(this);
-        list.add(ps);
-      }
-    } catch (Exception e) {
-      log.log(Level.SEVERE, "getSchedule", e);
-    } finally {
-      close(rs, pstmt);
-      rs = null;
-      pstmt = null;
-    }
-
-    m_schedule = new MPaySchedule[list.size()];
-    list.toArray(m_schedule);
-    return m_schedule;
-  } //	getSchedule
+  public MPaymentTerm(Properties ctx, Row row) {
+    super(ctx, row);
+  } //	MPaymentTerm
 
   /**
    * Validate Payment Term & Schedule
@@ -107,7 +71,7 @@ public class MPaymentTerm extends X_C_PaymentTerm implements I_C_PaymentTerm {
    */
   public String validate() {
     String validMsg = Msg.parseTranslation(getCtx(), "@OK@");
-    getSchedule(true);
+    MPaySchedule[] m_schedule = getSchedule(true);
     if (m_schedule.length == 0) {
       if (!isValid()) setIsValid(true);
       return validMsg;
@@ -150,7 +114,7 @@ public class MPaymentTerm extends X_C_PaymentTerm implements I_C_PaymentTerm {
    * @return true if payment schedule is valid
    */
   public boolean applyOrder(int C_Order_ID) {
-    MOrder order = new MOrder(getCtx(), C_Order_ID, get_TrxName());
+    MOrder order = new MOrder(getCtx(), C_Order_ID, null);
     if (order == null || order.getId() == 0) {
       log.log(Level.SEVERE, "apply - Not valid C_Order_ID=" + C_Order_ID);
       return false;
@@ -177,7 +141,7 @@ public class MPaymentTerm extends X_C_PaymentTerm implements I_C_PaymentTerm {
 
     if (!isValid()) return applyOrderNoSchedule(order);
     //
-    getSchedule(true);
+    MPaySchedule[] m_schedule = getSchedule(true);
     if (m_schedule.length <= 0) // Allow schedules with just one record
     return applyOrderNoSchedule(order);
     else //	only if valid
@@ -191,7 +155,7 @@ public class MPaymentTerm extends X_C_PaymentTerm implements I_C_PaymentTerm {
    * @return false as no payment schedule
    */
   private boolean applyOrderNoSchedule(MOrder order) {
-    deleteOrderPaySchedule(order.getC_Order_ID(), order.get_TrxName());
+    deleteOrderPaySchedule(order.getC_Order_ID(), null);
     //	updateOrder
     if (order.getC_PaymentTerm_ID() != getC_PaymentTerm_ID())
       order.setC_PaymentTerm_ID(getC_PaymentTerm_ID());
@@ -206,20 +170,21 @@ public class MPaymentTerm extends X_C_PaymentTerm implements I_C_PaymentTerm {
    * @return true if payment schedule is valid
    */
   private boolean applyOrderSchedule(MOrder order) {
-    deleteOrderPaySchedule(order.getC_Order_ID(), order.get_TrxName());
+    deleteOrderPaySchedule(order.getC_Order_ID(), null);
     //	Create Schedule
     MOrderPaySchedule ops = null;
     BigDecimal remainder = order.getGrandTotal();
+    MPaySchedule[] m_schedule = getSchedule(true);
     for (int i = 0; i < m_schedule.length; i++) {
       ops = new MOrderPaySchedule(order, m_schedule[i]);
-      ops.saveEx(order.get_TrxName());
+      ops.saveEx(null);
       if (log.isLoggable(Level.FINE)) log.fine(ops.toString());
       remainder = remainder.subtract(ops.getDueAmt());
     } //	for all schedules
     //	Remainder - update last
     if (remainder.compareTo(Env.ZERO) != 0 && ops != null) {
       ops.setDueAmt(ops.getDueAmt().add(remainder));
-      ops.saveEx(order.get_TrxName());
+      ops.saveEx(null);
       if (log.isLoggable(Level.FINE)) log.fine("Remainder=" + remainder + " - " + ops);
     }
 
@@ -294,5 +259,11 @@ public class MPaymentTerm extends X_C_PaymentTerm implements I_C_PaymentTerm {
   @Override
   public int getTableId() {
     return I_C_PaymentTerm.Table_ID;
+  }
+
+  @NotNull
+  @Override
+  public I_C_PaymentTerm self() {
+    return this;
   }
 } //	MPaymentTerm

@@ -83,7 +83,7 @@ public class X_M_ShippingProcessor extends BasePOName
       throws RuntimeException {
     return (org.compiere.model.I_M_ShippingProcessorCfg)
         MTable.get(getCtx(), org.compiere.model.I_M_ShippingProcessorCfg.Table_Name)
-            .getPO(getM_ShippingProcessorCfg_ID(), get_TrxName());
+            .getPO(getM_ShippingProcessorCfg_ID(), null);
   }
 
   /**

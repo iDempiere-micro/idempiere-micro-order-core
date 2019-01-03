@@ -69,7 +69,7 @@ public class X_M_ShipperPickupTypes extends BasePOName
   public org.compiere.model.I_M_Shipper getM_Shipper() throws RuntimeException {
     return (org.compiere.model.I_M_Shipper)
         MTable.get(getCtx(), org.compiere.model.I_M_Shipper.Table_Name)
-            .getPO(getM_Shipper_ID(), get_TrxName());
+            .getPO(getM_Shipper_ID(), null);
   }
 
   /**
@@ -97,7 +97,7 @@ public class X_M_ShipperPickupTypes extends BasePOName
       throws RuntimeException {
     return (org.compiere.model.I_M_ShipperPickupTypesCfg)
         MTable.get(getCtx(), org.compiere.model.I_M_ShipperPickupTypesCfg.Table_Name)
-            .getPO(getM_ShipperPickupTypesCfg_ID(), get_TrxName());
+            .getPO(getM_ShipperPickupTypesCfg_ID(), null);
   }
 
   /**

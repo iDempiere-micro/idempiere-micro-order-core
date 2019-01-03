@@ -70,7 +70,7 @@ public class X_M_ShipperPackaging extends BasePOName implements I_M_ShipperPacka
   public org.compiere.model.I_M_Shipper getM_Shipper() throws RuntimeException {
     return (org.compiere.model.I_M_Shipper)
         MTable.get(getCtx(), org.compiere.model.I_M_Shipper.Table_Name)
-            .getPO(getM_Shipper_ID(), get_TrxName());
+            .getPO(getM_Shipper_ID(), null);
   }
 
   /**
@@ -98,7 +98,7 @@ public class X_M_ShipperPackaging extends BasePOName implements I_M_ShipperPacka
       throws RuntimeException {
     return (org.compiere.model.I_M_ShipperPackagingCfg)
         MTable.get(getCtx(), org.compiere.model.I_M_ShipperPackagingCfg.Table_Name)
-            .getPO(getM_ShipperPackagingCfg_ID(), get_TrxName());
+            .getPO(getM_ShipperPackagingCfg_ID(), null);
   }
 
   /**

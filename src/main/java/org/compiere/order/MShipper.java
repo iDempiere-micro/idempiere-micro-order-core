@@ -1,11 +1,12 @@
 package org.compiere.order;
 
-import java.sql.ResultSet;
-import java.util.List;
-import java.util.Properties;
 import org.compiere.model.I_M_Shipper;
 import org.compiere.orm.Query;
 import org.idempiere.common.util.Env;
+
+import java.sql.ResultSet;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Shipper Model
@@ -54,7 +55,7 @@ public class MShipper extends X_M_Shipper {
             "M_Shipper.AD_Client_ID=? AND M_Shipper.AD_Org_ID IN (0,?) AND M_Shipper_ID "
                 + "IN (SELECT M_Shipper_ID FROM M_Freight WHERE M_FreightCategory_ID=?)",
             trxName);
-    q.setParameters(Env.getADClientID(ctx), Env.getOrgId(ctx), FreightCategory_ID);
+    q.setParameters(Env.getClientId(ctx), Env.getOrgId(ctx), FreightCategory_ID);
     List<MShipper> result = q.list();
     return (result);
   }

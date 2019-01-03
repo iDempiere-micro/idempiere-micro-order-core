@@ -1,11 +1,12 @@
 package org.compiere.order;
 
-import static software.hsharp.core.util.DBKt.getSQLValueString;
+import org.idempiere.common.base.Service;
+import org.idempiere.common.util.CLogger;
 
 import java.util.List;
 import java.util.logging.Level;
-import org.idempiere.common.base.Service;
-import org.idempiere.common.util.CLogger;
+
+import static software.hsharp.core.util.DBKt.getSQLValueString;
 
 /**
  * Facade for MShipper, providing accessor method for custom field
@@ -53,7 +54,7 @@ public class MShipperFacade {
   private MShippingProcessor getShippingProcessor() {
     if (m_shipper.getM_ShippingProcessor_ID() > 0)
       return new MShippingProcessor(
-          m_shipper.getCtx(), m_shipper.getM_ShippingProcessor_ID(), m_shipper.get_TrxName());
+          m_shipper.getCtx(), m_shipper.getM_ShippingProcessor_ID(), null);
     return null;
   }
 

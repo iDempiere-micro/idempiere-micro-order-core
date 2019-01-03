@@ -120,7 +120,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
   public org.compiere.model.I_C_BPartner getC_BPartner() throws RuntimeException {
     return (org.compiere.model.I_C_BPartner)
         MTable.get(getCtx(), org.compiere.model.I_C_BPartner.Table_Name)
-            .getPO(getC_BPartner_ID(), get_TrxName());
+            .getPO(getC_BPartner_ID(), null);
   }
 
   /**
@@ -147,7 +147,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
   public org.compiere.model.I_C_Currency getC_Currency() throws RuntimeException {
     return (org.compiere.model.I_C_Currency)
         MTable.get(getCtx(), org.compiere.model.I_C_Currency.Table_Name)
-            .getPO(getC_Currency_ID(), get_TrxName());
+            .getPO(getC_Currency_ID(), null);
   }
 
   /**
@@ -174,7 +174,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
   public org.compiere.model.I_C_DocType getC_DocType() throws RuntimeException {
     return (org.compiere.model.I_C_DocType)
         MTable.get(getCtx(), org.compiere.model.I_C_DocType.Table_Name)
-            .getPO(getC_DocType_ID(), get_TrxName());
+            .getPO(getC_DocType_ID(), null);
   }
 
   /**
@@ -201,7 +201,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
   public org.compiere.model.I_C_Order getC_Order() throws RuntimeException {
     return (org.compiere.model.I_C_Order)
         MTable.get(getCtx(), org.compiere.model.I_C_Order.Table_Name)
-            .getPO(getC_Order_ID(), get_TrxName());
+            .getPO(getC_Order_ID(), null);
   }
 
   /**
@@ -357,7 +357,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
   public org.compiere.model.I_M_InOut getInOut() throws RuntimeException {
     return (org.compiere.model.I_M_InOut)
         MTable.get(getCtx(), org.compiere.model.I_M_InOut.Table_Name)
-            .getPO(getInOut_ID(), get_TrxName());
+            .getPO(getInOut_ID(), null);
   }
 
   /**
@@ -451,7 +451,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
   public org.compiere.model.I_M_RMAType getM_RMAType() throws RuntimeException {
     return (org.compiere.model.I_M_RMAType)
         MTable.get(getCtx(), org.compiere.model.I_M_RMAType.Table_Name)
-            .getPO(getM_RMAType_ID(), get_TrxName());
+            .getPO(getM_RMAType_ID(), null);
   }
 
   /**
@@ -542,7 +542,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
   public org.compiere.model.I_M_RMA getRef_RMA() throws RuntimeException {
     return (org.compiere.model.I_M_RMA)
         MTable.get(getCtx(), org.compiere.model.I_M_RMA.Table_Name)
-            .getPO(getRef_RMA_ID(), get_TrxName());
+            .getPO(getRef_RMA_ID(), null);
   }
 
   /**
@@ -569,7 +569,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
   public org.compiere.model.I_AD_User getSalesRep() throws RuntimeException {
     return (org.compiere.model.I_AD_User)
         MTable.get(getCtx(), org.compiere.model.I_AD_User.Table_Name)
-            .getPO(getSalesRep_ID(), get_TrxName());
+            .getPO(getSalesRep_ID(), null);
   }
 
   /**

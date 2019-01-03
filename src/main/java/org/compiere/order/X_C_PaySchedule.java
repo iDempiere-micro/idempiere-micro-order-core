@@ -1,14 +1,16 @@
 package org.compiere.order;
 
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.util.Properties;
+import kotliquery.Row;
 import org.compiere.model.I_C_PaySchedule;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 import org.idempiere.common.util.KeyNamePair;
 import org.idempiere.orm.I_Persistent;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.Properties;
 
 /**
  * Generated Model for C_PaySchedule
@@ -51,6 +53,9 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent
   public X_C_PaySchedule(Properties ctx, ResultSet rs, String trxName) {
     super(ctx, rs, trxName);
   }
+  public X_C_PaySchedule(Properties ctx, Row row) {
+    super(ctx, row);
+  } //	MPaySchedule
 
   /**
    * AccessLevel
@@ -69,7 +74,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent
   public org.compiere.model.I_C_PaymentTerm getC_PaymentTerm() throws RuntimeException {
     return (org.compiere.model.I_C_PaymentTerm)
         MTable.get(getCtx(), org.compiere.model.I_C_PaymentTerm.Table_Name)
-            .getPO(getC_PaymentTerm_ID(), get_TrxName());
+            .getPO(getC_PaymentTerm_ID(), null);
   }
 
   /**

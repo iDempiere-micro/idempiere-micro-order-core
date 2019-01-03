@@ -45,7 +45,7 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper, I_Persistent
   public org.compiere.model.I_C_BPartner getC_BPartner() throws RuntimeException {
     return (org.compiere.model.I_C_BPartner)
         MTable.get(getCtx(), org.compiere.model.I_C_BPartner.Table_Name)
-            .getPO(getC_BPartner_ID(), get_TrxName());
+            .getPO(getC_BPartner_ID(), null);
   }
 
   /**
@@ -91,7 +91,7 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper, I_Persistent
   public org.compiere.model.I_M_ShipperCfg getM_ShipperCfg() throws RuntimeException {
     return (org.compiere.model.I_M_ShipperCfg)
         MTable.get(getCtx(), org.compiere.model.I_M_ShipperCfg.Table_Name)
-            .getPO(getM_ShipperCfg_ID(), get_TrxName());
+            .getPO(getM_ShipperCfg_ID(), null);
   }
 
   /**
@@ -157,7 +157,7 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper, I_Persistent
   public org.compiere.model.I_M_ShippingProcessor getM_ShippingProcessor() throws RuntimeException {
     return (org.compiere.model.I_M_ShippingProcessor)
         MTable.get(getCtx(), org.compiere.model.I_M_ShippingProcessor.Table_Name)
-            .getPO(getM_ShippingProcessor_ID(), get_TrxName());
+            .getPO(getM_ShippingProcessor_ID(), null);
   }
 
   /**

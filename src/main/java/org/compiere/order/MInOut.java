@@ -1,15 +1,5 @@
 package org.compiere.order;
 
-import static software.hsharp.core.orm.POKt.I_ZERO;
-import static software.hsharp.core.util.DBKt.*;
-
-import java.io.File;
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.Properties;
-import java.util.logging.Level;
 import org.compiere.crm.MBPartner;
 import org.compiere.crm.MUser;
 import org.compiere.model.I_C_BPartner_Location;
@@ -22,6 +12,17 @@ import org.compiere.orm.PO;
 import org.compiere.orm.Query;
 import org.compiere.util.Msg;
 import org.idempiere.common.util.Env;
+
+import java.io.File;
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+
+import static software.hsharp.core.orm.POKt.I_ZERO;
+import static software.hsharp.core.util.DBKt.*;
 
 /**
  * Shipment Model
@@ -113,7 +114,7 @@ public class MInOut extends X_M_InOut {
    * @param C_DocTypeShipment_ID document type or 0
    */
   public MInOut(MOrder order, int C_DocTypeShipment_ID, Timestamp movementDate) {
-    this(order.getCtx(), 0, order.get_TrxName());
+    this(order.getCtx(), 0, null);
     setClientOrg(order);
     setC_BPartner_ID(order.getC_BPartner_ID());
     setC_BPartner_Location_ID(order.getC_BPartner_Location_ID()); // 	shipment address
@@ -133,7 +134,7 @@ public class MInOut extends X_M_InOut {
     // setMovementType (order.isSOTrx() ? MOVEMENTTYPE_CustomerShipment :
     // MOVEMENTTYPE_VendorReceipts);
     String movementTypeShipment = null;
-    MDocType dtShipment = new MDocType(order.getCtx(), C_DocTypeShipment_ID, order.get_TrxName());
+    MDocType dtShipment = new MDocType(order.getCtx(), C_DocTypeShipment_ID, null);
     if (dtShipment.getDocBaseType().equals(MDocType.DOCBASETYPE_MaterialDelivery))
       movementTypeShipment =
           dtShipment.isSOTrx()
@@ -190,7 +191,7 @@ public class MInOut extends X_M_InOut {
    */
   public MInOut(
       I_C_Invoice invoice, int C_DocTypeShipment_ID, Timestamp movementDate, int M_Warehouse_ID) {
-    this(invoice.getCtx(), 0, invoice.get_TrxName());
+    this(invoice.getCtx(), 0, null);
     setClientOrg(invoice);
     setC_BPartner_ID(invoice.getC_BPartner_ID());
     setC_BPartner_Location_ID(invoice.getC_BPartner_Location_ID()); // 	shipment address
@@ -204,7 +205,7 @@ public class MInOut extends X_M_InOut {
             : X_M_InOut.MOVEMENTTYPE_VendorReceipts);
     MOrder order = null;
     if (invoice.getC_Order_ID() != 0)
-      order = new MOrder(invoice.getCtx(), invoice.getC_Order_ID(), invoice.get_TrxName());
+      order = new MOrder(invoice.getCtx(), invoice.getC_Order_ID(), null);
     if (C_DocTypeShipment_ID == 0 && order != null)
       C_DocTypeShipment_ID =
           getSQLValue(
@@ -258,7 +259,7 @@ public class MInOut extends X_M_InOut {
    * @param C_DocTypeShipment_ID document type or 0
    */
   public MInOut(MInOut original, int C_DocTypeShipment_ID, Timestamp movementDate) {
-    this(original.getCtx(), 0, original.get_TrxName());
+    this(original.getCtx(), 0, null);
     setClientOrg(original);
     setC_BPartner_ID(original.getC_BPartner_ID());
     setC_BPartner_Location_ID(original.getC_BPartner_Location_ID()); // 	shipment address
@@ -391,11 +392,11 @@ public class MInOut extends X_M_InOut {
    */
   public MInOutLine[] getLines(boolean requery) {
     if (m_lines != null && !requery) {
-      org.idempiere.orm.PO.set_TrxName(m_lines, get_TrxName());
+      org.idempiere.orm.PO.set_TrxName(m_lines, null);
       return m_lines;
     }
     List<MInOutLine> list =
-        new Query(getCtx(), I_M_InOutLine.Table_Name, "M_InOut_ID=?", get_TrxName())
+        new Query(getCtx(), I_M_InOutLine.Table_Name, "M_InOut_ID=?", null)
             .setParameters(getM_InOut_ID())
             .setOrderBy(MInOutLine.COLUMNNAME_Line)
             .list();
@@ -422,11 +423,11 @@ public class MInOut extends X_M_InOut {
    */
   public MInOutConfirm[] getConfirmations(boolean requery) {
     if (m_confirms != null && !requery) {
-      org.idempiere.orm.PO.set_TrxName(m_confirms, get_TrxName());
+      org.idempiere.orm.PO.set_TrxName(m_confirms, null);
       return m_confirms;
     }
     List<MInOutConfirm> list =
-        new Query(getCtx(), I_M_InOutConfirm.Table_Name, "M_InOut_ID=?", get_TrxName())
+        new Query(getCtx(), I_M_InOutConfirm.Table_Name, "M_InOut_ID=?", null)
             .setParameters(getM_InOut_ID())
             .list();
     m_confirms = new MInOutConfirm[list.size()];
@@ -449,7 +450,7 @@ public class MInOut extends X_M_InOut {
     for (int i = 0; i < fromLines.length; i++) {
       MInOutLine line = new MInOutLine(this);
       MInOutLine fromLine = fromLines[i];
-      line.set_TrxName(get_TrxName());
+      line.set_TrxName(null);
       if (counter) //	header
       PO.copyValues(fromLine, line, getClientId(), getOrgId());
       else PO.copyValues(fromLine, line, fromLine.getClientId(), fromLine.getOrgId());
@@ -478,12 +479,12 @@ public class MInOut extends X_M_InOut {
       if (counter) {
         line.setRef_InOutLine_ID(fromLine.getM_InOutLine_ID());
         if (fromLine.getC_OrderLine_ID() != 0) {
-          MOrderLine peer = new MOrderLine(getCtx(), fromLine.getC_OrderLine_ID(), get_TrxName());
+          MOrderLine peer = new MOrderLine(getCtx(), fromLine.getC_OrderLine_ID(), null);
           if (peer.getRef_OrderLine_ID() != 0) line.setC_OrderLine_ID(peer.getRef_OrderLine_ID());
         }
         // RMALine link
         if (fromLine.getM_RMALine_ID() != 0) {
-          MRMALine peer = new MRMALine(getCtx(), fromLine.getM_RMALine_ID(), get_TrxName());
+          MRMALine peer = new MRMALine(getCtx(), fromLine.getM_RMALine_ID(), null);
           if (peer.getRef_RMALine_ID() > 0) line.setM_RMALine_ID(peer.getRef_RMALine_ID());
         }
       }
@@ -492,11 +493,11 @@ public class MInOut extends X_M_InOut {
 
       //
       line.setProcessed(false);
-      if (line.save(get_TrxName())) count++;
+      if (line.save(null)) count++;
       //	Cross Link
       if (counter) {
         fromLine.setRef_InOutLine_ID(line.getM_InOutLine_ID());
-        fromLine.saveEx(get_TrxName());
+        fromLine.saveEx(null);
       }
     }
     if (fromLines.length != count) {
@@ -537,7 +538,7 @@ public class MInOut extends X_M_InOut {
             .append((processed ? "Y" : "N"))
             .append("' WHERE M_InOut_ID=")
             .append(getM_InOut_ID());
-    int noLine = executeUpdate(sql.toString(), get_TrxName());
+    int noLine = executeUpdate(sql.toString(), null);
     m_lines = null;
     if (log.isLoggable(Level.FINE)) log.fine(processed + " - Lines=" + noLine);
   } //	setProcessed
@@ -548,7 +549,7 @@ public class MInOut extends X_M_InOut {
    * @return partner
    */
   public MBPartner getBPartner() {
-    if (m_partner == null) m_partner = new MBPartner(getCtx(), getC_BPartner_ID(), get_TrxName());
+    if (m_partner == null) m_partner = new MBPartner(getCtx(), getC_BPartner_ID(), null);
     return m_partner;
   } //	getPartner
 
@@ -642,7 +643,7 @@ public class MInOut extends X_M_InOut {
 
     if (isSOTrx() && getM_RMA_ID() != 0) {
       // Set Document and Movement type for this Receipt
-      MRMA rma = new MRMA(getCtx(), getM_RMA_ID(), get_TrxName());
+      MRMA rma = new MRMA(getCtx(), getM_RMA_ID(), null);
       MDocType docType = MDocType.get(getCtx(), rma.getC_DocType_ID());
       setC_DocType_ID(docType.getC_DocTypeShipment_ID());
     }
@@ -667,7 +668,7 @@ public class MInOut extends X_M_InOut {
               + "(SELECT AD_Org_ID"
               + " FROM M_InOut o WHERE ol.M_InOut_ID=o.M_InOut_ID) "
               + "WHERE M_InOut_ID=?";
-      int no = executeUpdateEx(sql, new Object[] {getM_InOut_ID()}, get_TrxName());
+      int no = executeUpdateEx(sql, new Object[] {getM_InOut_ID()}, null);
       if (log.isLoggable(Level.FINE)) log.fine("Lines -> #" + no);
     }
     return true;

@@ -1,7 +1,9 @@
 package org.compiere.order;
 
-import static software.hsharp.core.util.DBKt.close;
-import static software.hsharp.core.util.DBKt.prepareStatement;
+import org.compiere.orm.TimeUtil;
+import org.compiere.product.MCurrency;
+import org.idempiere.common.util.CLogger;
+import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
@@ -10,10 +12,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
-import org.compiere.orm.TimeUtil;
-import org.compiere.product.MCurrency;
-import org.idempiere.common.util.CLogger;
-import org.idempiere.common.util.Env;
+
+import static software.hsharp.core.util.DBKt.close;
+import static software.hsharp.core.util.DBKt.prepareStatement;
 
 /**
  * Order Payment Schedule Model
@@ -66,7 +67,7 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
    * @param paySchedule payment schedule
    */
   public MOrderPaySchedule(MOrder order, MPaySchedule paySchedule) {
-    super(order.getCtx(), 0, order.get_TrxName());
+    super(order.getCtx(), 0, null);
     m_parent = order;
     setClientOrg(order);
     setC_Order_ID(order.getC_Order_ID());
@@ -144,7 +145,7 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
 
   /** @return Returns the parent. */
   public MOrder getParent() {
-    if (m_parent == null) m_parent = new MOrder(getCtx(), getC_Order_ID(), get_TrxName());
+    if (m_parent == null) m_parent = new MOrder(getCtx(), getC_Order_ID(), null);
     return m_parent;
   } //	getParent
 
