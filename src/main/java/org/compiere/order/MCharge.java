@@ -1,11 +1,13 @@
 package org.compiere.order;
 
-import java.sql.ResultSet;
-import java.util.Properties;
+import kotliquery.Row;
 import org.compiere.model.I_C_Charge;
 import org.idempiere.common.util.CCache;
 import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.Env;
+
+import java.sql.ResultSet;
+import java.util.Properties;
 
 /**
  * Charge Model
@@ -52,6 +54,9 @@ public class MCharge extends X_C_Charge {
    */
   public MCharge(Properties ctx, ResultSet rs, String trxName) {
     super(ctx, rs, trxName);
+  } //	MCharge
+  public MCharge(Properties ctx, Row row) {
+    super(ctx, row);
   } //	MCharge
 
   /**

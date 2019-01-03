@@ -1,8 +1,6 @@
 package org.compiere.order;
 
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.util.Properties;
+import kotliquery.Row;
 import org.compiere.model.HasName;
 import org.compiere.model.I_C_Charge;
 import org.compiere.orm.MTable;
@@ -10,6 +8,10 @@ import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 import org.idempiere.common.util.KeyNamePair;
 import org.idempiere.orm.I_Persistent;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.Properties;
 
 /**
  * Generated Model for C_Charge
@@ -36,6 +38,9 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
   public X_C_Charge(Properties ctx, ResultSet rs, String trxName) {
     super(ctx, rs, trxName);
   }
+  public X_C_Charge(Properties ctx, Row row) {
+    super(ctx, row);
+  } //	MCharge
 
   /**
    * AccessLevel
