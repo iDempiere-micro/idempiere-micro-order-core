@@ -7,14 +7,11 @@ import org.compiere.model.I_C_Invoice;
 import org.compiere.model.I_M_InOutConfirm;
 import org.compiere.model.I_M_InOutLine;
 import org.compiere.orm.MDocType;
-import org.compiere.orm.MRefList;
 import org.compiere.orm.PO;
 import org.compiere.orm.Query;
 import org.compiere.util.Msg;
 import org.idempiere.common.util.Env;
 
-import java.io.File;
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.List;
@@ -50,15 +47,12 @@ public class MInOut extends X_M_InOut {
   protected MInOutLine[] m_lines = null;
   /** Confirmations */
   protected MInOutConfirm[] m_confirms = null;
-  /** BPartner */
-  protected MBPartner m_partner = null;
-  /** Reversal Flag */
+    /** Reversal Flag */
   protected boolean m_reversal = false;
   /** Process Message */
   protected String m_processMsg = null;
-  /** Just Prepared Flag */
-  protected boolean m_justPrepared = false;
-  /**
+
+    /**
    * ************************************************************************ Standard Constructor
    *
    * @param ctx context
@@ -305,16 +299,7 @@ public class MInOut extends X_M_InOut {
     setDropShip_User_ID(original.getDropShip_User_ID());
   } //	MInOut
 
-  /**
-   * Get Document Status
-   *
-   * @return Document Status Clear Text
-   */
-  public String getDocStatusName() {
-    return MRefList.getListName(getCtx(), 131, getDocStatus());
-  } //	getDocStatusName
-
-  /**
+    /**
    * Add to Description
    *
    * @param description text
@@ -345,46 +330,7 @@ public class MInOut extends X_M_InOut {
     return sb.toString();
   } //	toString
 
-  /**
-   * Get Document Info
-   *
-   * @return document info (untranslated)
-   */
-  public String getDocumentInfo() {
-    MDocType dt = MDocType.get(getCtx(), getC_DocType_ID());
-    StringBuilder msgreturn =
-        new StringBuilder().append(dt.getNameTrl()).append(" ").append(getDocumentNo());
-    return msgreturn.toString();
-  } //	getDocumentInfo
-
-  /**
-   * Create PDF
-   *
-   * @return File or null
-   */
-  public File createPDF() {
-    try {
-      StringBuilder msgfile =
-          new StringBuilder().append(get_TableName()).append(getId()).append("_");
-      File temp = File.createTempFile(msgfile.toString(), ".pdf");
-      return createPDF(temp);
-    } catch (Exception e) {
-      log.severe("Could not create PDF - " + e.getMessage());
-    }
-    return null;
-  } //	getPDF
-
-  /**
-   * Create PDF file
-   *
-   * @param file output file
-   * @return file if success
-   */
-  public File createPDF(File file) {
-    return null;
-  }
-
-  /**
+    /**
    * Get Lines of Shipment
    *
    * @param requery refresh from db
@@ -543,17 +489,7 @@ public class MInOut extends X_M_InOut {
     if (log.isLoggable(Level.FINE)) log.fine(processed + " - Lines=" + noLine);
   } //	setProcessed
 
-  /**
-   * Get BPartner
-   *
-   * @return partner
-   */
-  public MBPartner getBPartner() {
-    if (m_partner == null) m_partner = new MBPartner(getCtx(), getC_BPartner_ID(), null);
-    return m_partner;
-  } //	getPartner
-
-  /**
+    /**
    * Set Business Partner Defaults & Details
    *
    * @param bp business partner
@@ -674,29 +610,7 @@ public class MInOut extends X_M_InOut {
     return true;
   } //	afterSave
 
-  /**
-   * Unlock Document.
-   *
-   * @return true if success
-   */
-  public boolean unlockIt() {
-    if (log.isLoggable(Level.INFO)) log.info(toString());
-    setProcessing(false);
-    return true;
-  } //	unlockIt
-
-  /**
-   * Invalidate Document
-   *
-   * @return true if success
-   */
-  public boolean invalidateIt() {
-    if (log.isLoggable(Level.INFO)) log.info(toString());
-    setDocAction(X_M_InOut.DOCACTION_Prepare);
-    return true;
-  } //	invalidateIt
-
-  /**
+    /**
    * Approve Document
    *
    * @return true if success
@@ -707,38 +621,7 @@ public class MInOut extends X_M_InOut {
     return true;
   } //	approveIt
 
-  /**
-   * Reject Approval
-   *
-   * @return true if success
-   */
-  public boolean rejectIt() {
-    if (log.isLoggable(Level.INFO)) log.info(toString());
-    setIsApproved(false);
-    return true;
-  } //	rejectIt
-
-  /**
-   * *********************************************************************** Get Summary
-   *
-   * @return Summary of Document
-   */
-  public String getSummary() {
-    StringBuilder sb = new StringBuilder();
-    sb.append(getDocumentNo());
-    //	: Total Lines = 123.00 (#1)
-    sb.append(":")
-        //	.append(Msg.translate(getCtx(),"TotalLines")).append("=").append(getTotalLines())
-        .append(" (#")
-        .append(getLines(false).length)
-        .append(")");
-    //	 - Description
-    if (getDescription() != null && getDescription().length() > 0)
-      sb.append(" - ").append(getDescription());
-    return sb.toString();
-  } //	getSummary
-
-  /**
+    /**
    * Get Process Message
    *
    * @return clear text error message
@@ -747,34 +630,7 @@ public class MInOut extends X_M_InOut {
     return m_processMsg;
   } //	getProcessMsg
 
-  /**
-   * Get Document Owner (Responsible)
-   *
-   * @return AD_User_ID
-   */
-  public int getDoc_User_ID() {
-    return getSalesRep_ID();
-  } //	getDoc_User_ID
-
-  /**
-   * Get Document Approval Amount
-   *
-   * @return amount
-   */
-  public BigDecimal getApprovalAmt() {
-    return Env.ZERO;
-  } //	getApprovalAmt
-
-  /**
-   * Get C_Currency_ID
-   *
-   * @return Accounting Currency
-   */
-  public int getC_Currency_ID() {
-    return Env.getContextAsInt(getCtx(), "$C_Currency_ID");
-  } //	getC_Currency_ID
-
-  /**
+    /**
    * Document Status is Complete or Closed
    *
    * @return true if CO, CL or RE

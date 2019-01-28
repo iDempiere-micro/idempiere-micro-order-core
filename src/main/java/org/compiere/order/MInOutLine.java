@@ -3,18 +3,15 @@ package org.compiere.order;
 import kotliquery.Row;
 import org.compiere.model.I_M_AttributeSet;
 import org.compiere.model.I_M_InOutLine;
-import org.compiere.orm.Query;
 import org.compiere.product.MAttributeSetInstance;
 import org.compiere.product.MProduct;
 import org.compiere.product.MUOM;
 import org.compiere.util.Msg;
 import org.idempiere.common.exceptions.FillMandatoryException;
 import org.idempiere.common.util.Env;
-import org.idempiere.common.util.Util;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
-import java.util.List;
 import java.util.Properties;
 
 import static software.hsharp.core.util.DBKt.getSQLValueEx;
@@ -92,57 +89,7 @@ public class MInOutLine extends X_M_InOutLine {
     m_parent = inout;
   } //	MInOutLine
 
-  /**
-   * Get Ship lines Of Order Line
-   *
-   * @param ctx context
-   * @param C_OrderLine_ID line
-   * @param where optional addition where clause
-   * @param trxName transaction
-   * @return array of receipt lines
-   */
-  public static MInOutLine[] getOfOrderLine(
-      Properties ctx, int C_OrderLine_ID, String where, String trxName) {
-    String whereClause = "C_OrderLine_ID=?" + (!Util.isEmpty(where, true) ? " AND " + where : "");
-    List<MInOutLine> list =
-        new Query(ctx, I_M_InOutLine.Table_Name, whereClause, trxName)
-            .setParameters(C_OrderLine_ID)
-            .list();
-    return list.toArray(new MInOutLine[list.size()]);
-  } //	getOfOrderLine
-
-  /**
-   * Get Ship lines Of RMA Line
-   *
-   * @param ctx context
-   * @param M_RMALine_ID line
-   * @param where optional addition where clause
-   * @param trxName transaction
-   * @return array of receipt lines
-   */
-  public static MInOutLine[] getOfRMALine(
-      Properties ctx, int M_RMALine_ID, String where, String trxName) {
-    String whereClause = "M_RMALine_ID=? " + (!Util.isEmpty(where, true) ? " AND " + where : "");
-    List<MInOutLine> list =
-        new Query(ctx, I_M_InOutLine.Table_Name, whereClause, trxName)
-            .setParameters(M_RMALine_ID)
-            .list();
-    return list.toArray(new MInOutLine[list.size()]);
-  } //	getOfRMALine
-
-  /**
-   * Get Ship lines Of Order Line
-   *
-   * @param ctx context
-   * @param C_OrderLine_ID line
-   * @param trxName transaction
-   * @return array of receipt lines2
-   */
-  public static MInOutLine[] get(Properties ctx, int C_OrderLine_ID, String trxName) {
-    return getOfOrderLine(ctx, C_OrderLine_ID, null, trxName);
-  } //	get
-
-  /**
+    /**
    * Get Parent
    *
    * @return parent
@@ -270,49 +217,7 @@ public class MInOutLine extends X_M_InOutLine {
     return m_product;
   } //	getProduct
 
-  /**
-   * Set Product
-   *
-   * @param product product
-   */
-  public void setProduct(MProduct product) {
-    m_product = product;
-    if (m_product != null) {
-      setM_Product_ID(m_product.getM_Product_ID());
-      setC_UOM_ID(m_product.getC_UOM_ID());
-    } else {
-      setM_Product_ID(0);
-      setC_UOM_ID(0);
-    }
-    setM_AttributeSetInstance_ID(0);
-  } //	setProduct
-
-  /**
-   * Set M_Product_ID
-   *
-   * @param M_Product_ID product
-   * @param setUOM also set UOM from product
-   */
-  public void setM_Product_ID(int M_Product_ID, boolean setUOM) {
-    if (setUOM) setProduct(MProduct.get(getCtx(), M_Product_ID));
-    else super.setM_Product_ID(M_Product_ID);
-    setM_AttributeSetInstance_ID(0);
-  } //	setM_Product_ID
-
-  /**
-   * Set Product and UOM
-   *
-   * @param M_Product_ID product
-   * @param C_UOM_ID uom
-   */
-  public void setM_Product_ID(int M_Product_ID, int C_UOM_ID) {
-    if (M_Product_ID != 0) super.setM_Product_ID(M_Product_ID);
-    super.setC_UOM_ID(C_UOM_ID);
-    setM_AttributeSetInstance_ID(0);
-    m_product = null;
-  } //	setM_Product_ID
-
-  /**
+    /**
    * Add to Description
    *
    * @param description text

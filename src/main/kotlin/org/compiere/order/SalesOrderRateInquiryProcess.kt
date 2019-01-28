@@ -188,7 +188,7 @@ fun createShippingTransaction(
     st.setAD_Org_ID(m_order.orgId)
     st.aD_User_ID = m_order.aD_User_ID
     st.bill_Location_ID = m_order.bill_Location_ID
-    st.boxCount = BoxCount
+    st.setBoxCount(BoxCount)
     // 		st.setC_BP_ShippingAcct_ID(getC_BP_ShippingAcct_ID());
     st.c_BPartner_ID = m_order.c_BPartner_ID
     st.c_BPartner_Location_ID = m_order.c_BPartner_Location_ID
@@ -198,8 +198,8 @@ fun createShippingTransaction(
     st.c_UOM_Length_ID = ci.c_UOM_Length_ID
     st.c_UOM_Weight_ID = ci.c_UOM_Weight_ID
     // 		st.setCashOnDelivery(isCashOnDelivery());
-    st.codAmount = CODAmount
-    st.customsValue = CustomsValue
+    st.setCODAmount(CODAmount)
+    st.setCustomsValue(CustomsValue)
     // 		st.setDateReceived(getDateReceived());
     // 		st.setDeliveryConfirmation(isDeliveryConfirmation());
     // 		st.setDeliveryConfirmationType(getDeliveryConfirmationType());
@@ -208,7 +208,7 @@ fun createShippingTransaction(
     // 		st.setDryIceWeight(getDryIceWeight());
     st.dutiesShipperAccount = DutiesShipperAccount
     // 		st.setFOB(getFOB());
-    st.freightAmt = FreightAmt
+    st.setFreightAmt(FreightAmt)
     st.freightCharges = MShippingTransaction.FREIGHTCHARGES_PrepaidAndBill
     // 		st.setHandlingCharge(getHandlingCharge());
     // 		st.setHeight(getHeight());
@@ -247,8 +247,8 @@ fun createShippingTransaction(
     st.m_Warehouse_ID = m_order.m_Warehouse_ID
     // 		st.setNotificationMessage(getNotificationMessage());
     // 		st.setNotificationType(getNotificationType());
-    st.paymentRule = m_order.paymentRule
-    st.poReference = m_order.poReference
+    st.setPaymentRule(m_order.paymentRule)
+    st.setPOReference(m_order.poReference)
     // 		st.setPrice(getPrice());
     // 		st.setPriceActual(getPriceActual());
     // 		st.setProcessed(isProcessed());
@@ -257,13 +257,13 @@ fun createShippingTransaction(
     // 		st.setReturnLocation_ID(getReturnLocation_ID());
     // 		st.setReturnUser_ID(getReturnUser_ID());
     st.salesRep_ID = m_order.salesRep_ID
-    st.shipDate = m_order.datePromised
+    st.setShipDate(m_order.datePromised)
     st.shipperAccount = ShipperAccount
     // 		st.setShippingRespMessage(ShippingRespMessage);
     // 		st.setSurcharges(getSurcharges());
-    st.trackingInfo = shipper.trackingURL
+    st.setTrackingInfo(shipper.trackingURL)
     // 		st.setTrackingNo(getTrackingNo());
-    st.weight = TotalWeight
+    st.setWeight(TotalWeight)
     // 		st.setWidth(getWidth());
     st.saveEx()
 
@@ -275,19 +275,19 @@ fun createShippingTransaction(
         stl.setAD_Org_ID(m_order.orgId)
         stl.c_UOM_Length_ID = ci.c_UOM_Length_ID
         stl.c_UOM_Weight_ID = ci.c_UOM_Weight_ID
-        stl.description = shippingPackage.description
-        stl.height = shippingPackage.height
+        stl.setDescription(shippingPackage.description)
+        stl.setHeight(shippingPackage.height)
         stl.setIsActive(m_order.isActive)
-        stl.length = shippingPackage.length
+        stl.setLength(shippingPackage.length)
         // 			stl.setM_PackageMPS_ID(0);
         stl.m_ShippingTransaction_ID = st.m_ShippingTransaction_ID
         // 			stl.setMasterTrackingNo(getMasterTrackingNo());
         // 			stl.setPrice(getPrice());
         // 			stl.setProcessed(isProcessed());
-        stl.seqNo = (i + 1) * 10
+        stl.setSeqNo((i + 1) * 10)
         // 			stl.setTrackingNo(getTrackingNo());
-        stl.weight = shippingPackage.weight
-        stl.width = shippingPackage.width
+        stl.setWeight(shippingPackage.weight)
+        stl.setWidth(shippingPackage.width)
         stl.saveEx()
     }
 

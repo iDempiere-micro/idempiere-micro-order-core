@@ -106,23 +106,7 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
     return "@Total@ = " + total + " - @Difference@ = " + Env.ONEHUNDRED.subtract(total);
   } //	validate
 
-  /**
-   * *********************************************************************** Apply Payment Term to
-   * Order -
-   *
-   * @param C_Order_ID order
-   * @return true if payment schedule is valid
-   */
-  public boolean applyOrder(int C_Order_ID) {
-    MOrder order = new MOrder(getCtx(), C_Order_ID, null);
-    if (order == null || order.getId() == 0) {
-      log.log(Level.SEVERE, "apply - Not valid C_Order_ID=" + C_Order_ID);
-      return false;
-    }
-    return applyOrder(order);
-  } //	applyOrder
-
-  /**
+    /**
    * Apply Payment Term to Order
    *
    * @param order order

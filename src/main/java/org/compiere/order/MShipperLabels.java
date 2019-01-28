@@ -17,15 +17,4 @@ public class MShipperLabels extends X_M_ShipperLabels {
     super(ctx, rs, trxName);
   }
 
-  public String getValue() {
-    return getM_ShipperLabelsCfg().getValue();
-  }
-
-  public BigDecimal getHeight() {
-    return getM_ShipperLabelsCfg().getHeight();
-  }
-
-  public BigDecimal getWidth() {
-    return getM_ShipperLabelsCfg().getWidth();
-  }
 }

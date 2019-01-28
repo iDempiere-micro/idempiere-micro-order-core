@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.util.Properties;
 import org.compiere.model.I_M_RMA;
 import org.compiere.orm.BasePOName;
-import org.compiere.orm.MTable;
 import org.idempiere.common.util.Env;
 import org.idempiere.orm.I_Persistent;
 
@@ -17,63 +16,23 @@ import org.idempiere.orm.I_Persistent;
  */
 public class X_M_RMA extends BasePOName implements I_Persistent {
 
-  /** DocAction AD_Reference_ID=135 */
-  public static final int DOCACTION_AD_Reference_ID = 135;
-  /** Complete = CO */
+    /** Complete = CO */
   public static final String DOCACTION_Complete = "CO";
-  /** Approve = AP */
-  public static final String DOCACTION_Approve = "AP";
-  /** Reject = RJ */
-  public static final String DOCACTION_Reject = "RJ";
-  /** Post = PO */
-  public static final String DOCACTION_Post = "PO";
-  /** Void = VO */
+    /** Void = VO */
   public static final String DOCACTION_Void = "VO";
   /** Close = CL */
   public static final String DOCACTION_Close = "CL";
-  /** Reverse - Correct = RC */
-  public static final String DOCACTION_Reverse_Correct = "RC";
-  /** Reverse - Accrual = RA */
-  public static final String DOCACTION_Reverse_Accrual = "RA";
-  /** Invalidate = IN */
-  public static final String DOCACTION_Invalidate = "IN";
-  /** Re-activate = RE */
-  public static final String DOCACTION_Re_Activate = "RE";
-  /** <None> = -- */
+    /** <None> = -- */
   public static final String DOCACTION_None = "--";
-  /** Prepare = PR */
-  public static final String DOCACTION_Prepare = "PR";
-  /** Unlock = XL */
-  public static final String DOCACTION_Unlock = "XL";
-  /** Wait Complete = WC */
-  public static final String DOCACTION_WaitComplete = "WC";
-  /** DocStatus AD_Reference_ID=131 */
-  public static final int DOCSTATUS_AD_Reference_ID = 131;
-  /** Drafted = DR */
+    /** Drafted = DR */
   public static final String DOCSTATUS_Drafted = "DR";
   /** Completed = CO */
   public static final String DOCSTATUS_Completed = "CO";
-  /** Approved = AP */
-  public static final String DOCSTATUS_Approved = "AP";
-  /** Not Approved = NA */
-  public static final String DOCSTATUS_NotApproved = "NA";
-  /** Voided = VO */
-  public static final String DOCSTATUS_Voided = "VO";
-  /** Invalid = IN */
-  public static final String DOCSTATUS_Invalid = "IN";
-  /** Reversed = RE */
+    /** Reversed = RE */
   public static final String DOCSTATUS_Reversed = "RE";
   /** Closed = CL */
   public static final String DOCSTATUS_Closed = "CL";
-  /** Unknown = ?? */
-  public static final String DOCSTATUS_Unknown = "??";
-  /** In Progress = IP */
-  public static final String DOCSTATUS_InProgress = "IP";
-  /** Waiting Payment = WP */
-  public static final String DOCSTATUS_WaitingPayment = "WP";
-  /** Waiting Confirmation = WC */
-  public static final String DOCSTATUS_WaitingConfirmation = "WC";
-  /** */
+    /** */
   private static final long serialVersionUID = 20171031L;
   /** Standard Constructor */
   public X_M_RMA(Properties ctx, int M_RMA_ID, String trxName) {
@@ -117,13 +76,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
     set_Value(I_M_RMA.COLUMNNAME_Amt, Amt);
   }
 
-  public org.compiere.model.I_C_BPartner getC_BPartner() throws RuntimeException {
-    return (org.compiere.model.I_C_BPartner)
-        MTable.get(getCtx(), org.compiere.model.I_C_BPartner.Table_Name)
-            .getPO(getC_BPartner_ID(), null);
-  }
-
-  /**
+    /**
    * Get Business Partner .
    *
    * @return Identifies a Business Partner
@@ -144,13 +97,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
     else set_Value(I_M_RMA.COLUMNNAME_C_BPartner_ID, C_BPartner_ID);
   }
 
-  public org.compiere.model.I_C_Currency getC_Currency() throws RuntimeException {
-    return (org.compiere.model.I_C_Currency)
-        MTable.get(getCtx(), org.compiere.model.I_C_Currency.Table_Name)
-            .getPO(getC_Currency_ID(), null);
-  }
-
-  /**
+    /**
    * Get Currency.
    *
    * @return The Currency for this record
@@ -171,13 +118,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
     else set_Value(I_M_RMA.COLUMNNAME_C_Currency_ID, C_Currency_ID);
   }
 
-  public org.compiere.model.I_C_DocType getC_DocType() throws RuntimeException {
-    return (org.compiere.model.I_C_DocType)
-        MTable.get(getCtx(), org.compiere.model.I_C_DocType.Table_Name)
-            .getPO(getC_DocType_ID(), null);
-  }
-
-  /**
+    /**
    * Get Document Type.
    *
    * @return Document type or rules
@@ -198,13 +139,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
     else set_Value(I_M_RMA.COLUMNNAME_C_DocType_ID, C_DocType_ID);
   }
 
-  public org.compiere.model.I_C_Order getC_Order() throws RuntimeException {
-    return (org.compiere.model.I_C_Order)
-        MTable.get(getCtx(), org.compiere.model.I_C_Order.Table_Name)
-            .getPO(getC_Order_ID(), null);
-  }
-
-  /**
+    /**
    * Get Order.
    *
    * @return Order
@@ -225,26 +160,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
     else set_ValueNoCheck(I_M_RMA.COLUMNNAME_C_Order_ID, C_Order_ID);
   }
 
-  /**
-   * Get Create lines from.
-   *
-   * @return Process which will generate a new document lines based on an existing document
-   */
-  public String getCreateFrom() {
-    return (String) get_Value(I_M_RMA.COLUMNNAME_CreateFrom);
-  }
-
-  /**
-   * Set Create lines from.
-   *
-   * @param CreateFrom Process which will generate a new document lines based on an existing
-   *     document
-   */
-  public void setCreateFrom(String CreateFrom) {
-    set_Value(I_M_RMA.COLUMNNAME_CreateFrom, CreateFrom);
-  }
-
-  /**
+    /**
    * Get Description.
    *
    * @return Optional short description of the record
@@ -318,25 +234,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
     set_Value(I_M_RMA.COLUMNNAME_DocumentNo, DocumentNo);
   }
 
-  /**
-   * Get Generate To.
-   *
-   * @return Generate To
-   */
-  public String getGenerateTo() {
-    return (String) get_Value(I_M_RMA.COLUMNNAME_GenerateTo);
-  }
-
-  /**
-   * Set Generate To.
-   *
-   * @param GenerateTo Generate To
-   */
-  public void setGenerateTo(String GenerateTo) {
-    set_Value(I_M_RMA.COLUMNNAME_GenerateTo, GenerateTo);
-  }
-
-  /**
+    /**
    * Get Comment/Help.
    *
    * @return Comment or Hint
@@ -354,13 +252,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
     set_Value(I_M_RMA.COLUMNNAME_Help, Help);
   }
 
-  public org.compiere.model.I_M_InOut getInOut() throws RuntimeException {
-    return (org.compiere.model.I_M_InOut)
-        MTable.get(getCtx(), org.compiere.model.I_M_InOut.Table_Name)
-            .getPO(getInOut_ID(), null);
-  }
-
-  /**
+    /**
    * Get Shipment/Receipt.
    *
    * @return MaterialShipment Document
@@ -438,23 +330,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
     return ii;
   }
 
-  /**
-   * Set RMA.
-   *
-   * @param M_RMA_ID Return Material Authorization
-   */
-  public void setM_RMA_ID(int M_RMA_ID) {
-    if (M_RMA_ID < 1) set_ValueNoCheck(I_M_RMA.COLUMNNAME_M_RMA_ID, null);
-    else set_ValueNoCheck(I_M_RMA.COLUMNNAME_M_RMA_ID, M_RMA_ID);
-  }
-
-  public org.compiere.model.I_M_RMAType getM_RMAType() throws RuntimeException {
-    return (org.compiere.model.I_M_RMAType)
-        MTable.get(getCtx(), org.compiere.model.I_M_RMAType.Table_Name)
-            .getPO(getM_RMAType_ID(), null);
-  }
-
-  /**
+    /**
    * Get RMA Type.
    *
    * @return Return Material Authorization Type
@@ -475,25 +351,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
     else set_Value(I_M_RMA.COLUMNNAME_M_RMAType_ID, M_RMAType_ID);
   }
 
-  /**
-   * Get M_RMA_UU.
-   *
-   * @return M_RMA_UU
-   */
-  public String getM_RMA_UU() {
-    return (String) get_Value(I_M_RMA.COLUMNNAME_M_RMA_UU);
-  }
-
-  /**
-   * Set M_RMA_UU.
-   *
-   * @param M_RMA_UU M_RMA_UU
-   */
-  public void setM_RMA_UU(String M_RMA_UU) {
-    set_Value(I_M_RMA.COLUMNNAME_M_RMA_UU, M_RMA_UU);
-  }
-
-  /**
+    /**
    * Get Processed.
    *
    * @return The document has been processed
@@ -516,21 +374,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
     set_Value(I_M_RMA.COLUMNNAME_Processed, Processed);
   }
 
-  /**
-   * Get Process Now.
-   *
-   * @return Process Now
-   */
-  public boolean isProcessing() {
-    Object oo = get_Value(I_M_RMA.COLUMNNAME_Processing);
-    if (oo != null) {
-      if (oo instanceof Boolean) return (Boolean) oo;
-      return "Y".equals(oo);
-    }
-    return false;
-  }
-
-  /**
+    /**
    * Set Process Now.
    *
    * @param Processing Process Now
@@ -539,13 +383,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
     set_Value(I_M_RMA.COLUMNNAME_Processing, Processing);
   }
 
-  public org.compiere.model.I_M_RMA getRef_RMA() throws RuntimeException {
-    return (org.compiere.model.I_M_RMA)
-        MTable.get(getCtx(), org.compiere.model.I_M_RMA.Table_Name)
-            .getPO(getRef_RMA_ID(), null);
-  }
-
-  /**
+    /**
    * Get Referenced RMA.
    *
    * @return Referenced RMA
@@ -566,13 +404,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
     else set_Value(I_M_RMA.COLUMNNAME_Ref_RMA_ID, Ref_RMA_ID);
   }
 
-  public org.compiere.model.I_AD_User getSalesRep() throws RuntimeException {
-    return (org.compiere.model.I_AD_User)
-        MTable.get(getCtx(), org.compiere.model.I_AD_User.Table_Name)
-            .getPO(getSalesRep_ID(), null);
-  }
-
-  /**
+    /**
    * Get Sales Representative.
    *
    * @return Sales Representative or Company Agent

@@ -1,10 +1,8 @@
 package org.compiere.order;
 
-import org.compiere.model.I_C_InvoiceLine;
 import org.compiere.model.I_C_Order;
 import org.compiere.model.I_M_RMA;
 import org.compiere.model.I_M_RMALine;
-import org.compiere.orm.Query;
 import org.compiere.product.MProduct;
 import org.compiere.tax.ITaxProvider;
 import org.compiere.tax.MTax;
@@ -147,20 +145,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
     return m_ioLine;
   } //	getShipLine
 
-  /**
-   * Retrieves the invoiceLine Id associated with the Shipment/Receipt Line
-   *
-   * @return Invoice Line ID
-   */
-  protected int getInvoiceLineId() {
-    int invoiceLine_ID =
-        new Query(getCtx(), I_C_InvoiceLine.Table_Name, "M_InOutLine_ID=?", null)
-            .setParameters(getM_InOutLine_ID())
-            .firstId();
-    return invoiceLine_ID <= 0 ? 0 : invoiceLine_ID;
-  }
-
-  /**
+    /**
    * Calculates the unit amount for the product/charge
    *
    * @return Unit Amount
@@ -234,16 +219,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
     return bd;
   } //  getAmt
 
-  /**
-   * Get whether the Ship line has been invoiced
-   *
-   * @return true if invoiced
-   */
-  public boolean isShipLineInvoiced() {
-    return (getInvoiceLineId() != 0);
-  }
-
-  @Override
+    @Override
   protected boolean beforeSave(boolean newRecord) {
     if (newRecord && getParent().isComplete()) {
       log.saveError("ParentComplete", Msg.translate(getCtx(), "M_RMA"));
@@ -502,17 +478,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
     return m_ioLine.getC_Campaign_ID();
   }
 
-  /**
-   * Get Org Trx
-   *
-   * @return Org Trx if based on shipment line and 0 for charge based
-   */
-  public int getAD_OrgTrx_ID() {
-    if (m_ioLine == null) return 0;
-    return m_ioLine.getAD_OrgTrx_ID();
-  }
-
-  /**
+    /**
    * Get User1
    *
    * @return user1 if based on shipment line and 0 for charge based
