@@ -30,43 +30,19 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm, I_Persiste
   public static final String CONFIRMTYPE_ShipReceiptConfirm = "SC";
   /** Pick/QA Confirm = PC */
   public static final String CONFIRMTYPE_PickQAConfirm = "PC";
-  /** DocAction AD_Reference_ID=135 */
-  public static final int DOCACTION_AD_Reference_ID = 135;
-  /** Complete = CO */
+    /** Complete = CO */
   public static final String DOCACTION_Complete = "CO";
-  /** Approve = AP */
-  public static final String DOCACTION_Approve = "AP";
-  /** Reject = RJ */
-  public static final String DOCACTION_Reject = "RJ";
-  /** Post = PO */
-  public static final String DOCACTION_Post = "PO";
-  /** Void = VO */
+    /** Void = VO */
   public static final String DOCACTION_Void = "VO";
   /** Close = CL */
   public static final String DOCACTION_Close = "CL";
-  /** Reverse - Correct = RC */
-  public static final String DOCACTION_Reverse_Correct = "RC";
-  /** Reverse - Accrual = RA */
-  public static final String DOCACTION_Reverse_Accrual = "RA";
-  /** Invalidate = IN */
-  public static final String DOCACTION_Invalidate = "IN";
-  /** Re-activate = RE */
-  public static final String DOCACTION_Re_Activate = "RE";
-  /** <None> = -- */
+    /** <None> = -- */
   public static final String DOCACTION_None = "--";
   /** Prepare = PR */
   public static final String DOCACTION_Prepare = "PR";
-  /** Unlock = XL */
-  public static final String DOCACTION_Unlock = "XL";
-  /** Wait Complete = WC */
-  public static final String DOCACTION_WaitComplete = "WC";
-  /** DocStatus AD_Reference_ID=131 */
-  public static final int DOCSTATUS_AD_Reference_ID = 131;
-  /** Drafted = DR */
+    /** Drafted = DR */
   public static final String DOCSTATUS_Drafted = "DR";
-  /** Completed = CO */
-  public static final String DOCSTATUS_Completed = "CO";
-  /** Approved = AP */
+    /** Approved = AP */
   public static final String DOCSTATUS_Approved = "AP";
   /** Not Approved = NA */
   public static final String DOCSTATUS_NotApproved = "NA";
@@ -78,15 +54,9 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm, I_Persiste
   public static final String DOCSTATUS_Reversed = "RE";
   /** Closed = CL */
   public static final String DOCSTATUS_Closed = "CL";
-  /** Unknown = ?? */
-  public static final String DOCSTATUS_Unknown = "??";
-  /** In Progress = IP */
+    /** In Progress = IP */
   public static final String DOCSTATUS_InProgress = "IP";
-  /** Waiting Payment = WP */
-  public static final String DOCSTATUS_WaitingPayment = "WP";
-  /** Waiting Confirmation = WC */
-  public static final String DOCSTATUS_WaitingConfirmation = "WC";
-  /** */
+    /** */
   private static final long serialVersionUID = 20171031L;
   /** Standard Constructor */
   public X_M_InOutConfirm(Properties ctx, int M_InOutConfirm_ID, String trxName) {
@@ -128,22 +98,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm, I_Persiste
     return bd;
   }
 
-  /**
-   * Set Approval Amount.
-   *
-   * @param ApprovalAmt Document Approval Amount
-   */
-  public void setApprovalAmt(BigDecimal ApprovalAmt) {
-    set_Value(COLUMNNAME_ApprovalAmt, ApprovalAmt);
-  }
-
-  public org.compiere.model.I_C_Invoice getC_Invoice() throws RuntimeException {
-    return (org.compiere.model.I_C_Invoice)
-        MTable.get(getCtx(), org.compiere.model.I_C_Invoice.Table_Name)
-            .getPO(getC_Invoice_ID(), null);
-  }
-
-  /**
+    /**
    * Get Invoice.
    *
    * @return Invoice Identifier
@@ -164,25 +119,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm, I_Persiste
     else set_Value(COLUMNNAME_C_Invoice_ID, Integer.valueOf(C_Invoice_ID));
   }
 
-  /**
-   * Get Confirmation No.
-   *
-   * @return Confirmation Number
-   */
-  public String getConfirmationNo() {
-    return (String) get_Value(COLUMNNAME_ConfirmationNo);
-  }
-
-  /**
-   * Set Confirmation No.
-   *
-   * @param ConfirmationNo Confirmation Number
-   */
-  public void setConfirmationNo(String ConfirmationNo) {
-    set_Value(COLUMNNAME_ConfirmationNo, ConfirmationNo);
-  }
-
-  /**
+    /**
    * Get Confirmation Type.
    *
    * @return Type of confirmation
@@ -201,25 +138,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm, I_Persiste
     set_Value(COLUMNNAME_ConfirmType, ConfirmType);
   }
 
-  /**
-   * Get Create Package.
-   *
-   * @return Create Package
-   */
-  public String getCreatePackage() {
-    return (String) get_Value(COLUMNNAME_CreatePackage);
-  }
-
-  /**
-   * Set Create Package.
-   *
-   * @param CreatePackage Create Package
-   */
-  public void setCreatePackage(String CreatePackage) {
-    set_Value(COLUMNNAME_CreatePackage, CreatePackage);
-  }
-
-  /**
+    /**
    * Get Description.
    *
    * @return Optional short description of the record
@@ -284,25 +203,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm, I_Persiste
     return (String) get_Value(COLUMNNAME_DocumentNo);
   }
 
-  /**
-   * Set Document No.
-   *
-   * @param DocumentNo Document sequence number of the document
-   */
-  public void setDocumentNo(String DocumentNo) {
-    set_Value(COLUMNNAME_DocumentNo, DocumentNo);
-  }
-
-  /**
-   * Get Record ID/ColumnName
-   *
-   * @return ID/ColumnName pair
-   */
-  public KeyNamePair getKeyNamePair() {
-    return new KeyNamePair(getId(), getDocumentNo());
-  }
-
-  /**
+    /**
    * Set Approved.
    *
    * @param IsApproved Indicates if this document requires approval
@@ -334,21 +235,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm, I_Persiste
     set_Value(COLUMNNAME_IsCancelled, Boolean.valueOf(IsCancelled));
   }
 
-  /**
-   * Get Cancelled.
-   *
-   * @return The transaction was cancelled
-   */
-  public boolean isCancelled() {
-    Object oo = get_Value(COLUMNNAME_IsCancelled);
-    if (oo != null) {
-      if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
-      return "Y".equals(oo);
-    }
-    return false;
-  }
-
-  /**
+    /**
    * Set In Dispute.
    *
    * @param IsInDispute Document is in dispute
@@ -382,35 +269,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm, I_Persiste
     return ii;
   }
 
-  /**
-   * Set Ship/Receipt Confirmation.
-   *
-   * @param M_InOutConfirm_ID Material Shipment or Receipt Confirmation
-   */
-  public void setM_InOutConfirm_ID(int M_InOutConfirm_ID) {
-    if (M_InOutConfirm_ID < 1) set_ValueNoCheck(COLUMNNAME_M_InOutConfirm_ID, null);
-    else set_ValueNoCheck(COLUMNNAME_M_InOutConfirm_ID, Integer.valueOf(M_InOutConfirm_ID));
-  }
-
-  /**
-   * Get M_InOutConfirm_UU.
-   *
-   * @return M_InOutConfirm_UU
-   */
-  public String getM_InOutConfirm_UU() {
-    return (String) get_Value(COLUMNNAME_M_InOutConfirm_UU);
-  }
-
-  /**
-   * Set M_InOutConfirm_UU.
-   *
-   * @param M_InOutConfirm_UU M_InOutConfirm_UU
-   */
-  public void setM_InOutConfirm_UU(String M_InOutConfirm_UU) {
-    set_Value(COLUMNNAME_M_InOutConfirm_UU, M_InOutConfirm_UU);
-  }
-
-  public org.compiere.model.I_M_InOut getM_InOut() throws RuntimeException {
+    public org.compiere.model.I_M_InOut getM_InOut() throws RuntimeException {
     return (org.compiere.model.I_M_InOut)
         MTable.get(getCtx(), org.compiere.model.I_M_InOut.Table_Name)
             .getPO(getM_InOut_ID(), null);
@@ -437,13 +296,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm, I_Persiste
     else set_ValueNoCheck(COLUMNNAME_M_InOut_ID, Integer.valueOf(M_InOut_ID));
   }
 
-  public org.compiere.model.I_M_Inventory getM_Inventory() throws RuntimeException {
-    return (org.compiere.model.I_M_Inventory)
-        MTable.get(getCtx(), org.compiere.model.I_M_Inventory.Table_Name)
-            .getPO(getM_Inventory_ID(), null);
-  }
-
-  /**
+    /**
    * Get Phys.Inventory.
    *
    * @return Parameters for a Physical Inventory
@@ -487,21 +340,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm, I_Persiste
     set_Value(COLUMNNAME_Processed, Boolean.valueOf(Processed));
   }
 
-  /**
-   * Get Process Now.
-   *
-   * @return Process Now
-   */
-  public boolean isProcessing() {
-    Object oo = get_Value(COLUMNNAME_Processing);
-    if (oo != null) {
-      if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
-      return "Y".equals(oo);
-    }
-    return false;
-  }
-
-  /**
+    /**
    * Set Process Now.
    *
    * @param Processing Process Now

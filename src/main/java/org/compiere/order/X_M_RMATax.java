@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.util.Properties;
 import org.compiere.model.I_M_RMATax;
-import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 import org.idempiere.orm.I_Persistent;
@@ -48,13 +47,7 @@ public class X_M_RMATax extends PO implements I_Persistent {
     return sb.toString();
   }
 
-  public org.compiere.model.I_C_Tax getC_Tax() throws RuntimeException {
-    return (org.compiere.model.I_C_Tax)
-        MTable.get(getCtx(), org.compiere.model.I_C_Tax.Table_Name)
-            .getPO(getC_Tax_ID(), null);
-  }
-
-  /**
+    /**
    * Get Tax.
    *
    * @return Tax identifier
@@ -75,13 +68,7 @@ public class X_M_RMATax extends PO implements I_Persistent {
     else set_ValueNoCheck(I_M_RMATax.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
   }
 
-  public org.compiere.model.I_C_TaxProvider getC_TaxProvider() throws RuntimeException {
-    return (org.compiere.model.I_C_TaxProvider)
-        MTable.get(getCtx(), org.compiere.model.I_C_TaxProvider.Table_Name)
-            .getPO(getC_TaxProvider_ID(), null);
-  }
-
-  /**
+    /**
    * Get Tax Provider.
    *
    * @return Tax Provider
@@ -92,18 +79,7 @@ public class X_M_RMATax extends PO implements I_Persistent {
     return ii;
   }
 
-  /**
-   * Set Tax Provider.
-   *
-   * @param C_TaxProvider_ID Tax Provider
-   */
-  public void setC_TaxProvider_ID(int C_TaxProvider_ID) {
-    if (C_TaxProvider_ID < 1) set_ValueNoCheck(I_M_RMATax.COLUMNNAME_C_TaxProvider_ID, null);
-    else
-      set_ValueNoCheck(I_M_RMATax.COLUMNNAME_C_TaxProvider_ID, Integer.valueOf(C_TaxProvider_ID));
-  }
-
-  /**
+    /**
    * Set Price includes Tax.
    *
    * @param IsTaxIncluded Tax is included in the price
@@ -126,13 +102,7 @@ public class X_M_RMATax extends PO implements I_Persistent {
     return false;
   }
 
-  public org.compiere.model.I_M_RMA getM_RMA() throws RuntimeException {
-    return (org.compiere.model.I_M_RMA)
-        MTable.get(getCtx(), org.compiere.model.I_M_RMA.Table_Name)
-            .getPO(getM_RMA_ID(), null);
-  }
-
-  /**
+    /**
    * Get RMA.
    *
    * @return Return Material Authorization
@@ -153,48 +123,7 @@ public class X_M_RMATax extends PO implements I_Persistent {
     else set_ValueNoCheck(I_M_RMATax.COLUMNNAME_M_RMA_ID, Integer.valueOf(M_RMA_ID));
   }
 
-  /**
-   * Get M_RMATax_UU.
-   *
-   * @return M_RMATax_UU
-   */
-  public String getM_RMATax_UU() {
-    return (String) get_Value(I_M_RMATax.COLUMNNAME_M_RMATax_UU);
-  }
-
-  /**
-   * Set M_RMATax_UU.
-   *
-   * @param M_RMATax_UU M_RMATax_UU
-   */
-  public void setM_RMATax_UU(String M_RMATax_UU) {
-    set_Value(I_M_RMATax.COLUMNNAME_M_RMATax_UU, M_RMATax_UU);
-  }
-
-  /**
-   * Get Processed.
-   *
-   * @return The document has been processed
-   */
-  public boolean isProcessed() {
-    Object oo = get_Value(I_M_RMATax.COLUMNNAME_Processed);
-    if (oo != null) {
-      if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
-      return "Y".equals(oo);
-    }
-    return false;
-  }
-
-  /**
-   * Set Processed.
-   *
-   * @param Processed The document has been processed
-   */
-  public void setProcessed(boolean Processed) {
-    set_Value(I_M_RMATax.COLUMNNAME_Processed, Boolean.valueOf(Processed));
-  }
-
-  /**
+    /**
    * Get Tax Amount.
    *
    * @return Tax Amount for a document

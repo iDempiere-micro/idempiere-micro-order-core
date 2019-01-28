@@ -3,7 +3,6 @@ package org.compiere.order;
 import org.compiere.model.*;
 import org.compiere.tax.ITaxProvider;
 import org.compiere.tax.MTax;
-import org.compiere.util.Msg;
 import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.Env;
 
@@ -230,7 +229,4 @@ public class StandardTaxProvider implements ITaxProvider {
     return no == 1;
   }
 
-  public String validateConnection(I_C_TaxProvider provider, IProcessInfo pi) throws Exception {
-    throw new IllegalStateException(Msg.getMsg(provider.getCtx(), "ActionNotSupported"));
-  }
 }

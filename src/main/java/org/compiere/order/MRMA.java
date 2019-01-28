@@ -1,17 +1,5 @@
 package org.compiere.order;
 
-import static software.hsharp.core.orm.POKt.I_ZERO;
-import static software.hsharp.core.orm.POKt.getAllIDs;
-import static software.hsharp.core.util.DBKt.executeUpdateEx;
-
-import java.io.File;
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Properties;
-import java.util.logging.Level;
 import org.compiere.model.I_M_RMA;
 import org.compiere.model.I_M_RMALine;
 import org.compiere.model.I_M_RMATax;
@@ -26,6 +14,18 @@ import org.compiere.util.Msg;
 import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.util.Env;
 import org.idempiere.orm.PO;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+
+import static software.hsharp.core.orm.POKt.I_ZERO;
+import static software.hsharp.core.orm.POKt.getAllIDs;
+import static software.hsharp.core.util.DBKt.executeUpdateEx;
 
 /**
  * RMA Model
@@ -223,34 +223,6 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
     MDocType dt = MDocType.get(getCtx(), getC_DocType_ID());
     return dt.getNameTrl() + " " + getDocumentNo();
   } //	getDocumentInfo
-
-  /**
-   * Create PDF
-   *
-   * @return File or null
-   */
-  public File createPDF() {
-    try {
-      File temp = File.createTempFile(get_TableName() + getId() + "_", ".pdf");
-      return createPDF(temp);
-    } catch (Exception e) {
-      log.severe("Could not create PDF - " + e.getMessage());
-    }
-    return null;
-  } //	getPDF
-
-  /**
-   * Create PDF file
-   *
-   * @param file output file
-   * @return file if success
-   */
-  public File createPDF(File file) {
-    //	ReportEngine re = ReportEngine.get (getCtx(), ReportEngine.INVOICE, getC_Invoice_ID());
-    //	if (re == null)
-    return null;
-    //	return re.getPDF(file);
-  } //	createPDF
 
   /**
    * Before Save Set BPartner, Currency

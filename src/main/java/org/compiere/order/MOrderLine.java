@@ -3,7 +3,6 @@ package org.compiere.order;
 import static software.hsharp.core.util.DBKt.*;
 
 import java.math.BigDecimal;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -16,7 +15,6 @@ import org.compiere.product.*;
 import org.compiere.tax.*;
 import org.compiere.util.Msg;
 import org.idempiere.common.exceptions.AdempiereException;
-import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.Env;
 
 /**
@@ -43,10 +41,8 @@ import org.idempiere.common.util.Env;
 public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine {
   /** */
   private static final long serialVersionUID = -7152360636393521683L;
-  /** Logger */
-  protected static CLogger s_log = CLogger.getCLogger(MOrderLine.class);
 
-  protected int m_M_PriceList_ID = 0;
+    protected int m_M_PriceList_ID = 0;
   //
   protected boolean m_IsSOTrx = true;
   //	Product Pricing
@@ -132,57 +128,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
     super(ctx, row);
   } //	MOrderLine
 
-  /**
-   * Get Order Unreserved Qty
-   *
-   * @param ctx context
-   * @param M_Warehouse_ID wh
-   * @param M_Product_ID product
-   * @param M_AttributeSetInstance_ID asi
-   * @param excludeC_OrderLine_ID exclude C_OrderLine_ID
-   * @return Unreserved Qty
-   */
-  public static BigDecimal getNotReserved(
-      Properties ctx,
-      int M_Warehouse_ID,
-      int M_Product_ID,
-      int M_AttributeSetInstance_ID,
-      int excludeC_OrderLine_ID) {
-    BigDecimal retValue = Env.ZERO;
-    String sql =
-        "SELECT SUM(QtyOrdered-QtyDelivered-QtyReserved) "
-            + "FROM C_OrderLine ol"
-            + " INNER JOIN C_Order o ON (ol.C_Order_ID=o.C_Order_ID) "
-            + "WHERE ol.M_Warehouse_ID=?" //	#1
-            + " AND M_Product_ID=?" //	#2
-            + " AND o.IsSOTrx='Y' AND o.DocStatus='DR'"
-            + " AND QtyOrdered-QtyDelivered-QtyReserved<>0"
-            + " AND ol.C_OrderLine_ID<>?";
-    if (M_AttributeSetInstance_ID != 0) sql += " AND M_AttributeSetInstance_ID=?";
-
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
-    try {
-      pstmt = prepareStatement(sql, null);
-      pstmt.setInt(1, M_Warehouse_ID);
-      pstmt.setInt(2, M_Product_ID);
-      pstmt.setInt(3, excludeC_OrderLine_ID);
-      if (M_AttributeSetInstance_ID != 0) pstmt.setInt(4, M_AttributeSetInstance_ID);
-      rs = pstmt.executeQuery();
-      if (rs.next()) retValue = rs.getBigDecimal(1);
-    } catch (Exception e) {
-      s_log.log(Level.SEVERE, sql, e);
-    } finally {
-      close(rs, pstmt);
-      rs = null;
-      pstmt = null;
-    }
-    if (retValue == null) s_log.fine("-");
-    else if (s_log.isLoggable(Level.FINE)) s_log.fine(retValue.toString());
-    return retValue;
-  } //	getNotReserved
-
-  /**
+    /**
    * Set Defaults from Order. Does not set Parent !!
    *
    * @param order order
@@ -628,31 +574,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
     else setDescription(desc + " | " + description);
   } //	addDescription
 
-  /**
-   * Get Description Text. For jsp access (vs. isDescription)
-   *
-   * @return description
-   */
-  public String getDescriptionText() {
-    return super.getDescription();
-  } //	getDescriptionText
-
-  /**
-   * Get Name
-   *
-   * @return get the name of the line (from Product)
-   */
-  public String getName() {
-    getProduct();
-    if (m_product != null) return m_product.getName();
-    if (getC_Charge_ID() != 0) {
-      MCharge charge = MCharge.get(getCtx(), getC_Charge_ID());
-      return charge.getName();
-    }
-    return "";
-  } //	getName
-
-  /**
+    /**
    * Set C_Charge_ID
    *
    * @param C_Charge_ID charge

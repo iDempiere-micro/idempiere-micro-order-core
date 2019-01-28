@@ -2,7 +2,6 @@ package org.compiere.order;
 
 import kotliquery.Row;
 import org.compiere.model.I_C_PaySchedule;
-import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 import org.idempiere.common.util.KeyNamePair;
@@ -20,23 +19,7 @@ import java.util.Properties;
  */
 public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent {
 
-  /** NetDay AD_Reference_ID=167 */
-  public static final int NETDAY_AD_Reference_ID = 167;
-  /** Sunday = 7 */
-  public static final String NETDAY_Sunday = "7";
-  /** Monday = 1 */
-  public static final String NETDAY_Monday = "1";
-  /** Tuesday = 2 */
-  public static final String NETDAY_Tuesday = "2";
-  /** Wednesday = 3 */
-  public static final String NETDAY_Wednesday = "3";
-  /** Thursday = 4 */
-  public static final String NETDAY_Thursday = "4";
-  /** Friday = 5 */
-  public static final String NETDAY_Friday = "5";
-  /** Saturday = 6 */
-  public static final String NETDAY_Saturday = "6";
-  /** */
+    /** */
   private static final long serialVersionUID = 20171031L;
 
   /** Standard Constructor */
@@ -71,13 +54,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent
     return sb.toString();
   }
 
-  public org.compiere.model.I_C_PaymentTerm getC_PaymentTerm() throws RuntimeException {
-    return (org.compiere.model.I_C_PaymentTerm)
-        MTable.get(getCtx(), org.compiere.model.I_C_PaymentTerm.Table_Name)
-            .getPO(getC_PaymentTerm_ID(), null);
-  }
-
-  /**
+    /**
    * Get Payment Term.
    *
    * @return The terms of Payment (timing, discount)
@@ -98,16 +75,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent
     else set_ValueNoCheck(COLUMNNAME_C_PaymentTerm_ID, Integer.valueOf(C_PaymentTerm_ID));
   }
 
-  /**
-   * Get Record ID/ColumnName
-   *
-   * @return ID/ColumnName pair
-   */
-  public KeyNamePair getKeyNamePair() {
-    return new KeyNamePair(getId(), String.valueOf(getC_PaymentTerm_ID()));
-  }
-
-  /**
+    /**
    * Get Payment Schedule.
    *
    * @return Payment Schedule Template
@@ -118,35 +86,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent
     return ii;
   }
 
-  /**
-   * Set Payment Schedule.
-   *
-   * @param C_PaySchedule_ID Payment Schedule Template
-   */
-  public void setC_PaySchedule_ID(int C_PaySchedule_ID) {
-    if (C_PaySchedule_ID < 1) set_ValueNoCheck(COLUMNNAME_C_PaySchedule_ID, null);
-    else set_ValueNoCheck(COLUMNNAME_C_PaySchedule_ID, Integer.valueOf(C_PaySchedule_ID));
-  }
-
-  /**
-   * Get C_PaySchedule_UU.
-   *
-   * @return C_PaySchedule_UU
-   */
-  public String getC_PaySchedule_UU() {
-    return (String) get_Value(COLUMNNAME_C_PaySchedule_UU);
-  }
-
-  /**
-   * Set C_PaySchedule_UU.
-   *
-   * @param C_PaySchedule_UU C_PaySchedule_UU
-   */
-  public void setC_PaySchedule_UU(String C_PaySchedule_UU) {
-    set_Value(COLUMNNAME_C_PaySchedule_UU, C_PaySchedule_UU);
-  }
-
-  /**
+    /**
    * Get Discount %.
    *
    * @return Discount in percent
@@ -186,18 +126,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent
     set_Value(COLUMNNAME_DiscountDays, Integer.valueOf(DiscountDays));
   }
 
-  /**
-   * Get Grace Days.
-   *
-   * @return Days after due date to send first dunning letter
-   */
-  public int getGraceDays() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_GraceDays);
-    if (ii == null) return 0;
-    return ii;
-  }
-
-  /**
+    /**
    * Set Grace Days.
    *
    * @param GraceDays Days after due date to send first dunning letter
@@ -229,26 +158,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent
     return false;
   }
 
-  /**
-   * Get Net Day.
-   *
-   * @return Day when payment is due net
-   */
-  public String getNetDay() {
-    return (String) get_Value(COLUMNNAME_NetDay);
-  }
-
-  /**
-   * Set Net Day.
-   *
-   * @param NetDay Day when payment is due net
-   */
-  public void setNetDay(String NetDay) {
-
-    set_Value(COLUMNNAME_NetDay, NetDay);
-  }
-
-  /**
+    /**
    * Get Net Days.
    *
    * @return Net Days in which payment is due

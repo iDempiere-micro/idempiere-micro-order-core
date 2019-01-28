@@ -6,7 +6,6 @@ import org.compiere.util.Msg;
 import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.Env;
 
-import java.io.File;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Properties;
@@ -103,51 +102,7 @@ public class MInOutConfirm extends X_M_InOutConfirm {
         getCtx(), X_M_InOutConfirm.CONFIRMTYPE_AD_Reference_ID, getConfirmType());
   } //	getConfirmTypeName
 
-  /**
-   * Get Document Info
-   *
-   * @return document info (untranslated)
-   */
-  public String getDocumentInfo() {
-    StringBuilder msgreturn =
-        new StringBuilder()
-            .append(Msg.getElement(getCtx(), "M_InOutConfirm_ID"))
-            .append(" ")
-            .append(getDocumentNo());
-    return msgreturn.toString();
-  } //	getDocumentInfo
-
-  /**
-   * Create PDF
-   *
-   * @return File or null
-   */
-  public File createPDF() {
-    try {
-      StringBuilder msgfile =
-          new StringBuilder().append(get_TableName()).append(getId()).append("_");
-      File temp = File.createTempFile(msgfile.toString(), ".pdf");
-      return createPDF(temp);
-    } catch (Exception e) {
-      log.severe("Could not create PDF - " + e.getMessage());
-    }
-    return null;
-  } //	getPDF
-
-  /**
-   * Create PDF file
-   *
-   * @param file output file
-   * @return file if success
-   */
-  public File createPDF(File file) {
-    //	ReportEngine re = ReportEngine.get (getCtx(), ReportEngine.INVOICE, getC_Invoice_ID());
-    //	if (re == null)
-    return null;
-    //	return re.getPDF(file);
-  } //	createPDF
-
-  /**
+    /**
    * Set Approved
    *
    * @param IsApproved approval
@@ -168,29 +123,7 @@ public class MInOutConfirm extends X_M_InOutConfirm {
     super.setIsApproved(IsApproved);
   } //	setIsApproved
 
-  /**
-   * Unlock Document.
-   *
-   * @return true if success
-   */
-  public boolean unlockIt() {
-    if (log.isLoggable(Level.INFO)) log.info(toString());
-    setProcessing(false);
-    return true;
-  } //	unlockIt
-
-  /**
-   * Invalidate Document
-   *
-   * @return true if success
-   */
-  public boolean invalidateIt() {
-    if (log.isLoggable(Level.INFO)) log.info(toString());
-    setDocAction(X_M_InOutConfirm.DOCACTION_Prepare);
-    return true;
-  } //	invalidateIt
-
-  /**
+    /**
    * Approve Document
    *
    * @return true if success
@@ -201,34 +134,4 @@ public class MInOutConfirm extends X_M_InOutConfirm {
     return true;
   } //	approveIt
 
-  /**
-   * Reject Approval
-   *
-   * @return true if success
-   */
-  public boolean rejectIt() {
-    if (log.isLoggable(Level.INFO)) log.info(toString());
-    setIsApproved(false);
-    return true;
-  } //	rejectIt
-
-  /**
-   * Get Document Owner (Responsible)
-   *
-   * @return AD_User_ID
-   */
-  public int getDoc_User_ID() {
-    return getUpdatedBy();
-  } //	getDoc_User_ID
-
-  /**
-   * Get Document Currency
-   *
-   * @return C_Currency_ID
-   */
-  public int getC_Currency_ID() {
-    //	MPriceList pl = MPriceList.get(getCtx(), getM_PriceList_ID());
-    //	return pl.getC_Currency_ID();
-    return 0;
-  } //	getC_Currency_ID
 } //	MInOutConfirm

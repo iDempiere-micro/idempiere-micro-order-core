@@ -1,21 +1,16 @@
 package org.compiere.order;
 
-import static software.hsharp.core.util.DBKt.*;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.List;
-import java.util.Properties;
-import java.util.logging.Level;
-import org.compiere.crm.*;
-import org.compiere.orm.MOrg;
-import org.compiere.orm.MOrgInfo;
-import org.compiere.orm.Query;
-import org.compiere.product.MCurrency;
 import org.compiere.util.Msg;
 import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.util.Env;
-import org.idempiere.common.util.Util;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Properties;
+import java.util.logging.Level;
+
+import static software.hsharp.core.util.DBKt.close;
+import static software.hsharp.core.util.DBKt.prepareStatement;
 
 public class MShippingTransaction extends X_M_ShippingTransaction {
   /** */
@@ -23,32 +18,12 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
   /** Error Message */
   private String m_errorMessage = null;
 
-  private PartyInfo senderInfo, recipientInfo;
-
   public MShippingTransaction(Properties ctx, int M_ShippingTransaction_ID, String trxName) {
     super(ctx, M_ShippingTransaction_ID, trxName);
   }
 
   public MShippingTransaction(Properties ctx, ResultSet rs, String trxName) {
     super(ctx, rs, trxName);
-  }
-
-  public MShippingTransactionLine[] getLines(String whereClause) {
-    StringBuilder whereClauseFinal =
-        new StringBuilder(MShippingTransactionLine.COLUMNNAME_M_ShippingTransaction_ID + "=? ");
-    if (!Util.isEmpty(whereClause, true)) whereClauseFinal.append(whereClause);
-    //
-    List<MShippingTransactionLine> list =
-        new Query(
-                getCtx(),
-                MShippingTransactionLine.Table_Name,
-                whereClauseFinal.toString(),
-                null)
-            .setParameters(getId())
-            .setOrderBy(MShippingTransactionLine.COLUMNNAME_SeqNo)
-            .list();
-    //
-    return list.toArray(new MShippingTransactionLine[list.size()]);
   }
 
   public String getErrorMessage() {
@@ -106,16 +81,6 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
     return new MShipper(getCtx(), getM_Shipper_ID(), null);
   }
 
-  public boolean isInternational() {
-    MShipperFacade facade = new MShipperFacade(getMShipper());
-    return facade.isInternational();
-  }
-
-  public String getCurrencyCode() {
-    MCurrency currency = MCurrency.get(getCtx(), getC_Currency_ID());
-    return currency.getISO_Code();
-  }
-
   public boolean isPayBySender() {
     // Payment Type must be SENDER or THIRD_PARTY when COD is requested
     if (FREIGHTCHARGES_Prepaid.equals(getFreightCharges())
@@ -123,85 +88,6 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
     else if (!FREIGHTCHARGES_3rdParty.equals(getFreightCharges()) && isCashOnDelivery())
       return true;
     else return false;
-  }
-
-  public int getProductFreightID() {
-    return getSQLValue(
-        null,
-        "SELECT M_ProductFreight_ID FROM AD_Clientinfo WHERE AD_Client_ID = ?",
-        getClientId());
-  }
-
-  public boolean isPrintLabelAsImage() {
-    MShipperLabels label = new MShipperLabels(getCtx(), getM_ShipperLabels_ID(), null);
-    return MShipperLabels.LABELPRINTMETHOD_Image.equals(label.getLabelPrintMethod());
-  }
-
-  public boolean isPrintZebraLabel() {
-    MShipperLabels label = new MShipperLabels(getCtx(), getM_ShipperLabels_ID(), null);
-    return MShipperLabels.LABELPRINTMETHOD_Zebra.equals(label.getLabelPrintMethod());
-  }
-
-  public boolean isPrintEltronLabel() {
-    MShipperLabels label = new MShipperLabels(getCtx(), getM_ShipperLabels_ID(), null);
-    return MShipperLabels.LABELPRINTMETHOD_Eltron.equals(label.getLabelPrintMethod());
-  }
-
-  public String getPayorAccount() {
-    if (isPayBySender()) {
-      MShipperFacade sf = new MShipperFacade(getMShipper());
-      return sf.getShipperAccount(getOrgId());
-    } else {
-      String ac = getShipperAccount();
-      if (ac != null) {
-        ac = ac.replaceAll("[-]", "");
-        ac = ac.replaceAll(" ", "");
-      }
-      return ac;
-    }
-  }
-
-  public String getDutiesPayorAccount() {
-    if (isPayBySender()) {
-      MShipperFacade sf = new MShipperFacade(getMShipper());
-      String dutiesShipperAccount = sf.getDutiesShipperAccount(getOrgId());
-      if (dutiesShipperAccount == null) dutiesShipperAccount = sf.getShipperAccount(getOrgId());
-      return dutiesShipperAccount;
-    } else {
-      String ac = getDutiesShipperAccount();
-      if (ac == null) ac = getShipperAccount();
-
-      if (ac != null) {
-        ac = ac.replaceAll("[-]", "");
-        ac = ac.replaceAll(" ", "");
-      }
-      return ac;
-    }
-  }
-
-  public String getPayorCountryCode() {
-    if (!isPayBySender()) {
-      MBPartnerLocation partnerLocation =
-          new MBPartnerLocation(getCtx(), getC_BPartner_Location_ID(), null);
-      MLocation location =
-          new MLocation(getCtx(), partnerLocation.getC_Location_ID(), null);
-      X_C_Country country = new X_C_Country(getCtx(), location.getC_Country_ID(), null);
-      return country.getCountryCode();
-    } else {
-      MOrg org = new MOrg(getCtx(), getOrgId(), null);
-      MOrgInfo info = new MOrgInfo(org);
-      MLocation location = new MLocation(getCtx(), info.getC_Location_ID(), null);
-      X_C_Country country = new X_C_Country(getCtx(), location.getC_Country_ID(), null);
-      return country.getCountryCode();
-    }
-  }
-
-  public boolean isCollect() {
-    return FREIGHTCHARGES_Collect.equals(getFreightCharges());
-  }
-
-  public boolean is3rdParty() {
-    return FREIGHTCHARGES_3rdParty.equals(getFreightCharges());
   }
 
   public X_M_CommodityShipment getCommodityShipment(int M_Product_ID) {
@@ -238,187 +124,8 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
     return commodityShipment;
   }
 
-  public int getCommodityShipmentID(int M_Product_ID) {
-    X_M_CommodityShipment commodityShipment = getCommodityShipment(M_Product_ID);
-    return commodityShipment.getM_CommodityShipment_ID();
-  }
-
-  public String getCommodityDescription(int M_Product_ID) {
-    X_M_CommodityShipment commodityShipment = getCommodityShipment(M_Product_ID);
-    return commodityShipment.getDescription();
-  }
-
-  public String getHarmonizedCode(int M_Product_ID) {
-    X_M_CommodityShipment commodityShipment = getCommodityShipment(M_Product_ID);
-    return commodityShipment.getHarmonizedCode();
-  }
-
-  public String getExportLicenseNum(int M_Product_ID) {
-    X_M_CommodityShipment commodityShipment = getCommodityShipment(M_Product_ID);
-    return commodityShipment.getExportLicenseNum();
-  }
-
-  public String getCountryOfManufacture(int M_Product_ID) {
-    X_M_CommodityShipment commodityShipment = getCommodityShipment(M_Product_ID);
-    int countryId = commodityShipment.getCountryOfManufacture_ID();
-    X_C_Country c = new X_C_Country(getCtx(), countryId, null);
-    return c.getCountryCode();
-  }
-
-  public PartyInfo getSenderInfo() {
-    if (senderInfo != null) return senderInfo;
-
-    PartyInfo partyInfo = null;
-
-    StringBuilder sql = new StringBuilder();
-    sql.append("SELECT CompanyName, ContactName, PhoneNumber, EMail, C_Location_ID ");
-    sql.append("FROM M_ShippingSenderInfo_V ");
-    sql.append("WHERE M_ShippingTransaction_ID = ?");
-
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
-    try {
-      pstmt = prepareStatement(sql.toString(), null);
-      pstmt.setInt(1, getM_ShippingTransaction_ID());
-      rs = pstmt.executeQuery();
-      if (rs.next()) {
-        partyInfo = new PartyInfo();
-        partyInfo.setCompanyName(rs.getString("CompanyName"));
-        partyInfo.setContactName(rs.getString("ContactName"));
-        partyInfo.setPhoneNumber(rs.getString("PhoneNumber"));
-        partyInfo.setEmail(rs.getString("EMail"));
-        partyInfo.setLocationId(rs.getInt("C_Location_ID"));
-      }
-    } catch (Exception e) {
-      log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-    } finally {
-      close(rs, pstmt);
-    }
-
-    /* DAP???
-    if (partyInfo == null)
-    {
-    	MOrg sender = new MOrg(getCtx(), getAD_Org_ID(), null);
-        MUser senderContact = new MUser(getCtx(), getSalesRep_ID(), null);
-        MWarehouse warehouse = new MWarehouse(getCtx(), getM_Warehouse_ID(), null);
-
-    	partyInfo = new PartyInfo();
-    	partyInfo.setCompanyName(sender.getName());
-        partyInfo.setContactName(senderContact.getName());
-        partyInfo.setPhoneNumber(sender.getInfo().getPhone());
-    	partyInfo.setEmail(senderContact.getEMail());
-    	partyInfo.setLocationId(warehouse.getC_Location_ID());
-    }*/
-
-    senderInfo = partyInfo;
-
-    return partyInfo;
-  }
-
-  public PartyInfo getRecipientInfo() {
-    if (recipientInfo != null) return recipientInfo;
-
-    PartyInfo partyInfo = null;
-
-    /*		StringBuilder sql = new StringBuilder();
-    		sql.append("SELECT CompanyName, ContactName, PhoneNumber, EMail, C_Location_ID ");
-    		sql.append("FROM M_ShippingRecipientInfo_V ");
-    		sql.append("WHERE M_ShippingTransaction_ID = ?");
-
-    		PreparedStatement pstmt = null;
-    		ResultSet rs = null;
-    		try
-    		{
-    			pstmt = DB.prepareStatement (sql.toString(), null);
-    			pstmt.setInt(1, getM_ShippingTransaction_ID());
-    			rs = pstmt.executeQuery ();
-    			if (rs.next ())
-    			{
-    				partyInfo = new PartyInfo();
-    				partyInfo.setCompanyName(rs.getString("CompanyName"));
-    				partyInfo.setContactName(rs.getString("ContactName"));
-    				partyInfo.setPhoneNumber(rs.getString("PhoneNumber"));
-    				partyInfo.setEmail(rs.getString("EMail"));
-    				partyInfo.setLocationId(rs.getInt("C_Location_ID"));
-    			}
-     		}
-    		catch (Exception e)
-    		{
-    			log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-    		}
-    		finally
-    		{
-    			DB.close(rs, pstmt);
-    		}
-    */
-    if (partyInfo == null) {
-      MBPartner recipient = new MBPartner(getCtx(), getC_BPartner_ID(), null);
-      MBPartnerLocation ra =
-          new MBPartnerLocation(getCtx(), getC_BPartner_Location_ID(), null);
-      MUser contact = new MUser(getCtx(), getAD_User_ID(), null);
-
-      partyInfo = new PartyInfo();
-      partyInfo.setCompanyName(recipient.getName());
-      partyInfo.setContactName(contact.getName());
-      partyInfo.setPhoneNumber(contact.getPhone());
-      partyInfo.setEmail(contact.getEMail());
-      partyInfo.setLocationId(ra.getC_Location_ID());
-    }
-
-    recipientInfo = partyInfo;
-
-    return partyInfo;
-  }
-
   public void setADClientID(int AD_Client_ID) {
     super.setADClientID(AD_Client_ID);
   }
 
-  public class PartyInfo {
-    private String companyName;
-    private String contactName;
-    private String phoneNumber;
-    private String email;
-    private int locationId;
-
-    public String getCompanyName() {
-      return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-      this.companyName = companyName;
-    }
-
-    public String getContactName() {
-      return contactName;
-    }
-
-    public void setContactName(String contactName) {
-      this.contactName = contactName;
-    }
-
-    public String getPhoneNumber() {
-      return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-      this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-      return email;
-    }
-
-    public void setEmail(String email) {
-      this.email = email;
-    }
-
-    public int getLocationId() {
-      return locationId;
-    }
-
-    public void setLocationId(int locationId) {
-      this.locationId = locationId;
-    }
-  }
 }

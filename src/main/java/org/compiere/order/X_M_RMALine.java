@@ -1,14 +1,14 @@
 package org.compiere.order;
 
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.util.Properties;
 import org.compiere.model.I_M_RMALine;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
-import org.idempiere.common.util.KeyNamePair;
 import org.idempiere.orm.I_Persistent;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.Properties;
 
 /**
  * Generated Model for M_RMALine
@@ -69,13 +69,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
     set_Value(I_M_RMALine.COLUMNNAME_Amt, Amt);
   }
 
-  public org.compiere.model.I_C_Charge getC_Charge() throws RuntimeException {
-    return (org.compiere.model.I_C_Charge)
-        MTable.get(getCtx(), org.compiere.model.I_C_Charge.Table_Name)
-            .getPO(getC_Charge_ID(), null);
-  }
-
-  /**
+    /**
    * Get Charge.
    *
    * @return Additional document charges
@@ -96,13 +90,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
     else set_Value(I_M_RMALine.COLUMNNAME_C_Charge_ID, Integer.valueOf(C_Charge_ID));
   }
 
-  public org.compiere.model.I_C_Tax getC_Tax() throws RuntimeException {
-    return (org.compiere.model.I_C_Tax)
-        MTable.get(getCtx(), org.compiere.model.I_C_Tax.Table_Name)
-            .getPO(getC_Tax_ID(), null);
-  }
-
-  /**
+    /**
    * Get Tax.
    *
    * @return Tax identifier
@@ -183,11 +171,12 @@ public class X_M_RMALine extends PO implements I_Persistent {
 
   public org.compiere.model.I_M_InOutLine getM_InOutLine() throws RuntimeException {
     return (org.compiere.model.I_M_InOutLine)
-        MTable.get(getCtx(), org.compiere.model.I_M_InOutLine.Table_Name)
-            .getPO(getM_InOutLine_ID(), null);
+            MTable.get(getCtx(), org.compiere.model.I_M_InOutLine.Table_Name)
+                    .getPO(getM_InOutLine_ID(), null);
   }
 
-  /**
+
+    /**
    * Get Shipment/Receipt Line.
    *
    * @return Line on Shipment or Receipt document
@@ -208,13 +197,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
     else set_Value(I_M_RMALine.COLUMNNAME_M_InOutLine_ID, Integer.valueOf(M_InOutLine_ID));
   }
 
-  public org.compiere.model.I_M_Product getM_Product() throws RuntimeException {
-    return (org.compiere.model.I_M_Product)
-        MTable.get(getCtx(), org.compiere.model.I_M_Product.Table_Name)
-            .getPO(getM_Product_ID(), null);
-  }
-
-  /**
+    /**
    * Get Product.
    *
    * @return Product, Service, Item
@@ -237,11 +220,11 @@ public class X_M_RMALine extends PO implements I_Persistent {
 
   public org.compiere.model.I_M_RMA getM_RMA() throws RuntimeException {
     return (org.compiere.model.I_M_RMA)
-        MTable.get(getCtx(), org.compiere.model.I_M_RMA.Table_Name)
-            .getPO(getM_RMA_ID(), null);
+            MTable.get(getCtx(), org.compiere.model.I_M_RMA.Table_Name)
+                    .getPO(getM_RMA_ID(), null);
   }
 
-  /**
+    /**
    * Get RMA.
    *
    * @return Return Material Authorization
@@ -262,16 +245,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
     else set_ValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMA_ID, Integer.valueOf(M_RMA_ID));
   }
 
-  /**
-   * Get Record ID/ColumnName
-   *
-   * @return ID/ColumnName pair
-   */
-  public KeyNamePair getKeyNamePair() {
-    return new KeyNamePair(getId(), String.valueOf(getM_RMA_ID()));
-  }
-
-  /**
+    /**
    * Get RMA Line.
    *
    * @return Return Material Authorization Line
@@ -282,35 +256,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
     return ii;
   }
 
-  /**
-   * Set RMA Line.
-   *
-   * @param M_RMALine_ID Return Material Authorization Line
-   */
-  public void setM_RMALine_ID(int M_RMALine_ID) {
-    if (M_RMALine_ID < 1) set_ValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMALine_ID, null);
-    else set_ValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMALine_ID, Integer.valueOf(M_RMALine_ID));
-  }
-
-  /**
-   * Get M_RMALine_UU.
-   *
-   * @return M_RMALine_UU
-   */
-  public String getM_RMALine_UU() {
-    return (String) get_Value(I_M_RMALine.COLUMNNAME_M_RMALine_UU);
-  }
-
-  /**
-   * Set M_RMALine_UU.
-   *
-   * @param M_RMALine_UU M_RMALine_UU
-   */
-  public void setM_RMALine_UU(String M_RMALine_UU) {
-    set_Value(I_M_RMALine.COLUMNNAME_M_RMALine_UU, M_RMALine_UU);
-  }
-
-  /**
+    /**
    * Get Processed.
    *
    * @return The document has been processed
@@ -393,13 +339,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
     set_Value(I_M_RMALine.COLUMNNAME_QtyInvoiced, QtyInvoiced);
   }
 
-  public org.compiere.model.I_M_RMALine getRef_RMALine() throws RuntimeException {
-    return (org.compiere.model.I_M_RMALine)
-        MTable.get(getCtx(), org.compiere.model.I_M_RMALine.Table_Name)
-            .getPO(getRef_RMALine_ID(), null);
-  }
-
-  /**
+    /**
    * Get Referenced RMA Line.
    *
    * @return Referenced RMA Line

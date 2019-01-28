@@ -1,17 +1,5 @@
 package org.compiere.order;
 
-import static org.compiere.order.SalesOrderRateInquiryProcessKt.createShippingTransaction;
-import static software.hsharp.core.orm.POKt.I_ZERO;
-import static software.hsharp.core.util.DBKt.*;
-
-import java.io.File;
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Properties;
-import java.util.logging.Level;
 import org.compiere.crm.MBPartner;
 import org.compiere.model.*;
 import org.compiere.orm.*;
@@ -24,6 +12,18 @@ import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.exceptions.FillMandatoryException;
 import org.idempiere.common.util.Env;
 import org.idempiere.common.util.Util;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+
+import static org.compiere.order.SalesOrderRateInquiryProcessKt.createShippingTransaction;
+import static software.hsharp.core.orm.POKt.I_ZERO;
+import static software.hsharp.core.util.DBKt.*;
 
 /**
  * Order Model. Please do not set DocStatus and C_DocType_ID directly. They are set in the process()
@@ -44,21 +44,11 @@ import org.idempiere.common.util.Util;
 public class MOrder extends X_C_Order implements I_C_Order {
   /** Sales Order Sub Type - SO */
   public static final String DocSubTypeSO_Standard = "SO";
-  /** Sales Order Sub Type - OB */
-  public static final String DocSubTypeSO_Quotation = "OB";
-  /** Sales Order Sub Type - ON */
-  public static final String DocSubTypeSO_Proposal = "ON";
-  /** Sales Order Sub Type - PR */
-  public static final String DocSubTypeSO_Prepay = "PR";
-  /** Sales Order Sub Type - WR */
+    /** Sales Order Sub Type - WR */
   public static final String DocSubTypeSO_POS = "WR";
-  /** Sales Order Sub Type - WP */
-  public static final String DocSubTypeSO_Warehouse = "WP";
-  /** Sales Order Sub Type - WI */
+    /** Sales Order Sub Type - WI */
   public static final String DocSubTypeSO_OnCredit = "WI";
-  /** Sales Order Sub Type - RM */
-  public static final String DocSubTypeSO_RMA = "RM";
-  /** */
+    /** */
   private static final long serialVersionUID = -7784588474522162502L;
 
   protected static volatile boolean recursiveCall = false;
@@ -135,31 +125,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
     super(ctx, rs, trxName);
   } //	MOrder
 
-  /**
-   * Create new Order by copying
-   *
-   * @param from order
-   * @param dateDoc date of the document date
-   * @param C_DocTypeTarget_ID target document type
-   * @param isSOTrx sales order
-   * @param counter create counter links
-   * @param copyASI copy line attributes Attribute Set Instance, Resaouce Assignment
-   * @param trxName trx
-   * @return Order
-   */
-  public static MOrder copyFrom(
-      MOrder from,
-      Timestamp dateDoc,
-      int C_DocTypeTarget_ID,
-      boolean isSOTrx,
-      boolean counter,
-      boolean copyASI,
-      String trxName) {
-    MOrder to = new MOrder(from.getCtx(), 0, trxName);
-    return doCopyFrom(from, dateDoc, C_DocTypeTarget_ID, isSOTrx, counter, copyASI, trxName, to);
-  }
-
-  /** ********************************************************************** */
+    /** ********************************************************************** */
   protected static MOrder doCopyFrom(
       MOrder from,
       Timestamp dateDoc,
@@ -273,34 +239,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
     super.setBill_User_ID(AD_User_ID);
   } //	setAD_User_ID
 
-  /**
-   * Set Ship Business Partner
-   *
-   * @param C_BPartner_ID bpartner
-   */
-  public void setShip_BPartner_ID(int C_BPartner_ID) {
-    super.setC_BPartner_ID(C_BPartner_ID);
-  } //	setShip_BPartner_ID
-
-  /**
-   * Set Ship Business Partner Location
-   *
-   * @param C_BPartner_Location_ID bp location
-   */
-  public void setShip_Location_ID(int C_BPartner_Location_ID) {
-    super.setC_BPartner_Location_ID(C_BPartner_Location_ID);
-  } //	setShip_Location_ID
-
-  /**
-   * Set Ship Business Partner Contact
-   *
-   * @param AD_User_ID user
-   */
-  public void setShip_User_ID(int AD_User_ID) {
-    super.setAD_User_ID(AD_User_ID);
-  } //	setShip_User_ID
-
-  /**
+    /**
    * Set Warehouse
    *
    * @param M_Warehouse_ID warehouse
@@ -506,32 +445,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
     return dt.getNameTrl() + " " + getDocumentNo();
   } //	getDocumentInfo
 
-  /**
-   * Create PDF
-   *
-   * @return File or null
-   */
-  public File createPDF() {
-    try {
-      File temp = File.createTempFile(get_TableName() + getId() + "_", ".pdf");
-      return createPDF(temp);
-    } catch (Exception e) {
-      log.severe("Could not create PDF - " + e.getMessage());
-    }
-    return null;
-  } //	getPDF
-
-  /**
-   * Create PDF file
-   *
-   * @param file output file
-   * @return file if success
-   */
-  public File createPDF(File file) {
-    return null;
-  } //	createPDF
-
-  /**
+    /**
    * Set Price List (and Currency, TaxIncluded) when valid
    *
    * @param M_PriceList_ID price list
@@ -698,16 +612,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
     return list.toArray(new MInOut[list.size()]);
   } //	getShipments
 
-  /**
-   * Get ISO Code of Currency
-   *
-   * @return Currency ISO
-   */
-  public String getCurrencyISO() {
-    return MCurrency.getISO_Code(getCtx(), getC_Currency_ID());
-  } //	getCurrencyISO
-
-  /**
+    /**
    * Get Currency Precision
    *
    * @return precision
@@ -716,16 +621,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
     return MCurrency.getStdPrecision(getCtx(), getC_Currency_ID());
   } //	getPrecision
 
-  /**
-   * Get Document Status
-   *
-   * @return Document Status Clear Text
-   */
-  public String getDocStatusName() {
-    return MRefList.getListName(getCtx(), 131, getDocStatus());
-  } //	getDocStatusName
-
-  /**
+    /**
    * Set DocAction
    *
    * @param DocAction doc action
@@ -1058,29 +954,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
     return true;
   } //	beforeDelete
 
-  /**
-   * Unlock Document.
-   *
-   * @return true if success
-   */
-  public boolean unlockIt() {
-    if (log.isLoggable(Level.INFO)) log.info("unlockIt - " + toString());
-    setProcessing(false);
-    return true;
-  } //	unlockIt
-
-  /**
-   * Invalidate Document
-   *
-   * @return true if success
-   */
-  public boolean invalidateIt() {
-    if (log.isLoggable(Level.INFO)) log.info(toString());
-    setDocAction(DOCACTION_Prepare);
-    return true;
-  } //	invalidateIt
-
-  protected boolean calculateFreightCharge() {
+    protected boolean calculateFreightCharge() {
     MClientInfo ci = MClientInfo.get(getCtx(), getClientId(), null);
     if (ci.getC_ChargeFreight_ID() == 0 && ci.getM_ProductFreight_ID() == 0) {
       m_processMsg =
@@ -1338,38 +1212,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
     return true;
   } //	approveIt
 
-  /**
-   * Reject Approval
-   *
-   * @return true if success
-   */
-  public boolean rejectIt() {
-    if (log.isLoggable(Level.INFO)) log.info("rejectIt - " + toString());
-    setIsApproved(false);
-    return true;
-  } //	rejectIt
-
-  /**
-   * *********************************************************************** Get Summary
-   *
-   * @return Summary of Document
-   */
-  public String getSummary() {
-    StringBuilder sb = new StringBuilder();
-    sb.append(getDocumentNo());
-    //	: Grand Total = 123.00 (#1)
-    sb.append(": ")
-        .append(Msg.translate(getCtx(), "GrandTotal"))
-        .append("=")
-        .append(getGrandTotal());
-    if (m_lines != null) sb.append(" (#").append(m_lines.length).append(")");
-    //	 - Description
-    if (getDescription() != null && getDescription().length() > 0)
-      sb.append(" - ").append(getDescription());
-    return sb.toString();
-  } //	getSummary
-
-  /**
+    /**
    * Get Process Message
    *
    * @return clear text error message
@@ -1378,25 +1221,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
     return m_processMsg;
   } //	getProcessMsg
 
-  /**
-   * Get Document Owner (Responsible)
-   *
-   * @return AD_User_ID
-   */
-  public int getDoc_User_ID() {
-    return getSalesRep_ID();
-  } //	getDoc_User_ID
-
-  /**
-   * Get Document Approval Amount
-   *
-   * @return amount
-   */
-  public BigDecimal getApprovalAmt() {
-    return getGrandTotal();
-  } //	getApprovalAmt
-
-  /**
+    /**
    * Document Status is Complete or Closed
    *
    * @return true if CO, CL or RE
@@ -1511,16 +1336,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
   }
   */
 
-  /**
-   * Set process message
-   *
-   * @param processMsg
-   */
-  public void setProcessMessage(String processMsg) {
-    m_processMsg = processMsg;
-  }
-
-  /**
+    /**
    * Get tax providers
    *
    * @return array of tax provider
@@ -1542,12 +1358,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
     return retValue;
   }
 
-  /** Returns C_DocType_ID (or C_DocTypeTarget_ID if C_DocType_ID is not set) */
-  public int getDocTypeID() {
-    return getC_DocType_ID() > 0 ? getC_DocType_ID() : getC_DocTypeTarget_ID();
-  }
-
-  @Override
+    @Override
   public int getTableId() {
     return I_C_Order.Table_ID;
   }
