@@ -18,21 +18,7 @@ import org.idempiere.orm.I_Persistent;
  */
 public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
 
-  /** DeliveryRule AD_Reference_ID=151 */
-  public static final int DELIVERYRULE_AD_Reference_ID = 151;
-  /** After Receipt = R */
-  public static final String DELIVERYRULE_AfterReceipt = "R";
-  /** Availability = A */
-  public static final String DELIVERYRULE_Availability = "A";
-  /** Complete Line = L */
-  public static final String DELIVERYRULE_CompleteLine = "L";
-  /** Complete Order = O */
-  public static final String DELIVERYRULE_CompleteOrder = "O";
-  /** Force = F */
-  public static final String DELIVERYRULE_Force = "F";
-  /** Manual = M */
-  public static final String DELIVERYRULE_Manual = "M";
-  /** */
+    /** */
   private static final long serialVersionUID = 20171031L;
 
   /** Standard Constructor */

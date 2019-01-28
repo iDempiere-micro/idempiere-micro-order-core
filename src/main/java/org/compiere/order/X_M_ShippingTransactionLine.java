@@ -152,15 +152,6 @@ public class X_M_ShippingTransactionLine extends PO
           COLUMNNAME_M_ShippingTransaction_ID, Integer.valueOf(M_ShippingTransaction_ID));
   }
 
-  /**
-   * Get Record ID/ColumnName
-   *
-   * @return ID/ColumnName pair
-   */
-  public KeyNamePair getKeyNamePair() {
-    return new KeyNamePair(getId(), String.valueOf(getM_ShippingTransaction_ID()));
-  }
-
     /**
    * Set Sequence.
    *

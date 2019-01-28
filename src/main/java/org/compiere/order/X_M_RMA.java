@@ -16,63 +16,23 @@ import org.idempiere.orm.I_Persistent;
  */
 public class X_M_RMA extends BasePOName implements I_Persistent {
 
-  /** DocAction AD_Reference_ID=135 */
-  public static final int DOCACTION_AD_Reference_ID = 135;
-  /** Complete = CO */
+    /** Complete = CO */
   public static final String DOCACTION_Complete = "CO";
-  /** Approve = AP */
-  public static final String DOCACTION_Approve = "AP";
-  /** Reject = RJ */
-  public static final String DOCACTION_Reject = "RJ";
-  /** Post = PO */
-  public static final String DOCACTION_Post = "PO";
-  /** Void = VO */
+    /** Void = VO */
   public static final String DOCACTION_Void = "VO";
   /** Close = CL */
   public static final String DOCACTION_Close = "CL";
-  /** Reverse - Correct = RC */
-  public static final String DOCACTION_Reverse_Correct = "RC";
-  /** Reverse - Accrual = RA */
-  public static final String DOCACTION_Reverse_Accrual = "RA";
-  /** Invalidate = IN */
-  public static final String DOCACTION_Invalidate = "IN";
-  /** Re-activate = RE */
-  public static final String DOCACTION_Re_Activate = "RE";
-  /** <None> = -- */
+    /** <None> = -- */
   public static final String DOCACTION_None = "--";
-  /** Prepare = PR */
-  public static final String DOCACTION_Prepare = "PR";
-  /** Unlock = XL */
-  public static final String DOCACTION_Unlock = "XL";
-  /** Wait Complete = WC */
-  public static final String DOCACTION_WaitComplete = "WC";
-  /** DocStatus AD_Reference_ID=131 */
-  public static final int DOCSTATUS_AD_Reference_ID = 131;
-  /** Drafted = DR */
+    /** Drafted = DR */
   public static final String DOCSTATUS_Drafted = "DR";
   /** Completed = CO */
   public static final String DOCSTATUS_Completed = "CO";
-  /** Approved = AP */
-  public static final String DOCSTATUS_Approved = "AP";
-  /** Not Approved = NA */
-  public static final String DOCSTATUS_NotApproved = "NA";
-  /** Voided = VO */
-  public static final String DOCSTATUS_Voided = "VO";
-  /** Invalid = IN */
-  public static final String DOCSTATUS_Invalid = "IN";
-  /** Reversed = RE */
+    /** Reversed = RE */
   public static final String DOCSTATUS_Reversed = "RE";
   /** Closed = CL */
   public static final String DOCSTATUS_Closed = "CL";
-  /** Unknown = ?? */
-  public static final String DOCSTATUS_Unknown = "??";
-  /** In Progress = IP */
-  public static final String DOCSTATUS_InProgress = "IP";
-  /** Waiting Payment = WP */
-  public static final String DOCSTATUS_WaitingPayment = "WP";
-  /** Waiting Confirmation = WC */
-  public static final String DOCSTATUS_WaitingConfirmation = "WC";
-  /** */
+    /** */
   private static final long serialVersionUID = 20171031L;
   /** Standard Constructor */
   public X_M_RMA(Properties ctx, int M_RMA_ID, String trxName) {

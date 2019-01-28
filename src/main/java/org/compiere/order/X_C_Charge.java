@@ -160,16 +160,7 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
     set_Value(HasName.Companion.getCOLUMNNAME_Name(), Name);
   }
 
-  /**
-   * Get Record ID/ColumnName
-   *
-   * @return ID/ColumnName pair
-   */
-  public KeyNamePair getKeyNamePair() {
-    return new KeyNamePair(getId(), getName());
-  }
-
-  @Override
+    @Override
   public int getTableId() {
     return I_C_Charge.Table_ID;
   }

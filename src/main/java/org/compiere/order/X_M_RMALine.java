@@ -1,14 +1,14 @@
 package org.compiere.order;
 
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.util.Properties;
 import org.compiere.model.I_M_RMALine;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
-import org.idempiere.common.util.KeyNamePair;
 import org.idempiere.orm.I_Persistent;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.util.Properties;
 
 /**
  * Generated Model for M_RMALine
@@ -171,11 +171,12 @@ public class X_M_RMALine extends PO implements I_Persistent {
 
   public org.compiere.model.I_M_InOutLine getM_InOutLine() throws RuntimeException {
     return (org.compiere.model.I_M_InOutLine)
-        MTable.get(getCtx(), org.compiere.model.I_M_InOutLine.Table_Name)
-            .getPO(getM_InOutLine_ID(), null);
+            MTable.get(getCtx(), org.compiere.model.I_M_InOutLine.Table_Name)
+                    .getPO(getM_InOutLine_ID(), null);
   }
 
-  /**
+
+    /**
    * Get Shipment/Receipt Line.
    *
    * @return Line on Shipment or Receipt document
@@ -219,11 +220,11 @@ public class X_M_RMALine extends PO implements I_Persistent {
 
   public org.compiere.model.I_M_RMA getM_RMA() throws RuntimeException {
     return (org.compiere.model.I_M_RMA)
-        MTable.get(getCtx(), org.compiere.model.I_M_RMA.Table_Name)
-            .getPO(getM_RMA_ID(), null);
+            MTable.get(getCtx(), org.compiere.model.I_M_RMA.Table_Name)
+                    .getPO(getM_RMA_ID(), null);
   }
 
-  /**
+    /**
    * Get RMA.
    *
    * @return Return Material Authorization
@@ -244,16 +245,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
     else set_ValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMA_ID, Integer.valueOf(M_RMA_ID));
   }
 
-  /**
-   * Get Record ID/ColumnName
-   *
-   * @return ID/ColumnName pair
-   */
-  public KeyNamePair getKeyNamePair() {
-    return new KeyNamePair(getId(), String.valueOf(getM_RMA_ID()));
-  }
-
-  /**
+    /**
    * Get RMA Line.
    *
    * @return Return Material Authorization Line

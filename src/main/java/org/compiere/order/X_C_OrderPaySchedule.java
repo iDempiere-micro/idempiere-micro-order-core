@@ -131,16 +131,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
     set_Value(COLUMNNAME_DiscountDate, DiscountDate);
   }
 
-  /**
-   * Get Record ID/ColumnName
-   *
-   * @return ID/ColumnName pair
-   */
-  public KeyNamePair getKeyNamePair() {
-    return new KeyNamePair(getId(), String.valueOf(getDiscountDate()));
-  }
-
-  /**
+    /**
    * Get Amount due.
    *
    * @return Amount of the payment due

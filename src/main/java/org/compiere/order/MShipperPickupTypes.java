@@ -16,7 +16,4 @@ public class MShipperPickupTypes extends X_M_ShipperPickupTypes {
     super(ctx, rs, trxName);
   }
 
-  public String getValue() {
-    return getM_ShipperPickupTypesCfg().getValue();
-  }
 }

@@ -345,15 +345,6 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
     set_Value(COLUMNNAME_Line, Integer.valueOf(Line));
   }
 
-  /**
-   * Get Record ID/ColumnName
-   *
-   * @return ID/ColumnName pair
-   */
-  public KeyNamePair getKeyNamePair() {
-    return new KeyNamePair(getId(), String.valueOf(getLine()));
-  }
-
     /**
    * Set Attribute Set Instance.
    *

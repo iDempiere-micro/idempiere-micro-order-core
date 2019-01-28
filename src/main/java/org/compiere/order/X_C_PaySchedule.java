@@ -19,23 +19,7 @@ import java.util.Properties;
  */
 public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent {
 
-  /** NetDay AD_Reference_ID=167 */
-  public static final int NETDAY_AD_Reference_ID = 167;
-  /** Sunday = 7 */
-  public static final String NETDAY_Sunday = "7";
-  /** Monday = 1 */
-  public static final String NETDAY_Monday = "1";
-  /** Tuesday = 2 */
-  public static final String NETDAY_Tuesday = "2";
-  /** Wednesday = 3 */
-  public static final String NETDAY_Wednesday = "3";
-  /** Thursday = 4 */
-  public static final String NETDAY_Thursday = "4";
-  /** Friday = 5 */
-  public static final String NETDAY_Friday = "5";
-  /** Saturday = 6 */
-  public static final String NETDAY_Saturday = "6";
-  /** */
+    /** */
   private static final long serialVersionUID = 20171031L;
 
   /** Standard Constructor */
@@ -91,16 +75,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent
     else set_ValueNoCheck(COLUMNNAME_C_PaymentTerm_ID, Integer.valueOf(C_PaymentTerm_ID));
   }
 
-  /**
-   * Get Record ID/ColumnName
-   *
-   * @return ID/ColumnName pair
-   */
-  public KeyNamePair getKeyNamePair() {
-    return new KeyNamePair(getId(), String.valueOf(getC_PaymentTerm_ID()));
-  }
-
-  /**
+    /**
    * Get Payment Schedule.
    *
    * @return Payment Schedule Template

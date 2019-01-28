@@ -1,16 +1,16 @@
 package org.compiere.order;
 
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
-import java.util.Properties;
 import kotliquery.Row;
 import org.compiere.model.I_C_OrderLine;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
-import org.idempiere.common.util.KeyNamePair;
 import org.idempiere.orm.I_Persistent;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.Properties;
 
 /**
  * Generated Model for C_OrderLine
@@ -204,13 +204,14 @@ public class X_C_OrderLine extends PO implements I_Persistent {
     else set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_C_Currency_ID, Integer.valueOf(C_Currency_ID));
   }
 
+
   public org.compiere.model.I_C_Order getC_Order() throws RuntimeException {
     return (org.compiere.model.I_C_Order)
-        MTable.get(getCtx(), org.compiere.model.I_C_Order.Table_Name)
-            .getPO(getC_Order_ID(), null);
+            MTable.get(getCtx(), org.compiere.model.I_C_Order.Table_Name)
+                    .getPO(getC_Order_ID(), null);
   }
 
-  /**
+    /**
    * Get Order.
    *
    * @return Order
@@ -231,16 +232,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
     else set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
   }
 
-  /**
-   * Get Record ID/ColumnName
-   *
-   * @return ID/ColumnName pair
-   */
-  public KeyNamePair getKeyNamePair() {
-    return new KeyNamePair(getId(), String.valueOf(getC_Order_ID()));
-  }
-
-  /**
+    /**
    * Get Sales Order Line.
    *
    * @return Sales Order Line
@@ -596,28 +588,6 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   }
 
     /**
-   * Get Promotion.
-   *
-   * @return Promotion
-   */
-    private int getM_Promotion_ID() {
-    Integer ii = (Integer) get_Value(I_C_OrderLine.COLUMNNAME_M_Promotion_ID);
-    if (ii == null) return 0;
-    return ii;
-  }
-
-    /**
-   * Get Shipper.
-   *
-   * @return Method or manner of product delivery
-   */
-    private int getM_Shipper_ID() {
-    Integer ii = (Integer) get_Value(I_C_OrderLine.COLUMNNAME_M_Shipper_ID);
-    if (ii == null) return 0;
-    return ii;
-  }
-
-  /**
    * Set Shipper.
    *
    * @param M_Shipper_ID Method or manner of product delivery
@@ -646,17 +616,6 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   public void setM_Warehouse_ID(int M_Warehouse_ID) {
     if (M_Warehouse_ID < 1) set_Value(I_C_OrderLine.COLUMNNAME_M_Warehouse_ID, null);
     else set_Value(I_C_OrderLine.COLUMNNAME_M_Warehouse_ID, Integer.valueOf(M_Warehouse_ID));
-  }
-
-    /**
-   * Get Manufacturing Cost Collector.
-   *
-   * @return Manufacturing Cost Collector
-   */
-    private int getPP_Cost_Collector_ID() {
-    Integer ii = (Integer) get_Value(I_C_OrderLine.COLUMNNAME_PP_Cost_Collector_ID);
-    if (ii == null) return 0;
-    return ii;
   }
 
     /**

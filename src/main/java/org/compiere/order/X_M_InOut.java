@@ -21,61 +21,21 @@ import org.idempiere.orm.I_Persistent;
  */
 public class X_M_InOut extends PO implements I_M_InOut, I_Persistent {
 
-  /** DeliveryRule AD_Reference_ID=151 */
-  public static final int DELIVERYRULE_AD_Reference_ID = 151;
-  /** After Receipt = R */
-  public static final String DELIVERYRULE_AfterReceipt = "R";
-  /** Availability = A */
+    /** Availability = A */
   public static final String DELIVERYRULE_Availability = "A";
-  /** Complete Line = L */
-  public static final String DELIVERYRULE_CompleteLine = "L";
-  /** Complete Order = O */
-  public static final String DELIVERYRULE_CompleteOrder = "O";
-  /** Force = F */
+    /** Force = F */
   public static final String DELIVERYRULE_Force = "F";
-  /** Manual = M */
-  public static final String DELIVERYRULE_Manual = "M";
-  /** DeliveryViaRule AD_Reference_ID=152 */
-  public static final int DELIVERYVIARULE_AD_Reference_ID = 152;
-  /** Pickup = P */
+    /** Pickup = P */
   public static final String DELIVERYVIARULE_Pickup = "P";
-  /** Delivery = D */
-  public static final String DELIVERYVIARULE_Delivery = "D";
-  /** Shipper = S */
-  public static final String DELIVERYVIARULE_Shipper = "S";
-  /** DocAction AD_Reference_ID=135 */
-  public static final int DOCACTION_AD_Reference_ID = 135;
-  /** Complete = CO */
+    /** Complete = CO */
   public static final String DOCACTION_Complete = "CO";
-  /** Approve = AP */
-  public static final String DOCACTION_Approve = "AP";
-  /** Reject = RJ */
-  public static final String DOCACTION_Reject = "RJ";
-  /** Post = PO */
-  public static final String DOCACTION_Post = "PO";
-  /** Void = VO */
-  public static final String DOCACTION_Void = "VO";
-  /** Close = CL */
+    /** Close = CL */
   public static final String DOCACTION_Close = "CL";
-  /** Reverse - Correct = RC */
-  public static final String DOCACTION_Reverse_Correct = "RC";
-  /** Reverse - Accrual = RA */
-  public static final String DOCACTION_Reverse_Accrual = "RA";
-  /** Invalidate = IN */
-  public static final String DOCACTION_Invalidate = "IN";
-  /** Re-activate = RE */
-  public static final String DOCACTION_Re_Activate = "RE";
-  /** <None> = -- */
+    /** <None> = -- */
   public static final String DOCACTION_None = "--";
   /** Prepare = PR */
   public static final String DOCACTION_Prepare = "PR";
-  /** Unlock = XL */
-  public static final String DOCACTION_Unlock = "XL";
-  /** Wait Complete = WC */
-  public static final String DOCACTION_WaitComplete = "WC";
-  /** DocStatus AD_Reference_ID=131 */
-  public static final int DOCSTATUS_AD_Reference_ID = 131;
-  /** Drafted = DR */
+    /** Drafted = DR */
   public static final String DOCSTATUS_Drafted = "DR";
   /** Completed = CO */
   public static final String DOCSTATUS_Completed = "CO";
@@ -91,79 +51,11 @@ public class X_M_InOut extends PO implements I_M_InOut, I_Persistent {
   public static final String DOCSTATUS_Reversed = "RE";
   /** Closed = CL */
   public static final String DOCSTATUS_Closed = "CL";
-  /** Unknown = ?? */
-  public static final String DOCSTATUS_Unknown = "??";
-  /** In Progress = IP */
+    /** In Progress = IP */
   public static final String DOCSTATUS_InProgress = "IP";
-  /** Waiting Payment = WP */
-  public static final String DOCSTATUS_WaitingPayment = "WP";
-  /** Waiting Confirmation = WC */
-  public static final String DOCSTATUS_WaitingConfirmation = "WC";
-  /** FOB AD_Reference_ID=200030 */
-  public static final int FOB_AD_Reference_ID = 200030;
-  /** FOB Origin = A_DFOBO */
-  public static final String FOB_FOBOrigin = "A_DFOBO";
-  /** Ex Works = B_EXW */
-  public static final String FOB_ExWorks = "B_EXW";
-  /** CFR - Cost and Freight = CFR */
-  public static final String FOB_CFR_CostAndFreight = "CFR";
-  /** CIF - Cost, Insurance, and Freight (FedEx) = CIF */
-  public static final String FOB_CIF_CostInsuranceAndFreightFedEx = "CIF";
-  /** CIP - Carriage and Insurance Paid To (FedEx) = CIP */
-  public static final String FOB_CIP_CarriageAndInsurancePaidToFedEx = "CIP";
-  /** CPT - Carriage Paid To = CPT */
-  public static final String FOB_CPT_CarriagePaidTo = "CPT";
-  /** DAF - Delivered at Frontier = DAF */
-  public static final String FOB_DAF_DeliveredAtFrontier = "DAF";
-  /** DDP - Delivered Duty Paid (FedEx) = DDP */
-  public static final String FOB_DDP_DeliveredDutyPaidFedEx = "DDP";
-  /** DDU - Delivered Duty Unpaid (FedEx) = DDU */
-  public static final String FOB_DDU_DeliveredDutyUnpaidFedEx = "DDU";
-  /** DEQ - Delivered Ex Quay = DEQ */
-  public static final String FOB_DEQ_DeliveredExQuay = "DEQ";
-  /** DES - Delivered Ex Ship = DES */
-  public static final String FOB_DES_DeliveredExShip = "DES";
-  /** Domestic FOB Destination = DFOBD */
-  public static final String FOB_DomesticFOBDestination = "DFOBD";
-  /** EXW - Ex Works (FedEx) = EXW */
-  public static final String FOB_EXW_ExWorksFedEx = "EXW";
-  /** FAS - Free Alongside Ship = FAS */
-  public static final String FOB_FAS_FreeAlongsideShip = "FAS";
-  /** FCA - Free Carrier (FedEx) = FCA */
-  public static final String FOB_FCA_FreeCarrierFedEx = "FCA";
-  /** FOB - Free on Board (FedEx) = FOB */
-  public static final String FOB_FOB_FreeOnBoardFedEx = "FOB";
-  /** FreightCharges AD_Reference_ID=200028 */
-  public static final int FREIGHTCHARGES_AD_Reference_ID = 200028;
-  /** Collect = A_Col */
-  public static final String FREIGHTCHARGES_Collect = "A_Col";
-  /** 3rd Party = B_3P */
-  public static final String FREIGHTCHARGES_3rdParty = "B_3P";
-  /** Consignee = C_Con */
-  public static final String FREIGHTCHARGES_Consignee = "C_Con";
-  /** Prepaid = D_PP */
-  public static final String FREIGHTCHARGES_Prepaid = "D_PP";
-  /** Prepaid and Bill = E_PPB */
-  public static final String FREIGHTCHARGES_PrepaidAndBill = "E_PPB";
-  /** FreightCostRule AD_Reference_ID=153 */
-  public static final int FREIGHTCOSTRULE_AD_Reference_ID = 153;
-  /** Freight included = I */
+    /** Freight included = I */
   public static final String FREIGHTCOSTRULE_FreightIncluded = "I";
-  /** Fix price = F */
-  public static final String FREIGHTCOSTRULE_FixPrice = "F";
-  /** Calculated = C */
-  public static final String FREIGHTCOSTRULE_Calculated = "C";
-  /** Line = L */
-  public static final String FREIGHTCOSTRULE_Line = "L";
-  /** Insurance AD_Reference_ID=200029 */
-  public static final int INSURANCE_AD_Reference_ID = 200029;
-  /** Insure = 1 */
-  public static final String INSURANCE_Insure = "1";
-  /** Do Not Insure = 2 */
-  public static final String INSURANCE_DoNotInsure = "2";
-  /** MovementType AD_Reference_ID=189 */
-  public static final int MOVEMENTTYPE_AD_Reference_ID = 189;
-  /** Customer Shipment = C- */
+    /** Customer Shipment = C- */
   public static final String MOVEMENTTYPE_CustomerShipment = "C-";
   /** Customer Returns = C+ */
   public static final String MOVEMENTTYPE_CustomerReturns = "C+";
@@ -171,35 +63,9 @@ public class X_M_InOut extends PO implements I_M_InOut, I_Persistent {
   public static final String MOVEMENTTYPE_VendorReceipts = "V+";
   /** Vendor Returns = V- */
   public static final String MOVEMENTTYPE_VendorReturns = "V-";
-  /** Inventory Out = I- */
-  public static final String MOVEMENTTYPE_InventoryOut = "I-";
-  /** Inventory In = I+ */
-  public static final String MOVEMENTTYPE_InventoryIn = "I+";
-  /** Movement From = M- */
-  public static final String MOVEMENTTYPE_MovementFrom = "M-";
-  /** Movement To = M+ */
-  public static final String MOVEMENTTYPE_MovementTo = "M+";
-  /** Production + = P+ */
-  public static final String MOVEMENTTYPE_ProductionPlus = "P+";
-  /** Production - = P- */
-  public static final String MOVEMENTTYPE_Production_ = "P-";
-  /** Work Order + = W+ */
-  public static final String MOVEMENTTYPE_WorkOrderPlus = "W+";
-  /** Work Order - = W- */
-  public static final String MOVEMENTTYPE_WorkOrder_ = "W-";
-  /** PriorityRule AD_Reference_ID=154 */
-  public static final int PRIORITYRULE_AD_Reference_ID = 154;
-  /** High = 3 */
-  public static final String PRIORITYRULE_High = "3";
-  /** Medium = 5 */
+    /** Medium = 5 */
   public static final String PRIORITYRULE_Medium = "5";
-  /** Low = 7 */
-  public static final String PRIORITYRULE_Low = "7";
-  /** Urgent = 1 */
-  public static final String PRIORITYRULE_Urgent = "1";
-  /** Minor = 9 */
-  public static final String PRIORITYRULE_Minor = "9";
-  /** */
+    /** */
   private static final long serialVersionUID = 20171031L;
   /* Save array of documents to process AFTER completing this one */
   protected ArrayList<IPODoc> docsPostProcess = new ArrayList<IPODoc>();
@@ -664,15 +530,6 @@ public class X_M_InOut extends PO implements I_M_InOut, I_Persistent {
    */
   public void setDocumentNo(String DocumentNo) {
     set_ValueNoCheck(COLUMNNAME_DocumentNo, DocumentNo);
-  }
-
-  /**
-   * Get Record ID/ColumnName
-   *
-   * @return ID/ColumnName pair
-   */
-  public KeyNamePair getKeyNamePair() {
-    return new KeyNamePair(getId(), getDocumentNo());
   }
 
     /**

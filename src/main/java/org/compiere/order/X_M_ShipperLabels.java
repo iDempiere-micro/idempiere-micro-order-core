@@ -15,9 +15,7 @@ import org.idempiere.orm.I_Persistent;
  */
 public class X_M_ShipperLabels extends BasePOName implements I_M_ShipperLabels, I_Persistent {
 
-  /** LabelPrintMethod AD_Reference_ID=200027 */
-  public static final int LABELPRINTMETHOD_AD_Reference_ID = 200027;
-  /** Eltron = E */
+    /** Eltron = E */
   public static final String LABELPRINTMETHOD_Eltron = "E";
   /** Image = I */
   public static final String LABELPRINTMETHOD_Image = "I";

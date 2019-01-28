@@ -17,31 +17,7 @@ import java.util.Properties;
  */
 public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
 
-  /** NetDay AD_Reference_ID=167 */
-  public static final int NETDAY_AD_Reference_ID = 167;
-  /** Sunday = 7 */
-  public static final String NETDAY_Sunday = "7";
-  /** Monday = 1 */
-  public static final String NETDAY_Monday = "1";
-  /** Tuesday = 2 */
-  public static final String NETDAY_Tuesday = "2";
-  /** Wednesday = 3 */
-  public static final String NETDAY_Wednesday = "3";
-  /** Thursday = 4 */
-  public static final String NETDAY_Thursday = "4";
-  /** Friday = 5 */
-  public static final String NETDAY_Friday = "5";
-  /** Saturday = 6 */
-  public static final String NETDAY_Saturday = "6";
-  /** PaymentTermUsage AD_Reference_ID=53382 */
-  public static final int PAYMENTTERMUSAGE_AD_Reference_ID = 53382;
-  /** Both = B */
-  public static final String PAYMENTTERMUSAGE_Both = "B";
-  /** Sales = S */
-  public static final String PAYMENTTERMUSAGE_Sales = "S";
-  /** Purchases = P */
-  public static final String PAYMENTTERMUSAGE_Purchases = "P";
-  /** */
+    /** */
   private static final long serialVersionUID = 20171031L;
 
   /** Standard Constructor */

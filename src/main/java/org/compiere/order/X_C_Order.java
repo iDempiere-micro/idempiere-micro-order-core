@@ -1,15 +1,15 @@
 package org.compiere.order;
 
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
-import java.util.Properties;
 import org.compiere.model.I_C_Order;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
-import org.idempiere.common.util.KeyNamePair;
 import org.idempiere.orm.I_Persistent;
+
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.util.Properties;
 
 /**
  * Generated Model for C_Order
@@ -19,11 +19,7 @@ import org.idempiere.orm.I_Persistent;
  */
 public class X_C_Order extends PO implements I_Persistent {
 
-  /** DeliveryRule AD_Reference_ID=151 */
-  public static final int DELIVERYRULE_AD_Reference_ID = 151;
-  /** After Receipt = R */
-  public static final String DELIVERYRULE_AfterReceipt = "R";
-  /** Availability = A */
+    /** Availability = A */
   public static final String DELIVERYRULE_Availability = "A";
   /** Complete Line = L */
   public static final String DELIVERYRULE_CompleteLine = "L";
@@ -33,83 +29,43 @@ public class X_C_Order extends PO implements I_Persistent {
   public static final String DELIVERYRULE_Force = "F";
   /** Manual = M */
   public static final String DELIVERYRULE_Manual = "M";
-  /** DeliveryViaRule AD_Reference_ID=152 */
-  public static final int DELIVERYVIARULE_AD_Reference_ID = 152;
-  /** Pickup = P */
+    /** Pickup = P */
   public static final String DELIVERYVIARULE_Pickup = "P";
-  /** Delivery = D */
-  public static final String DELIVERYVIARULE_Delivery = "D";
-  /** Shipper = S */
+    /** Shipper = S */
   public static final String DELIVERYVIARULE_Shipper = "S";
-  /** DocAction AD_Reference_ID=135 */
-  public static final int DOCACTION_AD_Reference_ID = 135;
-  /** Complete = CO */
+    /** Complete = CO */
   public static final String DOCACTION_Complete = "CO";
-  /** Approve = AP */
-  public static final String DOCACTION_Approve = "AP";
-  /** Reject = RJ */
-  public static final String DOCACTION_Reject = "RJ";
-  /** Post = PO */
-  public static final String DOCACTION_Post = "PO";
-  /** Void = VO */
+    /** Void = VO */
   public static final String DOCACTION_Void = "VO";
   /** Close = CL */
   public static final String DOCACTION_Close = "CL";
-  /** Reverse - Correct = RC */
-  public static final String DOCACTION_Reverse_Correct = "RC";
-  /** Reverse - Accrual = RA */
-  public static final String DOCACTION_Reverse_Accrual = "RA";
-  /** Invalidate = IN */
-  public static final String DOCACTION_Invalidate = "IN";
-  /** Re-activate = RE */
-  public static final String DOCACTION_Re_Activate = "RE";
-  /** <None> = -- */
+    /** <None> = -- */
   public static final String DOCACTION_None = "--";
   /** Prepare = PR */
   public static final String DOCACTION_Prepare = "PR";
-  /** Unlock = XL */
-  public static final String DOCACTION_Unlock = "XL";
-  /** Wait Complete = WC */
+    /** Wait Complete = WC */
   public static final String DOCACTION_WaitComplete = "WC";
-  /** DocStatus AD_Reference_ID=131 */
-  public static final int DOCSTATUS_AD_Reference_ID = 131;
-  /** Drafted = DR */
+    /** Drafted = DR */
   public static final String DOCSTATUS_Drafted = "DR";
   /** Completed = CO */
   public static final String DOCSTATUS_Completed = "CO";
-  /** Approved = AP */
-  public static final String DOCSTATUS_Approved = "AP";
-  /** Not Approved = NA */
-  public static final String DOCSTATUS_NotApproved = "NA";
-  /** Voided = VO */
-  public static final String DOCSTATUS_Voided = "VO";
-  /** Invalid = IN */
+    /** Invalid = IN */
   public static final String DOCSTATUS_Invalid = "IN";
   /** Reversed = RE */
   public static final String DOCSTATUS_Reversed = "RE";
   /** Closed = CL */
   public static final String DOCSTATUS_Closed = "CL";
-  /** Unknown = ?? */
-  public static final String DOCSTATUS_Unknown = "??";
-  /** In Progress = IP */
+    /** In Progress = IP */
   public static final String DOCSTATUS_InProgress = "IP";
   /** Waiting Payment = WP */
   public static final String DOCSTATUS_WaitingPayment = "WP";
-  /** Waiting Confirmation = WC */
-  public static final String DOCSTATUS_WaitingConfirmation = "WC";
-  /** FreightCostRule AD_Reference_ID=153 */
-  public static final int FREIGHTCOSTRULE_AD_Reference_ID = 153;
-  /** Freight included = I */
+    /** Freight included = I */
   public static final String FREIGHTCOSTRULE_FreightIncluded = "I";
   /** Fix price = F */
   public static final String FREIGHTCOSTRULE_FixPrice = "F";
   /** Calculated = C */
   public static final String FREIGHTCOSTRULE_Calculated = "C";
-  /** Line = L */
-  public static final String FREIGHTCOSTRULE_Line = "L";
-  /** InvoiceRule AD_Reference_ID=150 */
-  public static final int INVOICERULE_AD_Reference_ID = 150;
-  /** After Order delivered = O */
+    /** After Order delivered = O */
   public static final String INVOICERULE_AfterOrderDelivered = "O";
   /** After Delivery = D */
   public static final String INVOICERULE_AfterDelivery = "D";
@@ -117,35 +73,19 @@ public class X_C_Order extends PO implements I_Persistent {
   public static final String INVOICERULE_CustomerScheduleAfterDelivery = "S";
   /** Immediate = I */
   public static final String INVOICERULE_Immediate = "I";
-  /** PaymentRule AD_Reference_ID=195 */
-  public static final int PAYMENTRULE_AD_Reference_ID = 195;
-  /** Cash = B */
+    /** Cash = B */
   public static final String PAYMENTRULE_Cash = "B";
-  /** Credit Card = K */
-  public static final String PAYMENTRULE_CreditCard = "K";
-  /** Direct Deposit = T */
+    /** Direct Deposit = T */
   public static final String PAYMENTRULE_DirectDeposit = "T";
-  /** Check = S */
-  public static final String PAYMENTRULE_Check = "S";
-  /** On Credit = P */
+    /** On Credit = P */
   public static final String PAYMENTRULE_OnCredit = "P";
   /** Direct Debit = D */
   public static final String PAYMENTRULE_DirectDebit = "D";
   /** Mixed POS Payment = M */
   public static final String PAYMENTRULE_MixedPOSPayment = "M";
-  /** PriorityRule AD_Reference_ID=154 */
-  public static final int PRIORITYRULE_AD_Reference_ID = 154;
-  /** High = 3 */
-  public static final String PRIORITYRULE_High = "3";
-  /** Medium = 5 */
+    /** Medium = 5 */
   public static final String PRIORITYRULE_Medium = "5";
-  /** Low = 7 */
-  public static final String PRIORITYRULE_Low = "7";
-  /** Urgent = 1 */
-  public static final String PRIORITYRULE_Urgent = "1";
-  /** Minor = 9 */
-  public static final String PRIORITYRULE_Minor = "9";
-  /** */
+    /** */
   private static final long serialVersionUID = 20171031L;
 
   /** Standard Constructor */
@@ -435,12 +375,13 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
     public org.compiere.model.I_C_Currency getC_Currency() throws RuntimeException {
-    return (org.compiere.model.I_C_Currency)
-        MTable.get(getCtx(), org.compiere.model.I_C_Currency.Table_Name)
-            .getPO(getC_Currency_ID(), null);
-  }
+        return (org.compiere.model.I_C_Currency)
+                MTable.get(getCtx(), org.compiere.model.I_C_Currency.Table_Name)
+                        .getPO(getC_Currency_ID(), null);
+    }
 
-  /**
+
+    /**
    * Get Currency.
    *
    * @return The Currency for this record
@@ -488,13 +429,14 @@ public class X_C_Order extends PO implements I_Persistent {
     else set_ValueNoCheck(I_C_Order.COLUMNNAME_C_DocType_ID, Integer.valueOf(C_DocType_ID));
   }
 
-  public org.compiere.model.I_C_DocType getC_DocTypeTarget() throws RuntimeException {
-    return (org.compiere.model.I_C_DocType)
-        MTable.get(getCtx(), org.compiere.model.I_C_DocType.Table_Name)
-            .getPO(getC_DocTypeTarget_ID(), null);
-  }
 
-  /**
+    public org.compiere.model.I_C_DocType getC_DocTypeTarget() throws RuntimeException {
+        return (org.compiere.model.I_C_DocType)
+                MTable.get(getCtx(), org.compiere.model.I_C_DocType.Table_Name)
+                        .getPO(getC_DocTypeTarget_ID(), null);
+    }
+
+    /**
    * Get Target Document Type.
    *
    * @return Target document type for conversing documents
@@ -536,17 +478,6 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
     /**
-   * Get Sales Opportunity.
-   *
-   * @return Sales Opportunity
-   */
-    private int getC_Opportunity_ID() {
-    Integer ii = (Integer) get_Value(I_C_Order.COLUMNNAME_C_Opportunity_ID);
-    if (ii == null) return 0;
-    return ii;
-  }
-
-    /**
    * Get Order.
    *
    * @return Order
@@ -558,17 +489,6 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
     /**
-   * Get Order Source.
-   *
-   * @return Order Source
-   */
-    private int getC_OrderSource_ID() {
-    Integer ii = (Integer) get_Value(I_C_Order.COLUMNNAME_C_OrderSource_ID);
-    if (ii == null) return 0;
-    return ii;
-  }
-
-  /**
    * Set Order Source.
    *
    * @param C_OrderSource_ID Order Source
@@ -620,16 +540,16 @@ public class X_C_Order extends PO implements I_Persistent {
     else set_Value(I_C_Order.COLUMNNAME_C_PaymentTerm_ID, Integer.valueOf(C_PaymentTerm_ID));
   }
 
-    /**
+  /**
    * Get POS Terminal.
    *
    * @return Point of Sales Terminal
    */
-  public int getC_POS_ID() {
-    Integer ii = (Integer) get_Value(I_C_Order.COLUMNNAME_C_POS_ID);
-    if (ii == null) return 0;
-    return ii;
-  }
+    public int getC_POS_ID() {
+        Integer ii = (Integer) get_Value(I_C_Order.COLUMNNAME_C_POS_ID);
+        if (ii == null) return 0;
+        return ii;
+    }
 
     /**
    * Get Project.
@@ -825,15 +745,6 @@ public class X_C_Order extends PO implements I_Persistent {
    */
   public void setDocumentNo(String DocumentNo) {
     set_ValueNoCheck(I_C_Order.COLUMNNAME_DocumentNo, DocumentNo);
-  }
-
-  /**
-   * Get Record ID/ColumnName
-   *
-   * @return ID/ColumnName pair
-   */
-  public KeyNamePair getKeyNamePair() {
-    return new KeyNamePair(getId(), getDocumentNo());
   }
 
     /**
@@ -1230,24 +1141,13 @@ public class X_C_Order extends PO implements I_Persistent {
     else set_ValueNoCheck(I_C_Order.COLUMNNAME_Link_Order_ID, Integer.valueOf(Link_Order_ID));
   }
 
-    /**
-   * Get Freight Category.
-   *
-   * @return Category of the Freight
-   */
-    private int getM_FreightCategory_ID() {
-    Integer ii = (Integer) get_Value(I_C_Order.COLUMNNAME_M_FreightCategory_ID);
-    if (ii == null) return 0;
-    return ii;
-  }
-
     public org.compiere.model.I_M_PriceList getM_PriceList() throws RuntimeException {
-    return (org.compiere.model.I_M_PriceList)
-        MTable.get(getCtx(), org.compiere.model.I_M_PriceList.Table_Name)
-            .getPO(getM_PriceList_ID(), null);
-  }
+        return (org.compiere.model.I_M_PriceList)
+                MTable.get(getCtx(), org.compiere.model.I_M_PriceList.Table_Name)
+                        .getPO(getM_PriceList_ID(), null);
+    }
 
-  /**
+    /**
    * Get Price List.
    *
    * @return Unique identifier of a Price List
@@ -1434,17 +1334,6 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
     /**
-   * Get Quotation.
-   *
-   * @return Quotation used for generating this order
-   */
-    private int getQuotationOrder_ID() {
-    Integer ii = (Integer) get_Value(I_C_Order.COLUMNNAME_QuotationOrder_ID);
-    if (ii == null) return 0;
-    return ii;
-  }
-
-  /**
    * Set Quotation.
    *
    * @param QuotationOrder_ID Quotation used for generating this order
