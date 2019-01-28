@@ -50,30 +50,7 @@ public class X_M_ShipperLabels extends BasePOName implements I_M_ShipperLabels, 
     return sb.toString();
   }
 
-  /**
-   * Set Default.
-   *
-   * @param IsDefault Default value
-   */
-  public void setIsDefault(boolean IsDefault) {
-    set_Value(COLUMNNAME_IsDefault, Boolean.valueOf(IsDefault));
-  }
-
-  /**
-   * Get Default.
-   *
-   * @return Default value
-   */
-  public boolean isDefault() {
-    Object oo = get_Value(COLUMNNAME_IsDefault);
-    if (oo != null) {
-      if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
-      return "Y".equals(oo);
-    }
-    return false;
-  }
-
-  /**
+    /**
    * Get Label Print Method.
    *
    * @return Label Print Method
@@ -82,23 +59,7 @@ public class X_M_ShipperLabels extends BasePOName implements I_M_ShipperLabels, 
     return (String) get_Value(COLUMNNAME_LabelPrintMethod);
   }
 
-  /**
-   * Set Label Print Method.
-   *
-   * @param LabelPrintMethod Label Print Method
-   */
-  public void setLabelPrintMethod(String LabelPrintMethod) {
-
-    set_Value(COLUMNNAME_LabelPrintMethod, LabelPrintMethod);
-  }
-
-  public org.compiere.model.I_M_Shipper getM_Shipper() throws RuntimeException {
-    return (org.compiere.model.I_M_Shipper)
-        MTable.get(getCtx(), org.compiere.model.I_M_Shipper.Table_Name)
-            .getPO(getM_Shipper_ID(), null);
-  }
-
-  /**
+    /**
    * Get Shipper.
    *
    * @return Method or manner of product delivery
@@ -109,17 +70,7 @@ public class X_M_ShipperLabels extends BasePOName implements I_M_ShipperLabels, 
     return ii;
   }
 
-  /**
-   * Set Shipper.
-   *
-   * @param M_Shipper_ID Method or manner of product delivery
-   */
-  public void setM_Shipper_ID(int M_Shipper_ID) {
-    if (M_Shipper_ID < 1) set_ValueNoCheck(COLUMNNAME_M_Shipper_ID, null);
-    else set_ValueNoCheck(COLUMNNAME_M_Shipper_ID, Integer.valueOf(M_Shipper_ID));
-  }
-
-  public org.compiere.model.I_M_ShipperLabelsCfg getM_ShipperLabelsCfg() throws RuntimeException {
+    public org.compiere.model.I_M_ShipperLabelsCfg getM_ShipperLabelsCfg() throws RuntimeException {
     return (org.compiere.model.I_M_ShipperLabelsCfg)
         MTable.get(getCtx(), org.compiere.model.I_M_ShipperLabelsCfg.Table_Name)
             .getPO(getM_ShipperLabelsCfg_ID(), null);
@@ -136,56 +87,7 @@ public class X_M_ShipperLabels extends BasePOName implements I_M_ShipperLabels, 
     return ii;
   }
 
-  /**
-   * Set Shipper Labels Configuration.
-   *
-   * @param M_ShipperLabelsCfg_ID Shipper Labels Configuration
-   */
-  public void setM_ShipperLabelsCfg_ID(int M_ShipperLabelsCfg_ID) {
-    if (M_ShipperLabelsCfg_ID < 1) set_Value(COLUMNNAME_M_ShipperLabelsCfg_ID, null);
-    else set_Value(COLUMNNAME_M_ShipperLabelsCfg_ID, Integer.valueOf(M_ShipperLabelsCfg_ID));
-  }
-
-  /**
-   * Get Shipper Labels.
-   *
-   * @return Shipper Labels
-   */
-  public int getM_ShipperLabels_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_M_ShipperLabels_ID);
-    if (ii == null) return 0;
-    return ii;
-  }
-
-  /**
-   * Set Shipper Labels.
-   *
-   * @param M_ShipperLabels_ID Shipper Labels
-   */
-  public void setM_ShipperLabels_ID(int M_ShipperLabels_ID) {
-    if (M_ShipperLabels_ID < 1) set_ValueNoCheck(COLUMNNAME_M_ShipperLabels_ID, null);
-    else set_ValueNoCheck(COLUMNNAME_M_ShipperLabels_ID, Integer.valueOf(M_ShipperLabels_ID));
-  }
-
-  /**
-   * Get M_ShipperLabels_UU.
-   *
-   * @return M_ShipperLabels_UU
-   */
-  public String getM_ShipperLabels_UU() {
-    return (String) get_Value(COLUMNNAME_M_ShipperLabels_UU);
-  }
-
-  /**
-   * Set M_ShipperLabels_UU.
-   *
-   * @param M_ShipperLabels_UU M_ShipperLabels_UU
-   */
-  public void setM_ShipperLabels_UU(String M_ShipperLabels_UU) {
-    set_Value(COLUMNNAME_M_ShipperLabels_UU, M_ShipperLabels_UU);
-  }
-
-  @Override
+    @Override
   public int getTableId() {
     return I_M_ShipperLabels.Table_ID;
   }

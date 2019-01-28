@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Properties;
 import org.compiere.model.I_C_OrderPaySchedule;
-import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 import org.idempiere.common.util.KeyNamePair;
@@ -52,13 +51,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
     return sb.toString();
   }
 
-  public org.compiere.model.I_C_Order getC_Order() throws RuntimeException {
-    return (org.compiere.model.I_C_Order)
-        MTable.get(getCtx(), org.compiere.model.I_C_Order.Table_Name)
-            .getPO(getC_Order_ID(), null);
-  }
-
-  /**
+    /**
    * Get Order.
    *
    * @return Order
@@ -79,52 +72,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
     else set_ValueNoCheck(COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
   }
 
-  /**
-   * Get Order Payment Schedule.
-   *
-   * @return Order Payment Schedule
-   */
-  public int getC_OrderPaySchedule_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_C_OrderPaySchedule_ID);
-    if (ii == null) return 0;
-    return ii;
-  }
-
-  /**
-   * Set Order Payment Schedule.
-   *
-   * @param C_OrderPaySchedule_ID Order Payment Schedule
-   */
-  public void setC_OrderPaySchedule_ID(int C_OrderPaySchedule_ID) {
-    if (C_OrderPaySchedule_ID < 1) set_ValueNoCheck(COLUMNNAME_C_OrderPaySchedule_ID, null);
-    else set_ValueNoCheck(COLUMNNAME_C_OrderPaySchedule_ID, Integer.valueOf(C_OrderPaySchedule_ID));
-  }
-
-  /**
-   * Get C_OrderPaySchedule_UU.
-   *
-   * @return C_OrderPaySchedule_UU
-   */
-  public String getC_OrderPaySchedule_UU() {
-    return (String) get_Value(COLUMNNAME_C_OrderPaySchedule_UU);
-  }
-
-  /**
-   * Set C_OrderPaySchedule_UU.
-   *
-   * @param C_OrderPaySchedule_UU C_OrderPaySchedule_UU
-   */
-  public void setC_OrderPaySchedule_UU(String C_OrderPaySchedule_UU) {
-    set_Value(COLUMNNAME_C_OrderPaySchedule_UU, C_OrderPaySchedule_UU);
-  }
-
-  public org.compiere.model.I_C_PaySchedule getC_PaySchedule() throws RuntimeException {
-    return (org.compiere.model.I_C_PaySchedule)
-        MTable.get(getCtx(), org.compiere.model.I_C_PaySchedule.Table_Name)
-            .getPO(getC_PaySchedule_ID(), null);
-  }
-
-  /**
+    /**
    * Get Payment Schedule.
    *
    * @return Payment Schedule Template
@@ -253,30 +201,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
     return false;
   }
 
-  /**
-   * Get Processed.
-   *
-   * @return The document has been processed
-   */
-  public boolean isProcessed() {
-    Object oo = get_Value(COLUMNNAME_Processed);
-    if (oo != null) {
-      if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
-      return "Y".equals(oo);
-    }
-    return false;
-  }
-
-  /**
-   * Set Processed.
-   *
-   * @param Processed The document has been processed
-   */
-  public void setProcessed(boolean Processed) {
-    set_Value(COLUMNNAME_Processed, Boolean.valueOf(Processed));
-  }
-
-  /**
+    /**
    * Get Process Now.
    *
    * @return Process Now
@@ -290,16 +215,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
     return false;
   }
 
-  /**
-   * Set Process Now.
-   *
-   * @param Processing Process Now
-   */
-  public void setProcessing(boolean Processing) {
-    set_Value(COLUMNNAME_Processing, Boolean.valueOf(Processing));
-  }
-
-  @Override
+    @Override
   public int getTableId() {
     return I_C_OrderPaySchedule.Table_ID;
   }

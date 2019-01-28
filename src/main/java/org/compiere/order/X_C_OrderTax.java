@@ -2,7 +2,6 @@ package org.compiere.order;
 
 import kotliquery.Row;
 import org.compiere.model.I_C_OrderTax;
-import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 import org.idempiere.orm.I_Persistent;
@@ -53,13 +52,7 @@ public class X_C_OrderTax extends PO implements I_Persistent {
     return sb.toString();
   }
 
-  public org.compiere.model.I_C_Order getC_Order() throws RuntimeException {
-    return (org.compiere.model.I_C_Order)
-        MTable.get(getCtx(), org.compiere.model.I_C_Order.Table_Name)
-            .getPO(getC_Order_ID(), null);
-  }
-
-  /**
+    /**
    * Get Order.
    *
    * @return Order
@@ -80,31 +73,7 @@ public class X_C_OrderTax extends PO implements I_Persistent {
     else set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
   }
 
-  /**
-   * Get C_OrderTax_UU.
-   *
-   * @return C_OrderTax_UU
-   */
-  public String getC_OrderTax_UU() {
-    return (String) get_Value(I_C_OrderTax.COLUMNNAME_C_OrderTax_UU);
-  }
-
-  /**
-   * Set C_OrderTax_UU.
-   *
-   * @param C_OrderTax_UU C_OrderTax_UU
-   */
-  public void setC_OrderTax_UU(String C_OrderTax_UU) {
-    set_Value(I_C_OrderTax.COLUMNNAME_C_OrderTax_UU, C_OrderTax_UU);
-  }
-
-  public org.compiere.model.I_C_Tax getC_Tax() throws RuntimeException {
-    return (org.compiere.model.I_C_Tax)
-        MTable.get(getCtx(), org.compiere.model.I_C_Tax.Table_Name)
-            .getPO(getC_Tax_ID(), null);
-  }
-
-  /**
+    /**
    * Get Tax.
    *
    * @return Tax identifier
@@ -125,13 +94,7 @@ public class X_C_OrderTax extends PO implements I_Persistent {
     else set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
   }
 
-  public org.compiere.model.I_C_TaxProvider getC_TaxProvider() throws RuntimeException {
-    return (org.compiere.model.I_C_TaxProvider)
-        MTable.get(getCtx(), org.compiere.model.I_C_TaxProvider.Table_Name)
-            .getPO(getC_TaxProvider_ID(), null);
-  }
-
-  /**
+    /**
    * Get Tax Provider.
    *
    * @return Tax Provider
@@ -142,18 +105,7 @@ public class X_C_OrderTax extends PO implements I_Persistent {
     return ii;
   }
 
-  /**
-   * Set Tax Provider.
-   *
-   * @param C_TaxProvider_ID Tax Provider
-   */
-  public void setC_TaxProvider_ID(int C_TaxProvider_ID) {
-    if (C_TaxProvider_ID < 1) set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_C_TaxProvider_ID, null);
-    else
-      set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_C_TaxProvider_ID, Integer.valueOf(C_TaxProvider_ID));
-  }
-
-  /**
+    /**
    * Set Price includes Tax.
    *
    * @param IsTaxIncluded Tax is included in the price
@@ -176,30 +128,7 @@ public class X_C_OrderTax extends PO implements I_Persistent {
     return false;
   }
 
-  /**
-   * Get Processed.
-   *
-   * @return The document has been processed
-   */
-  public boolean isProcessed() {
-    Object oo = get_Value(I_C_OrderTax.COLUMNNAME_Processed);
-    if (oo != null) {
-      if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
-      return "Y".equals(oo);
-    }
-    return false;
-  }
-
-  /**
-   * Set Processed.
-   *
-   * @param Processed The document has been processed
-   */
-  public void setProcessed(boolean Processed) {
-    set_Value(I_C_OrderTax.COLUMNNAME_Processed, Boolean.valueOf(Processed));
-  }
-
-  /**
+    /**
    * Get Tax Amount.
    *
    * @return Tax Amount for a document

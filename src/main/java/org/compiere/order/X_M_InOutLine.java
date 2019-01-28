@@ -1,9 +1,7 @@
 package org.compiere.order;
 
 import kotliquery.Row;
-import org.compiere.model.I_M_AttributeSetInstance;
 import org.compiere.model.I_M_InOutLine;
-import org.compiere.model.I_M_Locator;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
@@ -80,13 +78,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
     else set_Value(COLUMNNAME_AD_OrgTrx_ID, Integer.valueOf(AD_OrgTrx_ID));
   }
 
-  public org.compiere.model.I_C_Activity getC_Activity() throws RuntimeException {
-    return (org.compiere.model.I_C_Activity)
-        MTable.get(getCtx(), org.compiere.model.I_C_Activity.Table_Name)
-            .getPO(getC_Activity_ID(), null);
-  }
-
-  /**
+    /**
    * Get Activity.
    *
    * @return Business Activity
@@ -107,13 +99,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
     else set_Value(COLUMNNAME_C_Activity_ID, Integer.valueOf(C_Activity_ID));
   }
 
-  public org.compiere.model.I_C_Campaign getC_Campaign() throws RuntimeException {
-    return (org.compiere.model.I_C_Campaign)
-        MTable.get(getCtx(), org.compiere.model.I_C_Campaign.Table_Name)
-            .getPO(getC_Campaign_ID(), null);
-  }
-
-  /**
+    /**
    * Get Campaign.
    *
    * @return Marketing Campaign
@@ -134,13 +120,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
     else set_Value(COLUMNNAME_C_Campaign_ID, Integer.valueOf(C_Campaign_ID));
   }
 
-  public org.compiere.model.I_C_Charge getC_Charge() throws RuntimeException {
-    return (org.compiere.model.I_C_Charge)
-        MTable.get(getCtx(), org.compiere.model.I_C_Charge.Table_Name)
-            .getPO(getC_Charge_ID(), null);
-  }
-
-  /**
+    /**
    * Get Charge.
    *
    * @return Additional document charges
@@ -161,18 +141,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
     else set_Value(COLUMNNAME_C_Charge_ID, Integer.valueOf(C_Charge_ID));
   }
 
-  /**
-   * Get Confirmed Quantity.
-   *
-   * @return Confirmation of a received quantity
-   */
-  public BigDecimal getConfirmedQty() {
-    BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_ConfirmedQty);
-    if (bd == null) return Env.ZERO;
-    return bd;
-  }
-
-  /**
+    /**
    * Set Confirmed Quantity.
    *
    * @param ConfirmedQty Confirmation of a received quantity
@@ -208,13 +177,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
     else set_ValueNoCheck(COLUMNNAME_C_OrderLine_ID, Integer.valueOf(C_OrderLine_ID));
   }
 
-  public org.compiere.model.I_C_Project getC_Project() throws RuntimeException {
-    return (org.compiere.model.I_C_Project)
-        MTable.get(getCtx(), org.compiere.model.I_C_Project.Table_Name)
-            .getPO(getC_Project_ID(), null);
-  }
-
-  /**
+    /**
    * Get Project.
    *
    * @return Financial Project
@@ -235,13 +198,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
     else set_Value(COLUMNNAME_C_Project_ID, Integer.valueOf(C_Project_ID));
   }
 
-  public org.compiere.model.I_C_ProjectPhase getC_ProjectPhase() throws RuntimeException {
-    return (org.compiere.model.I_C_ProjectPhase)
-        MTable.get(getCtx(), org.compiere.model.I_C_ProjectPhase.Table_Name)
-            .getPO(getC_ProjectPhase_ID(), null);
-  }
-
-  /**
+    /**
    * Get Project Phase.
    *
    * @return Phase of a Project
@@ -262,13 +219,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
     else set_Value(COLUMNNAME_C_ProjectPhase_ID, Integer.valueOf(C_ProjectPhase_ID));
   }
 
-  public org.compiere.model.I_C_ProjectTask getC_ProjectTask() throws RuntimeException {
-    return (org.compiere.model.I_C_ProjectTask)
-        MTable.get(getCtx(), org.compiere.model.I_C_ProjectTask.Table_Name)
-            .getPO(getC_ProjectTask_ID(), null);
-  }
-
-  /**
+    /**
    * Get Project Task.
    *
    * @return Actual Project Task in a Phase
@@ -289,13 +240,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
     else set_Value(COLUMNNAME_C_ProjectTask_ID, Integer.valueOf(C_ProjectTask_ID));
   }
 
-  public org.compiere.model.I_C_UOM getC_UOM() throws RuntimeException {
-    return (org.compiere.model.I_C_UOM)
-        MTable.get(getCtx(), org.compiere.model.I_C_UOM.Table_Name)
-            .getPO(getC_UOM_ID(), null);
-  }
-
-  /**
+    /**
    * Get UOM.
    *
    * @return Unit of Measure
@@ -409,13 +354,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
     return new KeyNamePair(getId(), String.valueOf(getLine()));
   }
 
-  public I_M_AttributeSetInstance getMAttributeSetInstance() throws RuntimeException {
-    return (I_M_AttributeSetInstance)
-        MTable.get(getCtx(), I_M_AttributeSetInstance.Table_Name)
-            .getPO(getMAttributeSetInstance_ID(), null);
-  }
-
-  /**
+    /**
    * Set Attribute Set Instance.
    *
    * @param M_AttributeSetInstance_ID Product Attribute Set Instance
@@ -475,40 +414,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
     return ii;
   }
 
-  /**
-   * Set Shipment/Receipt Line.
-   *
-   * @param M_InOutLine_ID Line on Shipment or Receipt document
-   */
-  public void setM_InOutLine_ID(int M_InOutLine_ID) {
-    if (M_InOutLine_ID < 1) set_ValueNoCheck(COLUMNNAME_M_InOutLine_ID, null);
-    else set_ValueNoCheck(COLUMNNAME_M_InOutLine_ID, Integer.valueOf(M_InOutLine_ID));
-  }
-
-  /**
-   * Get M_InOutLine_UU.
-   *
-   * @return M_InOutLine_UU
-   */
-  public String getM_InOutLine_UU() {
-    return (String) get_Value(COLUMNNAME_M_InOutLine_UU);
-  }
-
-  /**
-   * Set M_InOutLine_UU.
-   *
-   * @param M_InOutLine_UU M_InOutLine_UU
-   */
-  public void setM_InOutLine_UU(String M_InOutLine_UU) {
-    set_Value(COLUMNNAME_M_InOutLine_UU, M_InOutLine_UU);
-  }
-
-  public I_M_Locator getM_Locator() throws RuntimeException {
-    return (I_M_Locator)
-        MTable.get(getCtx(), I_M_Locator.Table_Name).getPO(getM_Locator_ID(), null);
-  }
-
-  /**
+    /**
    * Get Locator.
    *
    * @return Warehouse Locator
@@ -603,18 +509,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
     else set_Value(COLUMNNAME_M_RMALine_ID, Integer.valueOf(M_RMALine_ID));
   }
 
-  /**
-   * Get Picked Quantity.
-   *
-   * @return Picked Quantity
-   */
-  public BigDecimal getPickedQty() {
-    BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_PickedQty);
-    if (bd == null) return Env.ZERO;
-    return bd;
-  }
-
-  /**
+    /**
    * Set Picked Quantity.
    *
    * @param PickedQty Picked Quantity
@@ -623,21 +518,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
     set_Value(COLUMNNAME_PickedQty, PickedQty);
   }
 
-  /**
-   * Get Processed.
-   *
-   * @return The document has been processed
-   */
-  public boolean isProcessed() {
-    Object oo = get_Value(COLUMNNAME_Processed);
-    if (oo != null) {
-      if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
-      return "Y".equals(oo);
-    }
-    return false;
-  }
-
-  /**
+    /**
    * Set Processed.
    *
    * @param Processed The document has been processed
@@ -707,13 +588,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
     else set_Value(COLUMNNAME_Ref_InOutLine_ID, Integer.valueOf(Ref_InOutLine_ID));
   }
 
-  public org.compiere.model.I_M_InOutLine getReversalLine() throws RuntimeException {
-    return (org.compiere.model.I_M_InOutLine)
-        MTable.get(getCtx(), org.compiere.model.I_M_InOutLine.Table_Name)
-            .getPO(getReversalLine_ID(), null);
-  }
-
-  /**
+    /**
    * Get Reversal Line.
    *
    * @return Use to keep the reversal line ID for reversing costing purpose
@@ -734,18 +609,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
     else set_Value(COLUMNNAME_ReversalLine_ID, Integer.valueOf(ReversalLine_ID));
   }
 
-  /**
-   * Get Scrapped Quantity.
-   *
-   * @return The Quantity scrapped due to QA issues
-   */
-  public BigDecimal getScrappedQty() {
-    BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_ScrappedQty);
-    if (bd == null) return Env.ZERO;
-    return bd;
-  }
-
-  /**
+    /**
    * Set Scrapped Quantity.
    *
    * @param ScrappedQty The Quantity scrapped due to QA issues
@@ -754,18 +618,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
     set_Value(COLUMNNAME_ScrappedQty, ScrappedQty);
   }
 
-  /**
-   * Get Target Quantity.
-   *
-   * @return Target Movement Quantity
-   */
-  public BigDecimal getTargetQty() {
-    BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_TargetQty);
-    if (bd == null) return Env.ZERO;
-    return bd;
-  }
-
-  /**
+    /**
    * Set Target Quantity.
    *
    * @param TargetQty Target Movement Quantity
@@ -774,13 +627,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
     set_Value(COLUMNNAME_TargetQty, TargetQty);
   }
 
-  public org.compiere.model.I_C_ElementValue getUser1() throws RuntimeException {
-    return (org.compiere.model.I_C_ElementValue)
-        MTable.get(getCtx(), org.compiere.model.I_C_ElementValue.Table_Name)
-            .getPO(getUser1_ID(), null);
-  }
-
-  /**
+    /**
    * Get User Element List 1.
    *
    * @return User defined list element #1
@@ -801,13 +648,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
     else set_Value(COLUMNNAME_User1_ID, Integer.valueOf(User1_ID));
   }
 
-  public org.compiere.model.I_C_ElementValue getUser2() throws RuntimeException {
-    return (org.compiere.model.I_C_ElementValue)
-        MTable.get(getCtx(), org.compiere.model.I_C_ElementValue.Table_Name)
-            .getPO(getUser2_ID(), null);
-  }
-
-  /**
+    /**
    * Get User Element List 2.
    *
    * @return User defined list element #2
