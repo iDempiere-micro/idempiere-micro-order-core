@@ -484,7 +484,7 @@ public class MInOut extends X_M_InOut {
             .append((processed ? "Y" : "N"))
             .append("' WHERE M_InOut_ID=")
             .append(getM_InOut_ID());
-    int noLine = executeUpdate(sql.toString(), null);
+    int noLine = executeUpdate(sql.toString());
     m_lines = null;
     if (log.isLoggable(Level.FINE)) log.fine(processed + " - Lines=" + noLine);
   } //	setProcessed
@@ -531,7 +531,7 @@ public class MInOut extends X_M_InOut {
             + (isSOTrx() ? "Y" : "N")
             + "' "
             + "ORDER BY IsDefault DESC";
-    int C_DocType_ID = getSQLValue(null, sql, getClientId(), DocBaseType);
+    int C_DocType_ID = getSQLValue(sql, getClientId(), DocBaseType);
     if (C_DocType_ID <= 0)
       log.log(Level.SEVERE, "Not found for AC_Client_ID=" + getClientId() + " - " + DocBaseType);
     else {
@@ -604,7 +604,7 @@ public class MInOut extends X_M_InOut {
               + "(SELECT AD_Org_ID"
               + " FROM M_InOut o WHERE ol.M_InOut_ID=o.M_InOut_ID) "
               + "WHERE M_InOut_ID=?";
-      int no = executeUpdateEx(sql, new Object[] {getM_InOut_ID()}, null);
+      int no = executeUpdateEx(sql, new Object[] {getM_InOut_ID()});
       if (log.isLoggable(Level.FINE)) log.fine("Lines -> #" + no);
     }
     return true;

@@ -270,7 +270,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
             + ") AND DocSubTypeSO=? "
             + " AND IsActive='Y' "
             + "ORDER BY AD_Org_ID DESC, IsDefault DESC";
-    int C_DocType_ID = getSQLValue(null, sql, getClientId(), DocSubTypeSO_x);
+    int C_DocType_ID = getSQLValue(sql, getClientId(), DocSubTypeSO_x);
     if (C_DocType_ID <= 0)
       log.severe("Not found for AD_Client_ID=" + getClientId() + ", SubType=" + DocSubTypeSO_x);
     else {
@@ -294,7 +294,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
             + getOrgId()
             + ") AND DocBaseType='POO' "
             + "ORDER BY AD_Org_ID DESC, IsDefault DESC";
-    int C_DocType_ID = getSQLValue(null, sql, getClientId());
+    int C_DocType_ID = getSQLValue(sql, getClientId());
     if (C_DocType_ID <= 0) log.severe("No POO found for AD_Client_ID=" + getClientId());
     else {
       if (log.isLoggable(Level.FINE)) log.fine("(PO) - " + C_DocType_ID);
@@ -589,7 +589,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
         "SELECT C_Invoice_ID FROM C_Invoice "
             + "WHERE C_Order_ID=? AND DocStatus IN ('CO','CL') "
             + "ORDER BY C_Invoice_ID DESC";
-    int C_Invoice_ID = getSQLValue(null, sql, getId());
+    int C_Invoice_ID = getSQLValue(sql, getId());
     return C_Invoice_ID;
   } //	getC_Invoice_ID
 
@@ -651,8 +651,8 @@ public class MOrder extends X_C_Order implements I_C_Order {
     if (getId() == 0) return;
     String set =
         "SET Processed='" + (processed ? "Y" : "N") + "' WHERE C_Order_ID=" + getC_Order_ID();
-    int noLine = executeUpdateEx("UPDATE C_OrderLine " + set, null);
-    int noTax = executeUpdateEx("UPDATE C_OrderTax " + set, null);
+    int noLine = executeUpdateEx("UPDATE C_OrderLine " + set);
+    int noTax = executeUpdateEx("UPDATE C_OrderTax " + set);
     m_lines = null;
     m_taxes = null;
     if (log.isLoggable(Level.FINE))
@@ -765,7 +765,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
     //	Default Currency
     if (getC_Currency_ID() == 0) {
       String sql = "SELECT C_Currency_ID FROM M_PriceList WHERE M_PriceList_ID=?";
-      int ii = getSQLValue(null, sql, getM_PriceList_ID());
+      int ii = getSQLValue(sql, getM_PriceList_ID());
       if (ii != 0) setC_Currency_ID(ii);
       else setC_Currency_ID(Env.getContextAsInt(getCtx(), "#C_Currency_ID"));
     }
@@ -786,7 +786,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
       else {
         String sql =
             "SELECT C_PaymentTerm_ID FROM C_PaymentTerm WHERE AD_Client_ID=? AND IsDefault='Y' AND IsActive='Y'";
-        ii = getSQLValue(null, sql, getClientId());
+        ii = getSQLValue(sql, getClientId());
         if (ii != 0) setC_PaymentTerm_ID(ii);
       }
     }
@@ -880,7 +880,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
               + "FROM C_Order o WHERE i.C_Order_ID=o.C_Order_ID) "
               + "WHERE DocStatus NOT IN ('RE','CL') AND C_Order_ID="
               + getC_Order_ID();
-      int no = executeUpdateEx(sql, null);
+      int no = executeUpdateEx(sql);
       if (log.isLoggable(Level.FINE)) log.fine("Description -> #" + no);
     }
 
@@ -897,7 +897,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
               + "WHERE DocStatus NOT IN ('RE','CL') AND C_Order_ID="
               + getC_Order_ID();
       //	Don't touch Closed/Reversed entries
-      int no = executeUpdate(sql, null);
+      int no = executeUpdate(sql);
       if (log.isLoggable(Level.FINE)) log.fine("Payment -> #" + no);
     }
 
@@ -911,7 +911,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
               + "WHERE DocStatus NOT IN ('CO','RE','CL') AND Processed='N' AND C_Order_ID="
               + getC_Order_ID();
       //	Don't touch Completed/Closed/Reversed entries
-      int no = executeUpdate(sql, null);
+      int no = executeUpdate(sql);
       if (log.isLoggable(Level.FINE)) log.fine("DateAcct -> #" + no);
     }
 
@@ -1086,7 +1086,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
             + " AND	p.IsBOM='Y' AND p.IsVerified='Y' AND p.IsStocked='N')";
     //
     String sql = "SELECT COUNT(*) FROM C_OrderLine " + "WHERE C_Order_ID=? " + where;
-    int count = getSQLValue(null, sql, getC_Order_ID());
+    int count = getSQLValue(sql, getC_Order_ID());
     while (count != 0) {
       retValue = true;
       renumberLines(1000); // 	max 999 bom items
@@ -1148,7 +1148,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
       } //	for all lines with BOM
 
       m_lines = null; // 	force requery
-      count = getSQLValue(null, sql, getC_Invoice_ID());
+      count = getSQLValue(sql, getC_Invoice_ID());
       renumberLines(10);
     } //	while count != 0
     return retValue;
@@ -1162,7 +1162,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
   public boolean calculateTaxTotal() {
     log.fine("");
     //	Delete Taxes
-    executeUpdateEx("DELETE C_OrderTax WHERE C_Order_ID=" + getC_Order_ID(), null);
+    executeUpdateEx("DELETE C_OrderTax WHERE C_Order_ID=" + getC_Order_ID());
     m_taxes = null;
 
     MTaxProvider[] providers = getTaxProviders();

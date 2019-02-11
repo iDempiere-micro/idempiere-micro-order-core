@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.util.Properties;
 import java.util.logging.Level;
 
-import static software.hsharp.core.util.DBKt.close;
 import static software.hsharp.core.util.DBKt.prepareStatement;
 
 public class MShippingTransaction extends X_M_ShippingTransaction {
@@ -104,7 +103,7 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
     ResultSet rs = null;
 
     try {
-      stmt = prepareStatement(sql.toString(), null);
+      stmt = prepareStatement(sql.toString());
       stmt.setInt(1, M_Product_ID);
       stmt.setInt(2, getClientId());
       stmt.setInt(3, getOrgId());
@@ -116,7 +115,6 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
     } catch (Exception e) {
       log.log(Level.SEVERE, e.getLocalizedMessage(), e);
     } finally {
-      close(rs, stmt);
     }
 
     if (commodityShipment == null) commodityShipment = new X_M_CommodityShipment(getCtx(), 0, null);

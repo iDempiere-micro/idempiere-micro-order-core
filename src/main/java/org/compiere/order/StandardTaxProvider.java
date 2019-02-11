@@ -111,7 +111,7 @@ public class StandardTaxProvider implements ITaxProvider {
             + "(SELECT COALESCE(SUM(LineNetAmt),0) FROM C_OrderLine il WHERE i.C_Order_ID=il.C_Order_ID) "
             + "WHERE C_Order_ID="
             + line.getC_Order_ID();
-    int no = executeUpdate(sql, null);
+    int no = executeUpdate(sql);
     if (no != 1) log.warning("(1) #" + no);
 
     if (line.isTaxIncluded())
@@ -127,7 +127,7 @@ public class StandardTaxProvider implements ITaxProvider {
               + "(SELECT COALESCE(SUM(TaxAmt),0) FROM C_OrderTax it WHERE i.C_Order_ID=it.C_Order_ID) "
               + "WHERE C_Order_ID="
               + line.getC_Order_ID();
-    no = executeUpdate(sql, null);
+    no = executeUpdate(sql);
     if (no != 1) log.warning("(2) #" + no);
 
     line.clearParent();
@@ -221,7 +221,7 @@ public class StandardTaxProvider implements ITaxProvider {
             + " SET Amt="
             + "(SELECT COALESCE(SUM(LineNetAmt),0) FROM M_RMALine WHERE M_RMA.M_RMA_ID=M_RMALine.M_RMA_ID) "
             + "WHERE M_RMA_ID=?";
-    int no = executeUpdateEx(sql, new Object[] {line.getM_RMA_ID()}, null);
+    int no = executeUpdateEx(sql, new Object[] {line.getM_RMA_ID()});
     if (no != 1) log.warning("(1) #" + no);
 
     line.clearParent();

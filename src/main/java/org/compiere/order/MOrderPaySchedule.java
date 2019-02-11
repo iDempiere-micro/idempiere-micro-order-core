@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
 
-import static software.hsharp.core.util.DBKt.close;
 import static software.hsharp.core.util.DBKt.prepareStatement;
 
 /**
@@ -123,7 +122,7 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
     PreparedStatement pstmt = null;
     ResultSet rs = null;
     try {
-      pstmt = prepareStatement(sql, trxName);
+      pstmt = prepareStatement(sql);
       if (C_Order_ID != 0) pstmt.setInt(1, C_Order_ID);
       else pstmt.setInt(1, C_OrderPaySchedule_ID);
       rs = pstmt.executeQuery();
@@ -133,7 +132,6 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
     } catch (Exception e) {
       s_log.log(Level.SEVERE, "getOrderPaySchedule", e);
     } finally {
-      close(rs, pstmt);
       rs = null;
       pstmt = null;
     }

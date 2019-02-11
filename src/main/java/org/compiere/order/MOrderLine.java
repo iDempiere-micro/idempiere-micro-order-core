@@ -371,7 +371,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
         "SELECT c.StdPrecision "
             + "FROM C_Currency c INNER JOIN C_Order x ON (x.C_Currency_ID=c.C_Currency_ID) "
             + "WHERE x.C_Order_ID=?";
-    int i = getSQLValue(null, sql, getC_Order_ID());
+    int i = getSQLValue(sql, getC_Order_ID());
     m_precision = new Integer(i);
     return m_precision.intValue();
   } //	getPrecision
@@ -744,7 +744,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
     //	Get Line No
     if (getLine() == 0) {
       String sql = "SELECT COALESCE(MAX(Line),0)+10 FROM C_OrderLine WHERE C_Order_ID=?";
-      int ii = getSQLValue(null, sql, getC_Order_ID());
+      int ii = getSQLValue(sql, getC_Order_ID());
       setLine(ii);
     }
 

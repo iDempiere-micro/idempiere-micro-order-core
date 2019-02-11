@@ -1,6 +1,5 @@
 package org.compiere.order;
 
-import static software.hsharp.core.util.DBKt.close;
 import static software.hsharp.core.util.DBKt.prepareStatement;
 
 import java.math.BigDecimal;
@@ -88,7 +87,7 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
     PreparedStatement pstmt = null;
     ResultSet rs = null;
     try {
-      pstmt = prepareStatement(sql, trxName);
+      pstmt = prepareStatement(sql);
       pstmt.setInt(1, line.getM_RMA_ID());
       pstmt.setInt(2, C_Tax_ID);
       rs = pstmt.executeQuery();
@@ -96,7 +95,6 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
     } catch (Exception e) {
       s_log.log(Level.SEVERE, sql, e);
     } finally {
-      close(rs, pstmt);
       rs = null;
       pstmt = null;
     }
@@ -170,7 +168,7 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
     PreparedStatement pstmt = null;
     ResultSet rs = null;
     try {
-      pstmt = prepareStatement(sql, null);
+      pstmt = prepareStatement(sql);
       pstmt.setInt(1, getM_RMA_ID());
       pstmt.setInt(2, getC_Tax_ID());
       rs = pstmt.executeQuery();
@@ -185,7 +183,6 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
       log.log(Level.SEVERE, null, e);
       taxBaseAmt = null;
     } finally {
-      close(rs, pstmt);
       rs = null;
       pstmt = null;
     }

@@ -66,7 +66,7 @@ public class MShipperFacade {
         .append(AD_Org_ID)
         .append(") ")
         .append(" Order By AD_Org_ID Desc ");
-    String ac = getSQLValueString(null, sql.toString(), m_shipper.getC_BPartner_ID());
+    String ac = getSQLValueString(sql.toString(), m_shipper.getC_BPartner_ID());
     if (ac != null) {
       ac = ac.replaceAll("[-]", "");
       ac = ac.replaceAll(" ", "");
@@ -82,7 +82,7 @@ public class MShipperFacade {
         .append(AD_Org_ID)
         .append(") ")
         .append(" Order By AD_Org_ID Desc ");
-    String ac = getSQLValueString(null, sql.toString(), m_shipper.getC_BPartner_ID());
+    String ac = getSQLValueString(sql.toString(), m_shipper.getC_BPartner_ID());
     if (ac != null) {
       ac = ac.replaceAll("[-]", "");
       ac = ac.replaceAll(" ", "");

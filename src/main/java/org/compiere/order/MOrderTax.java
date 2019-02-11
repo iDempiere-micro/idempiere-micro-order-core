@@ -15,7 +15,6 @@ import java.sql.ResultSet;
 import java.util.Properties;
 import java.util.logging.Level;
 
-import static software.hsharp.core.util.DBKt.close;
 import static software.hsharp.core.util.DBKt.prepareStatement;
 
 /**
@@ -98,7 +97,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
     PreparedStatement pstmt = null;
     ResultSet rs = null;
     try {
-      pstmt = prepareStatement(sql, trxName);
+      pstmt = prepareStatement(sql);
       pstmt.setInt(1, line.getC_Order_ID());
       pstmt.setInt(2, C_Tax_ID);
       rs = pstmt.executeQuery();
@@ -106,7 +105,6 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
     } catch (Exception e) {
       s_log.log(Level.SEVERE, sql, e);
     } finally {
-      close(rs, pstmt);
       rs = null;
       pstmt = null;
     }
@@ -180,7 +178,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
     PreparedStatement pstmt = null;
     ResultSet rs = null;
     try {
-      pstmt = prepareStatement(sql, null);
+      pstmt = prepareStatement(sql);
       pstmt.setInt(1, getC_Order_ID());
       pstmt.setInt(2, getC_Tax_ID());
       rs = pstmt.executeQuery();
@@ -195,7 +193,6 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
       log.log(Level.SEVERE, null, e);
       taxBaseAmt = null;
     } finally {
-      close(rs, pstmt);
       rs = null;
       pstmt = null;
     }

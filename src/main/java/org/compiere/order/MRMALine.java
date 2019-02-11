@@ -291,7 +291,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
     // Get Line No
     if (getLine() == 0) {
       String sql = "SELECT COALESCE(MAX(Line),0)+10 FROM M_RMALine WHERE M_RMA_ID=?";
-      int ii = getSQLValue(null, sql, getM_RMA_ID());
+      int ii = getSQLValue(sql, getM_RMA_ID());
       setLine(ii);
     }
 

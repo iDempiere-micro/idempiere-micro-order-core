@@ -285,7 +285,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
   public boolean calculateTaxTotal() {
     log.fine("");
     //	Delete Taxes
-    executeUpdateEx("DELETE M_RMATax WHERE M_RMA_ID=" + getM_RMA_ID(), null);
+    executeUpdateEx("DELETE M_RMATax WHERE M_RMA_ID=" + getM_RMA_ID());
     m_taxes = null;
 
     MTaxProvider[] providers = getTaxProviders();
@@ -396,8 +396,8 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
     int noLine =
         executeUpdateEx(
             "UPDATE M_RMALine SET Processed=? WHERE M_RMA_ID=?",
-            new Object[] {processed, getId()},
-            null);
+            new Object[] {processed, getId()}
+        );
     m_lines = null;
     if (log.isLoggable(Level.FINE)) log.fine("setProcessed - " + processed + " - Lines=" + noLine);
   } //  setProcessed
