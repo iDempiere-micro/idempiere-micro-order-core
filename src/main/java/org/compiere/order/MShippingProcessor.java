@@ -8,12 +8,12 @@ public class MShippingProcessor extends X_M_ShippingProcessor {
   /** */
   private static final long serialVersionUID = -7635817773750467895L;
 
-  public MShippingProcessor(Properties ctx, int M_ShippingProcessor_ID, String trxName) {
-    super(ctx, M_ShippingProcessor_ID, trxName);
+  public MShippingProcessor(Properties ctx, int M_ShippingProcessor_ID) {
+    super(ctx, M_ShippingProcessor_ID);
   }
 
-  public MShippingProcessor(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public MShippingProcessor(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
 
   public String getShippingProcessorClass() {

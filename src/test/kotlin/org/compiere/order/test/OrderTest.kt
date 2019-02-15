@@ -28,7 +28,7 @@ class OrderTest {
             val order_id = 104
 
             val modelFactory: IModelFactory = DefaultModelFactory()
-            val result = modelFactory.getPO(I_C_Order.Table_Name, order_id, null)
+            val result = modelFactory.getPO(I_C_Order.Table_Name, order_id)
             println(result)
             assertNotNull(result)
             val order = result as MOrder

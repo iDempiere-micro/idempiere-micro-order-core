@@ -6,7 +6,6 @@ import org.compiere.model.I_C_Charge;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
-import org.idempiere.common.util.KeyNamePair;
 import org.idempiere.orm.I_Persistent;
 
 import java.math.BigDecimal;
@@ -25,8 +24,8 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
   private static final long serialVersionUID = 20171031L;
 
   /** Standard Constructor */
-  public X_C_Charge(Properties ctx, int C_Charge_ID, String trxName) {
-    super(ctx, C_Charge_ID, trxName);
+  public X_C_Charge(Properties ctx, int C_Charge_ID) {
+    super(ctx, C_Charge_ID);
     /**
      * if (C_Charge_ID == 0) { setC_Charge_ID (0); setChargeAmt (Env.ZERO); setC_TaxCategory_ID (0);
      * setIsSameCurrency (false); setIsSameTax (false); setIsTaxIncluded (false); // N setName
@@ -35,8 +34,8 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
   }
 
   /** Load Constructor */
-  public X_C_Charge(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public X_C_Charge(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
   public X_C_Charge(Properties ctx, Row row) {
     super(ctx, row);
@@ -101,7 +100,7 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
   public org.compiere.model.I_C_TaxCategory getC_TaxCategory() throws RuntimeException {
     return (org.compiere.model.I_C_TaxCategory)
         MTable.get(getCtx(), org.compiere.model.I_C_TaxCategory.Table_Name)
-            .getPO(getC_TaxCategory_ID(), null);
+            .getPO(getC_TaxCategory_ID());
   }
 
   /**
@@ -121,7 +120,7 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
    * @param IsSameCurrency Same Currency
    */
   public void setIsSameCurrency(boolean IsSameCurrency) {
-    set_Value(COLUMNNAME_IsSameCurrency, Boolean.valueOf(IsSameCurrency));
+    set_Value(COLUMNNAME_IsSameCurrency, IsSameCurrency);
   }
 
     /**
@@ -130,7 +129,7 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
    * @param IsSameTax Use the same tax as the main transaction
    */
   public void setIsSameTax(boolean IsSameTax) {
-    set_Value(COLUMNNAME_IsSameTax, Boolean.valueOf(IsSameTax));
+    set_Value(COLUMNNAME_IsSameTax, IsSameTax);
   }
 
     /**
@@ -139,7 +138,7 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
    * @param IsTaxIncluded Tax is included in the price
    */
   public void setIsTaxIncluded(boolean IsTaxIncluded) {
-    set_Value(COLUMNNAME_IsTaxIncluded, Boolean.valueOf(IsTaxIncluded));
+    set_Value(COLUMNNAME_IsTaxIncluded, IsTaxIncluded);
   }
 
     /**

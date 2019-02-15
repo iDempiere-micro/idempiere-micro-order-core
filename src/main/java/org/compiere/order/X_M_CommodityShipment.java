@@ -18,8 +18,8 @@ public class X_M_CommodityShipment extends PO implements I_M_CommodityShipment, 
   private static final long serialVersionUID = 20171031L;
 
   /** Standard Constructor */
-  public X_M_CommodityShipment(Properties ctx, int M_CommodityShipment_ID, String trxName) {
-    super(ctx, M_CommodityShipment_ID, trxName);
+  public X_M_CommodityShipment(Properties ctx, int M_CommodityShipment_ID) {
+    super(ctx, M_CommodityShipment_ID);
     /**
      * if (M_CommodityShipment_ID == 0) { setCountryOfManufacture_ID (0); setHarmonizedCode (null);
      * setM_CommodityShipment_ID (0); }
@@ -27,8 +27,8 @@ public class X_M_CommodityShipment extends PO implements I_M_CommodityShipment, 
   }
 
   /** Load Constructor */
-  public X_M_CommodityShipment(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public X_M_CommodityShipment(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
 
   /**

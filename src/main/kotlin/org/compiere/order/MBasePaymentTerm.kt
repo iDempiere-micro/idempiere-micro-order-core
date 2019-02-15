@@ -9,8 +9,8 @@ import java.sql.ResultSet
 import java.util.*
 
 abstract class MBasePaymentTerm : X_C_PaymentTerm {
-    constructor(ctx: Properties, Id: Int, trxName: String?) : super(ctx, Id, trxName)
-    constructor(ctx: Properties, rs: ResultSet, trxName: String) : super(ctx, rs, trxName)
+    constructor(ctx: Properties, Id: Int) : super(ctx, Id)
+    constructor(ctx: Properties, rs: ResultSet) : super(ctx, rs)
     constructor(ctx: Properties, row: Row) : super(ctx, row)
 
     /** Payment Schedule children  */

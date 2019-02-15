@@ -20,13 +20,13 @@ public class X_M_ShipperPickupTypes extends BasePOName
   private static final long serialVersionUID = 20171031L;
 
   /** Standard Constructor */
-  public X_M_ShipperPickupTypes(Properties ctx, int M_ShipperPickupTypes_ID, String trxName) {
-    super(ctx, M_ShipperPickupTypes_ID, trxName);
+  public X_M_ShipperPickupTypes(Properties ctx, int M_ShipperPickupTypes_ID) {
+    super(ctx, M_ShipperPickupTypes_ID);
   }
 
   /** Load Constructor */
-  public X_M_ShipperPickupTypes(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public X_M_ShipperPickupTypes(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
 
   /**
@@ -58,7 +58,7 @@ public class X_M_ShipperPickupTypes extends BasePOName
       throws RuntimeException {
     return (org.compiere.model.I_M_ShipperPickupTypesCfg)
         MTable.get(getCtx(), org.compiere.model.I_M_ShipperPickupTypesCfg.Table_Name)
-            .getPO(getM_ShipperPickupTypesCfg_ID(), null);
+            .getPO(getM_ShipperPickupTypesCfg_ID());
   }
 
   /**

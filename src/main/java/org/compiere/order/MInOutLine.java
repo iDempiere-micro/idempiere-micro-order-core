@@ -42,8 +42,8 @@ public class MInOutLine extends X_M_InOutLine {
    * @param M_InOutLine_ID id
    * @param trxName trx name
    */
-  public MInOutLine(Properties ctx, int M_InOutLine_ID, String trxName) {
-    super(ctx, M_InOutLine_ID, trxName);
+  public MInOutLine(Properties ctx, int M_InOutLine_ID) {
+    super(ctx, M_InOutLine_ID);
     if (M_InOutLine_ID == 0) {
       //	setLine (0);
       //	setM_Locator_ID (0);
@@ -67,8 +67,8 @@ public class MInOutLine extends X_M_InOutLine {
    * @param rs result set record
    * @param trxName transaction
    */
-  public MInOutLine(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public MInOutLine(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   } //	MInOutLine
   public MInOutLine(Properties ctx, Row row) {
     super(ctx, row);
@@ -81,7 +81,7 @@ public class MInOutLine extends X_M_InOutLine {
    * @param inout parent
    */
   public MInOutLine(MInOut inout) {
-    this(inout.getCtx(), 0, null);
+    this(inout.getCtx(), 0);
     setClientOrg(inout);
     setM_InOut_ID(inout.getM_InOut_ID());
     setM_Warehouse_ID(inout.getM_Warehouse_ID());
@@ -95,7 +95,7 @@ public class MInOutLine extends X_M_InOutLine {
    * @return parent
    */
   public MInOut getParent() {
-    if (m_parent == null) m_parent = new MInOut(getCtx(), getM_InOut_ID(), null);
+    if (m_parent == null) m_parent = new MInOut(getCtx(), getM_InOut_ID());
     return m_parent;
   } //	getParent
 
@@ -349,7 +349,7 @@ public class MInOutLine extends X_M_InOutLine {
         && isAutoGenerateLot
         && getMAttributeSetInstance_ID() == 0) {
       MAttributeSetInstance asi =
-          MAttributeSetInstance.generateLot(getCtx(), (MProduct) getM_Product(), null);
+          MAttributeSetInstance.generateLot(getCtx(), (MProduct) getM_Product());
       setM_AttributeSetInstance_ID(asi.getMAttributeSetInstance_ID());
     }
     //	if (getC_Charge_ID() == 0 && getM_Product_ID() == 0)
@@ -415,7 +415,7 @@ public class MInOutLine extends X_M_InOutLine {
   public boolean sameOrderLineUOM() {
     if (getC_OrderLine_ID() <= 0) return false;
 
-    MOrderLine oLine = new MOrderLine(getCtx(), getC_OrderLine_ID(), null);
+    MOrderLine oLine = new MOrderLine(getCtx(), getC_OrderLine_ID());
 
     if (oLine.getC_UOM_ID() != getC_UOM_ID()) return false;
 

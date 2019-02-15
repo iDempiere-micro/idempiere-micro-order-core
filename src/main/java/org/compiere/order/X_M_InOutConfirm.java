@@ -7,7 +7,6 @@ import org.compiere.model.I_M_InOutConfirm;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
-import org.idempiere.common.util.KeyNamePair;
 import org.idempiere.orm.I_Persistent;
 
 /**
@@ -59,8 +58,8 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm, I_Persiste
     /** */
   private static final long serialVersionUID = 20171031L;
   /** Standard Constructor */
-  public X_M_InOutConfirm(Properties ctx, int M_InOutConfirm_ID, String trxName) {
-    super(ctx, M_InOutConfirm_ID, trxName);
+  public X_M_InOutConfirm(Properties ctx, int M_InOutConfirm_ID) {
+    super(ctx, M_InOutConfirm_ID);
     /**
      * if (M_InOutConfirm_ID == 0) { setConfirmType (null); setDocAction (null); // CO setDocStatus
      * (null); // DR setDocumentNo (null); setIsApproved (false); setIsCancelled (false);
@@ -69,8 +68,8 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm, I_Persiste
      */
   }
   /** Load Constructor */
-  public X_M_InOutConfirm(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public X_M_InOutConfirm(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
 
   /**
@@ -272,7 +271,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm, I_Persiste
     public org.compiere.model.I_M_InOut getM_InOut() throws RuntimeException {
     return (org.compiere.model.I_M_InOut)
         MTable.get(getCtx(), org.compiere.model.I_M_InOut.Table_Name)
-            .getPO(getM_InOut_ID(), null);
+            .getPO(getM_InOut_ID());
   }
 
   /**
@@ -293,7 +292,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm, I_Persiste
    */
   public void setM_InOut_ID(int M_InOut_ID) {
     if (M_InOut_ID < 1) set_ValueNoCheck(COLUMNNAME_M_InOut_ID, null);
-    else set_ValueNoCheck(COLUMNNAME_M_InOut_ID, Integer.valueOf(M_InOut_ID));
+    else set_ValueNoCheck(COLUMNNAME_M_InOut_ID, M_InOut_ID);
   }
 
     /**
@@ -314,7 +313,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm, I_Persiste
    */
   public void setM_Inventory_ID(int M_Inventory_ID) {
     if (M_Inventory_ID < 1) set_Value(COLUMNNAME_M_Inventory_ID, null);
-    else set_Value(COLUMNNAME_M_Inventory_ID, Integer.valueOf(M_Inventory_ID));
+    else set_Value(COLUMNNAME_M_Inventory_ID, M_Inventory_ID);
   }
 
   /**

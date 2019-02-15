@@ -26,8 +26,8 @@ public class MPaySchedule extends X_C_PaySchedule {
    * @param C_PaySchedule_ID id
    * @param trxName transaction
    */
-  public MPaySchedule(Properties ctx, int C_PaySchedule_ID, String trxName) {
-    super(ctx, C_PaySchedule_ID, trxName);
+  public MPaySchedule(Properties ctx, int C_PaySchedule_ID) {
+    super(ctx, C_PaySchedule_ID);
     if (C_PaySchedule_ID == 0) {
       //	setC_PaymentTerm_ID (0);	//	Parent
       setPercentage(Env.ZERO);
@@ -46,8 +46,8 @@ public class MPaySchedule extends X_C_PaySchedule {
    * @param rs result set
    * @param trxName transaction
    */
-  public MPaySchedule(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public MPaySchedule(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   } //	MPaySchedule
   public MPaySchedule(Properties ctx, Row row) {
     super(ctx, row);
@@ -56,7 +56,7 @@ public class MPaySchedule extends X_C_PaySchedule {
   /** @return Returns the parent. */
   public I_C_PaymentTerm getParent() {
     if (m_parent == null)
-      m_parent = new MPaymentTerm(getCtx(), getC_PaymentTerm_ID(), null);
+      m_parent = new MPaymentTerm(getCtx(), getC_PaymentTerm_ID());
     return m_parent;
   } //	getParent
 

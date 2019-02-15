@@ -22,13 +22,13 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
   private static final long serialVersionUID = 20171031L;
 
   /** Standard Constructor */
-  public X_I_Order(Properties ctx, int I_Order_ID, String trxName) {
-    super(ctx, I_Order_ID, trxName);
+  public X_I_Order(Properties ctx, int I_Order_ID) {
+    super(ctx, I_Order_ID);
   }
 
   /** Load Constructor */
-  public X_I_Order(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public X_I_Order(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
 
   /**
@@ -320,13 +320,13 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
    */
   public void setC_OrderLine_ID(int C_OrderLine_ID) {
     if (C_OrderLine_ID < 1) set_Value(COLUMNNAME_C_OrderLine_ID, null);
-    else set_Value(COLUMNNAME_C_OrderLine_ID, Integer.valueOf(C_OrderLine_ID));
+    else set_Value(COLUMNNAME_C_OrderLine_ID, C_OrderLine_ID);
   }
 
   public org.compiere.model.I_C_OrderSource getC_OrderSource() throws RuntimeException {
     return (org.compiere.model.I_C_OrderSource)
         MTable.get(getCtx(), org.compiere.model.I_C_OrderSource.Table_Name)
-            .getPO(getC_OrderSource_ID(), null);
+            .getPO(getC_OrderSource_ID());
   }
 
   /**

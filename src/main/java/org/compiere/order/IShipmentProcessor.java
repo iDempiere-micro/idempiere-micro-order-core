@@ -5,7 +5,7 @@ import java.util.Properties;
 /** @author Low Heng Sin */
 public interface IShipmentProcessor {
   public boolean processShipment(
-      Properties ctx, MShippingTransaction shippingTransaction, String trxName);
+      Properties ctx, MShippingTransaction shippingTransaction);
 
   public boolean rateInquiry(
       Properties ctx,

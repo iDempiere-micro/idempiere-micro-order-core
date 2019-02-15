@@ -36,8 +36,8 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
    * @param C_OrderPaySchedule_ID id
    * @param trxName transaction
    */
-  public MOrderPaySchedule(Properties ctx, int C_OrderPaySchedule_ID, String trxName) {
-    super(ctx, C_OrderPaySchedule_ID, trxName);
+  public MOrderPaySchedule(Properties ctx, int C_OrderPaySchedule_ID) {
+    super(ctx, C_OrderPaySchedule_ID);
     if (C_OrderPaySchedule_ID == 0) {
       //	setC_Order_ID (0);
       //	setDiscountAmt (Env.ZERO);
@@ -55,8 +55,8 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
    * @param rs result set
    * @param trxName transaction
    */
-  public MOrderPaySchedule(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public MOrderPaySchedule(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   } //	MOrderPaySchedule
 
   /**
@@ -66,7 +66,7 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
    * @param paySchedule payment schedule
    */
   public MOrderPaySchedule(MOrder order, MPaySchedule paySchedule) {
-    super(order.getCtx(), 0, null);
+    super(order.getCtx(), 0);
     m_parent = order;
     setClientOrg(order);
     setC_Order_ID(order.getC_Order_ID());
@@ -109,7 +109,7 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
    * @return array of schedule
    */
   public static MOrderPaySchedule[] getOrderPaySchedule(
-      Properties ctx, int C_Order_ID, int C_OrderPaySchedule_ID, String trxName) {
+      Properties ctx, int C_Order_ID, int C_OrderPaySchedule_ID) {
     String sql = "SELECT * FROM C_OrderPaySchedule ips WHERE IsActive='Y' ";
     if (C_Order_ID != 0) sql += "AND C_Order_ID=? ";
     else
@@ -127,7 +127,7 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
       else pstmt.setInt(1, C_OrderPaySchedule_ID);
       rs = pstmt.executeQuery();
       while (rs.next()) {
-        list.add(new MOrderPaySchedule(ctx, rs, trxName));
+        list.add(new MOrderPaySchedule(ctx, rs));
       }
     } catch (Exception e) {
       s_log.log(Level.SEVERE, "getOrderPaySchedule", e);
@@ -143,7 +143,7 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
 
   /** @return Returns the parent. */
   public MOrder getParent() {
-    if (m_parent == null) m_parent = new MOrder(getCtx(), getC_Order_ID(), null);
+    if (m_parent == null) m_parent = new MOrder(getCtx(), getC_Order_ID());
     return m_parent;
   } //	getParent
 

@@ -20,7 +20,7 @@ fun createShippingTransaction(
     isPriviledgedRate: Boolean,
     trxName: String
 ): MShippingTransaction {
-    val shipper = MShipper(ctx, m_order.m_Shipper_ID, trxName)
+    val shipper = MShipper(ctx, m_order.m_Shipper_ID)
     val whereClause = "M_Shipper_ID = " + shipper.m_Shipper_ID + " AND IsDefault='Y' AND IsActive='Y'"
     var M_ShipperLabels_ID = 0
     var ids = getAllIDs(MShipperLabels.Table_Name, whereClause)
@@ -40,8 +40,8 @@ fun createShippingTransaction(
     )
 
     // 1 kg = 2.20462 lb
-    val ci = MClientInfo.get(ctx, m_order.clientId, trxName)
-    val uom = MUOM(ctx, ci.c_UOM_Weight_ID, null)
+    val ci = MClientInfo.get(ctx, m_order.clientId)
+    val uom = MUOM(ctx, ci.c_UOM_Weight_ID)
     var unit: String? = uom.x12DE355
     var isPound = false
     if (unit != null) {
@@ -49,7 +49,7 @@ fun createShippingTransaction(
         if (unit == "LB" || unit == "LBS") isPound = true
     }
 
-    val sp = MShipperPackaging(ctx, M_ShipperPackaging_ID, trxName)
+    val sp = MShipperPackaging(ctx, M_ShipperPackaging_ID)
     var WeightPerPackage: BigDecimal? =
         sp.weight.multiply(if (isPound) BigDecimal.valueOf(2.20462) else BigDecimal.ONE)
 
@@ -76,7 +76,7 @@ fun createShippingTransaction(
             // 				FreightAmt = FreightAmt.add(ol.getLineNetAmt());
             continue
         } else if (ol.m_Product_ID > 0) {
-            val product = MProduct(ctx, ol.m_Product_ID, trxName)
+            val product = MProduct(ctx, ol.m_Product_ID)
 
             val weight = product.weight
             if (weight == null || weight.compareTo(BigDecimal.ZERO) == 0)
@@ -182,7 +182,7 @@ fun createShippingTransaction(
 
     val BoxCount = packages.size
 
-    val st = MShippingTransaction(ctx, 0, trxName)
+    val st = MShippingTransaction(ctx, 0)
     st.action = action
     // 		st.setADClientID(m_order.getADClientID());
     st.setAD_Org_ID(m_order.orgId)
@@ -270,7 +270,7 @@ fun createShippingTransaction(
     for (i in packages.indices) {
         val shippingPackage = packages[i]
 
-        val stl = MShippingTransactionLine(st.ctx, 0, null)
+        val stl = MShippingTransactionLine(st.ctx, 0)
         // 			stl.setADClientID(m_order.getADClientID());
         stl.setAD_Org_ID(m_order.orgId)
         stl.c_UOM_Length_ID = ci.c_UOM_Length_ID

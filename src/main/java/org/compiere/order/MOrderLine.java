@@ -65,8 +65,8 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
    * @param C_OrderLine_ID order line to load
    * @param trxName trx name
    */
-  public MOrderLine(Properties ctx, int C_OrderLine_ID, String trxName) {
-    super(ctx, C_OrderLine_ID, trxName);
+  public MOrderLine(Properties ctx, int C_OrderLine_ID) {
+    super(ctx, C_OrderLine_ID);
     if (C_OrderLine_ID == 0) {
       //	setC_Order_ID (0);
       //	setLine (0);
@@ -109,7 +109,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
    * @param order parent order
    */
   public MOrderLine(MOrder order) {
-    this(order.getCtx(), 0, null);
+    this(order.getCtx(), 0);
     if (order.getId() == 0) throw new IllegalArgumentException("Header not saved");
     setC_Order_ID(order.getC_Order_ID()); // 	parent
     setOrder(order);
@@ -121,8 +121,8 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
    * @param rs result set record
    * @param trxName transaction
    */
-  public MOrderLine(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public MOrderLine(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   } //	MOrderLine
   public MOrderLine(Properties ctx, Row row) {
     super(ctx, row);
@@ -153,7 +153,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
    */
   public void setHeaderInfo(I_C_Order order) {
     m_parent = order;
-    m_precision = new Integer(order.getPrecision());
+    m_precision = order.getPrecision();
     m_M_PriceList_ID = order.getM_PriceList_ID();
     m_IsSOTrx = order.isSOTrx();
   } //	setHeaderInfo
@@ -164,7 +164,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
    * @return parent
    */
   public I_C_Order getParent() {
-    if (m_parent == null) m_parent = new MOrder(getCtx(), getC_Order_ID(), null);
+    if (m_parent == null) m_parent = new MOrder(getCtx(), getC_Order_ID());
     return m_parent;
   } //	getParent
 
@@ -234,7 +234,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
    */
   protected IProductPricing getProductPricing(int M_PriceList_ID) {
     m_productPrice = MProduct.getProductPricing();
-    m_productPrice.setOrderLine(this, null);
+    m_productPrice.setOrderLine(this);
     m_productPrice.setM_PriceList_ID(M_PriceList_ID);
     //
     m_productPrice.calculatePrice();
@@ -289,16 +289,14 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
           stdTax =
               new MTax(
                   getCtx(),
-                  ((MTaxCategory) getCharge().getC_TaxCategory()).getDefaultTax().getC_Tax_ID(),
-                  null);
+                  ((MTaxCategory) getCharge().getC_TaxCategory()).getDefaultTax().getC_Tax_ID());
         }
 
       } else // Product
       stdTax =
             new MTax(
                 getCtx(),
-                ((MTaxCategory) getProduct().getC_TaxCategory()).getDefaultTax().getC_Tax_ID(),
-                null);
+                ((MTaxCategory) getProduct().getC_TaxCategory()).getDefaultTax().getC_Tax_ID());
 
       if (stdTax != null) {
         if (log.isLoggable(Level.FINE)) {
@@ -609,7 +607,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
               "SELECT M_PriceList_ID FROM C_Order WHERE C_Order_ID=?",
               getC_Order_ID());
     }
-    MPriceList pl = MPriceList.get(getCtx(), m_M_PriceList_ID, null);
+    MPriceList pl = MPriceList.get(getCtx(), m_M_PriceList_ID);
     return pl.isTaxIncluded();
   } //	isTaxIncluded
 
@@ -805,9 +803,9 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
     if (newRecord
         || is_ValueChanged(I_C_OrderLine.COLUMNNAME_C_Tax_ID)
         || is_ValueChanged(I_C_OrderLine.COLUMNNAME_LineNetAmt)) {
-      MTax tax = new MTax(getCtx(), getC_Tax_ID(), null);
+      MTax tax = new MTax(getCtx(), getC_Tax_ID());
       MTaxProvider provider =
-          new MTaxProvider(tax.getCtx(), tax.getC_TaxProvider_ID(), null);
+          new MTaxProvider(tax.getCtx(), tax.getC_TaxProvider_ID());
       ITaxProvider calculator = MTaxProvider.getTaxProvider(provider, new StandardTaxProvider());
       if (calculator == null) throw new AdempiereException(Msg.getMsg(getCtx(), "TaxNoProvider"));
       return calculator.recalculateTax(provider, this, newRecord);
@@ -835,13 +833,13 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
    * @author teo_sarca [ 1583825 ]
    */
   public boolean updateOrderTax(boolean oldTax) {
-    MOrderTax tax = MOrderTax.get(this, getPrecision(), oldTax, null);
+    MOrderTax tax = MOrderTax.get(this, getPrecision(), oldTax);
     if (tax != null) {
       if (!tax.calculateTaxFromLines()) return false;
       if (tax.getTaxAmt().signum() != 0) {
-        if (!tax.save(null)) return false;
+        if (!tax.save()) return false;
       } else {
-        if (!tax.is_new() && !tax.delete(false, null)) return false;
+        if (!tax.is_new() && !tax.delete(false)) return false;
       }
     }
     return true;
@@ -857,9 +855,9 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
     // Update header only if the document is not processed
     if (isProcessed() && !is_ValueChanged(I_C_OrderLine.COLUMNNAME_Processed)) return true;
 
-    MTax tax = new MTax(getCtx(), getC_Tax_ID(), null);
+    MTax tax = new MTax(getCtx(), getC_Tax_ID());
     MTaxProvider provider =
-        new MTaxProvider(tax.getCtx(), tax.getC_TaxProvider_ID(), null);
+        new MTaxProvider(tax.getCtx(), tax.getC_TaxProvider_ID());
     ITaxProvider calculator = MTaxProvider.getTaxProvider(provider, new StandardTaxProvider());
     if (calculator == null) throw new AdempiereException(Msg.getMsg(getCtx(), "TaxNoProvider"));
     if (!calculator.updateOrderTax(provider, this)) return false;

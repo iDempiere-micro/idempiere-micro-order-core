@@ -22,8 +22,8 @@ public class X_C_OrderTax extends PO implements I_Persistent {
   private static final long serialVersionUID = 20171031L;
 
   /** Standard Constructor */
-  public X_C_OrderTax(Properties ctx, int C_OrderTax_ID, String trxName) {
-    super(ctx, C_OrderTax_ID, trxName);
+  public X_C_OrderTax(Properties ctx, int C_OrderTax_ID) {
+    super(ctx, C_OrderTax_ID);
     /**
      * if (C_OrderTax_ID == 0) { setC_Order_ID (0); setC_Tax_ID (0); setIsTaxIncluded (false);
      * setProcessed (false); setTaxAmt (Env.ZERO); setTaxBaseAmt (Env.ZERO); }
@@ -31,8 +31,8 @@ public class X_C_OrderTax extends PO implements I_Persistent {
   }
 
   /** Load Constructor */
-  public X_C_OrderTax(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public X_C_OrderTax(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
   public X_C_OrderTax(Properties ctx, Row row) {
     super(ctx, row);

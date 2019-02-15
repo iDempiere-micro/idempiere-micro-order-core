@@ -33,8 +33,8 @@ public class MCharge extends X_C_Charge {
    * @param C_Charge_ID id
    * @param trxName transaction
    */
-  public MCharge(Properties ctx, int C_Charge_ID, String trxName) {
-    super(ctx, C_Charge_ID, trxName);
+  public MCharge(Properties ctx, int C_Charge_ID) {
+    super(ctx, C_Charge_ID);
     if (C_Charge_ID == 0) {
       setChargeAmt(Env.ZERO);
       setIsSameCurrency(false);
@@ -52,8 +52,8 @@ public class MCharge extends X_C_Charge {
    * @param rs result set
    * @param trxName transaction
    */
-  public MCharge(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public MCharge(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   } //	MCharge
   public MCharge(Properties ctx, Row row) {
     super(ctx, row);
@@ -70,7 +70,7 @@ public class MCharge extends X_C_Charge {
     Integer key = new Integer(C_Charge_ID);
     MCharge retValue = (MCharge) s_cache.get(key);
     if (retValue != null) return retValue;
-    retValue = new MCharge(ctx, C_Charge_ID, null);
+    retValue = new MCharge(ctx, C_Charge_ID);
     if (retValue.getId() != 0) s_cache.put(key, retValue);
     return retValue;
   } //	get

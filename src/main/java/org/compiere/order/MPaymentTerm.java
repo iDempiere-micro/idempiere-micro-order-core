@@ -35,8 +35,8 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
    * @param C_PaymentTerm_ID id
    * @param trxName transaction
    */
-  public MPaymentTerm(Properties ctx, int C_PaymentTerm_ID, String trxName) {
-    super(ctx, C_PaymentTerm_ID, trxName);
+  public MPaymentTerm(Properties ctx, int C_PaymentTerm_ID) {
+    super(ctx, C_PaymentTerm_ID);
     if (C_PaymentTerm_ID == 0) {
       setAfterDelivery(false);
       setNetDays(0);
@@ -57,8 +57,8 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
    * @param rs result set
    * @param trxName transaction
    */
-  public MPaymentTerm(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public MPaymentTerm(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   } //	MPaymentTerm
   public MPaymentTerm(Properties ctx, Row row) {
     super(ctx, row);
@@ -139,7 +139,7 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
    * @return false as no payment schedule
    */
   private boolean applyOrderNoSchedule(MOrder order) {
-    deleteOrderPaySchedule(order.getC_Order_ID(), null);
+    deleteOrderPaySchedule(order.getC_Order_ID());
     //	updateOrder
     if (order.getC_PaymentTerm_ID() != getC_PaymentTerm_ID())
       order.setC_PaymentTerm_ID(getC_PaymentTerm_ID());
@@ -154,21 +154,21 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
    * @return true if payment schedule is valid
    */
   private boolean applyOrderSchedule(MOrder order) {
-    deleteOrderPaySchedule(order.getC_Order_ID(), null);
+    deleteOrderPaySchedule(order.getC_Order_ID());
     //	Create Schedule
     MOrderPaySchedule ops = null;
     BigDecimal remainder = order.getGrandTotal();
     MPaySchedule[] m_schedule = getSchedule(true);
     for (int i = 0; i < m_schedule.length; i++) {
       ops = new MOrderPaySchedule(order, m_schedule[i]);
-      ops.saveEx(null);
+      ops.saveEx();
       if (log.isLoggable(Level.FINE)) log.fine(ops.toString());
       remainder = remainder.subtract(ops.getDueAmt());
     } //	for all schedules
     //	Remainder - update last
     if (remainder.compareTo(Env.ZERO) != 0 && ops != null) {
       ops.setDueAmt(ops.getDueAmt().add(remainder));
-      ops.saveEx(null);
+      ops.saveEx();
       if (log.isLoggable(Level.FINE)) log.fine("Remainder=" + remainder + " - " + ops);
     }
 
@@ -184,8 +184,8 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
    * @param C_Order_ID id
    * @param trxName transaction
    */
-  private void deleteOrderPaySchedule(int C_Order_ID, String trxName) {
-    Query query = new Query(Env.getCtx(), I_C_OrderPaySchedule.Table_Name, "C_Order_ID=?", trxName);
+  private void deleteOrderPaySchedule(int C_Order_ID) {
+    Query query = new Query(Env.getCtx(), I_C_OrderPaySchedule.Table_Name, "C_Order_ID=?");
     List<MOrderPaySchedule> opsList = query.setParameters(C_Order_ID).list();
     for (MOrderPaySchedule ops : opsList) {
       ops.deleteEx(true);

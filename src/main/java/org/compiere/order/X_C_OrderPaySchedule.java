@@ -7,7 +7,6 @@ import java.util.Properties;
 import org.compiere.model.I_C_OrderPaySchedule;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
-import org.idempiere.common.util.KeyNamePair;
 import org.idempiere.orm.I_Persistent;
 
 /**
@@ -22,8 +21,8 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
   private static final long serialVersionUID = 20171031L;
 
   /** Standard Constructor */
-  public X_C_OrderPaySchedule(Properties ctx, int C_OrderPaySchedule_ID, String trxName) {
-    super(ctx, C_OrderPaySchedule_ID, trxName);
+  public X_C_OrderPaySchedule(Properties ctx, int C_OrderPaySchedule_ID) {
+    super(ctx, C_OrderPaySchedule_ID);
     /**
      * if (C_OrderPaySchedule_ID == 0) { setC_Order_ID (0); setC_OrderPaySchedule_ID (0);
      * setDiscountAmt (Env.ZERO); setDiscountDate (new Timestamp( System.currentTimeMillis() ));
@@ -33,8 +32,8 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
   }
 
   /** Load Constructor */
-  public X_C_OrderPaySchedule(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public X_C_OrderPaySchedule(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
 
   /**

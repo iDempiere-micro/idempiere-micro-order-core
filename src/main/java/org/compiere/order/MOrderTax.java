@@ -41,8 +41,8 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
    * @param ignored ignored
    * @param trxName transaction
    */
-  public MOrderTax(Properties ctx, int ignored, String trxName) {
-    super(ctx, 0, trxName);
+  public MOrderTax(Properties ctx, int ignored) {
+    super(ctx, 0);
     if (ignored != 0) throw new IllegalArgumentException("Multi-Key");
     setTaxAmt(Env.ZERO);
     setTaxBaseAmt(Env.ZERO);
@@ -56,8 +56,8 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
    * @param rs result set
    * @param trxName transaction
    */
-  public MOrderTax(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public MOrderTax(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   } //	MOrderTax
   public MOrderTax(Properties ctx, Row row) {
     super(ctx, row);
@@ -72,7 +72,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
    * @param trxName transaction
    * @return existing or new tax
    */
-  public static MOrderTax get(I_C_OrderLine line, int precision, boolean oldTax, String trxName) {
+  public static MOrderTax get(I_C_OrderLine line, int precision, boolean oldTax) {
     MOrderTax retValue = null;
     if (line == null || line.getC_Order_ID() == 0) {
       s_log.fine("No Order");
@@ -101,7 +101,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
       pstmt.setInt(1, line.getC_Order_ID());
       pstmt.setInt(2, C_Tax_ID);
       rs = pstmt.executeQuery();
-      if (rs.next()) retValue = new MOrderTax(line.getCtx(), rs, trxName);
+      if (rs.next()) retValue = new MOrderTax(line.getCtx(), rs);
     } catch (Exception e) {
       s_log.log(Level.SEVERE, sql, e);
     } finally {
@@ -110,7 +110,6 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
     }
     if (retValue != null) {
       retValue.setPrecision(precision);
-      retValue.set_TrxName(trxName);
       if (s_log.isLoggable(Level.FINE)) s_log.fine("(old=" + oldTax + ") " + retValue);
       return retValue;
     }
@@ -121,8 +120,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
     }
 
     //	Create New
-    retValue = new MOrderTax(line.getCtx(), 0, trxName);
-    retValue.set_TrxName(trxName);
+    retValue = new MOrderTax(line.getCtx(), 0);
     retValue.setClientOrg(line);
     retValue.setC_Order_ID(line.getC_Order_ID());
     retValue.setC_Tax_ID(line.getC_Tax_ID());
@@ -139,7 +137,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
    */
   private int getPrecision() {
     if (m_precision == null) return 2;
-    return m_precision.intValue();
+    return m_precision;
   } //	getPrecision
 
   /**
@@ -148,7 +146,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
    * @param precision The precision to set.
    */
   protected void setPrecision(int precision) {
-    m_precision = new Integer(precision);
+    m_precision = precision;
   } //	setPrecision
 
   /**

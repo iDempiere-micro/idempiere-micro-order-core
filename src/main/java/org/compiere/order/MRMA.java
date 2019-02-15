@@ -13,7 +13,6 @@ import org.compiere.tax.MTaxProvider;
 import org.compiere.util.Msg;
 import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.util.Env;
-import org.idempiere.orm.PO;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -55,8 +54,8 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
    * @param M_RMA_ID id
    * @param trxName transaction
    */
-  public MRMA(Properties ctx, int M_RMA_ID, String trxName) {
-    super(ctx, M_RMA_ID, trxName);
+  public MRMA(Properties ctx, int M_RMA_ID) {
+    super(ctx, M_RMA_ID);
     if (M_RMA_ID == 0) {
       //	setName (null);
       //	setSalesRep_ID (0);
@@ -76,8 +75,8 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
    * @param rs result set
    * @param trxName transaction
    */
-  public MRMA(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public MRMA(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   } //	MRMA
 
   /**
@@ -91,14 +90,13 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
    * @return MRMA
    */
   public static MRMA copyFrom(
-      MRMA from, int C_DocType_ID, boolean isSOTrx, boolean counter, String trxName) {
-    MRMA to = new MRMA(from.getCtx(), 0, null);
-    return doCopyFrom(from, C_DocType_ID, isSOTrx, counter, trxName, to);
+      MRMA from, int C_DocType_ID, boolean isSOTrx, boolean counter) {
+    MRMA to = new MRMA(from.getCtx(), 0);
+    return doCopyFrom(from, C_DocType_ID, isSOTrx, counter, null, to);
   }
 
   protected static MRMA doCopyFrom(
       MRMA from, int C_DocType_ID, boolean isSOTrx, boolean counter, String trxName, MRMA to) {
-    to.set_TrxName(trxName);
     copyValues(from, to, from.getClientId(), from.getOrgId());
     to.set_ValueNoCheck("M_RMA_ID", I_ZERO);
     to.set_ValueNoCheck("DocumentNo", null);
@@ -120,16 +118,16 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
     to.setC_Order_ID(0);
     //	Try to find Order/Shipment/Receipt link
     if (from.getC_Order_ID() != 0) {
-      MOrder peer = new MOrder(from.getCtx(), from.getC_Order_ID(), null);
+      MOrder peer = new MOrder(from.getCtx(), from.getC_Order_ID());
       if (peer.getRef_Order_ID() != 0) to.setC_Order_ID(peer.getRef_Order_ID());
     }
     if (from.getInOut_ID() != 0) {
-      MInOut peer = new MInOut(from.getCtx(), from.getInOut_ID(), null);
+      MInOut peer = new MInOut(from.getCtx(), from.getInOut_ID());
       if (peer.getRef_InOut_ID() != 0) to.setInOut_ID(peer.getRef_InOut_ID());
     }
     to.setRef_RMA_ID(from.getM_RMA_ID());
 
-    to.saveEx(trxName);
+    to.saveEx();
     if (counter) from.setRef_RMA_ID(to.getM_RMA_ID());
 
     if (to.copyLinesFrom(from, counter) == 0)
@@ -146,11 +144,10 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
    */
   public MRMALine[] getLines(boolean requery) {
     if (m_lines != null && !requery) {
-      PO.set_TrxName(m_lines, null);
       return m_lines;
     }
     List<MRMALine> list =
-        new Query(getCtx(), I_M_RMALine.Table_Name, "M_RMA_ID=?", null)
+        new Query(getCtx(), I_M_RMALine.Table_Name, "M_RMA_ID=?")
             .setParameters(getM_RMA_ID())
             .setOrderBy(MRMALine.COLUMNNAME_Line)
             .list();
@@ -170,7 +167,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
     if (m_taxes != null && !requery) return m_taxes;
     //
     List<MRMATax> list =
-        new Query(getCtx(), I_M_RMATax.Table_Name, "M_RMA_ID=?", null)
+        new Query(getCtx(), I_M_RMATax.Table_Name, "M_RMA_ID=?")
             .setParameters(getId())
             .list();
     m_taxes = list.toArray(new MRMATax[list.size()]);
@@ -184,7 +181,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
    */
   public MInOut getShipment() {
     if (m_inout == null && getInOut_ID() != 0)
-      m_inout = new MInOut(getCtx(), getInOut_ID(), null);
+      m_inout = new MInOut(getCtx(), getInOut_ID());
     return m_inout;
   } //	getShipment
 
@@ -198,7 +195,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
     if (shipment == null || shipment.getC_Order_ID() == 0) {
       return null;
     }
-    return new MOrder(getCtx(), shipment.getC_Order_ID(), null);
+    return new MOrder(getCtx(), shipment.getC_Order_ID());
   }
 
   /**
@@ -241,7 +238,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
     if (getC_Currency_ID() == 0) {
       if (m_inout != null) {
         if (m_inout.getC_Order_ID() != 0) {
-          MOrder order = new MOrder(getCtx(), m_inout.getC_Order_ID(), null);
+          MOrder order = new MOrder(getCtx(), m_inout.getC_Order_ID());
           setC_Currency_ID(order.getC_Currency_ID());
         }
       }
@@ -347,9 +344,8 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
     MRMALine[] fromLines = otherRMA.getLines(false);
     int count = 0;
     for (int i = 0; i < fromLines.length; i++) {
-      MRMALine line = new MRMALine(getCtx(), 0, null);
+      MRMALine line = new MRMALine(getCtx(), 0);
       MRMALine fromLine = fromLines[i];
-      line.set_TrxName(null);
       if (counter) //	header
       copyValues(fromLine, line, getClientId(), getOrgId());
       else copyValues(fromLine, line, fromLine.getClientId(), fromLine.getOrgId());
@@ -358,17 +354,17 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
       if (counter) {
         line.setRef_RMALine_ID(fromLine.getM_RMALine_ID());
         if (fromLine.getM_InOutLine_ID() != 0) {
-          MInOutLine peer = new MInOutLine(getCtx(), fromLine.getM_InOutLine_ID(), null);
+          MInOutLine peer = new MInOutLine(getCtx(), fromLine.getM_InOutLine_ID());
           if (peer.getRef_InOutLine_ID() != 0) line.setM_InOutLine_ID(peer.getRef_InOutLine_ID());
         }
       }
       //
       line.setProcessed(false);
-      if (line.save(null)) count++;
+      if (line.save()) count++;
       //	Cross Link
       if (counter) {
         fromLine.setRef_RMALine_ID(line.getM_RMALine_ID());
-        fromLine.saveEx(null);
+        fromLine.saveEx();
       }
     }
     if (fromLines.length != count)
@@ -451,7 +447,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
     ArrayList<MRMALine> chargeLineList = new ArrayList<MRMALine>();
 
     for (int i = 0; i < rmaLineIds.length; i++) {
-      MRMALine rmaLine = new MRMALine(getCtx(), rmaLineIds[i], null);
+      MRMALine rmaLine = new MRMALine(getCtx(), rmaLineIds[i]);
       chargeLineList.add(rmaLine);
     }
 
@@ -533,12 +529,12 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
     Hashtable<Integer, MTaxProvider> providers = new Hashtable<Integer, MTaxProvider>();
     MRMALine[] lines = getLines(false);
     for (MRMALine line : lines) {
-      MTax tax = new MTax(line.getCtx(), line.getC_Tax_ID(), null);
+      MTax tax = new MTax(line.getCtx(), line.getC_Tax_ID());
       MTaxProvider provider = providers.get(tax.getC_TaxProvider_ID());
       if (provider == null)
         providers.put(
             tax.getC_TaxProvider_ID(),
-            new MTaxProvider(tax.getCtx(), tax.getC_TaxProvider_ID(), null));
+            new MTaxProvider(tax.getCtx(), tax.getC_TaxProvider_ID()));
     }
 
     MTaxProvider[] retValue = new MTaxProvider[providers.size()];

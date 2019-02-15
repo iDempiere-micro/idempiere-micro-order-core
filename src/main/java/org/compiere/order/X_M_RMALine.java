@@ -22,8 +22,8 @@ public class X_M_RMALine extends PO implements I_Persistent {
   private static final long serialVersionUID = 20171031L;
 
   /** Standard Constructor */
-  public X_M_RMALine(Properties ctx, int M_RMALine_ID, String trxName) {
-    super(ctx, M_RMALine_ID, trxName);
+  public X_M_RMALine(Properties ctx, int M_RMALine_ID) {
+    super(ctx, M_RMALine_ID);
     /**
      * if (M_RMALine_ID == 0) { setC_Tax_ID (0); setM_RMA_ID (0); setM_RMALine_ID (0); setProcessed
      * (false); setQty (Env.ZERO); }
@@ -31,8 +31,8 @@ public class X_M_RMALine extends PO implements I_Persistent {
   }
 
   /** Load Constructor */
-  public X_M_RMALine(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public X_M_RMALine(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
 
   /**
@@ -172,7 +172,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
   public org.compiere.model.I_M_InOutLine getM_InOutLine() throws RuntimeException {
     return (org.compiere.model.I_M_InOutLine)
             MTable.get(getCtx(), org.compiere.model.I_M_InOutLine.Table_Name)
-                    .getPO(getM_InOutLine_ID(), null);
+                    .getPO(getM_InOutLine_ID());
   }
 
 
@@ -215,13 +215,13 @@ public class X_M_RMALine extends PO implements I_Persistent {
    */
   public void setM_Product_ID(int M_Product_ID) {
     if (M_Product_ID < 1) set_Value(I_M_RMALine.COLUMNNAME_M_Product_ID, null);
-    else set_Value(I_M_RMALine.COLUMNNAME_M_Product_ID, Integer.valueOf(M_Product_ID));
+    else set_Value(I_M_RMALine.COLUMNNAME_M_Product_ID, M_Product_ID);
   }
 
   public org.compiere.model.I_M_RMA getM_RMA() throws RuntimeException {
     return (org.compiere.model.I_M_RMA)
             MTable.get(getCtx(), org.compiere.model.I_M_RMA.Table_Name)
-                    .getPO(getM_RMA_ID(), null);
+                    .getPO(getM_RMA_ID());
   }
 
     /**
@@ -242,7 +242,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
    */
   public void setM_RMA_ID(int M_RMA_ID) {
     if (M_RMA_ID < 1) set_ValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMA_ID, null);
-    else set_ValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMA_ID, Integer.valueOf(M_RMA_ID));
+    else set_ValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMA_ID, M_RMA_ID);
   }
 
     /**

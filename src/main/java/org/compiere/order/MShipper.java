@@ -25,8 +25,8 @@ public class MShipper extends X_M_Shipper {
    * @param M_Shipper_ID id
    * @param trxName transaction
    */
-  public MShipper(Properties ctx, int M_Shipper_ID, String trxName) {
-    super(ctx, M_Shipper_ID, trxName);
+  public MShipper(Properties ctx, int M_Shipper_ID) {
+    super(ctx, M_Shipper_ID);
   } //	MShipper
 
   /**
@@ -36,8 +36,8 @@ public class MShipper extends X_M_Shipper {
    * @param rs result set
    * @param trxName transaction
    */
-  public MShipper(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public MShipper(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   } //	MShipper
 
     public String getShippingServiceCode() {

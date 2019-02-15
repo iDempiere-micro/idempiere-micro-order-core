@@ -41,8 +41,8 @@ public class MInOutConfirm extends X_M_InOutConfirm {
    * @param M_InOutConfirm_ID id
    * @param trxName transaction
    */
-  public MInOutConfirm(Properties ctx, int M_InOutConfirm_ID, String trxName) {
-    super(ctx, M_InOutConfirm_ID, trxName);
+  public MInOutConfirm(Properties ctx, int M_InOutConfirm_ID) {
+    super(ctx, M_InOutConfirm_ID);
     if (M_InOutConfirm_ID == 0) {
       //	setConfirmType (null);
       setDocAction(X_M_InOutConfirm.DOCACTION_Complete); // CO
@@ -61,8 +61,8 @@ public class MInOutConfirm extends X_M_InOutConfirm {
    * @param rs result set
    * @param trxName transaction
    */
-  public MInOutConfirm(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public MInOutConfirm(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   } //	MInOutConfirm
 
   /**
@@ -72,7 +72,7 @@ public class MInOutConfirm extends X_M_InOutConfirm {
    * @param confirmType confirmation type
    */
   public MInOutConfirm(MInOut ship, String confirmType) {
-    this(ship.getCtx(), 0, null);
+    this(ship.getCtx(), 0);
     setClientOrg(ship);
     setM_InOut_ID(ship.getM_InOut_ID());
     setConfirmType(confirmType);

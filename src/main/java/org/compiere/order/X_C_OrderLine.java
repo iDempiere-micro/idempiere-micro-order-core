@@ -24,8 +24,8 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   private static final long serialVersionUID = 20171031L;
 
   /** Standard Constructor */
-  public X_C_OrderLine(Properties ctx, int C_OrderLine_ID, String trxName) {
-    super(ctx, C_OrderLine_ID, trxName);
+  public X_C_OrderLine(Properties ctx, int C_OrderLine_ID) {
+    super(ctx, C_OrderLine_ID);
     /**
      * if (C_OrderLine_ID == 0) { setC_BPartner_Location_ID (0); // @C_BPartner_Location_ID@
      * setC_Currency_ID (0); // @C_Currency_ID@ setC_Order_ID (0); setC_OrderLine_ID (0);
@@ -42,8 +42,8 @@ public class X_C_OrderLine extends PO implements I_Persistent {
   }
 
   /** Load Constructor */
-  public X_C_OrderLine(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public X_C_OrderLine(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
 
   public X_C_OrderLine(Properties ctx, Row row) {
@@ -201,14 +201,14 @@ public class X_C_OrderLine extends PO implements I_Persistent {
    */
   public void setC_Currency_ID(int C_Currency_ID) {
     if (C_Currency_ID < 1) set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_C_Currency_ID, null);
-    else set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_C_Currency_ID, Integer.valueOf(C_Currency_ID));
+    else set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_C_Currency_ID, C_Currency_ID);
   }
 
 
   public org.compiere.model.I_C_Order getC_Order() throws RuntimeException {
     return (org.compiere.model.I_C_Order)
             MTable.get(getCtx(), org.compiere.model.I_C_Order.Table_Name)
-                    .getPO(getC_Order_ID(), null);
+                    .getPO(getC_Order_ID());
   }
 
     /**
@@ -229,7 +229,7 @@ public class X_C_OrderLine extends PO implements I_Persistent {
    */
   public void setC_Order_ID(int C_Order_ID) {
     if (C_Order_ID < 1) set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_C_Order_ID, null);
-    else set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
+    else set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_C_Order_ID, C_Order_ID);
   }
 
     /**

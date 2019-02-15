@@ -21,13 +21,13 @@ public class X_M_ShipperPackaging extends BasePOName implements I_M_ShipperPacka
   private static final long serialVersionUID = 20171031L;
 
   /** Standard Constructor */
-  public X_M_ShipperPackaging(Properties ctx, int M_ShipperPackaging_ID, String trxName) {
-    super(ctx, M_ShipperPackaging_ID, trxName);
+  public X_M_ShipperPackaging(Properties ctx, int M_ShipperPackaging_ID) {
+    super(ctx, M_ShipperPackaging_ID);
   }
 
   /** Load Constructor */
-  public X_M_ShipperPackaging(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public X_M_ShipperPackaging(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
 
   /**
@@ -59,7 +59,7 @@ public class X_M_ShipperPackaging extends BasePOName implements I_M_ShipperPacka
       throws RuntimeException {
     return (org.compiere.model.I_M_ShipperPackagingCfg)
         MTable.get(getCtx(), org.compiere.model.I_M_ShipperPackagingCfg.Table_Name)
-            .getPO(getM_ShipperPackagingCfg_ID(), null);
+            .getPO(getM_ShipperPackagingCfg_ID());
   }
 
   /**

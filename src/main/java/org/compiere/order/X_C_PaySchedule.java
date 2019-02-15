@@ -4,7 +4,6 @@ import kotliquery.Row;
 import org.compiere.model.I_C_PaySchedule;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
-import org.idempiere.common.util.KeyNamePair;
 import org.idempiere.orm.I_Persistent;
 
 import java.math.BigDecimal;
@@ -23,8 +22,8 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent
   private static final long serialVersionUID = 20171031L;
 
   /** Standard Constructor */
-  public X_C_PaySchedule(Properties ctx, int C_PaySchedule_ID, String trxName) {
-    super(ctx, C_PaySchedule_ID, trxName);
+  public X_C_PaySchedule(Properties ctx, int C_PaySchedule_ID) {
+    super(ctx, C_PaySchedule_ID);
     /**
      * if (C_PaySchedule_ID == 0) { setC_PaymentTerm_ID (0); setC_PaySchedule_ID (0); setDiscount
      * (Env.ZERO); setDiscountDays (0); setGraceDays (0); setIsValid (false); setNetDays (0);
@@ -33,8 +32,8 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent
   }
 
   /** Load Constructor */
-  public X_C_PaySchedule(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public X_C_PaySchedule(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
   public X_C_PaySchedule(Properties ctx, Row row) {
     super(ctx, row);

@@ -34,8 +34,8 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
     /** */
   private static final long serialVersionUID = 20171031L;
   /** Standard Constructor */
-  public X_M_ShippingTransaction(Properties ctx, int M_ShippingTransaction_ID, String trxName) {
-    super(ctx, M_ShippingTransaction_ID, trxName);
+  public X_M_ShippingTransaction(Properties ctx, int M_ShippingTransaction_ID) {
+    super(ctx, M_ShippingTransaction_ID);
     /**
      * if (M_ShippingTransaction_ID == 0) { setAction (null); setCashOnDelivery (false); // N
      * setDeliveryConfirmation (false); // N setIsAccessible (false); // N setIsAddedHandling
@@ -49,8 +49,8 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      */
   }
   /** Load Constructor */
-  public X_M_ShippingTransaction(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public X_M_ShippingTransaction(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
 
   /**

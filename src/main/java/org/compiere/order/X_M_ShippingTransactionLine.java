@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.util.Properties;
 import org.compiere.model.I_M_ShippingTransactionLine;
 import org.compiere.orm.PO;
-import org.idempiere.common.util.KeyNamePair;
 import org.idempiere.orm.I_Persistent;
 
 /**
@@ -22,8 +21,8 @@ public class X_M_ShippingTransactionLine extends PO
 
   /** Standard Constructor */
   public X_M_ShippingTransactionLine(
-      Properties ctx, int M_ShippingTransactionLine_ID, String trxName) {
-    super(ctx, M_ShippingTransactionLine_ID, trxName);
+      Properties ctx, int M_ShippingTransactionLine_ID) {
+    super(ctx, M_ShippingTransactionLine_ID);
     /**
      * if (M_ShippingTransactionLine_ID == 0) { setM_ShippingTransaction_ID (0);
      * setM_ShippingTransactionLine_ID (0); setProcessed (false); // N }
@@ -31,8 +30,8 @@ public class X_M_ShippingTransactionLine extends PO
   }
 
   /** Load Constructor */
-  public X_M_ShippingTransactionLine(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public X_M_ShippingTransactionLine(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
 
   /**

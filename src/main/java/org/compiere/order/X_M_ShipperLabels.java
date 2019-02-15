@@ -25,13 +25,13 @@ public class X_M_ShipperLabels extends BasePOName implements I_M_ShipperLabels, 
   private static final long serialVersionUID = 20171031L;
 
   /** Standard Constructor */
-  public X_M_ShipperLabels(Properties ctx, int M_ShipperLabels_ID, String trxName) {
-    super(ctx, M_ShipperLabels_ID, trxName);
+  public X_M_ShipperLabels(Properties ctx, int M_ShipperLabels_ID) {
+    super(ctx, M_ShipperLabels_ID);
   }
 
   /** Load Constructor */
-  public X_M_ShipperLabels(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public X_M_ShipperLabels(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
 
   /**
@@ -71,7 +71,7 @@ public class X_M_ShipperLabels extends BasePOName implements I_M_ShipperLabels, 
     public org.compiere.model.I_M_ShipperLabelsCfg getM_ShipperLabelsCfg() throws RuntimeException {
     return (org.compiere.model.I_M_ShipperLabelsCfg)
         MTable.get(getCtx(), org.compiere.model.I_M_ShipperLabelsCfg.Table_Name)
-            .getPO(getM_ShipperLabelsCfg_ID(), null);
+            .getPO(getM_ShipperLabelsCfg_ID());
   }
 
   /**

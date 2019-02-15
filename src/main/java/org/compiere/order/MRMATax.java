@@ -34,8 +34,8 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
    * @param ignored ignored
    * @param trxName transaction
    */
-  public MRMATax(Properties ctx, int ignored, String trxName) {
-    super(ctx, 0, trxName);
+  public MRMATax(Properties ctx, int ignored) {
+    super(ctx, 0);
     if (ignored != 0) throw new IllegalArgumentException("Multi-Key");
     setTaxAmt(Env.ZERO);
     setTaxBaseAmt(Env.ZERO);
@@ -49,8 +49,8 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
    * @param rs result set
    * @param trxName transaction
    */
-  public MRMATax(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public MRMATax(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
 
   /**
@@ -62,7 +62,7 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
    * @param trxName transaction
    * @return existing or new tax
    */
-  public static MRMATax get(I_M_RMALine line, int precision, boolean oldTax, String trxName) {
+  public static MRMATax get(I_M_RMALine line, int precision, boolean oldTax) {
     MRMATax retValue = null;
     if (line == null || line.getM_RMA_ID() == 0) {
       s_log.fine("No RMA");
@@ -91,7 +91,7 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
       pstmt.setInt(1, line.getM_RMA_ID());
       pstmt.setInt(2, C_Tax_ID);
       rs = pstmt.executeQuery();
-      if (rs.next()) retValue = new MRMATax(line.getCtx(), rs, trxName);
+      if (rs.next()) retValue = new MRMATax(line.getCtx(), rs);
     } catch (Exception e) {
       s_log.log(Level.SEVERE, sql, e);
     } finally {
@@ -100,7 +100,6 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
     }
     if (retValue != null) {
       retValue.setPrecision(precision);
-      retValue.set_TrxName(trxName);
       if (s_log.isLoggable(Level.FINE)) s_log.fine("(old=" + oldTax + ") " + retValue);
       return retValue;
     }
@@ -111,8 +110,7 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
     }
 
     //	Create New
-    retValue = new MRMATax(line.getCtx(), 0, trxName);
-    retValue.set_TrxName(trxName);
+    retValue = new MRMATax(line.getCtx(), 0);
     retValue.setClientOrg(line);
     retValue.setM_RMA_ID(line.getM_RMA_ID());
     retValue.setC_Tax_ID(line.getC_Tax_ID());
@@ -129,7 +127,7 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
    */
   private int getPrecision() {
     if (m_precision == null) return 2;
-    return m_precision.intValue();
+    return m_precision;
   } //	getPrecision
 
   /**
@@ -138,7 +136,7 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
    * @param precision The precision to set.
    */
   protected void setPrecision(int precision) {
-    m_precision = new Integer(precision);
+    m_precision = precision;
   } //	setPrecision
 
   /**
@@ -165,8 +163,8 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
     I_C_Tax tax = getTax();
     //
     String sql = "SELECT LineNetAmt FROM M_RMALine WHERE M_RMA_ID=? AND C_Tax_ID=?";
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
+    PreparedStatement pstmt;
+    ResultSet rs;
     try {
       pstmt = prepareStatement(sql);
       pstmt.setInt(1, getM_RMA_ID());

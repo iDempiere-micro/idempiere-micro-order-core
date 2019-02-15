@@ -5,7 +5,6 @@ import org.compiere.model.I_M_InOutLine;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
-import org.idempiere.common.util.KeyNamePair;
 import org.idempiere.orm.I_Persistent;
 
 import java.math.BigDecimal;
@@ -24,8 +23,8 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
   private static final long serialVersionUID = 20171031L;
 
   /** Standard Constructor */
-  public X_M_InOutLine(Properties ctx, int M_InOutLine_ID, String trxName) {
-    super(ctx, M_InOutLine_ID, trxName);
+  public X_M_InOutLine(Properties ctx, int M_InOutLine_ID) {
+    super(ctx, M_InOutLine_ID);
     /**
      * if (M_InOutLine_ID == 0) { setC_UOM_ID (0); // @#C_UOM_ID@ setIsDescription (false); // N
      * setIsInvoiced (false); setLine (0); // @SQL=SELECT NVL(MAX(Line),0)+10 AS DefaultValue FROM
@@ -36,8 +35,8 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
   }
 
   /** Load Constructor */
-  public X_M_InOutLine(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public X_M_InOutLine(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
   public X_M_InOutLine(Properties ctx, Row row) {
     super(ctx, row);
@@ -138,7 +137,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
    */
   public void setC_Charge_ID(int C_Charge_ID) {
     if (C_Charge_ID < 1) set_Value(COLUMNNAME_C_Charge_ID, null);
-    else set_Value(COLUMNNAME_C_Charge_ID, Integer.valueOf(C_Charge_ID));
+    else set_Value(COLUMNNAME_C_Charge_ID, C_Charge_ID);
   }
 
     /**
@@ -153,7 +152,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
   public org.compiere.model.I_C_OrderLine getC_OrderLine() throws RuntimeException {
     return (org.compiere.model.I_C_OrderLine)
         MTable.get(getCtx(), org.compiere.model.I_C_OrderLine.Table_Name)
-            .getPO(getC_OrderLine_ID(), null);
+            .getPO(getC_OrderLine_ID());
   }
 
   /**
@@ -174,7 +173,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
    */
   public void setC_OrderLine_ID(int C_OrderLine_ID) {
     if (C_OrderLine_ID < 1) set_ValueNoCheck(COLUMNNAME_C_OrderLine_ID, null);
-    else set_ValueNoCheck(COLUMNNAME_C_OrderLine_ID, Integer.valueOf(C_OrderLine_ID));
+    else set_ValueNoCheck(COLUMNNAME_C_OrderLine_ID, C_OrderLine_ID);
   }
 
     /**
@@ -370,7 +369,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
   public org.compiere.model.I_M_InOut getM_InOut() throws RuntimeException {
     return (org.compiere.model.I_M_InOut)
         MTable.get(getCtx(), org.compiere.model.I_M_InOut.Table_Name)
-            .getPO(getM_InOut_ID(), null);
+            .getPO(getM_InOut_ID());
   }
 
   /**
@@ -391,7 +390,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
    */
   public void setM_InOut_ID(int M_InOut_ID) {
     if (M_InOut_ID < 1) set_ValueNoCheck(COLUMNNAME_M_InOut_ID, null);
-    else set_ValueNoCheck(COLUMNNAME_M_InOut_ID, Integer.valueOf(M_InOut_ID));
+    else set_ValueNoCheck(COLUMNNAME_M_InOut_ID, M_InOut_ID);
   }
 
   /**
@@ -449,7 +448,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
   public org.compiere.model.I_M_Product getM_Product() throws RuntimeException {
     return (org.compiere.model.I_M_Product)
         MTable.get(getCtx(), org.compiere.model.I_M_Product.Table_Name)
-            .getPO(getM_Product_ID(), null);
+            .getPO(getM_Product_ID());
   }
 
   /**
@@ -470,13 +469,13 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
    */
   public void setM_Product_ID(int M_Product_ID) {
     if (M_Product_ID < 1) set_Value(COLUMNNAME_M_Product_ID, null);
-    else set_Value(COLUMNNAME_M_Product_ID, Integer.valueOf(M_Product_ID));
+    else set_Value(COLUMNNAME_M_Product_ID, M_Product_ID);
   }
 
   public org.compiere.model.I_M_RMALine getM_RMALine() throws RuntimeException {
     return (org.compiere.model.I_M_RMALine)
         MTable.get(getCtx(), org.compiere.model.I_M_RMALine.Table_Name)
-            .getPO(getM_RMALine_ID(), null);
+            .getPO(getM_RMALine_ID());
   }
 
   /**
@@ -497,7 +496,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
    */
   public void setM_RMALine_ID(int M_RMALine_ID) {
     if (M_RMALine_ID < 1) set_Value(COLUMNNAME_M_RMALine_ID, null);
-    else set_Value(COLUMNNAME_M_RMALine_ID, Integer.valueOf(M_RMALine_ID));
+    else set_Value(COLUMNNAME_M_RMALine_ID, M_RMALine_ID);
   }
 
     /**
@@ -515,7 +514,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
    * @param Processed The document has been processed
    */
   public void setProcessed(boolean Processed) {
-    set_Value(COLUMNNAME_Processed, Boolean.valueOf(Processed));
+    set_Value(COLUMNNAME_Processed, Processed);
   }
 
   /**
@@ -576,7 +575,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
    */
   public void setRef_InOutLine_ID(int Ref_InOutLine_ID) {
     if (Ref_InOutLine_ID < 1) set_Value(COLUMNNAME_Ref_InOutLine_ID, null);
-    else set_Value(COLUMNNAME_Ref_InOutLine_ID, Integer.valueOf(Ref_InOutLine_ID));
+    else set_Value(COLUMNNAME_Ref_InOutLine_ID, Ref_InOutLine_ID);
   }
 
     /**
@@ -597,7 +596,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
    */
   public void setReversalLine_ID(int ReversalLine_ID) {
     if (ReversalLine_ID < 1) set_Value(COLUMNNAME_ReversalLine_ID, null);
-    else set_Value(COLUMNNAME_ReversalLine_ID, Integer.valueOf(ReversalLine_ID));
+    else set_Value(COLUMNNAME_ReversalLine_ID, ReversalLine_ID);
   }
 
     /**

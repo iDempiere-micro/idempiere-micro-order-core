@@ -59,8 +59,8 @@ public class MInOut extends X_M_InOut {
    * @param M_InOut_ID
    * @param trxName rx name
    */
-  public MInOut(Properties ctx, int M_InOut_ID, String trxName) {
-    super(ctx, M_InOut_ID, trxName);
+  public MInOut(Properties ctx, int M_InOut_ID) {
+    super(ctx, M_InOut_ID);
     if (M_InOut_ID == 0) {
       //	setDocumentNo (null);
       //	setC_BPartner_ID (0);
@@ -96,8 +96,8 @@ public class MInOut extends X_M_InOut {
    * @param rs result set record
    * @param trxName transaction
    */
-  public MInOut(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public MInOut(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   } //	MInOut
 
   /**
@@ -108,7 +108,7 @@ public class MInOut extends X_M_InOut {
    * @param C_DocTypeShipment_ID document type or 0
    */
   public MInOut(MOrder order, int C_DocTypeShipment_ID, Timestamp movementDate) {
-    this(order.getCtx(), 0, null);
+    this(order.getCtx(), 0);
     setClientOrg(order);
     setC_BPartner_ID(order.getC_BPartner_ID());
     setC_BPartner_Location_ID(order.getC_BPartner_Location_ID()); // 	shipment address
@@ -128,7 +128,7 @@ public class MInOut extends X_M_InOut {
     // setMovementType (order.isSOTrx() ? MOVEMENTTYPE_CustomerShipment :
     // MOVEMENTTYPE_VendorReceipts);
     String movementTypeShipment = null;
-    MDocType dtShipment = new MDocType(order.getCtx(), C_DocTypeShipment_ID, null);
+    MDocType dtShipment = new MDocType(order.getCtx(), C_DocTypeShipment_ID);
     if (dtShipment.getDocBaseType().equals(MDocType.DOCBASETYPE_MaterialDelivery))
       movementTypeShipment =
           dtShipment.isSOTrx()
@@ -185,7 +185,7 @@ public class MInOut extends X_M_InOut {
    */
   public MInOut(
       I_C_Invoice invoice, int C_DocTypeShipment_ID, Timestamp movementDate, int M_Warehouse_ID) {
-    this(invoice.getCtx(), 0, null);
+    this(invoice.getCtx(), 0);
     setClientOrg(invoice);
     setC_BPartner_ID(invoice.getC_BPartner_ID());
     setC_BPartner_Location_ID(invoice.getC_BPartner_Location_ID()); // 	shipment address
@@ -199,7 +199,7 @@ public class MInOut extends X_M_InOut {
             : X_M_InOut.MOVEMENTTYPE_VendorReceipts);
     MOrder order = null;
     if (invoice.getC_Order_ID() != 0)
-      order = new MOrder(invoice.getCtx(), invoice.getC_Order_ID(), null);
+      order = new MOrder(invoice.getCtx(), invoice.getC_Order_ID());
     if (C_DocTypeShipment_ID == 0 && order != null)
       C_DocTypeShipment_ID =
           getSQLValue(
@@ -253,7 +253,7 @@ public class MInOut extends X_M_InOut {
    * @param C_DocTypeShipment_ID document type or 0
    */
   public MInOut(MInOut original, int C_DocTypeShipment_ID, Timestamp movementDate) {
-    this(original.getCtx(), 0, null);
+    this(original.getCtx(), 0);
     setClientOrg(original);
     setC_BPartner_ID(original.getC_BPartner_ID());
     setC_BPartner_Location_ID(original.getC_BPartner_Location_ID()); // 	shipment address
@@ -338,11 +338,10 @@ public class MInOut extends X_M_InOut {
    */
   public MInOutLine[] getLines(boolean requery) {
     if (m_lines != null && !requery) {
-      org.idempiere.orm.PO.set_TrxName(m_lines, null);
       return m_lines;
     }
     List<MInOutLine> list =
-        new Query(getCtx(), I_M_InOutLine.Table_Name, "M_InOut_ID=?", null)
+        new Query(getCtx(), I_M_InOutLine.Table_Name, "M_InOut_ID=?")
             .setParameters(getM_InOut_ID())
             .setOrderBy(MInOutLine.COLUMNNAME_Line)
             .list();
@@ -369,11 +368,10 @@ public class MInOut extends X_M_InOut {
    */
   public MInOutConfirm[] getConfirmations(boolean requery) {
     if (m_confirms != null && !requery) {
-      org.idempiere.orm.PO.set_TrxName(m_confirms, null);
       return m_confirms;
     }
     List<MInOutConfirm> list =
-        new Query(getCtx(), I_M_InOutConfirm.Table_Name, "M_InOut_ID=?", null)
+        new Query(getCtx(), I_M_InOutConfirm.Table_Name, "M_InOut_ID=?")
             .setParameters(getM_InOut_ID())
             .list();
     m_confirms = new MInOutConfirm[list.size()];
@@ -396,7 +394,6 @@ public class MInOut extends X_M_InOut {
     for (int i = 0; i < fromLines.length; i++) {
       MInOutLine line = new MInOutLine(this);
       MInOutLine fromLine = fromLines[i];
-      line.set_TrxName(null);
       if (counter) //	header
       PO.copyValues(fromLine, line, getClientId(), getOrgId());
       else PO.copyValues(fromLine, line, fromLine.getClientId(), fromLine.getOrgId());
@@ -425,12 +422,12 @@ public class MInOut extends X_M_InOut {
       if (counter) {
         line.setRef_InOutLine_ID(fromLine.getM_InOutLine_ID());
         if (fromLine.getC_OrderLine_ID() != 0) {
-          MOrderLine peer = new MOrderLine(getCtx(), fromLine.getC_OrderLine_ID(), null);
+          MOrderLine peer = new MOrderLine(getCtx(), fromLine.getC_OrderLine_ID());
           if (peer.getRef_OrderLine_ID() != 0) line.setC_OrderLine_ID(peer.getRef_OrderLine_ID());
         }
         // RMALine link
         if (fromLine.getM_RMALine_ID() != 0) {
-          MRMALine peer = new MRMALine(getCtx(), fromLine.getM_RMALine_ID(), null);
+          MRMALine peer = new MRMALine(getCtx(), fromLine.getM_RMALine_ID());
           if (peer.getRef_RMALine_ID() > 0) line.setM_RMALine_ID(peer.getRef_RMALine_ID());
         }
       }
@@ -439,11 +436,11 @@ public class MInOut extends X_M_InOut {
 
       //
       line.setProcessed(false);
-      if (line.save(null)) count++;
+      if (line.save()) count++;
       //	Cross Link
       if (counter) {
         fromLine.setRef_InOutLine_ID(line.getM_InOutLine_ID());
-        fromLine.saveEx(null);
+        fromLine.saveEx();
       }
     }
     if (fromLines.length != count) {
@@ -579,7 +576,7 @@ public class MInOut extends X_M_InOut {
 
     if (isSOTrx() && getM_RMA_ID() != 0) {
       // Set Document and Movement type for this Receipt
-      MRMA rma = new MRMA(getCtx(), getM_RMA_ID(), null);
+      MRMA rma = new MRMA(getCtx(), getM_RMA_ID());
       MDocType docType = MDocType.get(getCtx(), rma.getC_DocType_ID());
       setC_DocType_ID(docType.getC_DocTypeShipment_ID());
     }

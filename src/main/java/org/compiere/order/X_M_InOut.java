@@ -10,7 +10,6 @@ import org.compiere.model.I_M_InOut;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
-import org.idempiere.common.util.KeyNamePair;
 import org.idempiere.orm.I_Persistent;
 
 /**
@@ -70,8 +69,8 @@ public class X_M_InOut extends PO implements I_M_InOut, I_Persistent {
   /* Save array of documents to process AFTER completing this one */
   protected ArrayList<IPODoc> docsPostProcess = new ArrayList<IPODoc>();
   /** Standard Constructor */
-  public X_M_InOut(Properties ctx, int M_InOut_ID, String trxName) {
-    super(ctx, M_InOut_ID, trxName);
+  public X_M_InOut(Properties ctx, int M_InOut_ID) {
+    super(ctx, M_InOut_ID);
     /**
      * if (M_InOut_ID == 0) { setC_BPartner_ID (0); setC_BPartner_Location_ID (0); setC_DocType_ID
      * (0); setDateAcct (new Timestamp( System.currentTimeMillis() )); // @#Date@ setDeliveryRule
@@ -85,8 +84,8 @@ public class X_M_InOut extends PO implements I_M_InOut, I_Persistent {
      */
   }
   /** Load Constructor */
-  public X_M_InOut(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public X_M_InOut(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
 
   /**
@@ -247,13 +246,13 @@ public class X_M_InOut extends PO implements I_M_InOut, I_Persistent {
    */
   public void setC_Charge_ID(int C_Charge_ID) {
     if (C_Charge_ID < 1) set_Value(COLUMNNAME_C_Charge_ID, null);
-    else set_Value(COLUMNNAME_C_Charge_ID, Integer.valueOf(C_Charge_ID));
+    else set_Value(COLUMNNAME_C_Charge_ID, C_Charge_ID);
   }
 
   public org.compiere.model.I_C_DocType getC_DocType() throws RuntimeException {
     return (org.compiere.model.I_C_DocType)
         MTable.get(getCtx(), org.compiere.model.I_C_DocType.Table_Name)
-            .getPO(getC_DocType_ID(), null);
+            .getPO(getC_DocType_ID());
   }
 
   /**
@@ -274,7 +273,7 @@ public class X_M_InOut extends PO implements I_M_InOut, I_Persistent {
    */
   public void setC_DocType_ID(int C_DocType_ID) {
     if (C_DocType_ID < 0) set_ValueNoCheck(COLUMNNAME_C_DocType_ID, null);
-    else set_ValueNoCheck(COLUMNNAME_C_DocType_ID, Integer.valueOf(C_DocType_ID));
+    else set_ValueNoCheck(COLUMNNAME_C_DocType_ID, C_DocType_ID);
   }
 
   /**
@@ -315,13 +314,13 @@ public class X_M_InOut extends PO implements I_M_InOut, I_Persistent {
    */
   public void setC_Invoice_ID(int C_Invoice_ID) {
     if (C_Invoice_ID < 1) set_ValueNoCheck(COLUMNNAME_C_Invoice_ID, null);
-    else set_ValueNoCheck(COLUMNNAME_C_Invoice_ID, Integer.valueOf(C_Invoice_ID));
+    else set_ValueNoCheck(COLUMNNAME_C_Invoice_ID, C_Invoice_ID);
   }
 
   public org.compiere.model.I_C_Order getC_Order() throws RuntimeException {
     return (org.compiere.model.I_C_Order)
         MTable.get(getCtx(), org.compiere.model.I_C_Order.Table_Name)
-            .getPO(getC_Order_ID(), null);
+            .getPO(getC_Order_ID());
   }
 
   /**
@@ -342,7 +341,7 @@ public class X_M_InOut extends PO implements I_M_InOut, I_Persistent {
    */
   public void setC_Order_ID(int C_Order_ID) {
     if (C_Order_ID < 1) set_ValueNoCheck(COLUMNNAME_C_Order_ID, null);
-    else set_ValueNoCheck(COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
+    else set_ValueNoCheck(COLUMNNAME_C_Order_ID, C_Order_ID);
   }
 
     /**

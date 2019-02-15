@@ -19,13 +19,13 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper, I_Persistent
   private static final long serialVersionUID = 20171031L;
 
   /** Standard Constructor */
-  public X_M_Shipper(Properties ctx, int M_Shipper_ID, String trxName) {
-    super(ctx, M_Shipper_ID, trxName);
+  public X_M_Shipper(Properties ctx, int M_Shipper_ID) {
+    super(ctx, M_Shipper_ID);
   }
 
   /** Load Constructor */
-  public X_M_Shipper(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public X_M_Shipper(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
 
   /**
@@ -56,7 +56,7 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper, I_Persistent
     public org.compiere.model.I_M_ShipperCfg getM_ShipperCfg() throws RuntimeException {
     return (org.compiere.model.I_M_ShipperCfg)
         MTable.get(getCtx(), org.compiere.model.I_M_ShipperCfg.Table_Name)
-            .getPO(getM_ShipperCfg_ID(), null);
+            .getPO(getM_ShipperCfg_ID());
   }
 
   /**

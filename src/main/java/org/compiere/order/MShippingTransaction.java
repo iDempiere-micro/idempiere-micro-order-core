@@ -17,12 +17,12 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
   /** Error Message */
   private String m_errorMessage = null;
 
-  public MShippingTransaction(Properties ctx, int M_ShippingTransaction_ID, String trxName) {
-    super(ctx, M_ShippingTransaction_ID, trxName);
+  public MShippingTransaction(Properties ctx, int M_ShippingTransaction_ID) {
+    super(ctx, M_ShippingTransaction_ID);
   }
 
-  public MShippingTransaction(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public MShippingTransaction(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
 
   public String getErrorMessage() {
@@ -43,7 +43,7 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
       if (processor == null) setErrorMessage(Msg.getMsg(Env.getCtx(), "ShippingNoProcessor"));
       else {
         if (getAction().equals(ACTION_ProcessShipment))
-          processed = processor.processShipment(getCtx(), this, null);
+          processed = processor.processShipment(getCtx(), this);
         else if (getAction().equals(ACTION_RateInquiry))
           processed = processor.rateInquiry(getCtx(), this, isPriviledgedRate(), null);
         else if (getAction().equals(ACTION_VoidShipment))
@@ -58,7 +58,7 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
       setErrorMessage(Msg.getMsg(Env.getCtx(), "ShippingNotProcessed") + ":\n" + e.getMessage());
     }
 
-    MOnlineTrxHistory history = new MOnlineTrxHistory(getCtx(), 0, null);
+    MOnlineTrxHistory history = new MOnlineTrxHistory(getCtx(), 0);
     history.setAD_Table_ID(Table_ID);
     history.setRecord_ID(getM_ShippingTransaction_ID());
     history.setIsError(!processed);
@@ -77,7 +77,7 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
   }
 
   public MShipper getMShipper() {
-    return new MShipper(getCtx(), getM_Shipper_ID(), null);
+    return new MShipper(getCtx(), getM_Shipper_ID());
   }
 
   public boolean isPayBySender() {
@@ -110,14 +110,14 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
       rs = stmt.executeQuery();
 
       if (rs.next()) {
-        commodityShipment = new X_M_CommodityShipment(getCtx(), rs, null);
+        commodityShipment = new X_M_CommodityShipment(getCtx(), rs);
       }
     } catch (Exception e) {
       log.log(Level.SEVERE, e.getLocalizedMessage(), e);
     } finally {
     }
 
-    if (commodityShipment == null) commodityShipment = new X_M_CommodityShipment(getCtx(), 0, null);
+    if (commodityShipment == null) commodityShipment = new X_M_CommodityShipment(getCtx(), 0);
 
     return commodityShipment;
   }

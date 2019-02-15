@@ -52,8 +52,8 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
    * @param M_RMALine_ID id
    * @param trxName transaction
    */
-  public MRMALine(Properties ctx, int M_RMALine_ID, String trxName) {
-    super(ctx, M_RMALine_ID, trxName);
+  public MRMALine(Properties ctx, int M_RMALine_ID) {
+    super(ctx, M_RMALine_ID);
     if (M_RMALine_ID == 0) {
       setQty(Env.ONE);
       this.setQtyDelivered(Env.ZERO);
@@ -68,8 +68,8 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
    * @param rs result set
    * @param trxName transaction
    */
-  public MRMALine(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public MRMALine(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
     init();
   } //	MRMALine
 
@@ -82,7 +82,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
       //   --> m_ioLine.isInvoiced just work for sales orders - so it doesn't work for purchases
       if (m_ioLine.getC_OrderLine_ID() != 0) {
         MOrderLine orderLine =
-            new MOrderLine(getCtx(), m_ioLine.getC_OrderLine_ID(), null);
+            new MOrderLine(getCtx(), m_ioLine.getC_OrderLine_ID());
         precision = orderLine.getPrecision();
         unitAmount = orderLine.getPriceEntered();
         originalQty = orderLine.getQtyDelivered();
@@ -119,7 +119,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
    * @return parent
    */
   public I_M_RMA getParent() {
-    if (m_parent == null) m_parent = new MRMA(getCtx(), getM_RMA_ID(), null);
+    if (m_parent == null) m_parent = new MRMA(getCtx(), getM_RMA_ID());
     return m_parent;
   } //  getParent
 
@@ -141,7 +141,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
   public MInOutLine getShipLine() {
     if ((m_ioLine == null || is_ValueChanged(I_M_RMALine.COLUMNNAME_M_InOutLine_ID))
         && getM_InOutLine_ID() != 0)
-      m_ioLine = new MInOutLine(getCtx(), getM_InOutLine_ID(), null);
+      m_ioLine = new MInOutLine(getCtx(), getM_InOutLine_ID());
     return m_ioLine;
   } //	getShipLine
 
@@ -179,16 +179,14 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
           stdTax =
               new MTax(
                   getCtx(),
-                  ((MTaxCategory) getCharge().getC_TaxCategory()).getDefaultTax().getC_Tax_ID(),
-                  null);
+                  ((MTaxCategory) getCharge().getC_TaxCategory()).getDefaultTax().getC_Tax_ID());
         }
 
       } else // Product
       stdTax =
             new MTax(
                 getCtx(),
-                ((MTaxCategory) getProduct().getC_TaxCategory()).getDefaultTax().getC_Tax_ID(),
-                null);
+                ((MTaxCategory) getProduct().getC_TaxCategory()).getDefaultTax().getC_Tax_ID());
 
       if (stdTax != null) {
         if (log.isLoggable(Level.FINE)) {
@@ -317,13 +315,13 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
   }
 
   public boolean updateOrderTax(boolean oldTax) {
-    MRMATax tax = MRMATax.get(this, getPrecision(), oldTax, null);
+    MRMATax tax = MRMATax.get(this, getPrecision(), oldTax);
     if (tax != null) {
       if (!tax.calculateTaxFromLines()) return false;
       if (tax.getTaxAmt().signum() != 0) {
-        if (!tax.save(null)) return false;
+        if (!tax.save()) return false;
       } else {
-        if (!tax.is_new() && !tax.delete(false, null)) return false;
+        if (!tax.is_new() && !tax.delete(false)) return false;
       }
     }
     return true;
@@ -332,9 +330,9 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
   @Override
   protected boolean afterSave(boolean newRecord, boolean success) {
     if (!success) return success;
-    MTax tax = new MTax(getCtx(), getC_Tax_ID(), null);
+    MTax tax = new MTax(getCtx(), getC_Tax_ID());
     MTaxProvider provider =
-        new MTaxProvider(tax.getCtx(), tax.getC_TaxProvider_ID(), null);
+        new MTaxProvider(tax.getCtx(), tax.getC_TaxProvider_ID());
     ITaxProvider calculator = MTaxProvider.getTaxProvider(provider, new StandardTaxProvider());
     if (calculator == null) throw new AdempiereException(Msg.getMsg(getCtx(), "TaxNoProvider"));
     return calculator.recalculateTax(provider, this, newRecord);
@@ -355,9 +353,9 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
     // Update header only if the document is not processed
     if (isProcessed() && !is_ValueChanged(I_M_RMALine.COLUMNNAME_Processed)) return true;
 
-    MTax tax = new MTax(getCtx(), getC_Tax_ID(), null);
+    MTax tax = new MTax(getCtx(), getC_Tax_ID());
     MTaxProvider provider =
-        new MTaxProvider(tax.getCtx(), tax.getC_TaxProvider_ID(), null);
+        new MTaxProvider(tax.getCtx(), tax.getC_TaxProvider_ID());
     ITaxProvider calculator = MTaxProvider.getTaxProvider(provider, new StandardTaxProvider());
     if (calculator == null) throw new AdempiereException(Msg.getMsg(getCtx(), "TaxNoProvider"));
     if (!calculator.updateRMATax(provider, this)) return false;

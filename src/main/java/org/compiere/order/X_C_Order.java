@@ -89,8 +89,8 @@ public class X_C_Order extends PO implements I_Persistent {
   private static final long serialVersionUID = 20171031L;
 
   /** Standard Constructor */
-  public X_C_Order(Properties ctx, int C_Order_ID, String trxName) {
-    super(ctx, C_Order_ID, trxName);
+  public X_C_Order(Properties ctx, int C_Order_ID) {
+    super(ctx, C_Order_ID);
     /**
      * if (C_Order_ID == 0) { setC_BPartner_ID (0); setC_BPartner_Location_ID (0); setC_Currency_ID
      * (0); // @C_Currency_ID@ setC_DocType_ID (0); // 0 setC_DocTypeTarget_ID (0); setC_Order_ID
@@ -111,8 +111,8 @@ public class X_C_Order extends PO implements I_Persistent {
   }
 
   /** Load Constructor */
-  public X_C_Order(Properties ctx, ResultSet rs, String trxName) {
-    super(ctx, rs, trxName);
+  public X_C_Order(Properties ctx, ResultSet rs) {
+    super(ctx, rs);
   }
 
   /**
@@ -377,7 +377,7 @@ public class X_C_Order extends PO implements I_Persistent {
     public org.compiere.model.I_C_Currency getC_Currency() throws RuntimeException {
         return (org.compiere.model.I_C_Currency)
                 MTable.get(getCtx(), org.compiere.model.I_C_Currency.Table_Name)
-                        .getPO(getC_Currency_ID(), null);
+                        .getPO(getC_Currency_ID());
     }
 
 
@@ -399,13 +399,13 @@ public class X_C_Order extends PO implements I_Persistent {
    */
   public void setC_Currency_ID(int C_Currency_ID) {
     if (C_Currency_ID < 1) set_ValueNoCheck(I_C_Order.COLUMNNAME_C_Currency_ID, null);
-    else set_ValueNoCheck(I_C_Order.COLUMNNAME_C_Currency_ID, Integer.valueOf(C_Currency_ID));
+    else set_ValueNoCheck(I_C_Order.COLUMNNAME_C_Currency_ID, C_Currency_ID);
   }
 
   public org.compiere.model.I_C_DocType getC_DocType() throws RuntimeException {
     return (org.compiere.model.I_C_DocType)
         MTable.get(getCtx(), org.compiere.model.I_C_DocType.Table_Name)
-            .getPO(getC_DocType_ID(), null);
+            .getPO(getC_DocType_ID());
   }
 
   /**
@@ -426,14 +426,14 @@ public class X_C_Order extends PO implements I_Persistent {
    */
   public void setC_DocType_ID(int C_DocType_ID) {
     if (C_DocType_ID < 0) set_ValueNoCheck(I_C_Order.COLUMNNAME_C_DocType_ID, null);
-    else set_ValueNoCheck(I_C_Order.COLUMNNAME_C_DocType_ID, Integer.valueOf(C_DocType_ID));
+    else set_ValueNoCheck(I_C_Order.COLUMNNAME_C_DocType_ID, C_DocType_ID);
   }
 
 
     public org.compiere.model.I_C_DocType getC_DocTypeTarget() throws RuntimeException {
         return (org.compiere.model.I_C_DocType)
                 MTable.get(getCtx(), org.compiere.model.I_C_DocType.Table_Name)
-                        .getPO(getC_DocTypeTarget_ID(), null);
+                        .getPO(getC_DocTypeTarget_ID());
     }
 
     /**
@@ -1138,13 +1138,13 @@ public class X_C_Order extends PO implements I_Persistent {
    */
   public void setLink_Order_ID(int Link_Order_ID) {
     if (Link_Order_ID < 1) set_ValueNoCheck(I_C_Order.COLUMNNAME_Link_Order_ID, null);
-    else set_ValueNoCheck(I_C_Order.COLUMNNAME_Link_Order_ID, Integer.valueOf(Link_Order_ID));
+    else set_ValueNoCheck(I_C_Order.COLUMNNAME_Link_Order_ID, Link_Order_ID);
   }
 
     public org.compiere.model.I_M_PriceList getM_PriceList() throws RuntimeException {
         return (org.compiere.model.I_M_PriceList)
                 MTable.get(getCtx(), org.compiere.model.I_M_PriceList.Table_Name)
-                        .getPO(getM_PriceList_ID(), null);
+                        .getPO(getM_PriceList_ID());
     }
 
     /**
@@ -1165,7 +1165,7 @@ public class X_C_Order extends PO implements I_Persistent {
    */
   public void setM_PriceList_ID(int M_PriceList_ID) {
     if (M_PriceList_ID < 1) set_Value(I_C_Order.COLUMNNAME_M_PriceList_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_M_PriceList_ID, Integer.valueOf(M_PriceList_ID));
+    else set_Value(I_C_Order.COLUMNNAME_M_PriceList_ID, M_PriceList_ID);
   }
 
     /**
@@ -1186,7 +1186,7 @@ public class X_C_Order extends PO implements I_Persistent {
    */
   public void setM_Shipper_ID(int M_Shipper_ID) {
     if (M_Shipper_ID < 1) set_Value(I_C_Order.COLUMNNAME_M_Shipper_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_M_Shipper_ID, Integer.valueOf(M_Shipper_ID));
+    else set_Value(I_C_Order.COLUMNNAME_M_Shipper_ID, M_Shipper_ID);
   }
 
     /**
@@ -1207,7 +1207,7 @@ public class X_C_Order extends PO implements I_Persistent {
    */
   public void setM_Warehouse_ID(int M_Warehouse_ID) {
     if (M_Warehouse_ID < 1) set_Value(I_C_Order.COLUMNNAME_M_Warehouse_ID, null);
-    else set_Value(I_C_Order.COLUMNNAME_M_Warehouse_ID, Integer.valueOf(M_Warehouse_ID));
+    else set_Value(I_C_Order.COLUMNNAME_M_Warehouse_ID, M_Warehouse_ID);
   }
 
     /**
