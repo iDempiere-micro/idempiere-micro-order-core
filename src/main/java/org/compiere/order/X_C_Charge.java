@@ -20,147 +20,154 @@ import java.util.Properties;
  */
 public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
 
-  /** */
-  private static final long serialVersionUID = 20171031L;
-
-  /** Standard Constructor */
-  public X_C_Charge(Properties ctx, int C_Charge_ID) {
-    super(ctx, C_Charge_ID);
     /**
-     * if (C_Charge_ID == 0) { setC_Charge_ID (0); setChargeAmt (Env.ZERO); setC_TaxCategory_ID (0);
-     * setIsSameCurrency (false); setIsSameTax (false); setIsTaxIncluded (false); // N setName
-     * (null); }
+     *
      */
-  }
-
-  /** Load Constructor */
-  public X_C_Charge(Properties ctx, ResultSet rs) {
-    super(ctx, rs);
-  }
-  public X_C_Charge(Properties ctx, Row row) {
-    super(ctx, row);
-  } //	MCharge
-
-  /**
-   * AccessLevel
-   *
-   * @return 3 - Client - Org
-   */
-  protected int getAccessLevel() {
-    return accessLevel.intValue();
-  }
-
-  public String toString() {
-    StringBuffer sb = new StringBuffer("X_C_Charge[").append(getId()).append("]");
-    return sb.toString();
-  }
+    private static final long serialVersionUID = 20171031L;
 
     /**
-   * Get Business Partner .
-   *
-   * @return Identifies a Business Partner
-   */
-  public int getC_BPartner_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_C_BPartner_ID);
-    if (ii == null) return 0;
-    return ii;
-  }
+     * Standard Constructor
+     */
+    public X_C_Charge(Properties ctx, int C_Charge_ID) {
+        super(ctx, C_Charge_ID);
+        /**
+         * if (C_Charge_ID == 0) { setC_Charge_ID (0); setChargeAmt (Env.ZERO); setC_TaxCategory_ID (0);
+         * setIsSameCurrency (false); setIsSameTax (false); setIsTaxIncluded (false); // N setName
+         * (null); }
+         */
+    }
 
     /**
-   * Get Charge Type.
-   *
-   * @return Charge Type
-   */
-  public int getC_ChargeType_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_C_ChargeType_ID);
-    if (ii == null) return 0;
-    return ii;
-  }
+     * Load Constructor
+     */
+    public X_C_Charge(Properties ctx, ResultSet rs) {
+        super(ctx, rs);
+    }
+
+    public X_C_Charge(Properties ctx, Row row) {
+        super(ctx, row);
+    } //	MCharge
 
     /**
-   * Get Charge amount.
-   *
-   * @return Charge Amount
-   */
-  public BigDecimal getChargeAmt() {
-    BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_ChargeAmt);
-    if (bd == null) return Env.ZERO;
-    return bd;
-  }
+     * AccessLevel
+     *
+     * @return 3 - Client - Org
+     */
+    protected int getAccessLevel() {
+        return accessLevel.intValue();
+    }
 
-  /**
-   * Set Charge amount.
-   *
-   * @param ChargeAmt Charge Amount
-   */
-  public void setChargeAmt(BigDecimal ChargeAmt) {
-    set_Value(COLUMNNAME_ChargeAmt, ChargeAmt);
-  }
-
-  public org.compiere.model.I_C_TaxCategory getC_TaxCategory() throws RuntimeException {
-    return (org.compiere.model.I_C_TaxCategory)
-        MTable.get(getCtx(), org.compiere.model.I_C_TaxCategory.Table_Name)
-            .getPO(getC_TaxCategory_ID());
-  }
-
-  /**
-   * Get Tax Category.
-   *
-   * @return Tax Category
-   */
-  public int getC_TaxCategory_ID() {
-    Integer ii = (Integer) get_Value(COLUMNNAME_C_TaxCategory_ID);
-    if (ii == null) return 0;
-    return ii;
-  }
+    public String toString() {
+        StringBuffer sb = new StringBuffer("X_C_Charge[").append(getId()).append("]");
+        return sb.toString();
+    }
 
     /**
-   * Set Same Currency.
-   *
-   * @param IsSameCurrency Same Currency
-   */
-  public void setIsSameCurrency(boolean IsSameCurrency) {
-    set_Value(COLUMNNAME_IsSameCurrency, IsSameCurrency);
-  }
+     * Get Business Partner .
+     *
+     * @return Identifies a Business Partner
+     */
+    public int getC_BPartner_ID() {
+        Integer ii = (Integer) get_Value(COLUMNNAME_C_BPartner_ID);
+        if (ii == null) return 0;
+        return ii;
+    }
 
     /**
-   * Set Same Tax.
-   *
-   * @param IsSameTax Use the same tax as the main transaction
-   */
-  public void setIsSameTax(boolean IsSameTax) {
-    set_Value(COLUMNNAME_IsSameTax, IsSameTax);
-  }
+     * Get Charge Type.
+     *
+     * @return Charge Type
+     */
+    public int getC_ChargeType_ID() {
+        Integer ii = (Integer) get_Value(COLUMNNAME_C_ChargeType_ID);
+        if (ii == null) return 0;
+        return ii;
+    }
 
     /**
-   * Set Price includes Tax.
-   *
-   * @param IsTaxIncluded Tax is included in the price
-   */
-  public void setIsTaxIncluded(boolean IsTaxIncluded) {
-    set_Value(COLUMNNAME_IsTaxIncluded, IsTaxIncluded);
-  }
+     * Get Charge amount.
+     *
+     * @return Charge Amount
+     */
+    public BigDecimal getChargeAmt() {
+        BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_ChargeAmt);
+        if (bd == null) return Env.ZERO;
+        return bd;
+    }
 
     /**
-   * Get Name.
-   *
-   * @return Alphanumeric identifier of the entity
-   */
-  public String getName() {
-    return (String) get_Value(HasName.Companion.getCOLUMNNAME_Name());
-  }
+     * Set Charge amount.
+     *
+     * @param ChargeAmt Charge Amount
+     */
+    public void setChargeAmt(BigDecimal ChargeAmt) {
+        set_Value(COLUMNNAME_ChargeAmt, ChargeAmt);
+    }
 
-  /**
-   * Set Name.
-   *
-   * @param Name Alphanumeric identifier of the entity
-   */
-  public void setName(String Name) {
-    set_Value(HasName.Companion.getCOLUMNNAME_Name(), Name);
-  }
+    public org.compiere.model.I_C_TaxCategory getC_TaxCategory() throws RuntimeException {
+        return (org.compiere.model.I_C_TaxCategory)
+                MTable.get(getCtx(), org.compiere.model.I_C_TaxCategory.Table_Name)
+                        .getPO(getC_TaxCategory_ID());
+    }
+
+    /**
+     * Get Tax Category.
+     *
+     * @return Tax Category
+     */
+    public int getC_TaxCategory_ID() {
+        Integer ii = (Integer) get_Value(COLUMNNAME_C_TaxCategory_ID);
+        if (ii == null) return 0;
+        return ii;
+    }
+
+    /**
+     * Set Same Currency.
+     *
+     * @param IsSameCurrency Same Currency
+     */
+    public void setIsSameCurrency(boolean IsSameCurrency) {
+        set_Value(COLUMNNAME_IsSameCurrency, IsSameCurrency);
+    }
+
+    /**
+     * Set Same Tax.
+     *
+     * @param IsSameTax Use the same tax as the main transaction
+     */
+    public void setIsSameTax(boolean IsSameTax) {
+        set_Value(COLUMNNAME_IsSameTax, IsSameTax);
+    }
+
+    /**
+     * Set Price includes Tax.
+     *
+     * @param IsTaxIncluded Tax is included in the price
+     */
+    public void setIsTaxIncluded(boolean IsTaxIncluded) {
+        set_Value(COLUMNNAME_IsTaxIncluded, IsTaxIncluded);
+    }
+
+    /**
+     * Get Name.
+     *
+     * @return Alphanumeric identifier of the entity
+     */
+    public String getName() {
+        return (String) get_Value(HasName.Companion.getCOLUMNNAME_Name());
+    }
+
+    /**
+     * Set Name.
+     *
+     * @param Name Alphanumeric identifier of the entity
+     */
+    public void setName(String Name) {
+        set_Value(HasName.Companion.getCOLUMNNAME_Name(), Name);
+    }
 
     @Override
-  public int getTableId() {
-    return I_C_Charge.Table_ID;
-  }
+    public int getTableId() {
+        return I_C_Charge.Table_ID;
+    }
 }

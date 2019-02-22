@@ -6,7 +6,6 @@ import org.compiere.order.MOrder
 import org.compiere.orm.DefaultModelFactory
 import org.compiere.orm.IModelFactory
 import org.junit.Test
-import software.hsharp.core.orm.DummyEventManager
 import software.hsharp.core.util.DB
 import software.hsharp.core.util.HikariCPI
 import kotlin.test.assertEquals
@@ -18,7 +17,6 @@ internal val sessionUrl = System.getenv("SESSION_URL") ?: "jdbc:postgresql://loc
 class OrderTest {
     init {
         HikariCPI.default(sessionUrl, "adempiere", "adempiere")
-        DummyEventManager()
         log.trace { "OrderTest initialized" }
     }
 

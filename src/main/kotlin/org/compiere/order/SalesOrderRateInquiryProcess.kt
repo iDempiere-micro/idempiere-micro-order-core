@@ -58,7 +58,7 @@ fun createShippingTransaction(
             MSysConfig.getDoubleValue(MSysConfig.SHIPPING_DEFAULT_WEIGHT_PER_PACKAGE, 30.0)
         )
         WeightPerPackage =
-                defaultWeightPerPackage.multiply(if (isPound) BigDecimal.valueOf(2.20462) else BigDecimal.ONE)
+            defaultWeightPerPackage.multiply(if (isPound) BigDecimal.valueOf(2.20462) else BigDecimal.ONE)
     }
 
     val CODAmount = m_order.grandTotal

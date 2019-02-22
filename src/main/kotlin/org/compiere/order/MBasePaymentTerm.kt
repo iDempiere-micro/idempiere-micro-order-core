@@ -16,7 +16,7 @@ abstract class MBasePaymentTerm : X_C_PaymentTerm {
     /** Payment Schedule children  */
     protected var schedule: Array<MPaySchedule> = arrayOf()
 
-    abstract fun self() : I_C_PaymentTerm
+    abstract fun self(): I_C_PaymentTerm
 
     fun getSchedule(requery: Boolean): Array<MPaySchedule> {
         if (schedule.isNotEmpty() && !requery) return schedule

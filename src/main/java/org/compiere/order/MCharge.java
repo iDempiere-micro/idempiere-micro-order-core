@@ -14,77 +14,84 @@ import java.util.Properties;
  *
  * @author Jorg Janke
  * @author Teo Sarca, www.arhipac.ro
- *     <li>FR [ 2214883 ] Remove SQL code and Replace for Query
+ * <li>FR [ 2214883 ] Remove SQL code and Replace for Query
  * @version $Id: MCharge.java,v 1.3 2006/07/30 00:51:05 jjanke Exp $
  */
 public class MCharge extends X_C_Charge {
-  /** */
-  private static final long serialVersionUID = -4628105180010713510L;
-  /** Static Logger */
-  protected static CLogger s_log = CLogger.getCLogger(MCharge.class);
-  /** Cache */
-  private static CCache<Integer, MCharge> s_cache =
-      new CCache<Integer, MCharge>(I_C_Charge.Table_Name, 10);
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4628105180010713510L;
+    /**
+     * Static Logger
+     */
+    protected static CLogger s_log = CLogger.getCLogger(MCharge.class);
+    /**
+     * Cache
+     */
+    private static CCache<Integer, MCharge> s_cache =
+            new CCache<Integer, MCharge>(I_C_Charge.Table_Name, 10);
 
-  /**
-   * ************************************************************************ Standard Constructor
-   *
-   * @param ctx context
-   * @param C_Charge_ID id
-   * @param trxName transaction
-   */
-  public MCharge(Properties ctx, int C_Charge_ID) {
-    super(ctx, C_Charge_ID);
-    if (C_Charge_ID == 0) {
-      setChargeAmt(Env.ZERO);
-      setIsSameCurrency(false);
-      setIsSameTax(false);
-      setIsTaxIncluded(false); // N
-      //	setName (null);
-      //	setC_TaxCategory_ID (0);
-    }
-  } //	MCharge
+    /**
+     * ************************************************************************ Standard Constructor
+     *
+     * @param ctx         context
+     * @param C_Charge_ID id
+     * @param trxName     transaction
+     */
+    public MCharge(Properties ctx, int C_Charge_ID) {
+        super(ctx, C_Charge_ID);
+        if (C_Charge_ID == 0) {
+            setChargeAmt(Env.ZERO);
+            setIsSameCurrency(false);
+            setIsSameTax(false);
+            setIsTaxIncluded(false); // N
+            //	setName (null);
+            //	setC_TaxCategory_ID (0);
+        }
+    } //	MCharge
 
-  /**
-   * Load Constructor
-   *
-   * @param ctx ctx
-   * @param rs result set
-   * @param trxName transaction
-   */
-  public MCharge(Properties ctx, ResultSet rs) {
-    super(ctx, rs);
-  } //	MCharge
-  public MCharge(Properties ctx, Row row) {
-    super(ctx, row);
-  } //	MCharge
+    /**
+     * Load Constructor
+     *
+     * @param ctx     ctx
+     * @param rs      result set
+     * @param trxName transaction
+     */
+    public MCharge(Properties ctx, ResultSet rs) {
+        super(ctx, rs);
+    } //	MCharge
 
-  /**
-   * Get MCharge from Cache
-   *
-   * @param ctx context
-   * @param C_Charge_ID id
-   * @return MCharge
-   */
-  public static MCharge get(Properties ctx, int C_Charge_ID) {
-    Integer key = new Integer(C_Charge_ID);
-    MCharge retValue = (MCharge) s_cache.get(key);
-    if (retValue != null) return retValue;
-    retValue = new MCharge(ctx, C_Charge_ID);
-    if (retValue.getId() != 0) s_cache.put(key, retValue);
-    return retValue;
-  } //	get
+    public MCharge(Properties ctx, Row row) {
+        super(ctx, row);
+    } //	MCharge
 
-  /**
-   * After Save
-   *
-   * @param newRecord new
-   * @param success success
-   * @return success
-   */
-  protected boolean afterSave(boolean newRecord, boolean success) {
-    if (newRecord && success) insert_Accounting("C_Charge_Acct", "C_AcctSchema_Default", null);
+    /**
+     * Get MCharge from Cache
+     *
+     * @param ctx         context
+     * @param C_Charge_ID id
+     * @return MCharge
+     */
+    public static MCharge get(Properties ctx, int C_Charge_ID) {
+        Integer key = new Integer(C_Charge_ID);
+        MCharge retValue = (MCharge) s_cache.get(key);
+        if (retValue != null) return retValue;
+        retValue = new MCharge(ctx, C_Charge_ID);
+        if (retValue.getId() != 0) s_cache.put(key, retValue);
+        return retValue;
+    } //	get
 
-    return success;
-  } //	afterSave
+    /**
+     * After Save
+     *
+     * @param newRecord new
+     * @param success   success
+     * @return success
+     */
+    protected boolean afterSave(boolean newRecord, boolean success) {
+        if (newRecord && success) insert_Accounting("C_Charge_Acct", "C_AcctSchema_Default", null);
+
+        return success;
+    } //	afterSave
 } //	MCharge
