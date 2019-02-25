@@ -2,8 +2,6 @@ package org.compiere.order;
 
 import org.compiere.model.I_M_ShipperPickupTypes;
 import org.compiere.orm.BasePOName;
-import org.compiere.orm.MTable;
-import org.idempiere.orm.I_Persistent;
 
 import java.sql.ResultSet;
 import java.util.Properties;
@@ -15,7 +13,7 @@ import java.util.Properties;
  * @version Release 5.1 - $Id$
  */
 public class X_M_ShipperPickupTypes extends BasePOName
-        implements I_M_ShipperPickupTypes, I_Persistent {
+        implements I_M_ShipperPickupTypes {
 
     /**
      *
@@ -51,30 +49,12 @@ public class X_M_ShipperPickupTypes extends BasePOName
     }
 
     /**
-     * Get Shipper.
-     *
-     * @return Method or manner of product delivery
-     */
-    public int getM_Shipper_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_Shipper_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    public org.compiere.model.I_M_ShipperPickupTypesCfg getM_ShipperPickupTypesCfg()
-            throws RuntimeException {
-        return (org.compiere.model.I_M_ShipperPickupTypesCfg)
-                MTable.get(getCtx(), org.compiere.model.I_M_ShipperPickupTypesCfg.Table_Name)
-                        .getPO(getM_ShipperPickupTypesCfg_ID());
-    }
-
-    /**
      * Get Shipper Pickup Types Configuration.
      *
      * @return Shipper Pickup Types Configuration
      */
     public int getM_ShipperPickupTypesCfg_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_ShipperPickupTypesCfg_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_M_ShipperPickupTypesCfg_ID);
         if (ii == null) return 0;
         return ii;
     }

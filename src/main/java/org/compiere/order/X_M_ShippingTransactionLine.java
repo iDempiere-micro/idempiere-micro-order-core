@@ -2,7 +2,6 @@ package org.compiere.order;
 
 import org.compiere.model.I_M_ShippingTransactionLine;
 import org.compiere.orm.PO;
-import org.idempiere.orm.I_Persistent;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -15,7 +14,7 @@ import java.util.Properties;
  * @version Release 5.1 - $Id$
  */
 public class X_M_ShippingTransactionLine extends PO
-        implements I_M_ShippingTransactionLine, I_Persistent {
+        implements I_M_ShippingTransactionLine {
 
     /**
      *
@@ -56,17 +55,6 @@ public class X_M_ShippingTransactionLine extends PO
     }
 
     /**
-     * Get UOM for Length.
-     *
-     * @return Standard Unit of Measure for Length
-     */
-    public int getC_UOM_Length_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_UOM_Length_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
      * Set UOM for Length.
      *
      * @param C_UOM_Length_ID Standard Unit of Measure for Length
@@ -74,17 +62,6 @@ public class X_M_ShippingTransactionLine extends PO
     public void setC_UOM_Length_ID(int C_UOM_Length_ID) {
         if (C_UOM_Length_ID < 1) set_Value(COLUMNNAME_C_UOM_Length_ID, null);
         else set_Value(COLUMNNAME_C_UOM_Length_ID, Integer.valueOf(C_UOM_Length_ID));
-    }
-
-    /**
-     * Get UOM for Weight.
-     *
-     * @return Standard Unit of Measure for Weight
-     */
-    public int getC_UOM_Weight_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_UOM_Weight_ID);
-        if (ii == null) return 0;
-        return ii;
     }
 
     /**
@@ -122,28 +99,6 @@ public class X_M_ShippingTransactionLine extends PO
      */
     public void setLength(BigDecimal Length) {
         set_Value(COLUMNNAME_Length, Length);
-    }
-
-    /**
-     * Get Package MPS.
-     *
-     * @return Package MPS
-     */
-    public int getM_PackageMPS_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_PackageMPS_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
-     * Get Shipping Transaction.
-     *
-     * @return Shipping Transaction
-     */
-    public int getM_ShippingTransaction_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_ShippingTransaction_ID);
-        if (ii == null) return 0;
-        return ii;
     }
 
     /**

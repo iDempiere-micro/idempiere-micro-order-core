@@ -4,7 +4,6 @@ import kotliquery.Row;
 import org.compiere.model.I_C_PaySchedule;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
-import org.idempiere.orm.I_Persistent;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -16,7 +15,7 @@ import java.util.Properties;
  * @author iDempiere (generated)
  * @version Release 5.1 - $Id$
  */
-public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent {
+public class X_C_PaySchedule extends PO implements I_C_PaySchedule {
 
     /**
      *
@@ -66,7 +65,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent
      * @return The terms of Payment (timing, discount)
      */
     public int getC_PaymentTerm_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_PaymentTerm_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_PaymentTerm_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -87,7 +86,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent
      * @return Payment Schedule Template
      */
     public int getC_PaySchedule_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_PaySchedule_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_PaySchedule_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -98,7 +97,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent
      * @return Discount in percent
      */
     public BigDecimal getDiscount() {
-        BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_Discount);
+        BigDecimal bd = (BigDecimal) getValue(COLUMNNAME_Discount);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -118,7 +117,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent
      * @return Number of days from invoice date to be eligible for discount
      */
     public int getDiscountDays() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_DiscountDays);
+        Integer ii = (Integer) getValue(COLUMNNAME_DiscountDays);
         if (ii == null) return 0;
         return ii;
     }
@@ -156,7 +155,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent
      * @return Element is valid
      */
     public boolean isValid() {
-        Object oo = get_Value(COLUMNNAME_IsValid);
+        Object oo = getValue(COLUMNNAME_IsValid);
         if (oo != null) {
             if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
             return "Y".equals(oo);
@@ -170,7 +169,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent
      * @return Net Days in which payment is due
      */
     public int getNetDays() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_NetDays);
+        Integer ii = (Integer) getValue(COLUMNNAME_NetDays);
         if (ii == null) return 0;
         return ii;
     }
@@ -190,7 +189,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule, I_Persistent
      * @return Percent of the entire amount
      */
     public BigDecimal getPercentage() {
-        BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_Percentage);
+        BigDecimal bd = (BigDecimal) getValue(COLUMNNAME_Percentage);
         if (bd == null) return Env.ZERO;
         return bd;
     }

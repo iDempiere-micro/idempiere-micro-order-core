@@ -8,7 +8,7 @@ import org.idempiere.common.exceptions.AdempiereException
  * @author Teo Sarca, www.arhipac.ro
  */
 abstract class BPartnerException internal constructor(ad_message: String, bp: I_C_BPartner?) :
-    AdempiereException("@" + ad_message + "@ - " + if (bp == null) "?" else bp.value + "_" + bp.name) {
+    AdempiereException("@" + ad_message + "@ - " + if (bp == null) "?" else bp.searchKey + "_" + bp.name) {
     /**
      * @return the c_BPartner_ID
      */

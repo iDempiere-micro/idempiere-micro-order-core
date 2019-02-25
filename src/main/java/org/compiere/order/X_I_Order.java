@@ -4,7 +4,6 @@ import org.compiere.model.I_I_Order;
 import org.compiere.orm.BasePOName;
 import org.compiere.orm.MTable;
 import org.idempiere.common.util.Env;
-import org.idempiere.orm.I_Persistent;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -17,7 +16,7 @@ import java.util.Properties;
  * @author iDempiere (generated)
  * @version Release 5.1 - $Id$
  */
-public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
+public class X_I_Order extends BasePOName implements I_I_Order {
 
     /**
      *
@@ -58,7 +57,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Address line 1 for this location
      */
     public String getAddress1() {
-        return (String) get_Value(COLUMNNAME_Address1);
+        return (String) getValue(COLUMNNAME_Address1);
     }
 
     /**
@@ -67,7 +66,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Address line 2 for this location
      */
     public String getAddress2() {
-        return (String) get_Value(COLUMNNAME_Address2);
+        return (String) getValue(COLUMNNAME_Address2);
     }
 
     /**
@@ -76,7 +75,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Performing or initiating organization
      */
     public int getAD_OrgTrx_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_AD_OrgTrx_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_AD_OrgTrx_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -87,7 +86,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return User within the system - Internal or Business Partner Contact
      */
     public int getAD_User_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_AD_User_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_AD_User_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -108,7 +107,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Bill to Address
      */
     public int getBillTo_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_BillTo_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_BillTo_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -129,7 +128,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Key of the Business Partner
      */
     public String getBPartnerValue() {
-        return (String) get_Value(COLUMNNAME_BPartnerValue);
+        return (String) getValue(COLUMNNAME_BPartnerValue);
     }
 
     /**
@@ -147,7 +146,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Business Activity
      */
     public int getC_Activity_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_Activity_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_Activity_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -158,7 +157,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Identifies a Business Partner
      */
     public int getC_BPartner_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_BPartner_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_BPartner_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -179,7 +178,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Identifies the (ship to) address for this Business Partner
      */
     public int getC_BPartner_Location_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_BPartner_Location_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_BPartner_Location_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -200,7 +199,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Marketing Campaign
      */
     public int getC_Campaign_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_Campaign_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_Campaign_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -211,7 +210,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Additional document charges
      */
     public int getC_Charge_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_Charge_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_Charge_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -222,18 +221,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Country
      */
     public int getC_Country_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_Country_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
-     * Get Currency.
-     *
-     * @return The Currency for this record
-     */
-    public int getC_Currency_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_Currency_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_Country_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -244,7 +232,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Document type or rules
      */
     public int getC_DocType_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_DocType_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_DocType_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -255,7 +243,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Identifies a City
      */
     public String getCity() {
-        return (String) get_Value(COLUMNNAME_City);
+        return (String) getValue(COLUMNNAME_City);
     }
 
     /**
@@ -264,7 +252,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Location or Address
      */
     public int getC_Location_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_Location_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_Location_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -285,18 +273,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Business Partner Contact Name
      */
     public String getContactName() {
-        return (String) get_Value(COLUMNNAME_ContactName);
-    }
-
-    /**
-     * Get Order.
-     *
-     * @return Order
-     */
-    public int getC_Order_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_Order_ID);
-        if (ii == null) return 0;
-        return ii;
+        return (String) getValue(COLUMNNAME_ContactName);
     }
 
     /**
@@ -307,17 +284,6 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     public void setC_Order_ID(int C_Order_ID) {
         if (C_Order_ID < 1) set_Value(COLUMNNAME_C_Order_ID, null);
         else set_Value(COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
-    }
-
-    /**
-     * Get Sales Order Line.
-     *
-     * @return Sales Order Line
-     */
-    public int getC_OrderLine_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_OrderLine_ID);
-        if (ii == null) return 0;
-        return ii;
     }
 
     /**
@@ -342,7 +308,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Order Source
      */
     public int getC_OrderSource_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_OrderSource_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_OrderSource_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -353,7 +319,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return The terms of Payment (timing, discount)
      */
     public int getC_PaymentTerm_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_PaymentTerm_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_PaymentTerm_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -364,7 +330,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Financial Project
      */
     public int getC_Project_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_Project_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_Project_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -375,7 +341,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Identifies a geographical Region
      */
     public int getC_Region_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_Region_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_Region_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -386,7 +352,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Tax identifier
      */
     public int getC_Tax_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_Tax_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_Tax_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -402,23 +368,12 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
     }
 
     /**
-     * Get UOM.
-     *
-     * @return Unit of Measure
-     */
-    public int getC_UOM_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_UOM_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
      * Get Account Date.
      *
      * @return Accounting Date
      */
     public Timestamp getDateAcct() {
-        return (Timestamp) get_Value(COLUMNNAME_DateAcct);
+        return (Timestamp) getValue(COLUMNNAME_DateAcct);
     }
 
     /**
@@ -427,7 +382,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Date of Order
      */
     public Timestamp getDateOrdered() {
-        return (Timestamp) get_Value(COLUMNNAME_DateOrdered);
+        return (Timestamp) getValue(COLUMNNAME_DateOrdered);
     }
 
     /**
@@ -436,7 +391,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Defines the timing of Delivery
      */
     public String getDeliveryRule() {
-        return (String) get_Value(COLUMNNAME_DeliveryRule);
+        return (String) getValue(COLUMNNAME_DeliveryRule);
     }
 
     /**
@@ -445,7 +400,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Optional short description of the record
      */
     public String getDescription() {
-        return (String) get_Value(COLUMNNAME_Description);
+        return (String) getValue(COLUMNNAME_Description);
     }
 
     /**
@@ -454,7 +409,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Document sequence number of the document
      */
     public String getDocumentNo() {
-        return (String) get_Value(COLUMNNAME_DocumentNo);
+        return (String) getValue(COLUMNNAME_DocumentNo);
     }
 
     /**
@@ -463,7 +418,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Electronic Mail Address
      */
     public String getEMail() {
-        return (String) get_Value(COLUMNNAME_EMail);
+        return (String) getValue(COLUMNNAME_EMail);
     }
 
     /**
@@ -472,7 +427,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Freight Amount
      */
     public BigDecimal getFreightAmt() {
-        BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_FreightAmt);
+        BigDecimal bd = (BigDecimal) getValue(COLUMNNAME_FreightAmt);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -492,7 +447,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return This is a Sales Transaction
      */
     public boolean isSOTrx() {
-        Object oo = get_Value(COLUMNNAME_IsSOTrx);
+        Object oo = getValue(COLUMNNAME_IsSOTrx);
         if (oo != null) {
             if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
             return "Y".equals(oo);
@@ -506,7 +461,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Description of the Line
      */
     public String getLineDescription() {
-        return (String) get_Value(COLUMNNAME_LineDescription);
+        return (String) getValue(COLUMNNAME_LineDescription);
     }
 
     /**
@@ -515,7 +470,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Unique identifier of a Price List
      */
     public int getM_PriceList_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_PriceList_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_M_PriceList_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -526,7 +481,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Product, Service, Item
      */
     public int getM_Product_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_Product_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_M_Product_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -537,7 +492,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Method or manner of product delivery
      */
     public int getM_Shipper_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_Shipper_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_M_Shipper_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -548,7 +503,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Storage Warehouse and Service Point
      */
     public int getM_Warehouse_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_Warehouse_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_M_Warehouse_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -559,7 +514,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Identifies a telephone number
      */
     public String getPhone() {
-        return (String) get_Value(COLUMNNAME_Phone);
+        return (String) getValue(COLUMNNAME_Phone);
     }
 
     /**
@@ -568,7 +523,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Postal code
      */
     public String getPostal() {
-        return (String) get_Value(COLUMNNAME_Postal);
+        return (String) getValue(COLUMNNAME_Postal);
     }
 
     /**
@@ -577,7 +532,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Actual Price
      */
     public BigDecimal getPriceActual() {
-        BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_PriceActual);
+        BigDecimal bd = (BigDecimal) getValue(COLUMNNAME_PriceActual);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -597,7 +552,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Ordered Quantity
      */
     public BigDecimal getQtyOrdered() {
-        BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_QtyOrdered);
+        BigDecimal bd = (BigDecimal) getValue(COLUMNNAME_QtyOrdered);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -608,7 +563,7 @@ public class X_I_Order extends BasePOName implements I_I_Order, I_Persistent {
      * @return Sales Representative or Company Agent
      */
     public int getSalesRep_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_SalesRep_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_SalesRep_ID);
         if (ii == null) return 0;
         return ii;
     }

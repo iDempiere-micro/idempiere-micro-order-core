@@ -3,7 +3,6 @@ package org.compiere.order;
 import org.compiere.model.I_M_RMA;
 import org.compiere.orm.BasePOName;
 import org.idempiere.common.util.Env;
-import org.idempiere.orm.I_Persistent;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -15,7 +14,7 @@ import java.util.Properties;
  * @author iDempiere (generated)
  * @version Release 5.1 - $Id$
  */
-public class X_M_RMA extends BasePOName implements I_Persistent {
+public class X_M_RMA extends BasePOName {
 
     /**
      * Complete = CO
@@ -87,7 +86,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
      * @return Amount
      */
     public BigDecimal getAmt() {
-        BigDecimal bd = (BigDecimal) get_Value(I_M_RMA.COLUMNNAME_Amt);
+        BigDecimal bd = (BigDecimal) getValue(I_M_RMA.COLUMNNAME_Amt);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -107,7 +106,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
      * @return Identifies a Business Partner
      */
     public int getC_BPartner_ID() {
-        Integer ii = (Integer) get_Value(I_M_RMA.COLUMNNAME_C_BPartner_ID);
+        Integer ii = (Integer) getValue(I_M_RMA.COLUMNNAME_C_BPartner_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -128,7 +127,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
      * @return The Currency for this record
      */
     public int getC_Currency_ID() {
-        Integer ii = (Integer) get_Value(I_M_RMA.COLUMNNAME_C_Currency_ID);
+        Integer ii = (Integer) getValue(I_M_RMA.COLUMNNAME_C_Currency_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -149,7 +148,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
      * @return Document type or rules
      */
     public int getC_DocType_ID() {
-        Integer ii = (Integer) get_Value(I_M_RMA.COLUMNNAME_C_DocType_ID);
+        Integer ii = (Integer) getValue(I_M_RMA.COLUMNNAME_C_DocType_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -170,7 +169,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
      * @return Order
      */
     public int getC_Order_ID() {
-        Integer ii = (Integer) get_Value(I_M_RMA.COLUMNNAME_C_Order_ID);
+        Integer ii = (Integer) getValue(I_M_RMA.COLUMNNAME_C_Order_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -191,7 +190,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
      * @return Optional short description of the record
      */
     public String getDescription() {
-        return (String) get_Value(I_M_RMA.COLUMNNAME_Description);
+        return (String) getValue(I_M_RMA.COLUMNNAME_Description);
     }
 
     /**
@@ -209,7 +208,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
      * @return The targeted status of the document
      */
     public String getDocAction() {
-        return (String) get_Value(I_M_RMA.COLUMNNAME_DocAction);
+        return (String) getValue(I_M_RMA.COLUMNNAME_DocAction);
     }
 
     /**
@@ -228,7 +227,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
      * @return The current status of the document
      */
     public String getDocStatus() {
-        return (String) get_Value(I_M_RMA.COLUMNNAME_DocStatus);
+        return (String) getValue(I_M_RMA.COLUMNNAME_DocStatus);
     }
 
     /**
@@ -247,7 +246,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
      * @return Document sequence number of the document
      */
     public String getDocumentNo() {
-        return (String) get_Value(I_M_RMA.COLUMNNAME_DocumentNo);
+        return (String) getValue(I_M_RMA.COLUMNNAME_DocumentNo);
     }
 
     /**
@@ -265,7 +264,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
      * @return Comment or Hint
      */
     public String getHelp() {
-        return (String) get_Value(I_M_RMA.COLUMNNAME_Help);
+        return (String) getValue(I_M_RMA.COLUMNNAME_Help);
     }
 
     /**
@@ -283,7 +282,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
      * @return MaterialShipment Document
      */
     public int getInOut_ID() {
-        Integer ii = (Integer) get_Value(I_M_RMA.COLUMNNAME_InOut_ID);
+        Integer ii = (Integer) getValue(I_M_RMA.COLUMNNAME_InOut_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -313,7 +312,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
      * @return Indicates if this document requires approval
      */
     public boolean isApproved() {
-        Object oo = get_Value(I_M_RMA.COLUMNNAME_IsApproved);
+        Object oo = getValue(I_M_RMA.COLUMNNAME_IsApproved);
         if (oo != null) {
             if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
@@ -336,7 +335,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
      * @return This is a Sales Transaction
      */
     public boolean isSOTrx() {
-        Object oo = get_Value(I_M_RMA.COLUMNNAME_IsSOTrx);
+        Object oo = getValue(I_M_RMA.COLUMNNAME_IsSOTrx);
         if (oo != null) {
             if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
@@ -350,7 +349,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
      * @return Return Material Authorization
      */
     public int getM_RMA_ID() {
-        Integer ii = (Integer) get_Value(I_M_RMA.COLUMNNAME_M_RMA_ID);
+        Integer ii = (Integer) getValue(I_M_RMA.COLUMNNAME_M_RMA_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -361,7 +360,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
      * @return Return Material Authorization Type
      */
     public int getM_RMAType_ID() {
-        Integer ii = (Integer) get_Value(I_M_RMA.COLUMNNAME_M_RMAType_ID);
+        Integer ii = (Integer) getValue(I_M_RMA.COLUMNNAME_M_RMAType_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -382,7 +381,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
      * @return The document has been processed
      */
     public boolean isProcessed() {
-        Object oo = get_Value(I_M_RMA.COLUMNNAME_Processed);
+        Object oo = getValue(I_M_RMA.COLUMNNAME_Processed);
         if (oo != null) {
             if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
@@ -414,7 +413,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
      * @return Referenced RMA
      */
     public int getRef_RMA_ID() {
-        Integer ii = (Integer) get_Value(I_M_RMA.COLUMNNAME_Ref_RMA_ID);
+        Integer ii = (Integer) getValue(I_M_RMA.COLUMNNAME_Ref_RMA_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -435,7 +434,7 @@ public class X_M_RMA extends BasePOName implements I_Persistent {
      * @return Sales Representative or Company Agent
      */
     public int getSalesRep_ID() {
-        Integer ii = (Integer) get_Value(I_M_RMA.COLUMNNAME_SalesRep_ID);
+        Integer ii = (Integer) getValue(I_M_RMA.COLUMNNAME_SalesRep_ID);
         if (ii == null) return 0;
         return ii;
     }

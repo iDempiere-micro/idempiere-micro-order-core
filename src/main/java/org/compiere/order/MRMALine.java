@@ -337,7 +337,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
             if (tax.getTaxAmt().signum() != 0) {
                 if (!tax.save()) return false;
             } else {
-                if (!tax.is_new() && !tax.delete(false)) return false;
+                if (!tax.isNew() && !tax.delete(false)) return false;
             }
         }
         return true;

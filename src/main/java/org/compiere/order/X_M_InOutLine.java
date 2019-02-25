@@ -5,7 +5,6 @@ import org.compiere.model.I_M_InOutLine;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
-import org.idempiere.orm.I_Persistent;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -17,7 +16,7 @@ import java.util.Properties;
  * @author iDempiere (generated)
  * @version Release 5.1 - $Id$
  */
-public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
+public class X_M_InOutLine extends PO implements I_M_InOutLine {
 
     /**
      *
@@ -69,7 +68,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Performing or initiating organization
      */
     public int getAD_OrgTrx_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_AD_OrgTrx_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_AD_OrgTrx_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -90,7 +89,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Business Activity
      */
     public int getC_Activity_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_Activity_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_Activity_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -111,7 +110,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Marketing Campaign
      */
     public int getC_Campaign_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_Campaign_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_Campaign_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -132,7 +131,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Additional document charges
      */
     public int getC_Charge_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_Charge_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_Charge_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -168,7 +167,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Sales Order Line
      */
     public int getC_OrderLine_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_OrderLine_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_OrderLine_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -189,7 +188,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Financial Project
      */
     public int getC_Project_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_Project_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_Project_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -210,7 +209,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Phase of a Project
      */
     public int getC_ProjectPhase_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_ProjectPhase_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_ProjectPhase_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -231,7 +230,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Actual Project Task in a Phase
      */
     public int getC_ProjectTask_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_ProjectTask_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_ProjectTask_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -252,7 +251,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Unit of Measure
      */
     public int getC_UOM_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_UOM_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_UOM_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -273,7 +272,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Optional short description of the record
      */
     public String getDescription() {
-        return (String) get_Value(COLUMNNAME_Description);
+        return (String) getValue(COLUMNNAME_Description);
     }
 
     /**
@@ -291,7 +290,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return if true, the line is just description and no transaction
      */
     public boolean isDescription() {
-        Object oo = get_Value(COLUMNNAME_IsDescription);
+        Object oo = getValue(COLUMNNAME_IsDescription);
         if (oo != null) {
             if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
             return "Y".equals(oo);
@@ -323,7 +322,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Is this invoiced?
      */
     public boolean isInvoiced() {
-        Object oo = get_Value(COLUMNNAME_IsInvoiced);
+        Object oo = getValue(COLUMNNAME_IsInvoiced);
         if (oo != null) {
             if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
             return "Y".equals(oo);
@@ -337,7 +336,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Unique line for this document
      */
     public int getLine() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_Line);
+        Integer ii = (Integer) getValue(COLUMNNAME_Line);
         if (ii == null) return 0;
         return ii;
     }
@@ -368,7 +367,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Product Attribute Set Instance
      */
     public int getMAttributeSetInstance_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_AttributeSetInstance_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_M_AttributeSetInstance_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -385,7 +384,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Material Shipment Document
      */
     public int getM_InOut_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_InOut_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_M_InOut_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -406,7 +405,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Line on Shipment or Receipt document
      */
     public int getM_InOutLine_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_InOutLine_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_M_InOutLine_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -417,7 +416,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Warehouse Locator
      */
     public int getM_Locator_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_Locator_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_M_Locator_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -438,7 +437,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Quantity of a product moved.
      */
     public BigDecimal getMovementQty() {
-        BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_MovementQty);
+        BigDecimal bd = (BigDecimal) getValue(COLUMNNAME_MovementQty);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -464,7 +463,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Product, Service, Item
      */
     public int getM_Product_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_Product_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_M_Product_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -491,7 +490,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Return Material Authorization Line
      */
     public int getM_RMALine_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_RMALine_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_M_RMALine_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -530,7 +529,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return The Quantity Entered is based on the selected UoM
      */
     public BigDecimal getQtyEntered() {
-        BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_QtyEntered);
+        BigDecimal bd = (BigDecimal) getValue(COLUMNNAME_QtyEntered);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -550,7 +549,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Over Receipt Quantity
      */
     public BigDecimal getQtyOverReceipt() {
-        BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_QtyOverReceipt);
+        BigDecimal bd = (BigDecimal) getValue(COLUMNNAME_QtyOverReceipt);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -570,7 +569,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Referenced Shipment Line
      */
     public int getRef_InOutLine_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_Ref_InOutLine_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_Ref_InOutLine_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -591,7 +590,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return Use to keep the reversal line ID for reversing costing purpose
      */
     public int getReversalLine_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_ReversalLine_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_ReversalLine_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -630,7 +629,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return User defined list element #1
      */
     public int getUser1_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_User1_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_User1_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -651,7 +650,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine, I_Persistent {
      * @return User defined list element #2
      */
     public int getUser2_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_User2_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_User2_ID);
         if (ii == null) return 0;
         return ii;
     }

@@ -2,7 +2,6 @@ package org.compiere.order;
 
 import org.compiere.model.I_C_OnlineTrxHistory;
 import org.compiere.orm.PO;
-import org.idempiere.orm.I_Persistent;
 
 import java.sql.ResultSet;
 import java.util.Properties;
@@ -13,7 +12,7 @@ import java.util.Properties;
  * @author iDempiere (generated)
  * @version Release 5.1 - $Id$
  */
-public class X_C_OnlineTrxHistory extends PO implements I_C_OnlineTrxHistory, I_Persistent {
+public class X_C_OnlineTrxHistory extends PO implements I_C_OnlineTrxHistory {
 
     /**
      *
@@ -26,8 +25,8 @@ public class X_C_OnlineTrxHistory extends PO implements I_C_OnlineTrxHistory, I_
     public X_C_OnlineTrxHistory(Properties ctx, int C_OnlineTrxHistory_ID) {
         super(ctx, C_OnlineTrxHistory_ID);
         /**
-         * if (C_OnlineTrxHistory_ID == 0) { setAD_Table_ID (0); setC_OnlineTrxHistory_ID (0);
-         * setIsError (false); // N setProcessed (false); // N setRecord_ID (0); }
+         * if (C_OnlineTrxHistory_ID == 0) { setColumnTableId (0); setC_OnlineTrxHistory_ID (0);
+         * setIsError (false); // N setProcessed (false); // N setRecordId (0); }
          */
     }
 
@@ -50,17 +49,6 @@ public class X_C_OnlineTrxHistory extends PO implements I_C_OnlineTrxHistory, I_
     public String toString() {
         StringBuffer sb = new StringBuffer("X_C_OnlineTrxHistory[").append(getId()).append("]");
         return sb.toString();
-    }
-
-    /**
-     * Get Table.
-     *
-     * @return Database Table information
-     */
-    public int getAD_Table_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_AD_Table_ID);
-        if (ii == null) return 0;
-        return ii;
     }
 
     /**

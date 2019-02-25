@@ -3,7 +3,6 @@ package org.compiere.order;
 import org.compiere.model.I_M_ShippingProcessor;
 import org.compiere.orm.BasePOName;
 import org.compiere.orm.MTable;
-import org.idempiere.orm.I_Persistent;
 
 import java.sql.ResultSet;
 import java.util.Properties;
@@ -15,7 +14,7 @@ import java.util.Properties;
  * @version Release 5.1 - $Id$
  */
 public class X_M_ShippingProcessor extends BasePOName
-        implements I_M_ShippingProcessor, I_Persistent {
+        implements I_M_ShippingProcessor {
 
     /**
      *
@@ -50,24 +49,6 @@ public class X_M_ShippingProcessor extends BasePOName
         return sb.toString();
     }
 
-    /**
-     * Get Connection Key.
-     *
-     * @return Connection Key
-     */
-    public String getConnectionKey() {
-        return (String) get_Value(COLUMNNAME_ConnectionKey);
-    }
-
-    /**
-     * Get Connection Password.
-     *
-     * @return Connection Password
-     */
-    public String getConnectionPassword() {
-        return (String) get_Value(COLUMNNAME_ConnectionPassword);
-    }
-
     public org.compiere.model.I_M_ShippingProcessorCfg getM_ShippingProcessorCfg()
             throws RuntimeException {
         return (org.compiere.model.I_M_ShippingProcessorCfg)
@@ -81,18 +62,9 @@ public class X_M_ShippingProcessor extends BasePOName
      * @return Shipping Processor Configuration
      */
     public int getM_ShippingProcessorCfg_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_ShippingProcessorCfg_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_M_ShippingProcessorCfg_ID);
         if (ii == null) return 0;
         return ii;
-    }
-
-    /**
-     * Get User ID.
-     *
-     * @return User ID or account number
-     */
-    public String getUserID() {
-        return (String) get_Value(COLUMNNAME_UserID);
     }
 
     @Override

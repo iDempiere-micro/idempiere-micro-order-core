@@ -4,7 +4,6 @@ import org.compiere.model.I_M_RMALine;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
-import org.idempiere.orm.I_Persistent;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -16,7 +15,7 @@ import java.util.Properties;
  * @author iDempiere (generated)
  * @version Release 5.1 - $Id$
  */
-public class X_M_RMALine extends PO implements I_Persistent {
+public class X_M_RMALine extends PO {
 
     /**
      *
@@ -61,7 +60,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
      * @return Amount
      */
     public BigDecimal getAmt() {
-        BigDecimal bd = (BigDecimal) get_Value(I_M_RMALine.COLUMNNAME_Amt);
+        BigDecimal bd = (BigDecimal) getValue(I_M_RMALine.COLUMNNAME_Amt);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -81,7 +80,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
      * @return Additional document charges
      */
     public int getC_Charge_ID() {
-        Integer ii = (Integer) get_Value(I_M_RMALine.COLUMNNAME_C_Charge_ID);
+        Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_C_Charge_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -102,7 +101,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
      * @return Tax identifier
      */
     public int getC_Tax_ID() {
-        Integer ii = (Integer) get_Value(I_M_RMALine.COLUMNNAME_C_Tax_ID);
+        Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_C_Tax_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -123,7 +122,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
      * @return Optional short description of the record
      */
     public String getDescription() {
-        return (String) get_Value(I_M_RMALine.COLUMNNAME_Description);
+        return (String) getValue(I_M_RMALine.COLUMNNAME_Description);
     }
 
     /**
@@ -141,7 +140,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
      * @return Unique line for this document
      */
     public int getLine() {
-        Integer ii = (Integer) get_Value(I_M_RMALine.COLUMNNAME_Line);
+        Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_Line);
         if (ii == null) return 0;
         return ii;
     }
@@ -161,7 +160,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
      * @return Line Extended Amount (Quantity * Actual Price) without Freight and Charges
      */
     public BigDecimal getLineNetAmt() {
-        BigDecimal bd = (BigDecimal) get_Value(I_M_RMALine.COLUMNNAME_LineNetAmt);
+        BigDecimal bd = (BigDecimal) getValue(I_M_RMALine.COLUMNNAME_LineNetAmt);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -188,7 +187,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
      * @return Line on Shipment or Receipt document
      */
     public int getM_InOutLine_ID() {
-        Integer ii = (Integer) get_Value(I_M_RMALine.COLUMNNAME_M_InOutLine_ID);
+        Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_M_InOutLine_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -209,7 +208,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
      * @return Product, Service, Item
      */
     public int getM_Product_ID() {
-        Integer ii = (Integer) get_Value(I_M_RMALine.COLUMNNAME_M_Product_ID);
+        Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_M_Product_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -224,19 +223,13 @@ public class X_M_RMALine extends PO implements I_Persistent {
         else set_Value(I_M_RMALine.COLUMNNAME_M_Product_ID, M_Product_ID);
     }
 
-    public org.compiere.model.I_M_RMA getM_RMA() throws RuntimeException {
-        return (org.compiere.model.I_M_RMA)
-                MTable.get(getCtx(), org.compiere.model.I_M_RMA.Table_Name)
-                        .getPO(getM_RMA_ID());
-    }
-
     /**
      * Get RMA.
      *
      * @return Return Material Authorization
      */
     public int getM_RMA_ID() {
-        Integer ii = (Integer) get_Value(I_M_RMALine.COLUMNNAME_M_RMA_ID);
+        Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_M_RMA_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -257,7 +250,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
      * @return Return Material Authorization Line
      */
     public int getM_RMALine_ID() {
-        Integer ii = (Integer) get_Value(I_M_RMALine.COLUMNNAME_M_RMALine_ID);
+        Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_M_RMALine_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -268,7 +261,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
      * @return The document has been processed
      */
     public boolean isProcessed() {
-        Object oo = get_Value(I_M_RMALine.COLUMNNAME_Processed);
+        Object oo = getValue(I_M_RMALine.COLUMNNAME_Processed);
         if (oo != null) {
             if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
             return "Y".equals(oo);
@@ -291,7 +284,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
      * @return Quantity
      */
     public BigDecimal getQty() {
-        BigDecimal bd = (BigDecimal) get_Value(I_M_RMALine.COLUMNNAME_Qty);
+        BigDecimal bd = (BigDecimal) getValue(I_M_RMALine.COLUMNNAME_Qty);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -311,7 +304,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
      * @return Delivered Quantity
      */
     public BigDecimal getQtyDelivered() {
-        BigDecimal bd = (BigDecimal) get_Value(I_M_RMALine.COLUMNNAME_QtyDelivered);
+        BigDecimal bd = (BigDecimal) getValue(I_M_RMALine.COLUMNNAME_QtyDelivered);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -331,7 +324,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
      * @return Invoiced Quantity
      */
     public BigDecimal getQtyInvoiced() {
-        BigDecimal bd = (BigDecimal) get_Value(I_M_RMALine.COLUMNNAME_QtyInvoiced);
+        BigDecimal bd = (BigDecimal) getValue(I_M_RMALine.COLUMNNAME_QtyInvoiced);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -351,7 +344,7 @@ public class X_M_RMALine extends PO implements I_Persistent {
      * @return Referenced RMA Line
      */
     public int getRef_RMALine_ID() {
-        Integer ii = (Integer) get_Value(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID);
+        Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID);
         if (ii == null) return 0;
         return ii;
     }

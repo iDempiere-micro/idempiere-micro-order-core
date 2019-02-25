@@ -3,7 +3,6 @@ package org.compiere.order;
 import kotliquery.Row;
 import org.compiere.model.I_C_PaymentTerm;
 import org.compiere.orm.BasePONameValue;
-import org.idempiere.orm.I_Persistent;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -15,7 +14,7 @@ import java.util.Properties;
  * @author iDempiere (generated)
  * @version Release 5.1 - $Id$
  */
-public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
+public class X_C_PaymentTerm extends BasePONameValue {
 
     /**
      *
@@ -68,7 +67,7 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
      * @return The terms of Payment (timing, discount)
      */
     public int getC_PaymentTerm_ID() {
-        Integer ii = (Integer) get_Value(I_C_PaymentTerm.COLUMNNAME_C_PaymentTerm_ID);
+        Integer ii = (Integer) getValue(I_C_PaymentTerm.COLUMNNAME_C_PaymentTerm_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -115,7 +114,7 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
      * @return Last day to include for next due date
      */
     public int getFixMonthCutoff() {
-        Integer ii = (Integer) get_Value(I_C_PaymentTerm.COLUMNNAME_FixMonthCutoff);
+        Integer ii = (Integer) getValue(I_C_PaymentTerm.COLUMNNAME_FixMonthCutoff);
         if (ii == null) return 0;
         return ii;
     }
@@ -126,7 +125,7 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
      * @return Day of the month of the due date
      */
     public int getFixMonthDay() {
-        Integer ii = (Integer) get_Value(I_C_PaymentTerm.COLUMNNAME_FixMonthDay);
+        Integer ii = (Integer) getValue(I_C_PaymentTerm.COLUMNNAME_FixMonthDay);
         if (ii == null) return 0;
         return ii;
     }
@@ -155,7 +154,7 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
      * @return Payment is due on a fixed date
      */
     public boolean isDueFixed() {
-        Object oo = get_Value(I_C_PaymentTerm.COLUMNNAME_IsDueFixed);
+        Object oo = getValue(I_C_PaymentTerm.COLUMNNAME_IsDueFixed);
         if (oo != null) {
             if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
             return "Y".equals(oo);
@@ -178,7 +177,7 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
      * @return Element is valid
      */
     public boolean isValid() {
-        Object oo = get_Value(I_C_PaymentTerm.COLUMNNAME_IsValid);
+        Object oo = getValue(I_C_PaymentTerm.COLUMNNAME_IsValid);
         if (oo != null) {
             if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
             return "Y".equals(oo);
@@ -192,7 +191,7 @@ public class X_C_PaymentTerm extends BasePONameValue implements I_Persistent {
      * @return Net Days in which payment is due
      */
     public int getNetDays() {
-        Integer ii = (Integer) get_Value(I_C_PaymentTerm.COLUMNNAME_NetDays);
+        Integer ii = (Integer) getValue(I_C_PaymentTerm.COLUMNNAME_NetDays);
         if (ii == null) return 0;
         return ii;
     }

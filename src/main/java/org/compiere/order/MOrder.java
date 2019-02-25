@@ -256,7 +256,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
     public void setAD_User_ID(int AD_User_ID) {
         super.setAD_User_ID(AD_User_ID);
         super.setBill_User_ID(AD_User_ID);
-    } //	setAD_User_ID
+    } //	setUserId
 
     /**
      * Set Warehouse
@@ -265,7 +265,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
      */
     public void setM_Warehouse_ID(int M_Warehouse_ID) {
         super.setM_Warehouse_ID(M_Warehouse_ID);
-    } //	setM_Warehouse_ID
+    } //	setWarehouseId
 
     /**
      * Set Drop Ship
@@ -379,7 +379,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
 
         //	Set Contact
         I_AD_User[] contacts = bp.getContacts();
-        if (contacts != null && contacts.length == 1) setAD_User_ID(contacts[0].getAD_User_ID());
+        if (contacts != null && contacts.length == 1) setAD_User_ID(contacts[0].getUserId());
     } //	setBPartner
 
     /**
@@ -723,7 +723,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
         if (getOrgId() == 0) {
             int context_AD_Org_ID = Env.getOrgId(getCtx());
             if (context_AD_Org_ID != 0) {
-                setAD_Org_ID(context_AD_Org_ID);
+                setOrgId(context_AD_Org_ID);
                 log.warning("Changed Org to Context=" + context_AD_Org_ID);
             }
         }
@@ -854,7 +854,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
                     MPriceListVersion plOld =
                             pList.getPriceListVersion((Timestamp) get_ValueOld(COLUMNNAME_DateOrdered));
                     MPriceListVersion plNew =
-                            pList.getPriceListVersion((Timestamp) get_Value(COLUMNNAME_DateOrdered));
+                            pList.getPriceListVersion((Timestamp) getValue(COLUMNNAME_DateOrdered));
                     if (plNew == null || !plNew.equals(plOld)) {
                         log.saveError("Error", Msg.getMsg(getCtx(), "CannotChangeDateOrdered"));
                         return false;
@@ -946,7 +946,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
                 || is_ValueChanged(COLUMNNAME_C_Currency_ID)) {
             MOrderLine[] lines = getLines();
             for (MOrderLine line : lines) {
-                if (is_ValueChanged("AD_Org_ID")) line.setAD_Org_ID(getOrgId());
+                if (is_ValueChanged("AD_Org_ID")) line.setOrgId(getOrgId());
                 if (is_ValueChanged(COLUMNNAME_C_BPartner_ID)) line.setC_BPartner_ID(getC_BPartner_ID());
                 if (is_ValueChanged(COLUMNNAME_C_BPartner_Location_ID))
                     line.setC_BPartner_Location_ID(getC_BPartner_Location_ID());
@@ -976,7 +976,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
 
     protected boolean calculateFreightCharge() {
         MClientInfo ci = MClientInfo.get(getCtx(), getClientId());
-        if (ci.getC_ChargeFreight_ID() == 0 && ci.getM_ProductFreight_ID() == 0) {
+        if (ci.getChargeFreightId() == 0 && ci.getProductFreightId() == 0) {
             m_processMsg =
                     "Product or Charge for Freight is not defined at Client window > Client Info tab";
             return false;
@@ -990,8 +990,8 @@ public class MOrder extends X_C_Order implements I_C_Order {
 
         MOrderLine freightLine = null;
         for (MOrderLine ol : ols) {
-            if ((ol.getM_Product_ID() > 0 && ol.getM_Product_ID() == ci.getM_ProductFreight_ID())
-                    || (ol.getC_Charge_ID() > 0 && ol.getC_Charge_ID() == ci.getC_ChargeFreight_ID())) {
+            if ((ol.getM_Product_ID() > 0 && ol.getM_Product_ID() == ci.getProductFreightId())
+                    || (ol.getC_Charge_ID() > 0 && ol.getC_Charge_ID() == ci.getChargeFreightId())) {
                 freightLine = ol;
                 break;
             }
@@ -1012,9 +1012,9 @@ public class MOrder extends X_C_Order implements I_C_Order {
             if (freightLine == null) {
                 freightLine = new MOrderLine(this);
 
-                if (ci.getC_ChargeFreight_ID() > 0) freightLine.setC_Charge_ID(ci.getC_ChargeFreight_ID());
-                else if (ci.getM_ProductFreight_ID() > 0)
-                    freightLine.setM_Product_ID(ci.getM_ProductFreight_ID());
+                if (ci.getChargeFreightId() > 0) freightLine.setC_Charge_ID(ci.getChargeFreightId());
+                else if (ci.getProductFreightId() > 0)
+                    freightLine.setM_Product_ID(ci.getProductFreightId());
                 else
                     throw new AdempiereException(
                             "Product or Charge for Freight is not defined at Client window > Client Info tab");
@@ -1026,18 +1026,18 @@ public class MOrder extends X_C_Order implements I_C_Order {
             freightLine.setPrice(getFreightAmt());
             freightLine.saveEx();
         } else if (getFreightCostRule().equals(FREIGHTCOSTRULE_Calculated)) {
-            if (ci.getC_UOM_Weight_ID() == 0) {
+            if (ci.getUOMWeightId() == 0) {
                 m_processMsg = "UOM for Weight is not defined at Client window > Client Info tab";
                 return false;
             }
-            if (ci.getC_UOM_Length_ID() == 0) {
+            if (ci.getUOMLengthId() == 0) {
                 m_processMsg = "UOM for Length is not defined at Client window > Client Info ta";
                 return false;
             }
 
             for (MOrderLine ol : ols) {
-                if ((ol.getM_Product_ID() > 0 && ol.getM_Product_ID() == ci.getM_ProductFreight_ID())
-                        || (ol.getC_Charge_ID() > 0 && ol.getC_Charge_ID() == ci.getC_ChargeFreight_ID()))
+                if ((ol.getM_Product_ID() > 0 && ol.getM_Product_ID() == ci.getProductFreightId())
+                        || (ol.getC_Charge_ID() > 0 && ol.getC_Charge_ID() == ci.getChargeFreightId()))
                     continue;
                 else if (ol.getM_Product_ID() > 0) {
                     MProduct product = new MProduct(getCtx(), ol.getM_Product_ID());
@@ -1070,10 +1070,10 @@ public class MOrder extends X_C_Order implements I_C_Order {
                 if (freightLine == null) {
                     freightLine = new MOrderLine(this);
 
-                    if (ci.getC_ChargeFreight_ID() > 0)
-                        freightLine.setC_Charge_ID(ci.getC_ChargeFreight_ID());
-                    else if (ci.getM_ProductFreight_ID() > 0)
-                        freightLine.setM_Product_ID(ci.getM_ProductFreight_ID());
+                    if (ci.getChargeFreightId() > 0)
+                        freightLine.setC_Charge_ID(ci.getChargeFreightId());
+                    else if (ci.getProductFreightId() > 0)
+                        freightLine.setM_Product_ID(ci.getProductFreightId());
                     else
                         throw new AdempiereException(
                                 "Product or Charge for Freight is not defined at Client window > Client Info tab");

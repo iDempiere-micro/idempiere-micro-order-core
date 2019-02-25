@@ -3,7 +3,6 @@ package org.compiere.order;
 import org.compiere.model.I_C_OrderPaySchedule;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
-import org.idempiere.orm.I_Persistent;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -16,7 +15,7 @@ import java.util.Properties;
  * @author iDempiere (generated)
  * @version Release 5.1 - $Id$
  */
-public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_Persistent {
+public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule {
 
     /**
      *
@@ -63,7 +62,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
      * @return Order
      */
     public int getC_Order_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_Order_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_Order_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -76,17 +75,6 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
     public void setC_Order_ID(int C_Order_ID) {
         if (C_Order_ID < 1) set_ValueNoCheck(COLUMNNAME_C_Order_ID, null);
         else set_ValueNoCheck(COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
-    }
-
-    /**
-     * Get Payment Schedule.
-     *
-     * @return Payment Schedule Template
-     */
-    public int getC_PaySchedule_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_PaySchedule_ID);
-        if (ii == null) return 0;
-        return ii;
     }
 
     /**
@@ -105,7 +93,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
      * @return Calculated amount of discount
      */
     public BigDecimal getDiscountAmt() {
-        BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_DiscountAmt);
+        BigDecimal bd = (BigDecimal) getValue(COLUMNNAME_DiscountAmt);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -125,7 +113,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
      * @return Last Date for payments with discount
      */
     public Timestamp getDiscountDate() {
-        return (Timestamp) get_Value(COLUMNNAME_DiscountDate);
+        return (Timestamp) getValue(COLUMNNAME_DiscountDate);
     }
 
     /**
@@ -143,7 +131,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
      * @return Amount of the payment due
      */
     public BigDecimal getDueAmt() {
-        BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_DueAmt);
+        BigDecimal bd = (BigDecimal) getValue(COLUMNNAME_DueAmt);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -163,7 +151,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
      * @return Date when the payment is due
      */
     public Timestamp getDueDate() {
-        return (Timestamp) get_Value(COLUMNNAME_DueDate);
+        return (Timestamp) getValue(COLUMNNAME_DueDate);
     }
 
     /**
@@ -190,7 +178,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
      * @return Element is valid
      */
     public boolean isValid() {
-        Object oo = get_Value(COLUMNNAME_IsValid);
+        Object oo = getValue(COLUMNNAME_IsValid);
         if (oo != null) {
             if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
             return "Y".equals(oo);
@@ -204,7 +192,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule, I_
      * @return Process Now
      */
     public boolean isProcessing() {
-        Object oo = get_Value(COLUMNNAME_Processing);
+        Object oo = getValue(COLUMNNAME_Processing);
         if (oo != null) {
             if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
             return "Y".equals(oo);

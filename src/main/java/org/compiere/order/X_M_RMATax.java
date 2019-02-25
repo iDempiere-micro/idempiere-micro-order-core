@@ -3,7 +3,6 @@ package org.compiere.order;
 import org.compiere.model.I_M_RMATax;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
-import org.idempiere.orm.I_Persistent;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -15,7 +14,7 @@ import java.util.Properties;
  * @author iDempiere (generated)
  * @version Release 5.1 - $Id$
  */
-public class X_M_RMATax extends PO implements I_Persistent {
+public class X_M_RMATax extends PO {
 
     /**
      *
@@ -60,7 +59,7 @@ public class X_M_RMATax extends PO implements I_Persistent {
      * @return Tax identifier
      */
     public int getC_Tax_ID() {
-        Integer ii = (Integer) get_Value(I_M_RMATax.COLUMNNAME_C_Tax_ID);
+        Integer ii = (Integer) getValue(I_M_RMATax.COLUMNNAME_C_Tax_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -81,7 +80,7 @@ public class X_M_RMATax extends PO implements I_Persistent {
      * @return Tax Provider
      */
     public int getC_TaxProvider_ID() {
-        Integer ii = (Integer) get_Value(I_M_RMATax.COLUMNNAME_C_TaxProvider_ID);
+        Integer ii = (Integer) getValue(I_M_RMATax.COLUMNNAME_C_TaxProvider_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -101,7 +100,7 @@ public class X_M_RMATax extends PO implements I_Persistent {
      * @return Tax is included in the price
      */
     public boolean isTaxIncluded() {
-        Object oo = get_Value(I_M_RMATax.COLUMNNAME_IsTaxIncluded);
+        Object oo = getValue(I_M_RMATax.COLUMNNAME_IsTaxIncluded);
         if (oo != null) {
             if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
             return "Y".equals(oo);
@@ -115,7 +114,7 @@ public class X_M_RMATax extends PO implements I_Persistent {
      * @return Return Material Authorization
      */
     public int getM_RMA_ID() {
-        Integer ii = (Integer) get_Value(I_M_RMATax.COLUMNNAME_M_RMA_ID);
+        Integer ii = (Integer) getValue(I_M_RMATax.COLUMNNAME_M_RMA_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -136,7 +135,7 @@ public class X_M_RMATax extends PO implements I_Persistent {
      * @return Tax Amount for a document
      */
     public BigDecimal getTaxAmt() {
-        BigDecimal bd = (BigDecimal) get_Value(I_M_RMATax.COLUMNNAME_TaxAmt);
+        BigDecimal bd = (BigDecimal) getValue(I_M_RMATax.COLUMNNAME_TaxAmt);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -156,7 +155,7 @@ public class X_M_RMATax extends PO implements I_Persistent {
      * @return Base for calculating the tax amount
      */
     public BigDecimal getTaxBaseAmt() {
-        BigDecimal bd = (BigDecimal) get_Value(I_M_RMATax.COLUMNNAME_TaxBaseAmt);
+        BigDecimal bd = (BigDecimal) getValue(I_M_RMATax.COLUMNNAME_TaxBaseAmt);
         if (bd == null) return Env.ZERO;
         return bd;
     }

@@ -3,7 +3,6 @@ package org.compiere.order;
 import org.compiere.model.I_M_Shipper;
 import org.compiere.orm.BasePOName;
 import org.compiere.orm.MTable;
-import org.idempiere.orm.I_Persistent;
 
 import java.sql.ResultSet;
 import java.util.Properties;
@@ -14,7 +13,7 @@ import java.util.Properties;
  * @author iDempiere (generated)
  * @version Release 5.1 - $Id$
  */
-public class X_M_Shipper extends BasePOName implements I_M_Shipper, I_Persistent {
+public class X_M_Shipper extends BasePOName implements I_M_Shipper {
 
     /**
      *
@@ -55,7 +54,7 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper, I_Persistent
      * @return Identifies a Business Partner
      */
     public int getC_BPartner_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_BPartner_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_BPartner_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -72,7 +71,7 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper, I_Persistent
      * @return Shipper Configuration
      */
     public int getM_ShipperCfg_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_ShipperCfg_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_M_ShipperCfg_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -83,7 +82,7 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper, I_Persistent
      * @return Method or manner of product delivery
      */
     public int getM_Shipper_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_Shipper_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_M_Shipper_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -94,7 +93,7 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper, I_Persistent
      * @return Shipping Processor
      */
     public int getM_ShippingProcessor_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_ShippingProcessor_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_M_ShippingProcessor_ID);
         if (ii == null) return 0;
         return ii;
     }

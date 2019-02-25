@@ -83,10 +83,10 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
         if (C_OrderLine_ID == 0) {
             //	setC_Order_ID (0);
             //	setLine (0);
-            //	setM_Warehouse_ID (0);	// @M_Warehouse_ID@
+            //	setWarehouseId (0);	// @M_Warehouse_ID@
             //	setC_BPartner_ID(0);
             //	setC_BPartner_Location_ID (0);	// @C_BPartner_Location_ID@
-            //	setC_Currency_ID (0);	// @C_Currency_ID@
+            //	setCurrencyId (0);	// @C_Currency_ID@
             //	setDateOrdered (new Timestamp(System.currentTimeMillis()));	// @DateOrdered@
             //
             //	setC_Tax_ID (0);
@@ -463,7 +463,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
         if (getM_Warehouse_ID() > 0 && getM_Warehouse_ID() != M_Warehouse_ID && !canChangeWarehouse())
             log.severe("Ignored - Already Delivered/Invoiced/Reserved");
         else super.setM_Warehouse_ID(M_Warehouse_ID);
-    } //	setM_Warehouse_ID
+    } //	setWarehouseId
 
     /**
      * Can Change Warehouse
@@ -858,7 +858,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
             if (tax.getTaxAmt().signum() != 0) {
                 if (!tax.save()) return false;
             } else {
-                if (!tax.is_new() && !tax.delete(false)) return false;
+                if (!tax.isNew() && !tax.delete(false)) return false;
             }
         }
         return true;

@@ -155,7 +155,7 @@ public class MInOutLine extends X_M_InOutLine {
     public int getM_Warehouse_ID() {
         if (m_M_Warehouse_ID == 0) m_M_Warehouse_ID = getParent().getM_Warehouse_ID();
         return m_M_Warehouse_ID;
-    } //	getM_Warehouse_ID
+    } //	getWarehouseId
 
     /**
      * Set Warehouse
@@ -164,7 +164,7 @@ public class MInOutLine extends X_M_InOutLine {
      */
     public void setM_Warehouse_ID(int warehouse_ID) {
         m_M_Warehouse_ID = warehouse_ID;
-    } //	setM_Warehouse_ID
+    } //	setWarehouseId
 
     /**
      * Set M_Locator_ID

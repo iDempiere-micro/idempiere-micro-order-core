@@ -75,7 +75,7 @@ public class MInOut extends X_M_InOut {
             //	setDocumentNo (null);
             //	setC_BPartner_ID (0);
             //	setC_BPartner_Location_ID (0);
-            //	setM_Warehouse_ID (0);
+            //	setWarehouseId (0);
             //	setC_DocType_ID (0);
             setIsSOTrx(false);
             setMovementDate(new Timestamp(System.currentTimeMillis()));
@@ -522,7 +522,7 @@ public class MInOut extends X_M_InOut {
         //	Set Contact
         MUser[] contacts = bp.getContacts(false);
         if (contacts != null && contacts.length > 0) // 	get first User
-            setAD_User_ID(contacts[0].getAD_User_ID());
+            setAD_User_ID(contacts[0].getUserId());
     } //	setBPartner
 
     /**
@@ -591,7 +591,7 @@ public class MInOut extends X_M_InOut {
             // Set Document and Movement type for this Receipt
             MRMA rma = new MRMA(getCtx(), getM_RMA_ID());
             MDocType docType = MDocType.get(getCtx(), rma.getC_DocType_ID());
-            setC_DocType_ID(docType.getC_DocTypeShipment_ID());
+            setC_DocType_ID(docType.getDocTypeShipmentId());
         }
 
         return true;

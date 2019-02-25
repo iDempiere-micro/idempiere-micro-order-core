@@ -3,7 +3,6 @@ package org.compiere.order;
 import org.compiere.model.I_M_ShippingTransaction;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
-import org.idempiere.orm.I_Persistent;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -16,7 +15,7 @@ import java.util.Properties;
  * @author iDempiere (generated)
  * @version Release 5.1 - $Id$
  */
-public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransaction, I_Persistent {
+public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransaction {
 
     /**
      * Rate Inquiry = RI
@@ -96,7 +95,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @return Indicates the Action to be performed
      */
     public String getAction() {
-        return (String) get_Value(COLUMNNAME_Action);
+        return (String) getValue(COLUMNNAME_Action);
     }
 
     /**
@@ -110,17 +109,6 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
     }
 
     /**
-     * Get User/Contact.
-     *
-     * @return User within the system - Internal or Business Partner Contact
-     */
-    public int getAD_User_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_AD_User_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
      * Set User/Contact.
      *
      * @param AD_User_ID User within the system - Internal or Business Partner Contact
@@ -128,17 +116,6 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
     public void setAD_User_ID(int AD_User_ID) {
         if (AD_User_ID < 1) set_Value(COLUMNNAME_AD_User_ID, null);
         else set_Value(COLUMNNAME_AD_User_ID, Integer.valueOf(AD_User_ID));
-    }
-
-    /**
-     * Get Invoice Location.
-     *
-     * @return Business Partner Location for invoicing
-     */
-    public int getBill_Location_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_Bill_Location_ID);
-        if (ii == null) return 0;
-        return ii;
     }
 
     /**
@@ -166,23 +143,12 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @return COD
      */
     public boolean isCashOnDelivery() {
-        Object oo = get_Value(COLUMNNAME_CashOnDelivery);
+        Object oo = getValue(COLUMNNAME_CashOnDelivery);
         if (oo != null) {
             if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
             return "Y".equals(oo);
         }
         return false;
-    }
-
-    /**
-     * Get Business Partner .
-     *
-     * @return Identifies a Business Partner
-     */
-    public int getC_BPartner_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_BPartner_ID);
-        if (ii == null) return 0;
-        return ii;
     }
 
     /**
@@ -196,17 +162,6 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
     }
 
     /**
-     * Get Partner Location.
-     *
-     * @return Identifies the (ship to) address for this Business Partner
-     */
-    public int getC_BPartner_Location_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_BPartner_Location_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
      * Set Partner Location.
      *
      * @param C_BPartner_Location_ID Identifies the (ship to) address for this Business Partner
@@ -214,28 +169,6 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
     public void setC_BPartner_Location_ID(int C_BPartner_Location_ID) {
         if (C_BPartner_Location_ID < 1) set_Value(COLUMNNAME_C_BPartner_Location_ID, null);
         else set_Value(COLUMNNAME_C_BPartner_Location_ID, Integer.valueOf(C_BPartner_Location_ID));
-    }
-
-    /**
-     * Get Business Partner Shipping Account.
-     *
-     * @return Business Partner Shipping Account
-     */
-    public int getC_BP_ShippingAcct_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_BP_ShippingAcct_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
-     * Get Currency.
-     *
-     * @return The Currency for this record
-     */
-    public int getC_Currency_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_Currency_ID);
-        if (ii == null) return 0;
-        return ii;
     }
 
     /**
@@ -249,34 +182,12 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
     }
 
     /**
-     * Get Invoice.
-     *
-     * @return Invoice Identifier
-     */
-    public int getC_Invoice_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_Invoice_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
      * Set COD Amount.
      *
      * @param CODAmount COD Amount
      */
     public void setCODAmount(BigDecimal CODAmount) {
         set_Value(COLUMNNAME_CODAmount, CODAmount);
-    }
-
-    /**
-     * Get Order.
-     *
-     * @return Order
-     */
-    public int getC_Order_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_Order_ID);
-        if (ii == null) return 0;
-        return ii;
     }
 
     /**
@@ -290,17 +201,6 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
     }
 
     /**
-     * Get UOM for Length.
-     *
-     * @return Standard Unit of Measure for Length
-     */
-    public int getC_UOM_Length_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_UOM_Length_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
      * Set UOM for Length.
      *
      * @param C_UOM_Length_ID Standard Unit of Measure for Length
@@ -308,17 +208,6 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
     public void setC_UOM_Length_ID(int C_UOM_Length_ID) {
         if (C_UOM_Length_ID < 1) set_Value(COLUMNNAME_C_UOM_Length_ID, null);
         else set_Value(COLUMNNAME_C_UOM_Length_ID, Integer.valueOf(C_UOM_Length_ID));
-    }
-
-    /**
-     * Get UOM for Weight.
-     *
-     * @return Standard Unit of Measure for Weight
-     */
-    public int getC_UOM_Weight_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_UOM_Weight_ID);
-        if (ii == null) return 0;
-        return ii;
     }
 
     /**
@@ -338,15 +227,6 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      */
     public void setCustomsValue(BigDecimal CustomsValue) {
         set_Value(COLUMNNAME_CustomsValue, CustomsValue);
-    }
-
-    /**
-     * Get Duties Shipper Account.
-     *
-     * @return Duties Shipper Account
-     */
-    public String getDutiesShipperAccount() {
-        return (String) get_Value(COLUMNNAME_DutiesShipperAccount);
     }
 
     /**
@@ -373,7 +253,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @return Freight Charges
      */
     public String getFreightCharges() {
-        return (String) get_Value(COLUMNNAME_FreightCharges);
+        return (String) getValue(COLUMNNAME_FreightCharges);
     }
 
     /**
@@ -384,17 +264,6 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
     public void setFreightCharges(String FreightCharges) {
 
         set_ValueNoCheck(COLUMNNAME_FreightCharges, FreightCharges);
-    }
-
-    /**
-     * Get Hold Address.
-     *
-     * @return Hold Address
-     */
-    public int getHoldAddress_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_HoldAddress_ID);
-        if (ii == null) return 0;
-        return ii;
     }
 
     /**
@@ -412,7 +281,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @return Priviledged Rate
      */
     public boolean isPriviledgedRate() {
-        Object oo = get_Value(COLUMNNAME_IsPriviledgedRate);
+        Object oo = getValue(COLUMNNAME_IsPriviledgedRate);
         if (oo != null) {
             if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
             return "Y".equals(oo);
@@ -439,34 +308,12 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
     }
 
     /**
-     * Get Shipment/Receipt.
-     *
-     * @return Material Shipment Document
-     */
-    public int getM_InOut_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_InOut_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
-     * Get Package.
-     *
-     * @return Shipment Package
-     */
-    public int getM_Package_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_Package_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
      * Get Shipper.
      *
      * @return Method or manner of product delivery
      */
     public int getM_Shipper_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_Shipper_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_M_Shipper_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -482,17 +329,6 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
     }
 
     /**
-     * Get Shipper Labels.
-     *
-     * @return Shipper Labels
-     */
-    public int getM_ShipperLabels_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_ShipperLabels_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
      * Set Shipper Labels.
      *
      * @param M_ShipperLabels_ID Shipper Labels
@@ -500,17 +336,6 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
     public void setM_ShipperLabels_ID(int M_ShipperLabels_ID) {
         if (M_ShipperLabels_ID < 1) set_Value(COLUMNNAME_M_ShipperLabels_ID, null);
         else set_Value(COLUMNNAME_M_ShipperLabels_ID, Integer.valueOf(M_ShipperLabels_ID));
-    }
-
-    /**
-     * Get Shipper Packaging.
-     *
-     * @return Shipper Packaging
-     */
-    public int getM_ShipperPackaging_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_ShipperPackaging_ID);
-        if (ii == null) return 0;
-        return ii;
     }
 
     /**
@@ -524,17 +349,6 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
     }
 
     /**
-     * Get Shipper Pickup Types.
-     *
-     * @return Shipper Pickup Types
-     */
-    public int getM_ShipperPickupTypes_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_ShipperPickupTypes_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
      * Set Shipper Pickup Types.
      *
      * @param M_ShipperPickupTypes_ID Shipper Pickup Types
@@ -542,17 +356,6 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
     public void setM_ShipperPickupTypes_ID(int M_ShipperPickupTypes_ID) {
         if (M_ShipperPickupTypes_ID < 1) set_Value(COLUMNNAME_M_ShipperPickupTypes_ID, null);
         else set_Value(COLUMNNAME_M_ShipperPickupTypes_ID, Integer.valueOf(M_ShipperPickupTypes_ID));
-    }
-
-    /**
-     * Get Shipping Processor.
-     *
-     * @return Shipping Processor
-     */
-    public int getM_ShippingProcessor_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_ShippingProcessor_ID);
-        if (ii == null) return 0;
-        return ii;
     }
 
     /**
@@ -572,18 +375,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @return Shipping Transaction
      */
     public int getM_ShippingTransaction_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_ShippingTransaction_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
-     * Get Warehouse.
-     *
-     * @return Storage Warehouse and Service Point
-     */
-    public int getM_Warehouse_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_M_Warehouse_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_M_ShippingTransaction_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -624,7 +416,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @return Price
      */
     public BigDecimal getPrice() {
-        BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_Price);
+        BigDecimal bd = (BigDecimal) getValue(COLUMNNAME_Price);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -636,50 +428,6 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      */
     public void setProcessed(boolean Processed) {
         set_Value(COLUMNNAME_Processed, Boolean.valueOf(Processed));
-    }
-
-    /**
-     * Get Return Partner.
-     *
-     * @return Return Partner
-     */
-    public int getReturnBPartner_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_ReturnBPartner_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
-     * Get Return Location.
-     *
-     * @return Return Location
-     */
-    public int getReturnLocation_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_ReturnLocation_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
-     * Get Return User/Contact.
-     *
-     * @return Return User/Contact
-     */
-    public int getReturnUser_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_ReturnUser_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
-     * Get Sales Representative.
-     *
-     * @return Sales Representative or Company Agent
-     */
-    public int getSalesRep_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_SalesRep_ID);
-        if (ii == null) return 0;
-        return ii;
     }
 
     /**
@@ -702,15 +450,6 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
     }
 
     /**
-     * Get Shipper Account Number.
-     *
-     * @return Shipper Account Number
-     */
-    public String getShipperAccount() {
-        return (String) get_Value(COLUMNNAME_ShipperAccount);
-    }
-
-    /**
      * Set Shipper Account Number.
      *
      * @param ShipperAccount Shipper Account Number
@@ -725,7 +464,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @return Response Message
      */
     public String getShippingRespMessage() {
-        return (String) get_Value(COLUMNNAME_ShippingRespMessage);
+        return (String) getValue(COLUMNNAME_ShippingRespMessage);
     }
 
     /**

@@ -6,7 +6,6 @@ import org.compiere.model.I_C_Charge;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
-import org.idempiere.orm.I_Persistent;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -18,7 +17,7 @@ import java.util.Properties;
  * @author iDempiere (generated)
  * @version Release 5.1 - $Id$
  */
-public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
+public class X_C_Charge extends PO implements I_C_Charge {
 
     /**
      *
@@ -68,18 +67,7 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
      * @return Identifies a Business Partner
      */
     public int getC_BPartner_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_BPartner_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
-     * Get Charge Type.
-     *
-     * @return Charge Type
-     */
-    public int getC_ChargeType_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_ChargeType_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_BPartner_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -90,7 +78,7 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
      * @return Charge Amount
      */
     public BigDecimal getChargeAmt() {
-        BigDecimal bd = (BigDecimal) get_Value(COLUMNNAME_ChargeAmt);
+        BigDecimal bd = (BigDecimal) getValue(COLUMNNAME_ChargeAmt);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -116,7 +104,7 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
      * @return Tax Category
      */
     public int getC_TaxCategory_ID() {
-        Integer ii = (Integer) get_Value(COLUMNNAME_C_TaxCategory_ID);
+        Integer ii = (Integer) getValue(COLUMNNAME_C_TaxCategory_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -154,7 +142,7 @@ public class X_C_Charge extends PO implements I_C_Charge, I_Persistent {
      * @return Alphanumeric identifier of the entity
      */
     public String getName() {
-        return (String) get_Value(HasName.Companion.getCOLUMNNAME_Name());
+        return (String) getValue(HasName.Companion.getCOLUMNNAME_Name());
     }
 
     /**
