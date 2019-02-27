@@ -16,7 +16,7 @@ abstract class BPartnerException internal constructor(ad_message: String, bp: I_
 
     init {
         if (bp != null) {
-            this.c_BPartner_ID = bp.c_BPartner_ID
+            this.c_BPartner_ID = bp.businessPartnerId
         } else {
             this.c_BPartner_ID = -1
         }

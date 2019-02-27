@@ -70,8 +70,8 @@ public class X_M_RMATax extends PO {
      * @param C_Tax_ID Tax identifier
      */
     public void setC_Tax_ID(int C_Tax_ID) {
-        if (C_Tax_ID < 1) set_ValueNoCheck(I_M_RMATax.COLUMNNAME_C_Tax_ID, null);
-        else set_ValueNoCheck(I_M_RMATax.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
+        if (C_Tax_ID < 1) setValueNoCheck(I_M_RMATax.COLUMNNAME_C_Tax_ID, null);
+        else setValueNoCheck(I_M_RMATax.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
     }
 
     /**
@@ -91,7 +91,7 @@ public class X_M_RMATax extends PO {
      * @param IsTaxIncluded Tax is included in the price
      */
     public void setIsTaxIncluded(boolean IsTaxIncluded) {
-        set_Value(I_M_RMATax.COLUMNNAME_IsTaxIncluded, Boolean.valueOf(IsTaxIncluded));
+        setValue(I_M_RMATax.COLUMNNAME_IsTaxIncluded, Boolean.valueOf(IsTaxIncluded));
     }
 
     /**
@@ -125,8 +125,8 @@ public class X_M_RMATax extends PO {
      * @param M_RMA_ID Return Material Authorization
      */
     public void setM_RMA_ID(int M_RMA_ID) {
-        if (M_RMA_ID < 1) set_ValueNoCheck(I_M_RMATax.COLUMNNAME_M_RMA_ID, null);
-        else set_ValueNoCheck(I_M_RMATax.COLUMNNAME_M_RMA_ID, Integer.valueOf(M_RMA_ID));
+        if (M_RMA_ID < 1) setValueNoCheck(I_M_RMATax.COLUMNNAME_M_RMA_ID, null);
+        else setValueNoCheck(I_M_RMATax.COLUMNNAME_M_RMA_ID, Integer.valueOf(M_RMA_ID));
     }
 
     /**
@@ -146,7 +146,7 @@ public class X_M_RMATax extends PO {
      * @param TaxAmt Tax Amount for a document
      */
     public void setTaxAmt(BigDecimal TaxAmt) {
-        set_ValueNoCheck(I_M_RMATax.COLUMNNAME_TaxAmt, TaxAmt);
+        setValueNoCheck(I_M_RMATax.COLUMNNAME_TaxAmt, TaxAmt);
     }
 
     /**
@@ -166,7 +166,7 @@ public class X_M_RMATax extends PO {
      * @param TaxBaseAmt Base for calculating the tax amount
      */
     public void setTaxBaseAmt(BigDecimal TaxBaseAmt) {
-        set_ValueNoCheck(I_M_RMATax.COLUMNNAME_TaxBaseAmt, TaxBaseAmt);
+        setValueNoCheck(I_M_RMATax.COLUMNNAME_TaxBaseAmt, TaxBaseAmt);
     }
 
     @Override

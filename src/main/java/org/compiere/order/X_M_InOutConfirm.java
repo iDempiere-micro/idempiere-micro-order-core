@@ -148,9 +148,9 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      *
      * @param C_Invoice_ID Invoice Identifier
      */
-    public void setC_Invoice_ID(int C_Invoice_ID) {
-        if (C_Invoice_ID < 1) set_Value(COLUMNNAME_C_Invoice_ID, null);
-        else set_Value(COLUMNNAME_C_Invoice_ID, Integer.valueOf(C_Invoice_ID));
+    public void setInvoiceId(int C_Invoice_ID) {
+        if (C_Invoice_ID < 1) setValue(COLUMNNAME_C_Invoice_ID, null);
+        else setValue(COLUMNNAME_C_Invoice_ID, Integer.valueOf(C_Invoice_ID));
     }
 
     /**
@@ -169,7 +169,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      */
     public void setConfirmType(String ConfirmType) {
 
-        set_Value(COLUMNNAME_ConfirmType, ConfirmType);
+        setValue(COLUMNNAME_ConfirmType, ConfirmType);
     }
 
     /**
@@ -187,7 +187,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @param Description Optional short description of the record
      */
     public void setDescription(String Description) {
-        set_Value(COLUMNNAME_Description, Description);
+        setValue(COLUMNNAME_Description, Description);
     }
 
     /**
@@ -206,7 +206,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      */
     public void setDocAction(String DocAction) {
 
-        set_Value(COLUMNNAME_DocAction, DocAction);
+        setValue(COLUMNNAME_DocAction, DocAction);
     }
 
     /**
@@ -225,7 +225,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      */
     public void setDocStatus(String DocStatus) {
 
-        set_Value(COLUMNNAME_DocStatus, DocStatus);
+        setValue(COLUMNNAME_DocStatus, DocStatus);
     }
 
     /**
@@ -243,7 +243,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @param IsApproved Indicates if this document requires approval
      */
     public void setIsApproved(boolean IsApproved) {
-        set_Value(COLUMNNAME_IsApproved, Boolean.valueOf(IsApproved));
+        setValue(COLUMNNAME_IsApproved, Boolean.valueOf(IsApproved));
     }
 
     /**
@@ -266,7 +266,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @param IsCancelled The transaction was cancelled
      */
     public void setIsCancelled(boolean IsCancelled) {
-        set_Value(COLUMNNAME_IsCancelled, Boolean.valueOf(IsCancelled));
+        setValue(COLUMNNAME_IsCancelled, Boolean.valueOf(IsCancelled));
     }
 
     /**
@@ -275,7 +275,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @param IsInDispute Document is in dispute
      */
     public void setIsInDispute(boolean IsInDispute) {
-        set_Value(COLUMNNAME_IsInDispute, Boolean.valueOf(IsInDispute));
+        setValue(COLUMNNAME_IsInDispute, Boolean.valueOf(IsInDispute));
     }
 
     /**
@@ -326,8 +326,8 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @param M_InOut_ID Material Shipment Document
      */
     public void setM_InOut_ID(int M_InOut_ID) {
-        if (M_InOut_ID < 1) set_ValueNoCheck(COLUMNNAME_M_InOut_ID, null);
-        else set_ValueNoCheck(COLUMNNAME_M_InOut_ID, M_InOut_ID);
+        if (M_InOut_ID < 1) setValueNoCheck(COLUMNNAME_M_InOut_ID, null);
+        else setValueNoCheck(COLUMNNAME_M_InOut_ID, M_InOut_ID);
     }
 
     /**
@@ -336,8 +336,8 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @param M_Inventory_ID Parameters for a Physical Inventory
      */
     public void setM_Inventory_ID(int M_Inventory_ID) {
-        if (M_Inventory_ID < 1) set_Value(COLUMNNAME_M_Inventory_ID, null);
-        else set_Value(COLUMNNAME_M_Inventory_ID, M_Inventory_ID);
+        if (M_Inventory_ID < 1) setValue(COLUMNNAME_M_Inventory_ID, null);
+        else setValue(COLUMNNAME_M_Inventory_ID, M_Inventory_ID);
     }
 
     /**
@@ -360,7 +360,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @param Processed The document has been processed
      */
     public void setProcessed(boolean Processed) {
-        set_Value(COLUMNNAME_Processed, Boolean.valueOf(Processed));
+        setValue(COLUMNNAME_Processed, Boolean.valueOf(Processed));
     }
 
     /**
@@ -369,7 +369,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @param Processing Process Now
      */
     public void setProcessing(boolean Processing) {
-        set_Value(COLUMNNAME_Processing, Boolean.valueOf(Processing));
+        setValue(COLUMNNAME_Processing, Boolean.valueOf(Processing));
     }
 
     @Override

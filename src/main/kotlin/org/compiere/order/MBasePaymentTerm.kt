@@ -22,7 +22,7 @@ abstract class MBasePaymentTerm : X_C_PaymentTerm {
         if (schedule.isNotEmpty() && !requery) return schedule
 
         return "/sql/getSchedule.sql".asResource { sql ->
-            val loadQuery = queryOf(sql, listOf(getC_PaymentTerm_ID())).map { MPaySchedule(ctx, it) }.asList
+            val loadQuery = queryOf(sql, listOf(getPaymentTermId())).map { MPaySchedule(ctx, it) }.asList
             val result = DB.current.run(loadQuery)
             result.forEach { it.parent = self() }
             result

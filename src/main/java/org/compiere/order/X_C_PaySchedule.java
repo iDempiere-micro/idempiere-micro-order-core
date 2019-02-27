@@ -28,7 +28,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule {
     public X_C_PaySchedule(Properties ctx, int C_PaySchedule_ID) {
         super(ctx, C_PaySchedule_ID);
         /**
-         * if (C_PaySchedule_ID == 0) { setC_PaymentTerm_ID (0); setC_PaySchedule_ID (0); setDiscount
+         * if (C_PaySchedule_ID == 0) { setPaymentTermId (0); setC_PaySchedule_ID (0); setDiscount
          * (Env.ZERO); setDiscountDays (0); setGraceDays (0); setIsValid (false); setNetDays (0);
          * setPercentage (Env.ZERO); }
          */
@@ -64,7 +64,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule {
      *
      * @return The terms of Payment (timing, discount)
      */
-    public int getC_PaymentTerm_ID() {
+    public int getPaymentTermId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_PaymentTerm_ID);
         if (ii == null) return 0;
         return ii;
@@ -75,9 +75,9 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule {
      *
      * @param C_PaymentTerm_ID The terms of Payment (timing, discount)
      */
-    public void setC_PaymentTerm_ID(int C_PaymentTerm_ID) {
-        if (C_PaymentTerm_ID < 1) set_ValueNoCheck(COLUMNNAME_C_PaymentTerm_ID, null);
-        else set_ValueNoCheck(COLUMNNAME_C_PaymentTerm_ID, Integer.valueOf(C_PaymentTerm_ID));
+    public void setPaymentTermId(int C_PaymentTerm_ID) {
+        if (C_PaymentTerm_ID < 1) setValueNoCheck(COLUMNNAME_C_PaymentTerm_ID, null);
+        else setValueNoCheck(COLUMNNAME_C_PaymentTerm_ID, Integer.valueOf(C_PaymentTerm_ID));
     }
 
     /**
@@ -108,7 +108,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule {
      * @param Discount Discount in percent
      */
     public void setDiscount(BigDecimal Discount) {
-        set_Value(COLUMNNAME_Discount, Discount);
+        setValue(COLUMNNAME_Discount, Discount);
     }
 
     /**
@@ -128,7 +128,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule {
      * @param DiscountDays Number of days from invoice date to be eligible for discount
      */
     public void setDiscountDays(int DiscountDays) {
-        set_Value(COLUMNNAME_DiscountDays, Integer.valueOf(DiscountDays));
+        setValue(COLUMNNAME_DiscountDays, Integer.valueOf(DiscountDays));
     }
 
     /**
@@ -137,7 +137,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule {
      * @param GraceDays Days after due date to send first dunning letter
      */
     public void setGraceDays(int GraceDays) {
-        set_Value(COLUMNNAME_GraceDays, Integer.valueOf(GraceDays));
+        setValue(COLUMNNAME_GraceDays, Integer.valueOf(GraceDays));
     }
 
     /**
@@ -146,7 +146,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule {
      * @param IsValid Element is valid
      */
     public void setIsValid(boolean IsValid) {
-        set_Value(COLUMNNAME_IsValid, Boolean.valueOf(IsValid));
+        setValue(COLUMNNAME_IsValid, Boolean.valueOf(IsValid));
     }
 
     /**
@@ -180,7 +180,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule {
      * @param NetDays Net Days in which payment is due
      */
     public void setNetDays(int NetDays) {
-        set_Value(COLUMNNAME_NetDays, Integer.valueOf(NetDays));
+        setValue(COLUMNNAME_NetDays, Integer.valueOf(NetDays));
     }
 
     /**
@@ -200,7 +200,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule {
      * @param Percentage Percent of the entire amount
      */
     public void setPercentage(BigDecimal Percentage) {
-        set_Value(COLUMNNAME_Percentage, Percentage);
+        setValue(COLUMNNAME_Percentage, Percentage);
     }
 
     @Override

@@ -83,7 +83,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
      */
     public static MOrderTax get(I_C_OrderLine line, int precision, boolean oldTax) {
         MOrderTax retValue = null;
-        if (line == null || line.getC_Order_ID() == 0) {
+        if (line == null || line.getOrderId() == 0) {
             s_log.fine("No Order");
             return null;
         }
@@ -107,7 +107,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
         ResultSet rs = null;
         try {
             pstmt = prepareStatement(sql);
-            pstmt.setInt(1, line.getC_Order_ID());
+            pstmt.setInt(1, line.getOrderId());
             pstmt.setInt(2, C_Tax_ID);
             rs = pstmt.executeQuery();
             if (rs.next()) retValue = new MOrderTax(line.getCtx(), rs);
@@ -131,7 +131,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
         //	Create New
         retValue = new MOrderTax(line.getCtx(), 0);
         retValue.setClientOrg(line);
-        retValue.setC_Order_ID(line.getC_Order_ID());
+        retValue.setOrderId(line.getOrderId());
         retValue.setC_Tax_ID(line.getC_Tax_ID());
         retValue.setPrecision(precision);
         retValue.setIsTaxIncluded(line.isTaxIncluded());
@@ -186,7 +186,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
         ResultSet rs = null;
         try {
             pstmt = prepareStatement(sql);
-            pstmt.setInt(1, getC_Order_ID());
+            pstmt.setInt(1, getOrderId());
             pstmt.setInt(2, getC_Tax_ID());
             rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -227,7 +227,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
         StringBuffer sb =
                 new StringBuffer("MOrderTax[")
                         .append("C_Order_ID=")
-                        .append(getC_Order_ID())
+                        .append(getOrderId())
                         .append(", C_Tax_ID=")
                         .append(getC_Tax_ID())
                         .append(", Base=")

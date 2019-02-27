@@ -115,7 +115,7 @@ public class MInOutConfirm extends X_M_InOutConfirm {
      */
     public void setIsApproved(boolean IsApproved) {
         if (IsApproved && !isApproved()) {
-            int AD_User_ID = Env.getAD_User_ID(getCtx());
+            int AD_User_ID = Env.getUserId(getCtx());
             MUser user = MUser.get(getCtx(), AD_User_ID);
             StringBuilder info =
                     new StringBuilder()

@@ -97,7 +97,7 @@ public class X_M_RMA extends BasePOName {
      * @param Amt Amount
      */
     public void setAmt(BigDecimal Amt) {
-        set_Value(I_M_RMA.COLUMNNAME_Amt, Amt);
+        setValue(I_M_RMA.COLUMNNAME_Amt, Amt);
     }
 
     /**
@@ -105,7 +105,7 @@ public class X_M_RMA extends BasePOName {
      *
      * @return Identifies a Business Partner
      */
-    public int getC_BPartner_ID() {
+    public int getBusinessPartnerId() {
         Integer ii = (Integer) getValue(I_M_RMA.COLUMNNAME_C_BPartner_ID);
         if (ii == null) return 0;
         return ii;
@@ -116,9 +116,9 @@ public class X_M_RMA extends BasePOName {
      *
      * @param C_BPartner_ID Identifies a Business Partner
      */
-    public void setC_BPartner_ID(int C_BPartner_ID) {
-        if (C_BPartner_ID < 1) set_Value(I_M_RMA.COLUMNNAME_C_BPartner_ID, null);
-        else set_Value(I_M_RMA.COLUMNNAME_C_BPartner_ID, C_BPartner_ID);
+    public void setBusinessPartnerId(int C_BPartner_ID) {
+        if (C_BPartner_ID < 1) setValue(I_M_RMA.COLUMNNAME_C_BPartner_ID, null);
+        else setValue(I_M_RMA.COLUMNNAME_C_BPartner_ID, C_BPartner_ID);
     }
 
     /**
@@ -126,7 +126,7 @@ public class X_M_RMA extends BasePOName {
      *
      * @return The Currency for this record
      */
-    public int getC_Currency_ID() {
+    public int getCurrencyId() {
         Integer ii = (Integer) getValue(I_M_RMA.COLUMNNAME_C_Currency_ID);
         if (ii == null) return 0;
         return ii;
@@ -137,9 +137,9 @@ public class X_M_RMA extends BasePOName {
      *
      * @param C_Currency_ID The Currency for this record
      */
-    public void setC_Currency_ID(int C_Currency_ID) {
-        if (C_Currency_ID < 1) set_Value(I_M_RMA.COLUMNNAME_C_Currency_ID, null);
-        else set_Value(I_M_RMA.COLUMNNAME_C_Currency_ID, C_Currency_ID);
+    public void setCurrencyId(int C_Currency_ID) {
+        if (C_Currency_ID < 1) setValue(I_M_RMA.COLUMNNAME_C_Currency_ID, null);
+        else setValue(I_M_RMA.COLUMNNAME_C_Currency_ID, C_Currency_ID);
     }
 
     /**
@@ -147,7 +147,7 @@ public class X_M_RMA extends BasePOName {
      *
      * @return Document type or rules
      */
-    public int getC_DocType_ID() {
+    public int getDocumentTypeId() {
         Integer ii = (Integer) getValue(I_M_RMA.COLUMNNAME_C_DocType_ID);
         if (ii == null) return 0;
         return ii;
@@ -158,9 +158,9 @@ public class X_M_RMA extends BasePOName {
      *
      * @param C_DocType_ID Document type or rules
      */
-    public void setC_DocType_ID(int C_DocType_ID) {
-        if (C_DocType_ID < 0) set_Value(I_M_RMA.COLUMNNAME_C_DocType_ID, null);
-        else set_Value(I_M_RMA.COLUMNNAME_C_DocType_ID, C_DocType_ID);
+    public void setDocumentTypeId(int C_DocType_ID) {
+        if (C_DocType_ID < 0) setValue(I_M_RMA.COLUMNNAME_C_DocType_ID, null);
+        else setValue(I_M_RMA.COLUMNNAME_C_DocType_ID, C_DocType_ID);
     }
 
     /**
@@ -168,7 +168,7 @@ public class X_M_RMA extends BasePOName {
      *
      * @return Order
      */
-    public int getC_Order_ID() {
+    public int getOrderId() {
         Integer ii = (Integer) getValue(I_M_RMA.COLUMNNAME_C_Order_ID);
         if (ii == null) return 0;
         return ii;
@@ -179,9 +179,9 @@ public class X_M_RMA extends BasePOName {
      *
      * @param C_Order_ID Order
      */
-    public void setC_Order_ID(int C_Order_ID) {
-        if (C_Order_ID < 1) set_ValueNoCheck(I_M_RMA.COLUMNNAME_C_Order_ID, null);
-        else set_ValueNoCheck(I_M_RMA.COLUMNNAME_C_Order_ID, C_Order_ID);
+    public void setOrderId(int C_Order_ID) {
+        if (C_Order_ID < 1) setValueNoCheck(I_M_RMA.COLUMNNAME_C_Order_ID, null);
+        else setValueNoCheck(I_M_RMA.COLUMNNAME_C_Order_ID, C_Order_ID);
     }
 
     /**
@@ -199,7 +199,7 @@ public class X_M_RMA extends BasePOName {
      * @param Description Optional short description of the record
      */
     public void setDescription(String Description) {
-        set_Value(I_M_RMA.COLUMNNAME_Description, Description);
+        setValue(I_M_RMA.COLUMNNAME_Description, Description);
     }
 
     /**
@@ -218,7 +218,7 @@ public class X_M_RMA extends BasePOName {
      */
     public void setDocAction(String DocAction) {
 
-        set_Value(I_M_RMA.COLUMNNAME_DocAction, DocAction);
+        setValue(I_M_RMA.COLUMNNAME_DocAction, DocAction);
     }
 
     /**
@@ -237,7 +237,7 @@ public class X_M_RMA extends BasePOName {
      */
     public void setDocStatus(String DocStatus) {
 
-        set_Value(I_M_RMA.COLUMNNAME_DocStatus, DocStatus);
+        setValue(I_M_RMA.COLUMNNAME_DocStatus, DocStatus);
     }
 
     /**
@@ -255,7 +255,7 @@ public class X_M_RMA extends BasePOName {
      * @param DocumentNo Document sequence number of the document
      */
     public void setDocumentNo(String DocumentNo) {
-        set_Value(I_M_RMA.COLUMNNAME_DocumentNo, DocumentNo);
+        setValue(I_M_RMA.COLUMNNAME_DocumentNo, DocumentNo);
     }
 
     /**
@@ -273,7 +273,7 @@ public class X_M_RMA extends BasePOName {
      * @param Help Comment or Hint
      */
     public void setHelp(String Help) {
-        set_Value(I_M_RMA.COLUMNNAME_Help, Help);
+        setValue(I_M_RMA.COLUMNNAME_Help, Help);
     }
 
     /**
@@ -293,8 +293,8 @@ public class X_M_RMA extends BasePOName {
      * @param InOut_ID MaterialShipment Document
      */
     public void setInOut_ID(int InOut_ID) {
-        if (InOut_ID < 1) set_ValueNoCheck(I_M_RMA.COLUMNNAME_InOut_ID, null);
-        else set_ValueNoCheck(I_M_RMA.COLUMNNAME_InOut_ID, InOut_ID);
+        if (InOut_ID < 1) setValueNoCheck(I_M_RMA.COLUMNNAME_InOut_ID, null);
+        else setValueNoCheck(I_M_RMA.COLUMNNAME_InOut_ID, InOut_ID);
     }
 
     /**
@@ -303,7 +303,7 @@ public class X_M_RMA extends BasePOName {
      * @param IsApproved Indicates if this document requires approval
      */
     public void setIsApproved(boolean IsApproved) {
-        set_Value(I_M_RMA.COLUMNNAME_IsApproved, IsApproved);
+        setValue(I_M_RMA.COLUMNNAME_IsApproved, IsApproved);
     }
 
     /**
@@ -326,7 +326,7 @@ public class X_M_RMA extends BasePOName {
      * @param IsSOTrx This is a Sales Transaction
      */
     public void setIsSOTrx(boolean IsSOTrx) {
-        set_Value(I_M_RMA.COLUMNNAME_IsSOTrx, IsSOTrx);
+        setValue(I_M_RMA.COLUMNNAME_IsSOTrx, IsSOTrx);
     }
 
     /**
@@ -371,8 +371,8 @@ public class X_M_RMA extends BasePOName {
      * @param M_RMAType_ID Return Material Authorization Type
      */
     public void setM_RMAType_ID(int M_RMAType_ID) {
-        if (M_RMAType_ID < 1) set_Value(I_M_RMA.COLUMNNAME_M_RMAType_ID, null);
-        else set_Value(I_M_RMA.COLUMNNAME_M_RMAType_ID, M_RMAType_ID);
+        if (M_RMAType_ID < 1) setValue(I_M_RMA.COLUMNNAME_M_RMAType_ID, null);
+        else setValue(I_M_RMA.COLUMNNAME_M_RMAType_ID, M_RMAType_ID);
     }
 
     /**
@@ -395,7 +395,7 @@ public class X_M_RMA extends BasePOName {
      * @param Processed The document has been processed
      */
     public void setProcessed(boolean Processed) {
-        set_Value(I_M_RMA.COLUMNNAME_Processed, Processed);
+        setValue(I_M_RMA.COLUMNNAME_Processed, Processed);
     }
 
     /**
@@ -404,7 +404,7 @@ public class X_M_RMA extends BasePOName {
      * @param Processing Process Now
      */
     public void setProcessing(boolean Processing) {
-        set_Value(I_M_RMA.COLUMNNAME_Processing, Processing);
+        setValue(I_M_RMA.COLUMNNAME_Processing, Processing);
     }
 
     /**
@@ -424,8 +424,8 @@ public class X_M_RMA extends BasePOName {
      * @param Ref_RMA_ID Referenced RMA
      */
     public void setRef_RMA_ID(int Ref_RMA_ID) {
-        if (Ref_RMA_ID < 1) set_Value(I_M_RMA.COLUMNNAME_Ref_RMA_ID, null);
-        else set_Value(I_M_RMA.COLUMNNAME_Ref_RMA_ID, Ref_RMA_ID);
+        if (Ref_RMA_ID < 1) setValue(I_M_RMA.COLUMNNAME_Ref_RMA_ID, null);
+        else setValue(I_M_RMA.COLUMNNAME_Ref_RMA_ID, Ref_RMA_ID);
     }
 
     /**
@@ -433,7 +433,7 @@ public class X_M_RMA extends BasePOName {
      *
      * @return Sales Representative or Company Agent
      */
-    public int getSalesRep_ID() {
+    public int getSalesRepresentativeId() {
         Integer ii = (Integer) getValue(I_M_RMA.COLUMNNAME_SalesRep_ID);
         if (ii == null) return 0;
         return ii;
@@ -444,9 +444,9 @@ public class X_M_RMA extends BasePOName {
      *
      * @param SalesRep_ID Sales Representative or Company Agent
      */
-    public void setSalesRep_ID(int SalesRep_ID) {
-        if (SalesRep_ID < 1) set_Value(I_M_RMA.COLUMNNAME_SalesRep_ID, null);
-        else set_Value(I_M_RMA.COLUMNNAME_SalesRep_ID, SalesRep_ID);
+    public void setSalesRepresentativeId(int SalesRep_ID) {
+        if (SalesRep_ID < 1) setValue(I_M_RMA.COLUMNNAME_SalesRep_ID, null);
+        else setValue(I_M_RMA.COLUMNNAME_SalesRep_ID, SalesRep_ID);
     }
 
     @Override

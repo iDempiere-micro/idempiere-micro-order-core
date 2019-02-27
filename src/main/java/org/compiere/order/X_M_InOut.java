@@ -121,7 +121,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
     public X_M_InOut(Properties ctx, int M_InOut_ID) {
         super(ctx, M_InOut_ID);
         /**
-         * if (M_InOut_ID == 0) { setC_BPartner_ID (0); setC_BPartner_Location_ID (0); setC_DocType_ID
+         * if (M_InOut_ID == 0) { setBusinessPartnerId (0); setBusinessPartnerLocationId (0); setDocumentTypeId
          * (0); setDateAcct (new Timestamp( System.currentTimeMillis() )); // @#Date@ setDeliveryRule
          * (null); // A setDeliveryViaRule (null); // P setDocAction (null); // CO setDocStatus (null);
          * // DR setDocumentNo (null); setFreightCostRule (null); // I setIsAlternateReturnAddress
@@ -159,7 +159,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return Performing or initiating organization
      */
-    public int getAD_OrgTrx_ID() {
+    public int getTransactionOrganizationId() {
         Integer ii = (Integer) getValue(COLUMNNAME_AD_OrgTrx_ID);
         if (ii == null) return 0;
         return ii;
@@ -170,9 +170,9 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param AD_OrgTrx_ID Performing or initiating organization
      */
-    public void setAD_OrgTrx_ID(int AD_OrgTrx_ID) {
-        if (AD_OrgTrx_ID < 1) set_Value(COLUMNNAME_AD_OrgTrx_ID, null);
-        else set_Value(COLUMNNAME_AD_OrgTrx_ID, Integer.valueOf(AD_OrgTrx_ID));
+    public void setTransactionOrganizationId(int AD_OrgTrx_ID) {
+        if (AD_OrgTrx_ID < 1) setValue(COLUMNNAME_AD_OrgTrx_ID, null);
+        else setValue(COLUMNNAME_AD_OrgTrx_ID, Integer.valueOf(AD_OrgTrx_ID));
     }
 
     /**
@@ -180,7 +180,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return User within the system - Internal or Business Partner Contact
      */
-    public int getAD_User_ID() {
+    public int getUserId() {
         Integer ii = (Integer) getValue(COLUMNNAME_AD_User_ID);
         if (ii == null) return 0;
         return ii;
@@ -191,9 +191,9 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param AD_User_ID User within the system - Internal or Business Partner Contact
      */
-    public void setAD_User_ID(int AD_User_ID) {
-        if (AD_User_ID < 1) set_Value(COLUMNNAME_AD_User_ID, null);
-        else set_Value(COLUMNNAME_AD_User_ID, Integer.valueOf(AD_User_ID));
+    public void setUserId(int AD_User_ID) {
+        if (AD_User_ID < 1) setValue(COLUMNNAME_AD_User_ID, null);
+        else setValue(COLUMNNAME_AD_User_ID, Integer.valueOf(AD_User_ID));
     }
 
     /**
@@ -201,7 +201,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return Business Activity
      */
-    public int getC_Activity_ID() {
+    public int getBusinessActivityId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_Activity_ID);
         if (ii == null) return 0;
         return ii;
@@ -212,9 +212,9 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param C_Activity_ID Business Activity
      */
-    public void setC_Activity_ID(int C_Activity_ID) {
-        if (C_Activity_ID < 1) set_Value(COLUMNNAME_C_Activity_ID, null);
-        else set_Value(COLUMNNAME_C_Activity_ID, Integer.valueOf(C_Activity_ID));
+    public void setBusinessActivityId(int C_Activity_ID) {
+        if (C_Activity_ID < 1) setValue(COLUMNNAME_C_Activity_ID, null);
+        else setValue(COLUMNNAME_C_Activity_ID, Integer.valueOf(C_Activity_ID));
     }
 
     /**
@@ -222,7 +222,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return Identifies a Business Partner
      */
-    public int getC_BPartner_ID() {
+    public int getBusinessPartnerId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_BPartner_ID);
         if (ii == null) return 0;
         return ii;
@@ -233,9 +233,9 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param C_BPartner_ID Identifies a Business Partner
      */
-    public void setC_BPartner_ID(int C_BPartner_ID) {
-        if (C_BPartner_ID < 1) set_Value(COLUMNNAME_C_BPartner_ID, null);
-        else set_Value(COLUMNNAME_C_BPartner_ID, Integer.valueOf(C_BPartner_ID));
+    public void setBusinessPartnerId(int C_BPartner_ID) {
+        if (C_BPartner_ID < 1) setValue(COLUMNNAME_C_BPartner_ID, null);
+        else setValue(COLUMNNAME_C_BPartner_ID, Integer.valueOf(C_BPartner_ID));
     }
 
     /**
@@ -243,7 +243,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return Identifies the (ship to) address for this Business Partner
      */
-    public int getC_BPartner_Location_ID() {
+    public int getBusinessPartnerLocationId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_BPartner_Location_ID);
         if (ii == null) return 0;
         return ii;
@@ -254,9 +254,9 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param C_BPartner_Location_ID Identifies the (ship to) address for this Business Partner
      */
-    public void setC_BPartner_Location_ID(int C_BPartner_Location_ID) {
-        if (C_BPartner_Location_ID < 1) set_Value(COLUMNNAME_C_BPartner_Location_ID, null);
-        else set_Value(COLUMNNAME_C_BPartner_Location_ID, Integer.valueOf(C_BPartner_Location_ID));
+    public void setBusinessPartnerLocationId(int C_BPartner_Location_ID) {
+        if (C_BPartner_Location_ID < 1) setValue(COLUMNNAME_C_BPartner_Location_ID, null);
+        else setValue(COLUMNNAME_C_BPartner_Location_ID, Integer.valueOf(C_BPartner_Location_ID));
     }
 
     /**
@@ -264,7 +264,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return Marketing Campaign
      */
-    public int getC_Campaign_ID() {
+    public int getCampaignId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_Campaign_ID);
         if (ii == null) return 0;
         return ii;
@@ -275,9 +275,9 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param C_Campaign_ID Marketing Campaign
      */
-    public void setC_Campaign_ID(int C_Campaign_ID) {
-        if (C_Campaign_ID < 1) set_Value(COLUMNNAME_C_Campaign_ID, null);
-        else set_Value(COLUMNNAME_C_Campaign_ID, Integer.valueOf(C_Campaign_ID));
+    public void setCampaignId(int C_Campaign_ID) {
+        if (C_Campaign_ID < 1) setValue(COLUMNNAME_C_Campaign_ID, null);
+        else setValue(COLUMNNAME_C_Campaign_ID, Integer.valueOf(C_Campaign_ID));
     }
 
     /**
@@ -285,7 +285,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return Additional document charges
      */
-    public int getC_Charge_ID() {
+    public int getChargeId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_Charge_ID);
         if (ii == null) return 0;
         return ii;
@@ -296,15 +296,15 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param C_Charge_ID Additional document charges
      */
-    public void setC_Charge_ID(int C_Charge_ID) {
-        if (C_Charge_ID < 1) set_Value(COLUMNNAME_C_Charge_ID, null);
-        else set_Value(COLUMNNAME_C_Charge_ID, C_Charge_ID);
+    public void setChargeId(int C_Charge_ID) {
+        if (C_Charge_ID < 1) setValue(COLUMNNAME_C_Charge_ID, null);
+        else setValue(COLUMNNAME_C_Charge_ID, C_Charge_ID);
     }
 
-    public org.compiere.model.I_C_DocType getC_DocType() throws RuntimeException {
+    public org.compiere.model.I_C_DocType getDocumentType() throws RuntimeException {
         return (org.compiere.model.I_C_DocType)
                 MTable.get(getCtx(), org.compiere.model.I_C_DocType.Table_Name)
-                        .getPO(getC_DocType_ID());
+                        .getPO(getDocumentTypeId());
     }
 
     /**
@@ -312,7 +312,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return Document type or rules
      */
-    public int getC_DocType_ID() {
+    public int getDocumentTypeId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_DocType_ID);
         if (ii == null) return 0;
         return ii;
@@ -323,9 +323,9 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param C_DocType_ID Document type or rules
      */
-    public void setC_DocType_ID(int C_DocType_ID) {
-        if (C_DocType_ID < 0) set_ValueNoCheck(COLUMNNAME_C_DocType_ID, null);
-        else set_ValueNoCheck(COLUMNNAME_C_DocType_ID, C_DocType_ID);
+    public void setDocumentTypeId(int C_DocType_ID) {
+        if (C_DocType_ID < 0) setValueNoCheck(COLUMNNAME_C_DocType_ID, null);
+        else setValueNoCheck(COLUMNNAME_C_DocType_ID, C_DocType_ID);
     }
 
     /**
@@ -345,7 +345,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param ChargeAmt Charge Amount
      */
     public void setChargeAmt(BigDecimal ChargeAmt) {
-        set_Value(COLUMNNAME_ChargeAmt, ChargeAmt);
+        setValue(COLUMNNAME_ChargeAmt, ChargeAmt);
     }
 
     /**
@@ -353,7 +353,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return Invoice Identifier
      */
-    public int getC_Invoice_ID() {
+    public int getInvoiceId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_Invoice_ID);
         if (ii == null) return 0;
         return ii;
@@ -364,15 +364,15 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param C_Invoice_ID Invoice Identifier
      */
-    public void setC_Invoice_ID(int C_Invoice_ID) {
-        if (C_Invoice_ID < 1) set_ValueNoCheck(COLUMNNAME_C_Invoice_ID, null);
-        else set_ValueNoCheck(COLUMNNAME_C_Invoice_ID, C_Invoice_ID);
+    public void setInvoiceId(int C_Invoice_ID) {
+        if (C_Invoice_ID < 1) setValueNoCheck(COLUMNNAME_C_Invoice_ID, null);
+        else setValueNoCheck(COLUMNNAME_C_Invoice_ID, C_Invoice_ID);
     }
 
     public org.compiere.model.I_C_Order getC_Order() throws RuntimeException {
         return (org.compiere.model.I_C_Order)
                 MTable.get(getCtx(), org.compiere.model.I_C_Order.Table_Name)
-                        .getPO(getC_Order_ID());
+                        .getPO(getOrderId());
     }
 
     /**
@@ -380,7 +380,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return Order
      */
-    public int getC_Order_ID() {
+    public int getOrderId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_Order_ID);
         if (ii == null) return 0;
         return ii;
@@ -391,9 +391,9 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param C_Order_ID Order
      */
-    public void setC_Order_ID(int C_Order_ID) {
-        if (C_Order_ID < 1) set_ValueNoCheck(COLUMNNAME_C_Order_ID, null);
-        else set_ValueNoCheck(COLUMNNAME_C_Order_ID, C_Order_ID);
+    public void setOrderId(int C_Order_ID) {
+        if (C_Order_ID < 1) setValueNoCheck(COLUMNNAME_C_Order_ID, null);
+        else setValueNoCheck(COLUMNNAME_C_Order_ID, C_Order_ID);
     }
 
     /**
@@ -401,7 +401,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return Financial Project
      */
-    public int getC_Project_ID() {
+    public int getProjectId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_Project_ID);
         if (ii == null) return 0;
         return ii;
@@ -412,9 +412,9 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param C_Project_ID Financial Project
      */
-    public void setC_Project_ID(int C_Project_ID) {
-        if (C_Project_ID < 1) set_Value(COLUMNNAME_C_Project_ID, null);
-        else set_Value(COLUMNNAME_C_Project_ID, Integer.valueOf(C_Project_ID));
+    public void setProjectId(int C_Project_ID) {
+        if (C_Project_ID < 1) setValue(COLUMNNAME_C_Project_ID, null);
+        else setValue(COLUMNNAME_C_Project_ID, Integer.valueOf(C_Project_ID));
     }
 
     /**
@@ -432,7 +432,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param DateAcct Accounting Date
      */
     public void setDateAcct(Timestamp DateAcct) {
-        set_Value(COLUMNNAME_DateAcct, DateAcct);
+        setValue(COLUMNNAME_DateAcct, DateAcct);
     }
 
     /**
@@ -450,7 +450,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param DateOrdered Date of Order
      */
     public void setDateOrdered(Timestamp DateOrdered) {
-        set_ValueNoCheck(COLUMNNAME_DateOrdered, DateOrdered);
+        setValueNoCheck(COLUMNNAME_DateOrdered, DateOrdered);
     }
 
     /**
@@ -459,7 +459,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param DatePrinted Date the document was printed.
      */
     public void setDatePrinted(Timestamp DatePrinted) {
-        set_Value(COLUMNNAME_DatePrinted, DatePrinted);
+        setValue(COLUMNNAME_DatePrinted, DatePrinted);
     }
 
     /**
@@ -468,7 +468,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param DateReceived Date a product was received
      */
     public void setDateReceived(Timestamp DateReceived) {
-        set_Value(COLUMNNAME_DateReceived, DateReceived);
+        setValue(COLUMNNAME_DateReceived, DateReceived);
     }
 
     /**
@@ -487,7 +487,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setDeliveryRule(String DeliveryRule) {
 
-        set_Value(COLUMNNAME_DeliveryRule, DeliveryRule);
+        setValue(COLUMNNAME_DeliveryRule, DeliveryRule);
     }
 
     /**
@@ -506,7 +506,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setDeliveryViaRule(String DeliveryViaRule) {
 
-        set_Value(COLUMNNAME_DeliveryViaRule, DeliveryViaRule);
+        setValue(COLUMNNAME_DeliveryViaRule, DeliveryViaRule);
     }
 
     /**
@@ -524,7 +524,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param Description Optional short description of the record
      */
     public void setDescription(String Description) {
-        set_Value(COLUMNNAME_Description, Description);
+        setValue(COLUMNNAME_Description, Description);
     }
 
     /**
@@ -543,7 +543,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setDocAction(String DocAction) {
 
-        set_Value(COLUMNNAME_DocAction, DocAction);
+        setValue(COLUMNNAME_DocAction, DocAction);
     }
 
     /**
@@ -562,7 +562,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setDocStatus(String DocStatus) {
 
-        set_Value(COLUMNNAME_DocStatus, DocStatus);
+        setValue(COLUMNNAME_DocStatus, DocStatus);
     }
 
     /**
@@ -580,7 +580,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param DocumentNo Document sequence number of the document
      */
     public void setDocumentNo(String DocumentNo) {
-        set_ValueNoCheck(COLUMNNAME_DocumentNo, DocumentNo);
+        setValueNoCheck(COLUMNNAME_DocumentNo, DocumentNo);
     }
 
     /**
@@ -600,8 +600,8 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param DropShip_BPartner_ID Business Partner to ship to
      */
     public void setDropShip_BPartner_ID(int DropShip_BPartner_ID) {
-        if (DropShip_BPartner_ID < 1) set_Value(COLUMNNAME_DropShip_BPartner_ID, null);
-        else set_Value(COLUMNNAME_DropShip_BPartner_ID, Integer.valueOf(DropShip_BPartner_ID));
+        if (DropShip_BPartner_ID < 1) setValue(COLUMNNAME_DropShip_BPartner_ID, null);
+        else setValue(COLUMNNAME_DropShip_BPartner_ID, Integer.valueOf(DropShip_BPartner_ID));
     }
 
     /**
@@ -621,8 +621,8 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param DropShip_Location_ID Business Partner Location for shipping to
      */
     public void setDropShip_Location_ID(int DropShip_Location_ID) {
-        if (DropShip_Location_ID < 1) set_Value(COLUMNNAME_DropShip_Location_ID, null);
-        else set_Value(COLUMNNAME_DropShip_Location_ID, Integer.valueOf(DropShip_Location_ID));
+        if (DropShip_Location_ID < 1) setValue(COLUMNNAME_DropShip_Location_ID, null);
+        else setValue(COLUMNNAME_DropShip_Location_ID, Integer.valueOf(DropShip_Location_ID));
     }
 
     /**
@@ -642,8 +642,8 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param DropShip_User_ID Business Partner Contact for drop shipment
      */
     public void setDropShip_User_ID(int DropShip_User_ID) {
-        if (DropShip_User_ID < 1) set_Value(COLUMNNAME_DropShip_User_ID, null);
-        else set_Value(COLUMNNAME_DropShip_User_ID, Integer.valueOf(DropShip_User_ID));
+        if (DropShip_User_ID < 1) setValue(COLUMNNAME_DropShip_User_ID, null);
+        else setValue(COLUMNNAME_DropShip_User_ID, Integer.valueOf(DropShip_User_ID));
     }
 
     /**
@@ -663,7 +663,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param FreightAmt Freight Amount
      */
     public void setFreightAmt(BigDecimal FreightAmt) {
-        set_Value(COLUMNNAME_FreightAmt, FreightAmt);
+        setValue(COLUMNNAME_FreightAmt, FreightAmt);
     }
 
     /**
@@ -682,7 +682,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setFreightCostRule(String FreightCostRule) {
 
-        set_Value(COLUMNNAME_FreightCostRule, FreightCostRule);
+        setValue(COLUMNNAME_FreightCostRule, FreightCostRule);
     }
 
     /**
@@ -691,7 +691,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param IsApproved Indicates if this document requires approval
      */
     public void setIsApproved(boolean IsApproved) {
-        set_Value(COLUMNNAME_IsApproved, Boolean.valueOf(IsApproved));
+        setValue(COLUMNNAME_IsApproved, Boolean.valueOf(IsApproved));
     }
 
     /**
@@ -714,7 +714,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param IsDropShip Drop Shipments are sent from the Vendor directly to the Customer
      */
     public void setIsDropShip(boolean IsDropShip) {
-        set_Value(COLUMNNAME_IsDropShip, Boolean.valueOf(IsDropShip));
+        setValue(COLUMNNAME_IsDropShip, Boolean.valueOf(IsDropShip));
     }
 
     /**
@@ -737,7 +737,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param IsInDispute Document is in dispute
      */
     public void setIsInDispute(boolean IsInDispute) {
-        set_Value(COLUMNNAME_IsInDispute, Boolean.valueOf(IsInDispute));
+        setValue(COLUMNNAME_IsInDispute, Boolean.valueOf(IsInDispute));
     }
 
     /**
@@ -746,7 +746,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param IsInTransit Movement is in transit
      */
     public void setIsInTransit(boolean IsInTransit) {
-        set_Value(COLUMNNAME_IsInTransit, Boolean.valueOf(IsInTransit));
+        setValue(COLUMNNAME_IsInTransit, Boolean.valueOf(IsInTransit));
     }
 
     /**
@@ -755,7 +755,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param IsPrinted Indicates if this document / line is printed
      */
     public void setIsPrinted(boolean IsPrinted) {
-        set_Value(COLUMNNAME_IsPrinted, Boolean.valueOf(IsPrinted));
+        setValue(COLUMNNAME_IsPrinted, Boolean.valueOf(IsPrinted));
     }
 
     /**
@@ -764,7 +764,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param IsSOTrx This is a Sales Transaction
      */
     public void setIsSOTrx(boolean IsSOTrx) {
-        set_Value(COLUMNNAME_IsSOTrx, Boolean.valueOf(IsSOTrx));
+        setValue(COLUMNNAME_IsSOTrx, Boolean.valueOf(IsSOTrx));
     }
 
     /**
@@ -807,7 +807,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param MovementDate Date a product was moved in or out of inventory
      */
     public void setMovementDate(Timestamp MovementDate) {
-        set_Value(COLUMNNAME_MovementDate, MovementDate);
+        setValue(COLUMNNAME_MovementDate, MovementDate);
     }
 
     /**
@@ -826,7 +826,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setMovementType(String MovementType) {
 
-        set_ValueNoCheck(COLUMNNAME_MovementType, MovementType);
+        setValueNoCheck(COLUMNNAME_MovementType, MovementType);
     }
 
     /**
@@ -846,8 +846,8 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param M_RMA_ID Return Material Authorization
      */
     public void setM_RMA_ID(int M_RMA_ID) {
-        if (M_RMA_ID < 1) set_Value(COLUMNNAME_M_RMA_ID, null);
-        else set_Value(COLUMNNAME_M_RMA_ID, Integer.valueOf(M_RMA_ID));
+        if (M_RMA_ID < 1) setValue(COLUMNNAME_M_RMA_ID, null);
+        else setValue(COLUMNNAME_M_RMA_ID, Integer.valueOf(M_RMA_ID));
     }
 
     /**
@@ -855,7 +855,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return Method or manner of product delivery
      */
-    public int getM_Shipper_ID() {
+    public int getShipperId() {
         Integer ii = (Integer) getValue(COLUMNNAME_M_Shipper_ID);
         if (ii == null) return 0;
         return ii;
@@ -866,9 +866,9 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param M_Shipper_ID Method or manner of product delivery
      */
-    public void setM_Shipper_ID(int M_Shipper_ID) {
-        if (M_Shipper_ID < 1) set_Value(COLUMNNAME_M_Shipper_ID, null);
-        else set_Value(COLUMNNAME_M_Shipper_ID, Integer.valueOf(M_Shipper_ID));
+    public void setShipperId(int M_Shipper_ID) {
+        if (M_Shipper_ID < 1) setValue(COLUMNNAME_M_Shipper_ID, null);
+        else setValue(COLUMNNAME_M_Shipper_ID, Integer.valueOf(M_Shipper_ID));
     }
 
     /**
@@ -876,7 +876,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return Storage Warehouse and Service Point
      */
-    public int getM_Warehouse_ID() {
+    public int getWarehouseId() {
         Integer ii = (Integer) getValue(COLUMNNAME_M_Warehouse_ID);
         if (ii == null) return 0;
         return ii;
@@ -887,9 +887,9 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param M_Warehouse_ID Storage Warehouse and Service Point
      */
-    public void setM_Warehouse_ID(int M_Warehouse_ID) {
-        if (M_Warehouse_ID < 1) set_ValueNoCheck(COLUMNNAME_M_Warehouse_ID, null);
-        else set_ValueNoCheck(COLUMNNAME_M_Warehouse_ID, Integer.valueOf(M_Warehouse_ID));
+    public void setWarehouseId(int M_Warehouse_ID) {
+        if (M_Warehouse_ID < 1) setValueNoCheck(COLUMNNAME_M_Warehouse_ID, null);
+        else setValueNoCheck(COLUMNNAME_M_Warehouse_ID, Integer.valueOf(M_Warehouse_ID));
     }
 
     /**
@@ -909,7 +909,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param NoPackages Number of packages shipped
      */
     public void setNoPackages(int NoPackages) {
-        set_Value(COLUMNNAME_NoPackages, Integer.valueOf(NoPackages));
+        setValue(COLUMNNAME_NoPackages, Integer.valueOf(NoPackages));
     }
 
     /**
@@ -918,7 +918,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param PickDate Date/Time when picked for Shipment
      */
     public void setPickDate(Timestamp PickDate) {
-        set_Value(COLUMNNAME_PickDate, PickDate);
+        setValue(COLUMNNAME_PickDate, PickDate);
     }
 
     /**
@@ -937,7 +937,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *                    Partner
      */
     public void setPOReference(String POReference) {
-        set_Value(COLUMNNAME_POReference, POReference);
+        setValue(COLUMNNAME_POReference, POReference);
     }
 
     /**
@@ -960,7 +960,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param Posted Posting status
      */
     public void setPosted(boolean Posted) {
-        set_Value(COLUMNNAME_Posted, Boolean.valueOf(Posted));
+        setValue(COLUMNNAME_Posted, Boolean.valueOf(Posted));
     }
 
     /**
@@ -970,7 +970,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setPriorityRule(String PriorityRule) {
 
-        set_Value(COLUMNNAME_PriorityRule, PriorityRule);
+        setValue(COLUMNNAME_PriorityRule, PriorityRule);
     }
 
     /**
@@ -993,7 +993,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param Processed The document has been processed
      */
     public void setProcessed(boolean Processed) {
-        set_Value(COLUMNNAME_Processed, Boolean.valueOf(Processed));
+        setValue(COLUMNNAME_Processed, Boolean.valueOf(Processed));
     }
 
     /**
@@ -1002,7 +1002,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param Processing Process Now
      */
     public void setProcessing(boolean Processing) {
-        set_Value(COLUMNNAME_Processing, Boolean.valueOf(Processing));
+        setValue(COLUMNNAME_Processing, Boolean.valueOf(Processing));
     }
 
     /**
@@ -1022,8 +1022,8 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param Ref_InOut_ID Referenced Shipment
      */
     public void setRef_InOut_ID(int Ref_InOut_ID) {
-        if (Ref_InOut_ID < 1) set_Value(COLUMNNAME_Ref_InOut_ID, null);
-        else set_Value(COLUMNNAME_Ref_InOut_ID, Integer.valueOf(Ref_InOut_ID));
+        if (Ref_InOut_ID < 1) setValue(COLUMNNAME_Ref_InOut_ID, null);
+        else setValue(COLUMNNAME_Ref_InOut_ID, Integer.valueOf(Ref_InOut_ID));
     }
 
     /**
@@ -1043,8 +1043,8 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param Reversal_ID ID of document reversal
      */
     public void setReversal_ID(int Reversal_ID) {
-        if (Reversal_ID < 1) set_Value(COLUMNNAME_Reversal_ID, null);
-        else set_Value(COLUMNNAME_Reversal_ID, Integer.valueOf(Reversal_ID));
+        if (Reversal_ID < 1) setValue(COLUMNNAME_Reversal_ID, null);
+        else setValue(COLUMNNAME_Reversal_ID, Integer.valueOf(Reversal_ID));
     }
 
     /**
@@ -1052,7 +1052,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return Sales Representative or Company Agent
      */
-    public int getSalesRep_ID() {
+    public int getSalesRepresentativeId() {
         Integer ii = (Integer) getValue(COLUMNNAME_SalesRep_ID);
         if (ii == null) return 0;
         return ii;
@@ -1063,9 +1063,9 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param SalesRep_ID Sales Representative or Company Agent
      */
-    public void setSalesRep_ID(int SalesRep_ID) {
-        if (SalesRep_ID < 1) set_Value(COLUMNNAME_SalesRep_ID, null);
-        else set_Value(COLUMNNAME_SalesRep_ID, Integer.valueOf(SalesRep_ID));
+    public void setSalesRepresentativeId(int SalesRep_ID) {
+        if (SalesRep_ID < 1) setValue(COLUMNNAME_SalesRep_ID, null);
+        else setValue(COLUMNNAME_SalesRep_ID, Integer.valueOf(SalesRep_ID));
     }
 
     /**
@@ -1088,7 +1088,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param SendEMail Enable sending Document EMail
      */
     public void setSendEMail(boolean SendEMail) {
-        set_Value(COLUMNNAME_SendEMail, Boolean.valueOf(SendEMail));
+        setValue(COLUMNNAME_SendEMail, Boolean.valueOf(SendEMail));
     }
 
     /**
@@ -1097,7 +1097,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param ShipDate Shipment Date/Time
      */
     public void setShipDate(Timestamp ShipDate) {
-        set_Value(COLUMNNAME_ShipDate, ShipDate);
+        setValue(COLUMNNAME_ShipDate, ShipDate);
     }
 
     /**
@@ -1106,7 +1106,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param TrackingNo Number to track the shipment
      */
     public void setTrackingNo(String TrackingNo) {
-        set_Value(COLUMNNAME_TrackingNo, TrackingNo);
+        setValue(COLUMNNAME_TrackingNo, TrackingNo);
     }
 
     /**
@@ -1114,7 +1114,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return User defined list element #1
      */
-    public int getUser1_ID() {
+    public int getUser1Id() {
         Integer ii = (Integer) getValue(COLUMNNAME_User1_ID);
         if (ii == null) return 0;
         return ii;
@@ -1125,9 +1125,9 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param User1_ID User defined list element #1
      */
-    public void setUser1_ID(int User1_ID) {
-        if (User1_ID < 1) set_Value(COLUMNNAME_User1_ID, null);
-        else set_Value(COLUMNNAME_User1_ID, Integer.valueOf(User1_ID));
+    public void setUser1Id(int User1_ID) {
+        if (User1_ID < 1) setValue(COLUMNNAME_User1_ID, null);
+        else setValue(COLUMNNAME_User1_ID, Integer.valueOf(User1_ID));
     }
 
     /**
@@ -1135,7 +1135,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return User defined list element #2
      */
-    public int getUser2_ID() {
+    public int getUser2Id() {
         Integer ii = (Integer) getValue(COLUMNNAME_User2_ID);
         if (ii == null) return 0;
         return ii;
@@ -1146,9 +1146,9 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param User2_ID User defined list element #2
      */
-    public void setUser2_ID(int User2_ID) {
-        if (User2_ID < 1) set_Value(COLUMNNAME_User2_ID, null);
-        else set_Value(COLUMNNAME_User2_ID, Integer.valueOf(User2_ID));
+    public void setUser2Id(int User2_ID) {
+        if (User2_ID < 1) setValue(COLUMNNAME_User2_ID, null);
+        else setValue(COLUMNNAME_User2_ID, Integer.valueOf(User2_ID));
     }
 
     /**
@@ -1157,7 +1157,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param Volume Volume of a product
      */
     public void setVolume(BigDecimal Volume) {
-        set_Value(COLUMNNAME_Volume, Volume);
+        setValue(COLUMNNAME_Volume, Volume);
     }
 
     /**
@@ -1166,7 +1166,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      * @param Weight Weight of a product
      */
     public void setWeight(BigDecimal Weight) {
-        set_Value(COLUMNNAME_Weight, Weight);
+        setValue(COLUMNNAME_Weight, Weight);
     }
 
     protected void addDocsPostProcess(IPODoc doc) {

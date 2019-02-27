@@ -45,7 +45,7 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
     public MOrderPaySchedule(Properties ctx, int C_OrderPaySchedule_ID) {
         super(ctx, C_OrderPaySchedule_ID);
         if (C_OrderPaySchedule_ID == 0) {
-            //	setC_Order_ID (0);
+            //	setOrderId (0);
             //	setDiscountAmt (Env.ZERO);
             //	setDiscountDate (new Timestamp(System.currentTimeMillis()));
             //	setDueAmt (Env.ZERO);
@@ -75,11 +75,11 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
         super(order.getCtx(), 0);
         m_parent = order;
         setClientOrg(order);
-        setC_Order_ID(order.getC_Order_ID());
+        setOrderId(order.getOrderId());
         setC_PaySchedule_ID(paySchedule.getC_PaySchedule_ID());
 
         //	Amounts
-        int scale = MCurrency.getStdPrecision(getCtx(), order.getC_Currency_ID());
+        int scale = MCurrency.getStdPrecision(getCtx(), order.getCurrencyId());
         BigDecimal due = order.getGrandTotal();
         if (due.compareTo(Env.ZERO) == 0) {
             setDueAmt(Env.ZERO);
@@ -151,7 +151,7 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
      * @return Returns the parent.
      */
     public MOrder getParent() {
-        if (m_parent == null) m_parent = new MOrder(getCtx(), getC_Order_ID());
+        if (m_parent == null) m_parent = new MOrder(getCtx(), getOrderId());
         return m_parent;
     } //	getParent
 

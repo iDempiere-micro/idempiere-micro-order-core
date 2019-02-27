@@ -60,8 +60,8 @@ public class X_M_ShippingTransactionLine extends PO
      * @param C_UOM_Length_ID Standard Unit of Measure for Length
      */
     public void setC_UOM_Length_ID(int C_UOM_Length_ID) {
-        if (C_UOM_Length_ID < 1) set_Value(COLUMNNAME_C_UOM_Length_ID, null);
-        else set_Value(COLUMNNAME_C_UOM_Length_ID, Integer.valueOf(C_UOM_Length_ID));
+        if (C_UOM_Length_ID < 1) setValue(COLUMNNAME_C_UOM_Length_ID, null);
+        else setValue(COLUMNNAME_C_UOM_Length_ID, Integer.valueOf(C_UOM_Length_ID));
     }
 
     /**
@@ -70,8 +70,8 @@ public class X_M_ShippingTransactionLine extends PO
      * @param C_UOM_Weight_ID Standard Unit of Measure for Weight
      */
     public void setC_UOM_Weight_ID(int C_UOM_Weight_ID) {
-        if (C_UOM_Weight_ID < 1) set_Value(COLUMNNAME_C_UOM_Weight_ID, null);
-        else set_Value(COLUMNNAME_C_UOM_Weight_ID, Integer.valueOf(C_UOM_Weight_ID));
+        if (C_UOM_Weight_ID < 1) setValue(COLUMNNAME_C_UOM_Weight_ID, null);
+        else setValue(COLUMNNAME_C_UOM_Weight_ID, Integer.valueOf(C_UOM_Weight_ID));
     }
 
     /**
@@ -80,7 +80,7 @@ public class X_M_ShippingTransactionLine extends PO
      * @param Description Optional short description of the record
      */
     public void setDescription(String Description) {
-        set_Value(COLUMNNAME_Description, Description);
+        setValue(COLUMNNAME_Description, Description);
     }
 
     /**
@@ -89,7 +89,7 @@ public class X_M_ShippingTransactionLine extends PO
      * @param Height Height
      */
     public void setHeight(BigDecimal Height) {
-        set_Value(COLUMNNAME_Height, Height);
+        setValue(COLUMNNAME_Height, Height);
     }
 
     /**
@@ -98,7 +98,7 @@ public class X_M_ShippingTransactionLine extends PO
      * @param Length Length
      */
     public void setLength(BigDecimal Length) {
-        set_Value(COLUMNNAME_Length, Length);
+        setValue(COLUMNNAME_Length, Length);
     }
 
     /**
@@ -107,9 +107,9 @@ public class X_M_ShippingTransactionLine extends PO
      * @param M_ShippingTransaction_ID Shipping Transaction
      */
     public void setM_ShippingTransaction_ID(int M_ShippingTransaction_ID) {
-        if (M_ShippingTransaction_ID < 1) set_ValueNoCheck(COLUMNNAME_M_ShippingTransaction_ID, null);
+        if (M_ShippingTransaction_ID < 1) setValueNoCheck(COLUMNNAME_M_ShippingTransaction_ID, null);
         else
-            set_ValueNoCheck(
+            setValueNoCheck(
                     COLUMNNAME_M_ShippingTransaction_ID, Integer.valueOf(M_ShippingTransaction_ID));
     }
 
@@ -119,7 +119,7 @@ public class X_M_ShippingTransactionLine extends PO
      * @param SeqNo Method of ordering records; lowest number comes first
      */
     public void setSeqNo(int SeqNo) {
-        set_Value(COLUMNNAME_SeqNo, Integer.valueOf(SeqNo));
+        setValue(COLUMNNAME_SeqNo, Integer.valueOf(SeqNo));
     }
 
     /**
@@ -128,7 +128,7 @@ public class X_M_ShippingTransactionLine extends PO
      * @param Weight Weight of a product
      */
     public void setWeight(BigDecimal Weight) {
-        set_Value(COLUMNNAME_Weight, Weight);
+        setValue(COLUMNNAME_Weight, Weight);
     }
 
     /**
@@ -137,7 +137,7 @@ public class X_M_ShippingTransactionLine extends PO
      * @param Width Width
      */
     public void setWidth(BigDecimal Width) {
-        set_Value(COLUMNNAME_Width, Width);
+        setValue(COLUMNNAME_Width, Width);
     }
 
     @Override

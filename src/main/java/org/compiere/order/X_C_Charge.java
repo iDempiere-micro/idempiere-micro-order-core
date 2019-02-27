@@ -30,7 +30,7 @@ public class X_C_Charge extends PO implements I_C_Charge {
     public X_C_Charge(Properties ctx, int C_Charge_ID) {
         super(ctx, C_Charge_ID);
         /**
-         * if (C_Charge_ID == 0) { setC_Charge_ID (0); setChargeAmt (Env.ZERO); setC_TaxCategory_ID (0);
+         * if (C_Charge_ID == 0) { setChargeId (0); setChargeAmt (Env.ZERO); setC_TaxCategory_ID (0);
          * setIsSameCurrency (false); setIsSameTax (false); setIsTaxIncluded (false); // N setName
          * (null); }
          */
@@ -66,7 +66,7 @@ public class X_C_Charge extends PO implements I_C_Charge {
      *
      * @return Identifies a Business Partner
      */
-    public int getC_BPartner_ID() {
+    public int getBusinessPartnerId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_BPartner_ID);
         if (ii == null) return 0;
         return ii;
@@ -89,7 +89,7 @@ public class X_C_Charge extends PO implements I_C_Charge {
      * @param ChargeAmt Charge Amount
      */
     public void setChargeAmt(BigDecimal ChargeAmt) {
-        set_Value(COLUMNNAME_ChargeAmt, ChargeAmt);
+        setValue(COLUMNNAME_ChargeAmt, ChargeAmt);
     }
 
     public org.compiere.model.I_C_TaxCategory getC_TaxCategory() throws RuntimeException {
@@ -115,7 +115,7 @@ public class X_C_Charge extends PO implements I_C_Charge {
      * @param IsSameCurrency Same Currency
      */
     public void setIsSameCurrency(boolean IsSameCurrency) {
-        set_Value(COLUMNNAME_IsSameCurrency, IsSameCurrency);
+        setValue(COLUMNNAME_IsSameCurrency, IsSameCurrency);
     }
 
     /**
@@ -124,7 +124,7 @@ public class X_C_Charge extends PO implements I_C_Charge {
      * @param IsSameTax Use the same tax as the main transaction
      */
     public void setIsSameTax(boolean IsSameTax) {
-        set_Value(COLUMNNAME_IsSameTax, IsSameTax);
+        setValue(COLUMNNAME_IsSameTax, IsSameTax);
     }
 
     /**
@@ -133,7 +133,7 @@ public class X_C_Charge extends PO implements I_C_Charge {
      * @param IsTaxIncluded Tax is included in the price
      */
     public void setIsTaxIncluded(boolean IsTaxIncluded) {
-        set_Value(COLUMNNAME_IsTaxIncluded, IsTaxIncluded);
+        setValue(COLUMNNAME_IsTaxIncluded, IsTaxIncluded);
     }
 
     /**
@@ -151,7 +151,7 @@ public class X_C_Charge extends PO implements I_C_Charge {
      * @param Name Alphanumeric identifier of the entity
      */
     public void setName(String Name) {
-        set_Value(HasName.Companion.getCOLUMNNAME_Name(), Name);
+        setValue(HasName.Companion.getCOLUMNNAME_Name(), Name);
     }
 
     @Override

@@ -93,8 +93,8 @@ public class MInOutLine extends X_M_InOutLine {
         this(inout.getCtx(), 0);
         setClientOrg(inout);
         setM_InOut_ID(inout.getM_InOut_ID());
-        setM_Warehouse_ID(inout.getM_Warehouse_ID());
-        setC_Project_ID(inout.getC_Project_ID());
+        setWarehouseId(inout.getWarehouseId());
+        setProjectId(inout.getProjectId());
         m_parent = inout;
     } //	MInOutLine
 
@@ -121,9 +121,9 @@ public class MInOutLine extends X_M_InOutLine {
         setC_UOM_ID(oLine.getC_UOM_ID());
         MProduct product = oLine.getProduct();
         if (product == null) {
-            set_ValueNoCheck("M_Product_ID", null);
-            set_ValueNoCheck("M_AttributeSetInstance_ID", null);
-            set_ValueNoCheck("M_Locator_ID", null);
+            setValueNoCheck("M_Product_ID", null);
+            setValueNoCheck("M_AttributeSetInstance_ID", null);
+            setValueNoCheck("M_Locator_ID", null);
         } else {
             setM_Product_ID(oLine.getM_Product_ID());
             setM_AttributeSetInstance_ID(oLine.getMAttributeSetInstance_ID());
@@ -131,20 +131,20 @@ public class MInOutLine extends X_M_InOutLine {
             if (product.isItem()) {
                 if (M_Locator_ID == 0) setM_Locator_ID(Qty); // 	requires warehouse, product, asi
                 else setM_Locator_ID(M_Locator_ID);
-            } else set_ValueNoCheck("M_Locator_ID", null);
+            } else setValueNoCheck("M_Locator_ID", null);
         }
-        setC_Charge_ID(oLine.getC_Charge_ID());
+        setChargeId(oLine.getChargeId());
         setDescription(oLine.getDescription());
         setIsDescription(oLine.isDescription());
         //
-        setC_Project_ID(oLine.getC_Project_ID());
+        setProjectId(oLine.getProjectId());
         setC_ProjectPhase_ID(oLine.getC_ProjectPhase_ID());
         setC_ProjectTask_ID(oLine.getC_ProjectTask_ID());
-        setC_Activity_ID(oLine.getC_Activity_ID());
-        setC_Campaign_ID(oLine.getC_Campaign_ID());
-        setAD_OrgTrx_ID(oLine.getAD_OrgTrx_ID());
-        setUser1_ID(oLine.getUser1_ID());
-        setUser2_ID(oLine.getUser2_ID());
+        setBusinessActivityId(oLine.getBusinessActivityId());
+        setCampaignId(oLine.getCampaignId());
+        setTransactionOrganizationId(oLine.getTransactionOrganizationId());
+        setUser1Id(oLine.getUser1Id());
+        setUser2Id(oLine.getUser2Id());
     } //	setOrderLine
 
     /**
@@ -152,8 +152,8 @@ public class MInOutLine extends X_M_InOutLine {
      *
      * @return Returns the m_Warehouse_ID.
      */
-    public int getM_Warehouse_ID() {
-        if (m_M_Warehouse_ID == 0) m_M_Warehouse_ID = getParent().getM_Warehouse_ID();
+    public int getWarehouseId() {
+        if (m_M_Warehouse_ID == 0) m_M_Warehouse_ID = getParent().getWarehouseId();
         return m_M_Warehouse_ID;
     } //	getWarehouseId
 
@@ -162,7 +162,7 @@ public class MInOutLine extends X_M_InOutLine {
      *
      * @param warehouse_ID The m_Warehouse_ID to set.
      */
-    public void setM_Warehouse_ID(int warehouse_ID) {
+    public void setWarehouseId(int warehouse_ID) {
         m_M_Warehouse_ID = warehouse_ID;
     } //	setWarehouseId
 
@@ -175,7 +175,7 @@ public class MInOutLine extends X_M_InOutLine {
     public void setM_Locator_ID(int M_Locator_ID) {
         if (M_Locator_ID < 0) throw new IllegalArgumentException("M_Locator_ID is mandatory.");
         //	set to 0 explicitly to reset
-        set_Value(I_M_InOutLine.COLUMNNAME_M_Locator_ID, new Integer(M_Locator_ID));
+        setValue(I_M_InOutLine.COLUMNNAME_M_Locator_ID, new Integer(M_Locator_ID));
     } //	setM_Locator_ID
 
     /**
@@ -245,66 +245,66 @@ public class MInOutLine extends X_M_InOutLine {
      *
      * @return project
      */
-    public int getC_Project_ID() {
-        int ii = super.getC_Project_ID();
-        if (ii == 0) ii = getParent().getC_Project_ID();
+    public int getProjectId() {
+        int ii = super.getProjectId();
+        if (ii == 0) ii = getParent().getProjectId();
         return ii;
-    } //	getC_Project_ID
+    } //	getProjectId
 
     /**
      * Get C_Activity_ID
      *
      * @return Activity
      */
-    public int getC_Activity_ID() {
-        int ii = super.getC_Activity_ID();
-        if (ii == 0) ii = getParent().getC_Activity_ID();
+    public int getBusinessActivityId() {
+        int ii = super.getBusinessActivityId();
+        if (ii == 0) ii = getParent().getBusinessActivityId();
         return ii;
-    } //	getC_Activity_ID
+    } //	getBusinessActivityId
 
     /**
      * Get C_Campaign_ID
      *
      * @return Campaign
      */
-    public int getC_Campaign_ID() {
-        int ii = super.getC_Campaign_ID();
-        if (ii == 0) ii = getParent().getC_Campaign_ID();
+    public int getCampaignId() {
+        int ii = super.getCampaignId();
+        if (ii == 0) ii = getParent().getCampaignId();
         return ii;
-    } //	getC_Campaign_ID
+    } //	getCampaignId
 
     /**
      * Get User2_ID
      *
      * @return User2
      */
-    public int getUser1_ID() {
-        int ii = super.getUser1_ID();
-        if (ii == 0) ii = getParent().getUser1_ID();
+    public int getUser1Id() {
+        int ii = super.getUser1Id();
+        if (ii == 0) ii = getParent().getUser1Id();
         return ii;
-    } //	getUser1_ID
+    } //	getUser1Id
 
     /**
      * Get User2_ID
      *
      * @return User2
      */
-    public int getUser2_ID() {
-        int ii = super.getUser2_ID();
-        if (ii == 0) ii = getParent().getUser2_ID();
+    public int getUser2Id() {
+        int ii = super.getUser2Id();
+        if (ii == 0) ii = getParent().getUser2Id();
         return ii;
-    } //	getUser2_ID
+    } //	getUser2Id
 
     /**
      * Get AD_OrgTrx_ID
      *
      * @return trx org
      */
-    public int getAD_OrgTrx_ID() {
-        int ii = super.getAD_OrgTrx_ID();
-        if (ii == 0) ii = getParent().getAD_OrgTrx_ID();
+    public int getTransactionOrganizationId() {
+        int ii = super.getTransactionOrganizationId();
+        if (ii == 0) ii = getParent().getTransactionOrganizationId();
         return ii;
-    } //	getAD_OrgTrx_ID
+    } //	getTransactionOrganizationId
 
     /**
      * ************************************************************************ Before Save
@@ -320,7 +320,7 @@ public class MInOutLine extends X_M_InOutLine {
         }
         // Locator is mandatory if no charge is defined - teo_sarca BF [ 2757978 ]
         if (getProduct() != null && MProduct.PRODUCTTYPE_Item.equals(getProduct().getProductType())) {
-            if (getM_Locator_ID() <= 0 && getC_Charge_ID() <= 0) {
+            if (getM_Locator_ID() <= 0 && getChargeId() <= 0) {
                 throw new FillMandatoryException(I_M_InOutLine.COLUMNNAME_M_Locator_ID);
             }
         }
@@ -361,7 +361,7 @@ public class MInOutLine extends X_M_InOutLine {
                     MAttributeSetInstance.generateLot(getCtx(), (MProduct) getM_Product());
             setM_AttributeSetInstance_ID(asi.getMAttributeSetInstance_ID());
         }
-        //	if (getC_Charge_ID() == 0 && getM_Product_ID() == 0)
+        //	if (getChargeId() == 0 && getM_Product_ID() == 0)
         //		;
 
         /**
@@ -379,8 +379,8 @@ public class MInOutLine extends X_M_InOutLine {
         /* Carlos Ruiz - globalqss
          * IDEMPIERE-178 Orders and Invoices must disallow amount lines without product/charge
          */
-        if (getParent().getC_DocType().isChargeOrProductMandatory()) {
-            if (getC_Charge_ID() == 0 && getM_Product_ID() == 0) {
+        if (getParent().getDocumentType().isChargeOrProductMandatory()) {
+            if (getChargeId() == 0 && getM_Product_ID() == 0) {
                 log.saveError("FillMandatory", Msg.translate(getCtx(), "ChargeOrProductMandatory"));
                 return false;
             }
@@ -441,7 +441,7 @@ public class MInOutLine extends X_M_InOutLine {
         if (getM_Locator_ID() != 0) return;
         //	No Product
         if (getM_Product_ID() == 0) {
-            set_ValueNoCheck(I_M_InOutLine.COLUMNNAME_M_Locator_ID, null);
+            setValueNoCheck(I_M_InOutLine.COLUMNNAME_M_Locator_ID, null);
             return;
         }
     } //	setM_Locator_ID

@@ -64,7 +64,7 @@ public class StandardTaxProvider implements ITaxProvider {
                     //
                     MOrderTax newOTax = new MOrderTax(order.getCtx(), 0);
                     newOTax.setClientOrg(order);
-                    newOTax.setC_Order_ID(order.getC_Order_ID());
+                    newOTax.setOrderId(order.getOrderId());
                     newOTax.setC_Tax_ID(cTax.getC_Tax_ID());
                     newOTax.setPrecision(order.getPrecision());
                     newOTax.setIsTaxIncluded(order.isTaxIncluded());
@@ -112,7 +112,7 @@ public class StandardTaxProvider implements ITaxProvider {
                         + " SET TotalLines="
                         + "(SELECT COALESCE(SUM(LineNetAmt),0) FROM C_OrderLine il WHERE i.C_Order_ID=il.C_Order_ID) "
                         + "WHERE C_Order_ID="
-                        + line.getC_Order_ID();
+                        + line.getOrderId();
         int no = executeUpdate(sql);
         if (no != 1) log.warning("(1) #" + no);
 
@@ -121,14 +121,14 @@ public class StandardTaxProvider implements ITaxProvider {
                     "UPDATE C_Order i "
                             + " SET GrandTotal=TotalLines "
                             + "WHERE C_Order_ID="
-                            + line.getC_Order_ID();
+                            + line.getOrderId();
         else
             sql =
                     "UPDATE C_Order i "
                             + " SET GrandTotal=TotalLines+"
                             + "(SELECT COALESCE(SUM(TaxAmt),0) FROM C_OrderTax it WHERE i.C_Order_ID=it.C_Order_ID) "
                             + "WHERE C_Order_ID="
-                            + line.getC_Order_ID();
+                            + line.getOrderId();
         no = executeUpdate(sql);
         if (no != 1) log.warning("(2) #" + no);
 

@@ -53,7 +53,7 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper {
      *
      * @return Identifies a Business Partner
      */
-    public int getC_BPartner_ID() {
+    public int getBusinessPartnerId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_BPartner_ID);
         if (ii == null) return 0;
         return ii;
@@ -81,7 +81,7 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper {
      *
      * @return Method or manner of product delivery
      */
-    public int getM_Shipper_ID() {
+    public int getShipperId() {
         Integer ii = (Integer) getValue(COLUMNNAME_M_Shipper_ID);
         if (ii == null) return 0;
         return ii;

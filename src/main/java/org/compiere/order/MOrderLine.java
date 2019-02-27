@@ -81,11 +81,11 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
     public MOrderLine(Properties ctx, int C_OrderLine_ID) {
         super(ctx, C_OrderLine_ID);
         if (C_OrderLine_ID == 0) {
-            //	setC_Order_ID (0);
+            //	setOrderId (0);
             //	setLine (0);
             //	setWarehouseId (0);	// @M_Warehouse_ID@
-            //	setC_BPartner_ID(0);
-            //	setC_BPartner_Location_ID (0);	// @C_BPartner_Location_ID@
+            //	setBusinessPartnerId(0);
+            //	setBusinessPartnerLocationId (0);	// @C_BPartner_Location_ID@
             //	setCurrencyId (0);	// @C_Currency_ID@
             //	setDateOrdered (new Timestamp(System.currentTimeMillis()));	// @DateOrdered@
             //
@@ -124,7 +124,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
     public MOrderLine(MOrder order) {
         this(order.getCtx(), 0);
         if (order.getId() == 0) throw new IllegalArgumentException("Header not saved");
-        setC_Order_ID(order.getC_Order_ID()); // 	parent
+        setOrderId(order.getOrderId()); // 	parent
         setOrder(order);
     } //	MOrderLine
 
@@ -150,12 +150,12 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      */
     public void setOrder(I_C_Order order) {
         setClientOrg(order);
-        setC_BPartner_ID(order.getC_BPartner_ID());
-        setC_BPartner_Location_ID(order.getC_BPartner_Location_ID());
-        setM_Warehouse_ID(order.getM_Warehouse_ID());
+        setBusinessPartnerId(order.getBusinessPartnerId());
+        setBusinessPartnerLocationId(order.getBusinessPartnerLocationId());
+        setWarehouseId(order.getWarehouseId());
         setDateOrdered(order.getDateOrdered());
         setDatePromised(order.getDatePromised());
-        setC_Currency_ID(order.getC_Currency_ID());
+        setCurrencyId(order.getCurrencyId());
         //
         setHeaderInfo(order); // 	sets m_order
         //	Don't set Activity, etc as they are overwrites
@@ -169,7 +169,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
     public void setHeaderInfo(I_C_Order order) {
         m_parent = order;
         m_precision = order.getPrecision();
-        m_M_PriceList_ID = order.getM_PriceList_ID();
+        m_M_PriceList_ID = order.getPriceListId();
         m_IsSOTrx = order.isSOTrx();
     } //	setHeaderInfo
 
@@ -179,7 +179,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      * @return parent
      */
     public I_C_Order getParent() {
-        if (m_parent == null) m_parent = new MOrder(getCtx(), getC_Order_ID());
+        if (m_parent == null) m_parent = new MOrder(getCtx(), getOrderId());
         return m_parent;
     } //	getParent
 
@@ -200,7 +200,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      */
     public void setPriceActual(BigDecimal PriceActual) {
         if (PriceActual == null) throw new IllegalArgumentException("PriceActual is mandatory");
-        set_ValueNoCheck("PriceActual", PriceActual);
+        setValueNoCheck("PriceActual", PriceActual);
     } //	setPriceActual
 
     /**
@@ -250,7 +250,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
     protected IProductPricing getProductPricing(int M_PriceList_ID) {
         m_productPrice = MProduct.getProductPricing();
         m_productPrice.setOrderLine(this);
-        m_productPrice.setM_PriceList_ID(M_PriceList_ID);
+        m_productPrice.setPriceListId(M_PriceList_ID);
         //
         m_productPrice.calculatePrice();
         return m_productPrice;
@@ -266,13 +266,13 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
                 Tax.get(
                         getCtx(),
                         getM_Product_ID(),
-                        getC_Charge_ID(),
+                        getChargeId(),
                         getDateOrdered(),
                         getDateOrdered(),
                         getOrgId(),
-                        getM_Warehouse_ID(),
-                        getC_BPartner_Location_ID(), //	should be bill to
-                        getC_BPartner_Location_ID(),
+                        getWarehouseId(),
+                        getBusinessPartnerLocationId(), //	should be bill to
+                        getBusinessPartnerLocationId(),
                         m_IsSOTrx,
                         null);
         if (ii == 0) {
@@ -347,8 +347,8 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      * @return product or null
      */
     public MCharge getCharge() {
-        if (m_charge == null && getC_Charge_ID() != 0)
-            m_charge = MCharge.get(getCtx(), getC_Charge_ID());
+        if (m_charge == null && getChargeId() != 0)
+            m_charge = MCharge.get(getCtx(), getChargeId());
         return m_charge;
     }
 
@@ -370,12 +370,12 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
     public int getPrecision() {
         if (m_precision != null) return m_precision.intValue();
         //
-        if (getC_Currency_ID() == 0) {
+        if (getCurrencyId() == 0) {
             setOrder(getParent());
             if (m_precision != null) return m_precision.intValue();
         }
-        if (getC_Currency_ID() != 0) {
-            MCurrency cur = MCurrency.get(getCtx(), getC_Currency_ID());
+        if (getCurrencyId() != 0) {
+            MCurrency cur = MCurrency.get(getCtx(), getCurrencyId());
             if (cur.getId() != 0) {
                 m_precision = new Integer(cur.getStdPrecision());
                 return m_precision.intValue();
@@ -386,7 +386,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
                 "SELECT c.StdPrecision "
                         + "FROM C_Currency c INNER JOIN C_Order x ON (x.C_Currency_ID=c.C_Currency_ID) "
                         + "WHERE x.C_Order_ID=?";
-        int i = getSQLValue(sql, getC_Order_ID());
+        int i = getSQLValue(sql, getOrderId());
         m_precision = new Integer(i);
         return m_precision.intValue();
     } //	getPrecision
@@ -438,7 +438,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
             setC_UOM_ID(m_product.getC_UOM_ID());
         } else {
             setM_Product_ID(0);
-            set_ValueNoCheck("C_UOM_ID", null);
+            setValueNoCheck("C_UOM_ID", null);
         }
         setM_AttributeSetInstance_ID(0);
     } //	setProduct
@@ -450,7 +450,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      */
     public void setM_AttributeSetInstance_ID(int M_AttributeSetInstance_ID) {
         if (M_AttributeSetInstance_ID == 0) // 	 0 is valid ID
-            set_Value("M_AttributeSetInstance_ID", new Integer(0));
+            setValue("M_AttributeSetInstance_ID", new Integer(0));
         else super.setM_AttributeSetInstance_ID(M_AttributeSetInstance_ID);
     } //	setM_AttributeSetInstance_ID
 
@@ -459,10 +459,10 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      *
      * @param M_Warehouse_ID warehouse
      */
-    public void setM_Warehouse_ID(int M_Warehouse_ID) {
-        if (getM_Warehouse_ID() > 0 && getM_Warehouse_ID() != M_Warehouse_ID && !canChangeWarehouse())
+    public void setWarehouseId(int M_Warehouse_ID) {
+        if (getWarehouseId() > 0 && getWarehouseId() != M_Warehouse_ID && !canChangeWarehouse())
             log.severe("Ignored - Already Delivered/Invoiced/Reserved");
-        else super.setM_Warehouse_ID(M_Warehouse_ID);
+        else super.setWarehouseId(M_Warehouse_ID);
     } //	setWarehouseId
 
     /**
@@ -492,66 +492,66 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      *
      * @return project
      */
-    public int getC_Project_ID() {
-        int ii = super.getC_Project_ID();
-        if (ii == 0) ii = getParent().getC_Project_ID();
+    public int getProjectId() {
+        int ii = super.getProjectId();
+        if (ii == 0) ii = getParent().getProjectId();
         return ii;
-    } //	getC_Project_ID
+    } //	getProjectId
 
     /**
      * Get C_Activity_ID
      *
      * @return Activity
      */
-    public int getC_Activity_ID() {
-        int ii = super.getC_Activity_ID();
-        if (ii == 0) ii = getParent().getC_Activity_ID();
+    public int getBusinessActivityId() {
+        int ii = super.getBusinessActivityId();
+        if (ii == 0) ii = getParent().getBusinessActivityId();
         return ii;
-    } //	getC_Activity_ID
+    } //	getBusinessActivityId
 
     /**
      * Get C_Campaign_ID
      *
      * @return Campaign
      */
-    public int getC_Campaign_ID() {
-        int ii = super.getC_Campaign_ID();
-        if (ii == 0) ii = getParent().getC_Campaign_ID();
+    public int getCampaignId() {
+        int ii = super.getCampaignId();
+        if (ii == 0) ii = getParent().getCampaignId();
         return ii;
-    } //	getC_Campaign_ID
+    } //	getCampaignId
 
     /**
      * Get User2_ID
      *
      * @return User2
      */
-    public int getUser1_ID() {
-        int ii = super.getUser1_ID();
-        if (ii == 0) ii = getParent().getUser1_ID();
+    public int getUser1Id() {
+        int ii = super.getUser1Id();
+        if (ii == 0) ii = getParent().getUser1Id();
         return ii;
-    } //	getUser1_ID
+    } //	getUser1Id
 
     /**
      * Get User2_ID
      *
      * @return User2
      */
-    public int getUser2_ID() {
-        int ii = super.getUser2_ID();
-        if (ii == 0) ii = getParent().getUser2_ID();
+    public int getUser2Id() {
+        int ii = super.getUser2Id();
+        if (ii == 0) ii = getParent().getUser2Id();
         return ii;
-    } //	getUser2_ID
+    } //	getUser2Id
 
     /**
      * Get AD_OrgTrx_ID
      *
      * @return trx org
      */
-    public int getAD_OrgTrx_ID() {
-        int ii = super.getAD_OrgTrx_ID();
-        if (ii == 0) ii = getParent().getAD_OrgTrx_ID();
+    public int getTransactionOrganizationId() {
+        int ii = super.getTransactionOrganizationId();
+        if (ii == 0) ii = getParent().getTransactionOrganizationId();
         return ii;
-    } //	getAD_OrgTrx_ID
+    } //	getTransactionOrganizationId
 
     /**
      * ************************************************************************ String Representation
@@ -594,10 +594,10 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      *
      * @param C_Charge_ID charge
      */
-    public void setC_Charge_ID(int C_Charge_ID) {
-        super.setC_Charge_ID(C_Charge_ID);
-        if (C_Charge_ID > 0) set_ValueNoCheck("C_UOM_ID", null);
-    } //	setC_Charge_ID
+    public void setChargeId(int C_Charge_ID) {
+        super.setChargeId(C_Charge_ID);
+        if (C_Charge_ID > 0) setValueNoCheck("C_UOM_ID", null);
+    } //	setChargeId
 
     /**
      * Set Discount
@@ -624,7 +624,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
                     getSQLValue(
                             null,
                             "SELECT M_PriceList_ID FROM C_Order WHERE C_Order_ID=?",
-                            getC_Order_ID());
+                            getOrderId());
         }
         MPriceList pl = MPriceList.get(getCtx(), m_M_PriceList_ID);
         return pl.isTaxIncluded();
@@ -679,10 +679,10 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
             return false;
         }
         //	Get Defaults from Parent
-        if (getC_BPartner_ID() == 0
-                || getC_BPartner_Location_ID() == 0
-                || getM_Warehouse_ID() == 0
-                || getC_Currency_ID() == 0) setOrder(getParent());
+        if (getBusinessPartnerId() == 0
+                || getBusinessPartnerLocationId() == 0
+                || getWarehouseId() == 0
+                || getCurrencyId() == 0) setOrder(getParent());
         if (m_M_PriceList_ID == 0) setHeaderInfo(getParent());
 
         //	R/O Check - Product/Warehouse Change
@@ -691,7 +691,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
         } //	Product Changed
 
         //	Charge
-        if (getC_Charge_ID() != 0 && getM_Product_ID() != 0) setM_Product_ID(0);
+        if (getChargeId() != 0 && getM_Product_ID() != 0) setM_Product_ID(0);
         //	No Product
         if (getM_Product_ID() == 0) setM_AttributeSetInstance_ID(0);
             //	Product
@@ -705,7 +705,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
             if (m_productPrice == null) getProductPricing(m_M_PriceList_ID);
             // IDEMPIERE-1574 Sales Order Line lets Price under the Price Limit when updating
             //	Check PriceLimit
-            boolean enforce = m_IsSOTrx && getParent().getM_PriceList().isEnforcePriceLimit();
+            boolean enforce = m_IsSOTrx && getParent().getPriceList().isEnforcePriceLimit();
             if (enforce && MRole.getDefault().isOverwritePriceLimit()) enforce = false;
             //	Check Price Limit?
             if (enforce
@@ -726,7 +726,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
         if (getC_UOM_ID() == 0
                 && (getM_Product_ID() != 0
                 || getPriceEntered().compareTo(Env.ZERO) != 0
-                || getC_Charge_ID() != 0)) {
+                || getChargeId() != 0)) {
             int C_UOM_ID = MUOM.getDefault_UOM_ID(getCtx());
             if (C_UOM_ID > 0) setC_UOM_ID(C_UOM_ID);
         }
@@ -761,7 +761,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
         //	Get Line No
         if (getLine() == 0) {
             String sql = "SELECT COALESCE(MAX(Line),0)+10 FROM C_OrderLine WHERE C_Order_ID=?";
-            int ii = getSQLValue(sql, getC_Order_ID());
+            int ii = getSQLValue(sql, getOrderId());
             setLine(ii);
         }
 
@@ -772,8 +772,8 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
         /* Carlos Ruiz - globalqss
          * IDEMPIERE-178 Orders and Invoices must disallow amount lines without product/charge
          */
-        if (getParent().getC_DocTypeTarget().isChargeOrProductMandatory()) {
-            if (getC_Charge_ID() == 0
+        if (getParent().getTargetDocumentType().isChargeOrProductMandatory()) {
+            if (getChargeId() == 0
                     && getM_Product_ID() == 0
                     && (getPriceEntered().signum() != 0 || getQtyEntered().signum() != 0)) {
                 log.saveError("FillMandatory", Msg.translate(getCtx(), "ChargeOrProductMandatory"));

@@ -33,7 +33,7 @@ public class MPaySchedule extends X_C_PaySchedule {
     public MPaySchedule(Properties ctx, int C_PaySchedule_ID) {
         super(ctx, C_PaySchedule_ID);
         if (C_PaySchedule_ID == 0) {
-            //	setC_PaymentTerm_ID (0);	//	Parent
+            //	setPaymentTermId (0);	//	Parent
             setPercentage(Env.ZERO);
             setDiscount(Env.ZERO);
             setDiscountDays(0);
@@ -63,7 +63,7 @@ public class MPaySchedule extends X_C_PaySchedule {
      */
     public I_C_PaymentTerm getParent() {
         if (m_parent == null)
-            m_parent = new MPaymentTerm(getCtx(), getC_PaymentTerm_ID());
+            m_parent = new MPaymentTerm(getCtx(), getPaymentTermId());
         return m_parent;
     } //	getParent
 

@@ -58,7 +58,7 @@ public class X_C_PaymentTerm extends BasePONameValue {
      * @param AfterDelivery Due after delivery rather than after invoicing
      */
     public void setAfterDelivery(boolean AfterDelivery) {
-        set_Value(I_C_PaymentTerm.COLUMNNAME_AfterDelivery, Boolean.valueOf(AfterDelivery));
+        setValue(I_C_PaymentTerm.COLUMNNAME_AfterDelivery, Boolean.valueOf(AfterDelivery));
     }
 
     /**
@@ -66,7 +66,7 @@ public class X_C_PaymentTerm extends BasePONameValue {
      *
      * @return The terms of Payment (timing, discount)
      */
-    public int getC_PaymentTerm_ID() {
+    public int getPaymentTermId() {
         Integer ii = (Integer) getValue(I_C_PaymentTerm.COLUMNNAME_C_PaymentTerm_ID);
         if (ii == null) return 0;
         return ii;
@@ -78,7 +78,7 @@ public class X_C_PaymentTerm extends BasePONameValue {
      * @param Discount Discount in percent
      */
     public void setDiscount(BigDecimal Discount) {
-        set_Value(I_C_PaymentTerm.COLUMNNAME_Discount, Discount);
+        setValue(I_C_PaymentTerm.COLUMNNAME_Discount, Discount);
     }
 
     /**
@@ -87,7 +87,7 @@ public class X_C_PaymentTerm extends BasePONameValue {
      * @param Discount2 Discount in percent
      */
     public void setDiscount2(BigDecimal Discount2) {
-        set_Value(I_C_PaymentTerm.COLUMNNAME_Discount2, Discount2);
+        setValue(I_C_PaymentTerm.COLUMNNAME_Discount2, Discount2);
     }
 
     /**
@@ -96,7 +96,7 @@ public class X_C_PaymentTerm extends BasePONameValue {
      * @param DiscountDays Number of days from invoice date to be eligible for discount
      */
     public void setDiscountDays(int DiscountDays) {
-        set_Value(I_C_PaymentTerm.COLUMNNAME_DiscountDays, Integer.valueOf(DiscountDays));
+        setValue(I_C_PaymentTerm.COLUMNNAME_DiscountDays, Integer.valueOf(DiscountDays));
     }
 
     /**
@@ -105,7 +105,7 @@ public class X_C_PaymentTerm extends BasePONameValue {
      * @param DiscountDays2 Number of days from invoice date to be eligible for discount
      */
     public void setDiscountDays2(int DiscountDays2) {
-        set_Value(I_C_PaymentTerm.COLUMNNAME_DiscountDays2, Integer.valueOf(DiscountDays2));
+        setValue(I_C_PaymentTerm.COLUMNNAME_DiscountDays2, Integer.valueOf(DiscountDays2));
     }
 
     /**
@@ -136,7 +136,7 @@ public class X_C_PaymentTerm extends BasePONameValue {
      * @param GraceDays Days after due date to send first dunning letter
      */
     public void setGraceDays(int GraceDays) {
-        set_Value(I_C_PaymentTerm.COLUMNNAME_GraceDays, Integer.valueOf(GraceDays));
+        setValue(I_C_PaymentTerm.COLUMNNAME_GraceDays, Integer.valueOf(GraceDays));
     }
 
     /**
@@ -145,7 +145,7 @@ public class X_C_PaymentTerm extends BasePONameValue {
      * @param IsDueFixed Payment is due on a fixed date
      */
     public void setIsDueFixed(boolean IsDueFixed) {
-        set_Value(I_C_PaymentTerm.COLUMNNAME_IsDueFixed, Boolean.valueOf(IsDueFixed));
+        setValue(I_C_PaymentTerm.COLUMNNAME_IsDueFixed, Boolean.valueOf(IsDueFixed));
     }
 
     /**
@@ -168,7 +168,7 @@ public class X_C_PaymentTerm extends BasePONameValue {
      * @param IsValid Element is valid
      */
     public void setIsValid(boolean IsValid) {
-        set_Value(I_C_PaymentTerm.COLUMNNAME_IsValid, Boolean.valueOf(IsValid));
+        setValue(I_C_PaymentTerm.COLUMNNAME_IsValid, Boolean.valueOf(IsValid));
     }
 
     /**
@@ -202,7 +202,7 @@ public class X_C_PaymentTerm extends BasePONameValue {
      * @param NetDays Net Days in which payment is due
      */
     public void setNetDays(int NetDays) {
-        set_Value(I_C_PaymentTerm.COLUMNNAME_NetDays, Integer.valueOf(NetDays));
+        setValue(I_C_PaymentTerm.COLUMNNAME_NetDays, Integer.valueOf(NetDays));
     }
 
     @Override

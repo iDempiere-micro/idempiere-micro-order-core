@@ -57,8 +57,8 @@ public class X_C_OnlineTrxHistory extends PO implements I_C_OnlineTrxHistory {
      * @param AD_Table_ID Database Table information
      */
     public void setAD_Table_ID(int AD_Table_ID) {
-        if (AD_Table_ID < 1) set_Value(COLUMNNAME_AD_Table_ID, null);
-        else set_Value(COLUMNNAME_AD_Table_ID, Integer.valueOf(AD_Table_ID));
+        if (AD_Table_ID < 1) setValue(COLUMNNAME_AD_Table_ID, null);
+        else setValue(COLUMNNAME_AD_Table_ID, Integer.valueOf(AD_Table_ID));
     }
 
     /**
@@ -67,7 +67,7 @@ public class X_C_OnlineTrxHistory extends PO implements I_C_OnlineTrxHistory {
      * @param IsError An Error occurred in the execution
      */
     public void setIsError(boolean IsError) {
-        set_Value(COLUMNNAME_IsError, Boolean.valueOf(IsError));
+        setValue(COLUMNNAME_IsError, Boolean.valueOf(IsError));
     }
 
     /**
@@ -76,7 +76,7 @@ public class X_C_OnlineTrxHistory extends PO implements I_C_OnlineTrxHistory {
      * @param Processed The document has been processed
      */
     public void setProcessed(boolean Processed) {
-        set_Value(COLUMNNAME_Processed, Boolean.valueOf(Processed));
+        setValue(COLUMNNAME_Processed, Boolean.valueOf(Processed));
     }
 
     /**
@@ -85,8 +85,8 @@ public class X_C_OnlineTrxHistory extends PO implements I_C_OnlineTrxHistory {
      * @param Record_ID Direct internal record ID
      */
     public void setRecord_ID(int Record_ID) {
-        if (Record_ID < 0) set_Value(COLUMNNAME_Record_ID, null);
-        else set_Value(COLUMNNAME_Record_ID, Integer.valueOf(Record_ID));
+        if (Record_ID < 0) setValue(COLUMNNAME_Record_ID, null);
+        else setValue(COLUMNNAME_Record_ID, Integer.valueOf(Record_ID));
     }
 
     /**
@@ -95,7 +95,7 @@ public class X_C_OnlineTrxHistory extends PO implements I_C_OnlineTrxHistory {
      * @param TextMsg Text Message
      */
     public void setTextMsg(String TextMsg) {
-        set_Value(COLUMNNAME_TextMsg, TextMsg);
+        setValue(COLUMNNAME_TextMsg, TextMsg);
     }
 
     @Override

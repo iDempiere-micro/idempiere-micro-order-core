@@ -70,8 +70,8 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
         super(ctx, M_RMA_ID);
         if (M_RMA_ID == 0) {
             //	setName (null);
-            //	setSalesRep_ID (0);
-            //	setC_DocType_ID (0);
+            //	setSalesRepresentativeId (0);
+            //	setDocumentTypeId (0);
             //	setM_InOut_ID (0);
             setDocAction(X_M_RMA.DOCACTION_Complete); // CO
             setDocStatus(X_M_RMA.DOCSTATUS_Drafted); // DR
@@ -110,11 +110,11 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
     protected static MRMA doCopyFrom(
             MRMA from, int C_DocType_ID, boolean isSOTrx, boolean counter, String trxName, MRMA to) {
         copyValues(from, to, from.getClientId(), from.getOrgId());
-        to.set_ValueNoCheck("M_RMA_ID", I_ZERO);
-        to.set_ValueNoCheck("DocumentNo", null);
+        to.setValueNoCheck("M_RMA_ID", I_ZERO);
+        to.setValueNoCheck("DocumentNo", null);
         to.setDocStatus(X_M_RMA.DOCSTATUS_Drafted); // 	Draft
         to.setDocAction(X_M_RMA.DOCACTION_Complete);
-        to.setC_DocType_ID(C_DocType_ID);
+        to.setDocumentTypeId(C_DocType_ID);
         to.setIsSOTrx(isSOTrx);
         to.setIsApproved(false);
         to.setProcessed(false);
@@ -122,16 +122,16 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
 
         to.setName(from.getName());
         to.setDescription(from.getDescription());
-        to.setSalesRep_ID(from.getSalesRep_ID());
+        to.setSalesRepresentativeId(from.getSalesRepresentativeId());
         to.setHelp(from.getHelp());
         to.setM_RMAType_ID(from.getM_RMAType_ID());
         to.setAmt(from.getAmt());
 
-        to.setC_Order_ID(0);
+        to.setOrderId(0);
         //	Try to find Order/Shipment/Receipt link
-        if (from.getC_Order_ID() != 0) {
-            MOrder peer = new MOrder(from.getCtx(), from.getC_Order_ID());
-            if (peer.getRef_Order_ID() != 0) to.setC_Order_ID(peer.getRef_Order_ID());
+        if (from.getOrderId() != 0) {
+            MOrder peer = new MOrder(from.getCtx(), from.getOrderId());
+            if (peer.getRef_Order_ID() != 0) to.setOrderId(peer.getRef_Order_ID());
         }
         if (from.getInOut_ID() != 0) {
             MInOut peer = new MInOut(from.getCtx(), from.getInOut_ID());
@@ -204,10 +204,10 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
      */
     public MOrder getOriginalOrder() {
         MInOut shipment = getShipment();
-        if (shipment == null || shipment.getC_Order_ID() == 0) {
+        if (shipment == null || shipment.getOrderId() == 0) {
             return null;
         }
-        return new MOrder(getCtx(), shipment.getC_Order_ID());
+        return new MOrder(getCtx(), shipment.getOrderId());
     }
 
     /**
@@ -217,9 +217,9 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
      */
     public void setM_InOut_ID(int M_InOut_ID) {
         setInOut_ID(M_InOut_ID);
-        setC_Currency_ID(0);
+        setCurrencyId(0);
         setAmt(Env.ZERO);
-        setC_BPartner_ID(0);
+        setBusinessPartnerId(0);
         m_inout = null;
     } //	setM_InOut_ID
 
@@ -229,7 +229,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
      * @return document info (untranslated)
      */
     public String getDocumentInfo() {
-        MDocType dt = MDocType.get(getCtx(), getC_DocType_ID());
+        MDocType dt = MDocType.get(getCtx(), getDocumentTypeId());
         return dt.getNameTrl() + " " + getDocumentNo();
     } //	getDocumentInfo
 
@@ -240,18 +240,18 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
      * @return true
      */
     protected boolean beforeSave(boolean newRecord) {
-        if (newRecord) setC_Order_ID(0);
+        if (newRecord) setOrderId(0);
         getShipment();
         //	Set BPartner
-        if (getC_BPartner_ID() == 0) {
-            if (m_inout != null) setC_BPartner_ID(m_inout.getC_BPartner_ID());
+        if (getBusinessPartnerId() == 0) {
+            if (m_inout != null) setBusinessPartnerId(m_inout.getBusinessPartnerId());
         }
         //	Set Currency
-        if (getC_Currency_ID() == 0) {
+        if (getCurrencyId() == 0) {
             if (m_inout != null) {
-                if (m_inout.getC_Order_ID() != 0) {
-                    MOrder order = new MOrder(getCtx(), m_inout.getC_Order_ID());
-                    setC_Currency_ID(order.getC_Currency_ID());
+                if (m_inout.getOrderId() != 0) {
+                    MOrder order = new MOrder(getCtx(), m_inout.getOrderId());
+                    setCurrencyId(order.getCurrencyId());
                 }
             }
         }
@@ -333,14 +333,14 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
      * Set the definite document number after completed
      */
     protected void setDefiniteDocumentNo() {
-        MDocType dt = MDocType.get(getCtx(), getC_DocType_ID());
+        MDocType dt = MDocType.get(getCtx(), getDocumentTypeId());
     /* No Document Date on RMA
     if (dt.isOverwriteDateOnComplete()) {
     	setDate???(new Timestamp (System.currentTimeMillis()));
     }
     */
         if (dt.isOverwriteSeqOnComplete()) {
-            String value = MSequence.getDocumentNo(getC_DocType_ID(), null, true, this);
+            String value = MSequence.getDocumentNo(getDocumentTypeId(), null, true, this);
             if (value != null) setDocumentNo(value);
         }
     }
@@ -364,7 +364,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
                 copyValues(fromLine, line, getClientId(), getOrgId());
             else copyValues(fromLine, line, fromLine.getClientId(), fromLine.getOrgId());
             line.setM_RMA_ID(getM_RMA_ID());
-            line.set_ValueNoCheck(MRMALine.COLUMNNAME_M_RMALine_ID, I_ZERO); // 	new
+            line.setValueNoCheck(MRMALine.COLUMNNAME_M_RMALine_ID, I_ZERO); // 	new
             if (counter) {
                 line.setRef_RMALine_ID(fromLine.getM_RMALine_ID());
                 if (fromLine.getM_InOutLine_ID() != 0) {
@@ -392,7 +392,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
      * @return precision
      */
     public int getPrecision() {
-        return MCurrency.getStdPrecision(getCtx(), getC_Currency_ID());
+        return MCurrency.getStdPrecision(getCtx(), getCurrencyId());
     }
 
     /**
@@ -501,7 +501,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
      * @return AD_User_ID
      */
     public int getDoc_User_ID() {
-        return getSalesRep_ID();
+        return getSalesRepresentativeId();
     } //	getDoc_User_ID
 
     /**

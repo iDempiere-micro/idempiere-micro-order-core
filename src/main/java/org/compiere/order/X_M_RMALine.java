@@ -71,7 +71,7 @@ public class X_M_RMALine extends PO {
      * @param Amt Amount
      */
     public void setAmt(BigDecimal Amt) {
-        set_Value(I_M_RMALine.COLUMNNAME_Amt, Amt);
+        setValue(I_M_RMALine.COLUMNNAME_Amt, Amt);
     }
 
     /**
@@ -79,7 +79,7 @@ public class X_M_RMALine extends PO {
      *
      * @return Additional document charges
      */
-    public int getC_Charge_ID() {
+    public int getChargeId() {
         Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_C_Charge_ID);
         if (ii == null) return 0;
         return ii;
@@ -90,9 +90,9 @@ public class X_M_RMALine extends PO {
      *
      * @param C_Charge_ID Additional document charges
      */
-    public void setC_Charge_ID(int C_Charge_ID) {
-        if (C_Charge_ID < 1) set_Value(I_M_RMALine.COLUMNNAME_C_Charge_ID, null);
-        else set_Value(I_M_RMALine.COLUMNNAME_C_Charge_ID, Integer.valueOf(C_Charge_ID));
+    public void setChargeId(int C_Charge_ID) {
+        if (C_Charge_ID < 1) setValue(I_M_RMALine.COLUMNNAME_C_Charge_ID, null);
+        else setValue(I_M_RMALine.COLUMNNAME_C_Charge_ID, Integer.valueOf(C_Charge_ID));
     }
 
     /**
@@ -112,8 +112,8 @@ public class X_M_RMALine extends PO {
      * @param C_Tax_ID Tax identifier
      */
     public void setC_Tax_ID(int C_Tax_ID) {
-        if (C_Tax_ID < 1) set_Value(I_M_RMALine.COLUMNNAME_C_Tax_ID, null);
-        else set_Value(I_M_RMALine.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
+        if (C_Tax_ID < 1) setValue(I_M_RMALine.COLUMNNAME_C_Tax_ID, null);
+        else setValue(I_M_RMALine.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
     }
 
     /**
@@ -131,7 +131,7 @@ public class X_M_RMALine extends PO {
      * @param Description Optional short description of the record
      */
     public void setDescription(String Description) {
-        set_Value(I_M_RMALine.COLUMNNAME_Description, Description);
+        setValue(I_M_RMALine.COLUMNNAME_Description, Description);
     }
 
     /**
@@ -151,7 +151,7 @@ public class X_M_RMALine extends PO {
      * @param Line Unique line for this document
      */
     public void setLine(int Line) {
-        set_Value(I_M_RMALine.COLUMNNAME_Line, Integer.valueOf(Line));
+        setValue(I_M_RMALine.COLUMNNAME_Line, Integer.valueOf(Line));
     }
 
     /**
@@ -171,7 +171,7 @@ public class X_M_RMALine extends PO {
      * @param LineNetAmt Line Extended Amount (Quantity * Actual Price) without Freight and Charges
      */
     public void setLineNetAmt(BigDecimal LineNetAmt) {
-        set_Value(I_M_RMALine.COLUMNNAME_LineNetAmt, LineNetAmt);
+        setValue(I_M_RMALine.COLUMNNAME_LineNetAmt, LineNetAmt);
     }
 
     public org.compiere.model.I_M_InOutLine getM_InOutLine() throws RuntimeException {
@@ -198,8 +198,8 @@ public class X_M_RMALine extends PO {
      * @param M_InOutLine_ID Line on Shipment or Receipt document
      */
     public void setM_InOutLine_ID(int M_InOutLine_ID) {
-        if (M_InOutLine_ID < 1) set_Value(I_M_RMALine.COLUMNNAME_M_InOutLine_ID, null);
-        else set_Value(I_M_RMALine.COLUMNNAME_M_InOutLine_ID, Integer.valueOf(M_InOutLine_ID));
+        if (M_InOutLine_ID < 1) setValue(I_M_RMALine.COLUMNNAME_M_InOutLine_ID, null);
+        else setValue(I_M_RMALine.COLUMNNAME_M_InOutLine_ID, Integer.valueOf(M_InOutLine_ID));
     }
 
     /**
@@ -219,8 +219,8 @@ public class X_M_RMALine extends PO {
      * @param M_Product_ID Product, Service, Item
      */
     public void setM_Product_ID(int M_Product_ID) {
-        if (M_Product_ID < 1) set_Value(I_M_RMALine.COLUMNNAME_M_Product_ID, null);
-        else set_Value(I_M_RMALine.COLUMNNAME_M_Product_ID, M_Product_ID);
+        if (M_Product_ID < 1) setValue(I_M_RMALine.COLUMNNAME_M_Product_ID, null);
+        else setValue(I_M_RMALine.COLUMNNAME_M_Product_ID, M_Product_ID);
     }
 
     /**
@@ -240,8 +240,8 @@ public class X_M_RMALine extends PO {
      * @param M_RMA_ID Return Material Authorization
      */
     public void setM_RMA_ID(int M_RMA_ID) {
-        if (M_RMA_ID < 1) set_ValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMA_ID, null);
-        else set_ValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMA_ID, M_RMA_ID);
+        if (M_RMA_ID < 1) setValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMA_ID, null);
+        else setValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMA_ID, M_RMA_ID);
     }
 
     /**
@@ -275,7 +275,7 @@ public class X_M_RMALine extends PO {
      * @param Processed The document has been processed
      */
     public void setProcessed(boolean Processed) {
-        set_Value(I_M_RMALine.COLUMNNAME_Processed, Boolean.valueOf(Processed));
+        setValue(I_M_RMALine.COLUMNNAME_Processed, Boolean.valueOf(Processed));
     }
 
     /**
@@ -295,7 +295,7 @@ public class X_M_RMALine extends PO {
      * @param Qty Quantity
      */
     public void setQty(BigDecimal Qty) {
-        set_Value(I_M_RMALine.COLUMNNAME_Qty, Qty);
+        setValue(I_M_RMALine.COLUMNNAME_Qty, Qty);
     }
 
     /**
@@ -315,7 +315,7 @@ public class X_M_RMALine extends PO {
      * @param QtyDelivered Delivered Quantity
      */
     public void setQtyDelivered(BigDecimal QtyDelivered) {
-        set_Value(I_M_RMALine.COLUMNNAME_QtyDelivered, QtyDelivered);
+        setValue(I_M_RMALine.COLUMNNAME_QtyDelivered, QtyDelivered);
     }
 
     /**
@@ -335,7 +335,7 @@ public class X_M_RMALine extends PO {
      * @param QtyInvoiced Invoiced Quantity
      */
     public void setQtyInvoiced(BigDecimal QtyInvoiced) {
-        set_Value(I_M_RMALine.COLUMNNAME_QtyInvoiced, QtyInvoiced);
+        setValue(I_M_RMALine.COLUMNNAME_QtyInvoiced, QtyInvoiced);
     }
 
     /**
@@ -355,8 +355,8 @@ public class X_M_RMALine extends PO {
      * @param Ref_RMALine_ID Referenced RMA Line
      */
     public void setRef_RMALine_ID(int Ref_RMALine_ID) {
-        if (Ref_RMALine_ID < 1) set_Value(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID, null);
-        else set_Value(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID, Integer.valueOf(Ref_RMALine_ID));
+        if (Ref_RMALine_ID < 1) setValue(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID, null);
+        else setValue(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID, Integer.valueOf(Ref_RMALine_ID));
     }
 
     @Override

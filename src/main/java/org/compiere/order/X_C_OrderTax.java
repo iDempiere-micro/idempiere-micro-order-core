@@ -28,7 +28,7 @@ public class X_C_OrderTax extends PO {
     public X_C_OrderTax(Properties ctx, int C_OrderTax_ID) {
         super(ctx, C_OrderTax_ID);
         /**
-         * if (C_OrderTax_ID == 0) { setC_Order_ID (0); setC_Tax_ID (0); setIsTaxIncluded (false);
+         * if (C_OrderTax_ID == 0) { setOrderId (0); setC_Tax_ID (0); setIsTaxIncluded (false);
          * setProcessed (false); setTaxAmt (Env.ZERO); setTaxBaseAmt (Env.ZERO); }
          */
     }
@@ -63,7 +63,7 @@ public class X_C_OrderTax extends PO {
      *
      * @return Order
      */
-    public int getC_Order_ID() {
+    public int getOrderId() {
         Integer ii = (Integer) getValue(I_C_OrderTax.COLUMNNAME_C_Order_ID);
         if (ii == null) return 0;
         return ii;
@@ -74,9 +74,9 @@ public class X_C_OrderTax extends PO {
      *
      * @param C_Order_ID Order
      */
-    public void setC_Order_ID(int C_Order_ID) {
-        if (C_Order_ID < 1) set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_C_Order_ID, null);
-        else set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
+    public void setOrderId(int C_Order_ID) {
+        if (C_Order_ID < 1) setValueNoCheck(I_C_OrderTax.COLUMNNAME_C_Order_ID, null);
+        else setValueNoCheck(I_C_OrderTax.COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
     }
 
     /**
@@ -96,8 +96,8 @@ public class X_C_OrderTax extends PO {
      * @param C_Tax_ID Tax identifier
      */
     public void setC_Tax_ID(int C_Tax_ID) {
-        if (C_Tax_ID < 1) set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_C_Tax_ID, null);
-        else set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
+        if (C_Tax_ID < 1) setValueNoCheck(I_C_OrderTax.COLUMNNAME_C_Tax_ID, null);
+        else setValueNoCheck(I_C_OrderTax.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
     }
 
     /**
@@ -117,7 +117,7 @@ public class X_C_OrderTax extends PO {
      * @param IsTaxIncluded Tax is included in the price
      */
     public void setIsTaxIncluded(boolean IsTaxIncluded) {
-        set_Value(I_C_OrderTax.COLUMNNAME_IsTaxIncluded, Boolean.valueOf(IsTaxIncluded));
+        setValue(I_C_OrderTax.COLUMNNAME_IsTaxIncluded, Boolean.valueOf(IsTaxIncluded));
     }
 
     /**
@@ -151,7 +151,7 @@ public class X_C_OrderTax extends PO {
      * @param TaxAmt Tax Amount for a document
      */
     public void setTaxAmt(BigDecimal TaxAmt) {
-        set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_TaxAmt, TaxAmt);
+        setValueNoCheck(I_C_OrderTax.COLUMNNAME_TaxAmt, TaxAmt);
     }
 
     /**
@@ -171,7 +171,7 @@ public class X_C_OrderTax extends PO {
      * @param TaxBaseAmt Base for calculating the tax amount
      */
     public void setTaxBaseAmt(BigDecimal TaxBaseAmt) {
-        set_ValueNoCheck(I_C_OrderTax.COLUMNNAME_TaxBaseAmt, TaxBaseAmt);
+        setValueNoCheck(I_C_OrderTax.COLUMNNAME_TaxBaseAmt, TaxBaseAmt);
     }
 
     @Override

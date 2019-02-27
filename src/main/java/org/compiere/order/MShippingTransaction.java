@@ -81,7 +81,7 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
     }
 
     public MShipper getMShipper() {
-        return new MShipper(getCtx(), getM_Shipper_ID());
+        return new MShipper(getCtx(), getShipperId());
     }
 
     public boolean isPayBySender() {

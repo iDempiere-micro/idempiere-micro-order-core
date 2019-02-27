@@ -30,8 +30,8 @@ public class X_C_OrderLine extends PO {
     public X_C_OrderLine(Properties ctx, int C_OrderLine_ID) {
         super(ctx, C_OrderLine_ID);
         /**
-         * if (C_OrderLine_ID == 0) { setC_BPartner_Location_ID (0); // @C_BPartner_Location_ID@
-         * setCurrencyId (0); // @C_Currency_ID@ setC_Order_ID (0); setC_OrderLine_ID (0);
+         * if (C_OrderLine_ID == 0) { setBusinessPartnerLocationId (0); // @C_BPartner_Location_ID@
+         * setCurrencyId (0); // @C_Currency_ID@ setOrderId (0); setC_OrderLine_ID (0);
          * setC_Tax_ID (0); setC_UOM_ID (0); // @#C_UOM_ID@ setDateOrdered (new Timestamp(
          * System.currentTimeMillis() )); // @DateOrdered@ setFreightAmt (Env.ZERO); setIsDescription
          * (false); // N setLine (0); // @SQL=SELECT COALESCE(MAX(Line),0)+10 AS DefaultValue FROM
@@ -74,7 +74,7 @@ public class X_C_OrderLine extends PO {
      *
      * @return Performing or initiating organization
      */
-    public int getAD_OrgTrx_ID() {
+    public int getTransactionOrganizationId() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_AD_OrgTrx_ID);
         if (ii == null) return 0;
         return ii;
@@ -85,7 +85,7 @@ public class X_C_OrderLine extends PO {
      *
      * @return Business Activity
      */
-    public int getC_Activity_ID() {
+    public int getBusinessActivityId() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_C_Activity_ID);
         if (ii == null) return 0;
         return ii;
@@ -96,9 +96,9 @@ public class X_C_OrderLine extends PO {
      *
      * @param C_Activity_ID Business Activity
      */
-    public void setC_Activity_ID(int C_Activity_ID) {
-        if (C_Activity_ID < 1) set_Value(I_C_OrderLine.COLUMNNAME_C_Activity_ID, null);
-        else set_Value(I_C_OrderLine.COLUMNNAME_C_Activity_ID, Integer.valueOf(C_Activity_ID));
+    public void setBusinessActivityId(int C_Activity_ID) {
+        if (C_Activity_ID < 1) setValue(I_C_OrderLine.COLUMNNAME_C_Activity_ID, null);
+        else setValue(I_C_OrderLine.COLUMNNAME_C_Activity_ID, Integer.valueOf(C_Activity_ID));
     }
 
     /**
@@ -106,7 +106,7 @@ public class X_C_OrderLine extends PO {
      *
      * @return Identifies a Business Partner
      */
-    public int getC_BPartner_ID() {
+    public int getBusinessPartnerId() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_C_BPartner_ID);
         if (ii == null) return 0;
         return ii;
@@ -117,9 +117,9 @@ public class X_C_OrderLine extends PO {
      *
      * @param C_BPartner_ID Identifies a Business Partner
      */
-    public void setC_BPartner_ID(int C_BPartner_ID) {
-        if (C_BPartner_ID < 1) set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_C_BPartner_ID, null);
-        else set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_C_BPartner_ID, Integer.valueOf(C_BPartner_ID));
+    public void setBusinessPartnerId(int C_BPartner_ID) {
+        if (C_BPartner_ID < 1) setValueNoCheck(I_C_OrderLine.COLUMNNAME_C_BPartner_ID, null);
+        else setValueNoCheck(I_C_OrderLine.COLUMNNAME_C_BPartner_ID, Integer.valueOf(C_BPartner_ID));
     }
 
     /**
@@ -127,7 +127,7 @@ public class X_C_OrderLine extends PO {
      *
      * @return Identifies the (ship to) address for this Business Partner
      */
-    public int getC_BPartner_Location_ID() {
+    public int getBusinessPartnerLocationId() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_C_BPartner_Location_ID);
         if (ii == null) return 0;
         return ii;
@@ -138,11 +138,11 @@ public class X_C_OrderLine extends PO {
      *
      * @param C_BPartner_Location_ID Identifies the (ship to) address for this Business Partner
      */
-    public void setC_BPartner_Location_ID(int C_BPartner_Location_ID) {
+    public void setBusinessPartnerLocationId(int C_BPartner_Location_ID) {
         if (C_BPartner_Location_ID < 1)
-            set_Value(I_C_OrderLine.COLUMNNAME_C_BPartner_Location_ID, null);
+            setValue(I_C_OrderLine.COLUMNNAME_C_BPartner_Location_ID, null);
         else
-            set_Value(
+            setValue(
                     I_C_OrderLine.COLUMNNAME_C_BPartner_Location_ID, Integer.valueOf(C_BPartner_Location_ID));
     }
 
@@ -151,7 +151,7 @@ public class X_C_OrderLine extends PO {
      *
      * @return Marketing Campaign
      */
-    public int getC_Campaign_ID() {
+    public int getCampaignId() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_C_Campaign_ID);
         if (ii == null) return 0;
         return ii;
@@ -162,9 +162,9 @@ public class X_C_OrderLine extends PO {
      *
      * @param C_Campaign_ID Marketing Campaign
      */
-    public void setC_Campaign_ID(int C_Campaign_ID) {
-        if (C_Campaign_ID < 1) set_Value(I_C_OrderLine.COLUMNNAME_C_Campaign_ID, null);
-        else set_Value(I_C_OrderLine.COLUMNNAME_C_Campaign_ID, Integer.valueOf(C_Campaign_ID));
+    public void setCampaignId(int C_Campaign_ID) {
+        if (C_Campaign_ID < 1) setValue(I_C_OrderLine.COLUMNNAME_C_Campaign_ID, null);
+        else setValue(I_C_OrderLine.COLUMNNAME_C_Campaign_ID, Integer.valueOf(C_Campaign_ID));
     }
 
     /**
@@ -172,7 +172,7 @@ public class X_C_OrderLine extends PO {
      *
      * @return Additional document charges
      */
-    public int getC_Charge_ID() {
+    public int getChargeId() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_C_Charge_ID);
         if (ii == null) return 0;
         return ii;
@@ -183,9 +183,9 @@ public class X_C_OrderLine extends PO {
      *
      * @param C_Charge_ID Additional document charges
      */
-    public void setC_Charge_ID(int C_Charge_ID) {
-        if (C_Charge_ID < 1) set_Value(I_C_OrderLine.COLUMNNAME_C_Charge_ID, null);
-        else set_Value(I_C_OrderLine.COLUMNNAME_C_Charge_ID, Integer.valueOf(C_Charge_ID));
+    public void setChargeId(int C_Charge_ID) {
+        if (C_Charge_ID < 1) setValue(I_C_OrderLine.COLUMNNAME_C_Charge_ID, null);
+        else setValue(I_C_OrderLine.COLUMNNAME_C_Charge_ID, Integer.valueOf(C_Charge_ID));
     }
 
     /**
@@ -193,7 +193,7 @@ public class X_C_OrderLine extends PO {
      *
      * @return The Currency for this record
      */
-    public int getC_Currency_ID() {
+    public int getCurrencyId() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_C_Currency_ID);
         if (ii == null) return 0;
         return ii;
@@ -204,16 +204,16 @@ public class X_C_OrderLine extends PO {
      *
      * @param C_Currency_ID The Currency for this record
      */
-    public void setC_Currency_ID(int C_Currency_ID) {
-        if (C_Currency_ID < 1) set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_C_Currency_ID, null);
-        else set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_C_Currency_ID, C_Currency_ID);
+    public void setCurrencyId(int C_Currency_ID) {
+        if (C_Currency_ID < 1) setValueNoCheck(I_C_OrderLine.COLUMNNAME_C_Currency_ID, null);
+        else setValueNoCheck(I_C_OrderLine.COLUMNNAME_C_Currency_ID, C_Currency_ID);
     }
 
 
     public org.compiere.model.I_C_Order getC_Order() throws RuntimeException {
         return (org.compiere.model.I_C_Order)
                 MTable.get(getCtx(), org.compiere.model.I_C_Order.Table_Name)
-                        .getPO(getC_Order_ID());
+                        .getPO(getOrderId());
     }
 
     /**
@@ -221,7 +221,7 @@ public class X_C_OrderLine extends PO {
      *
      * @return Order
      */
-    public int getC_Order_ID() {
+    public int getOrderId() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_C_Order_ID);
         if (ii == null) return 0;
         return ii;
@@ -232,9 +232,9 @@ public class X_C_OrderLine extends PO {
      *
      * @param C_Order_ID Order
      */
-    public void setC_Order_ID(int C_Order_ID) {
-        if (C_Order_ID < 1) set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_C_Order_ID, null);
-        else set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_C_Order_ID, C_Order_ID);
+    public void setOrderId(int C_Order_ID) {
+        if (C_Order_ID < 1) setValueNoCheck(I_C_OrderLine.COLUMNNAME_C_Order_ID, null);
+        else setValueNoCheck(I_C_OrderLine.COLUMNNAME_C_Order_ID, C_Order_ID);
     }
 
     /**
@@ -253,7 +253,7 @@ public class X_C_OrderLine extends PO {
      *
      * @return Financial Project
      */
-    public int getC_Project_ID() {
+    public int getProjectId() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_C_Project_ID);
         if (ii == null) return 0;
         return ii;
@@ -264,9 +264,9 @@ public class X_C_OrderLine extends PO {
      *
      * @param C_Project_ID Financial Project
      */
-    public void setC_Project_ID(int C_Project_ID) {
-        if (C_Project_ID < 1) set_Value(I_C_OrderLine.COLUMNNAME_C_Project_ID, null);
-        else set_Value(I_C_OrderLine.COLUMNNAME_C_Project_ID, Integer.valueOf(C_Project_ID));
+    public void setProjectId(int C_Project_ID) {
+        if (C_Project_ID < 1) setValue(I_C_OrderLine.COLUMNNAME_C_Project_ID, null);
+        else setValue(I_C_OrderLine.COLUMNNAME_C_Project_ID, Integer.valueOf(C_Project_ID));
     }
 
     /**
@@ -286,9 +286,9 @@ public class X_C_OrderLine extends PO {
      * @param C_ProjectPhase_ID Phase of a Project
      */
     public void setC_ProjectPhase_ID(int C_ProjectPhase_ID) {
-        if (C_ProjectPhase_ID < 1) set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_C_ProjectPhase_ID, null);
+        if (C_ProjectPhase_ID < 1) setValueNoCheck(I_C_OrderLine.COLUMNNAME_C_ProjectPhase_ID, null);
         else
-            set_ValueNoCheck(
+            setValueNoCheck(
                     I_C_OrderLine.COLUMNNAME_C_ProjectPhase_ID, Integer.valueOf(C_ProjectPhase_ID));
     }
 
@@ -309,9 +309,9 @@ public class X_C_OrderLine extends PO {
      * @param C_ProjectTask_ID Actual Project Task in a Phase
      */
     public void setC_ProjectTask_ID(int C_ProjectTask_ID) {
-        if (C_ProjectTask_ID < 1) set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_C_ProjectTask_ID, null);
+        if (C_ProjectTask_ID < 1) setValueNoCheck(I_C_OrderLine.COLUMNNAME_C_ProjectTask_ID, null);
         else
-            set_ValueNoCheck(
+            setValueNoCheck(
                     I_C_OrderLine.COLUMNNAME_C_ProjectTask_ID, Integer.valueOf(C_ProjectTask_ID));
     }
 
@@ -332,8 +332,8 @@ public class X_C_OrderLine extends PO {
      * @param C_Tax_ID Tax identifier
      */
     public void setC_Tax_ID(int C_Tax_ID) {
-        if (C_Tax_ID < 1) set_Value(I_C_OrderLine.COLUMNNAME_C_Tax_ID, null);
-        else set_Value(I_C_OrderLine.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
+        if (C_Tax_ID < 1) setValue(I_C_OrderLine.COLUMNNAME_C_Tax_ID, null);
+        else setValue(I_C_OrderLine.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
     }
 
     /**
@@ -353,8 +353,8 @@ public class X_C_OrderLine extends PO {
      * @param C_UOM_ID Unit of Measure
      */
     public void setC_UOM_ID(int C_UOM_ID) {
-        if (C_UOM_ID < 1) set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_C_UOM_ID, null);
-        else set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_C_UOM_ID, Integer.valueOf(C_UOM_ID));
+        if (C_UOM_ID < 1) setValueNoCheck(I_C_OrderLine.COLUMNNAME_C_UOM_ID, null);
+        else setValueNoCheck(I_C_OrderLine.COLUMNNAME_C_UOM_ID, Integer.valueOf(C_UOM_ID));
     }
 
     /**
@@ -363,7 +363,7 @@ public class X_C_OrderLine extends PO {
      * @param DateDelivered Date when the product was delivered
      */
     public void setDateDelivered(Timestamp DateDelivered) {
-        set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_DateDelivered, DateDelivered);
+        setValueNoCheck(I_C_OrderLine.COLUMNNAME_DateDelivered, DateDelivered);
     }
 
     /**
@@ -372,7 +372,7 @@ public class X_C_OrderLine extends PO {
      * @param DateInvoiced Date printed on Invoice
      */
     public void setDateInvoiced(Timestamp DateInvoiced) {
-        set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_DateInvoiced, DateInvoiced);
+        setValueNoCheck(I_C_OrderLine.COLUMNNAME_DateInvoiced, DateInvoiced);
     }
 
     /**
@@ -390,7 +390,7 @@ public class X_C_OrderLine extends PO {
      * @param DateOrdered Date of Order
      */
     public void setDateOrdered(Timestamp DateOrdered) {
-        set_Value(I_C_OrderLine.COLUMNNAME_DateOrdered, DateOrdered);
+        setValue(I_C_OrderLine.COLUMNNAME_DateOrdered, DateOrdered);
     }
 
     /**
@@ -408,7 +408,7 @@ public class X_C_OrderLine extends PO {
      * @param DatePromised Date Order was promised
      */
     public void setDatePromised(Timestamp DatePromised) {
-        set_Value(I_C_OrderLine.COLUMNNAME_DatePromised, DatePromised);
+        setValue(I_C_OrderLine.COLUMNNAME_DatePromised, DatePromised);
     }
 
     /**
@@ -426,7 +426,7 @@ public class X_C_OrderLine extends PO {
      * @param Discount Discount in percent
      */
     public void setDiscount(BigDecimal Discount) {
-        set_Value(I_C_OrderLine.COLUMNNAME_Discount, Discount);
+        setValue(I_C_OrderLine.COLUMNNAME_Discount, Discount);
     }
 
     /**
@@ -446,7 +446,7 @@ public class X_C_OrderLine extends PO {
      * @param FreightAmt Freight Amount
      */
     public void setFreightAmt(BigDecimal FreightAmt) {
-        set_Value(I_C_OrderLine.COLUMNNAME_FreightAmt, FreightAmt);
+        setValue(I_C_OrderLine.COLUMNNAME_FreightAmt, FreightAmt);
     }
 
     /**
@@ -455,7 +455,7 @@ public class X_C_OrderLine extends PO {
      * @param IsDescription if true, the line is just description and no transaction
      */
     public void setIsDescription(boolean IsDescription) {
-        set_Value(I_C_OrderLine.COLUMNNAME_IsDescription, Boolean.valueOf(IsDescription));
+        setValue(I_C_OrderLine.COLUMNNAME_IsDescription, Boolean.valueOf(IsDescription));
     }
 
     /**
@@ -478,7 +478,7 @@ public class X_C_OrderLine extends PO {
      * @param Description Optional short description of the record
      */
     public void setDescription(String Description) {
-        set_Value(I_C_OrderLine.COLUMNNAME_Description, Description);
+        setValue(I_C_OrderLine.COLUMNNAME_Description, Description);
     }
 
     /**
@@ -498,7 +498,7 @@ public class X_C_OrderLine extends PO {
      * @param Line Unique line for this document
      */
     public void setLine(int Line) {
-        set_Value(I_C_OrderLine.COLUMNNAME_Line, Integer.valueOf(Line));
+        setValue(I_C_OrderLine.COLUMNNAME_Line, Integer.valueOf(Line));
     }
 
     /**
@@ -518,7 +518,7 @@ public class X_C_OrderLine extends PO {
      * @param LineNetAmt Line Extended Amount (Quantity * Actual Price) without Freight and Charges
      */
     public void setLineNetAmt(BigDecimal LineNetAmt) {
-        set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_LineNetAmt, LineNetAmt);
+        setValueNoCheck(I_C_OrderLine.COLUMNNAME_LineNetAmt, LineNetAmt);
     }
 
     /**
@@ -540,9 +540,9 @@ public class X_C_OrderLine extends PO {
      *                          generated from it.
      */
     public void setLink_OrderLine_ID(int Link_OrderLine_ID) {
-        if (Link_OrderLine_ID < 1) set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_Link_OrderLine_ID, null);
+        if (Link_OrderLine_ID < 1) setValueNoCheck(I_C_OrderLine.COLUMNNAME_Link_OrderLine_ID, null);
         else
-            set_ValueNoCheck(
+            setValueNoCheck(
                     I_C_OrderLine.COLUMNNAME_Link_OrderLine_ID, Integer.valueOf(Link_OrderLine_ID));
     }
 
@@ -553,9 +553,9 @@ public class X_C_OrderLine extends PO {
      */
     public void setM_AttributeSetInstance_ID(int M_AttributeSetInstance_ID) {
         if (M_AttributeSetInstance_ID < 0)
-            set_Value(I_C_OrderLine.COLUMNNAME_M_AttributeSetInstance_ID, null);
+            setValue(I_C_OrderLine.COLUMNNAME_M_AttributeSetInstance_ID, null);
         else
-            set_Value(
+            setValue(
                     I_C_OrderLine.COLUMNNAME_M_AttributeSetInstance_ID,
                     Integer.valueOf(M_AttributeSetInstance_ID));
     }
@@ -588,8 +588,8 @@ public class X_C_OrderLine extends PO {
      * @param M_Product_ID Product, Service, Item
      */
     public void setM_Product_ID(int M_Product_ID) {
-        if (M_Product_ID < 1) set_Value(I_C_OrderLine.COLUMNNAME_M_Product_ID, null);
-        else set_Value(I_C_OrderLine.COLUMNNAME_M_Product_ID, Integer.valueOf(M_Product_ID));
+        if (M_Product_ID < 1) setValue(I_C_OrderLine.COLUMNNAME_M_Product_ID, null);
+        else setValue(I_C_OrderLine.COLUMNNAME_M_Product_ID, Integer.valueOf(M_Product_ID));
     }
 
     /**
@@ -597,9 +597,9 @@ public class X_C_OrderLine extends PO {
      *
      * @param M_Shipper_ID Method or manner of product delivery
      */
-    public void setM_Shipper_ID(int M_Shipper_ID) {
-        if (M_Shipper_ID < 1) set_Value(I_C_OrderLine.COLUMNNAME_M_Shipper_ID, null);
-        else set_Value(I_C_OrderLine.COLUMNNAME_M_Shipper_ID, Integer.valueOf(M_Shipper_ID));
+    public void setShipperId(int M_Shipper_ID) {
+        if (M_Shipper_ID < 1) setValue(I_C_OrderLine.COLUMNNAME_M_Shipper_ID, null);
+        else setValue(I_C_OrderLine.COLUMNNAME_M_Shipper_ID, Integer.valueOf(M_Shipper_ID));
     }
 
     /**
@@ -607,7 +607,7 @@ public class X_C_OrderLine extends PO {
      *
      * @return Storage Warehouse and Service Point
      */
-    public int getM_Warehouse_ID() {
+    public int getWarehouseId() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_M_Warehouse_ID);
         if (ii == null) return 0;
         return ii;
@@ -618,9 +618,9 @@ public class X_C_OrderLine extends PO {
      *
      * @param M_Warehouse_ID Storage Warehouse and Service Point
      */
-    public void setM_Warehouse_ID(int M_Warehouse_ID) {
-        if (M_Warehouse_ID < 1) set_Value(I_C_OrderLine.COLUMNNAME_M_Warehouse_ID, null);
-        else set_Value(I_C_OrderLine.COLUMNNAME_M_Warehouse_ID, Integer.valueOf(M_Warehouse_ID));
+    public void setWarehouseId(int M_Warehouse_ID) {
+        if (M_Warehouse_ID < 1) setValue(I_C_OrderLine.COLUMNNAME_M_Warehouse_ID, null);
+        else setValue(I_C_OrderLine.COLUMNNAME_M_Warehouse_ID, Integer.valueOf(M_Warehouse_ID));
     }
 
     /**
@@ -640,7 +640,7 @@ public class X_C_OrderLine extends PO {
      * @param PriceActual Actual Price
      */
     public void setPriceActual(BigDecimal PriceActual) {
-        set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_PriceActual, PriceActual);
+        setValueNoCheck(I_C_OrderLine.COLUMNNAME_PriceActual, PriceActual);
     }
 
     /**
@@ -671,7 +671,7 @@ public class X_C_OrderLine extends PO {
      * @param PriceEntered Price Entered - the price based on the selected/base UoM
      */
     public void setPriceEntered(BigDecimal PriceEntered) {
-        set_Value(I_C_OrderLine.COLUMNNAME_PriceEntered, PriceEntered);
+        setValue(I_C_OrderLine.COLUMNNAME_PriceEntered, PriceEntered);
     }
 
     /**
@@ -691,7 +691,7 @@ public class X_C_OrderLine extends PO {
      * @param PriceLimit Lowest price for a product
      */
     public void setPriceLimit(BigDecimal PriceLimit) {
-        set_Value(I_C_OrderLine.COLUMNNAME_PriceLimit, PriceLimit);
+        setValue(I_C_OrderLine.COLUMNNAME_PriceLimit, PriceLimit);
     }
 
     /**
@@ -711,7 +711,7 @@ public class X_C_OrderLine extends PO {
      * @param PriceList List Price
      */
     public void setPriceList(BigDecimal PriceList) {
-        set_Value(I_C_OrderLine.COLUMNNAME_PriceList, PriceList);
+        setValue(I_C_OrderLine.COLUMNNAME_PriceList, PriceList);
     }
 
     /**
@@ -734,7 +734,7 @@ public class X_C_OrderLine extends PO {
      * @param Processed The document has been processed
      */
     public void setProcessed(boolean Processed) {
-        set_Value(I_C_OrderLine.COLUMNNAME_Processed, Boolean.valueOf(Processed));
+        setValue(I_C_OrderLine.COLUMNNAME_Processed, Boolean.valueOf(Processed));
     }
 
     /**
@@ -754,7 +754,7 @@ public class X_C_OrderLine extends PO {
      * @param QtyDelivered Delivered Quantity
      */
     public void setQtyDelivered(BigDecimal QtyDelivered) {
-        set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_QtyDelivered, QtyDelivered);
+        setValueNoCheck(I_C_OrderLine.COLUMNNAME_QtyDelivered, QtyDelivered);
     }
 
     /**
@@ -774,7 +774,7 @@ public class X_C_OrderLine extends PO {
      * @param QtyEntered The Quantity Entered is based on the selected UoM
      */
     public void setQtyEntered(BigDecimal QtyEntered) {
-        set_Value(I_C_OrderLine.COLUMNNAME_QtyEntered, QtyEntered);
+        setValue(I_C_OrderLine.COLUMNNAME_QtyEntered, QtyEntered);
     }
 
     /**
@@ -794,7 +794,7 @@ public class X_C_OrderLine extends PO {
      * @param QtyInvoiced Invoiced Quantity
      */
     public void setQtyInvoiced(BigDecimal QtyInvoiced) {
-        set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_QtyInvoiced, QtyInvoiced);
+        setValueNoCheck(I_C_OrderLine.COLUMNNAME_QtyInvoiced, QtyInvoiced);
     }
 
     /**
@@ -814,7 +814,7 @@ public class X_C_OrderLine extends PO {
      * @param QtyLostSales Quantity of potential sales
      */
     public void setQtyLostSales(BigDecimal QtyLostSales) {
-        set_Value(I_C_OrderLine.COLUMNNAME_QtyLostSales, QtyLostSales);
+        setValue(I_C_OrderLine.COLUMNNAME_QtyLostSales, QtyLostSales);
     }
 
     /**
@@ -834,7 +834,7 @@ public class X_C_OrderLine extends PO {
      * @param QtyOrdered Ordered Quantity
      */
     public void setQtyOrdered(BigDecimal QtyOrdered) {
-        set_Value(I_C_OrderLine.COLUMNNAME_QtyOrdered, QtyOrdered);
+        setValue(I_C_OrderLine.COLUMNNAME_QtyOrdered, QtyOrdered);
     }
 
     /**
@@ -854,7 +854,7 @@ public class X_C_OrderLine extends PO {
      * @param QtyReserved Reserved Quantity
      */
     public void setQtyReserved(BigDecimal QtyReserved) {
-        set_ValueNoCheck(I_C_OrderLine.COLUMNNAME_QtyReserved, QtyReserved);
+        setValueNoCheck(I_C_OrderLine.COLUMNNAME_QtyReserved, QtyReserved);
     }
 
     /**
@@ -874,8 +874,8 @@ public class X_C_OrderLine extends PO {
      * @param Ref_OrderLine_ID Reference to corresponding Sales/Purchase Order
      */
     public void setRef_OrderLine_ID(int Ref_OrderLine_ID) {
-        if (Ref_OrderLine_ID < 1) set_Value(I_C_OrderLine.COLUMNNAME_Ref_OrderLine_ID, null);
-        else set_Value(I_C_OrderLine.COLUMNNAME_Ref_OrderLine_ID, Integer.valueOf(Ref_OrderLine_ID));
+        if (Ref_OrderLine_ID < 1) setValue(I_C_OrderLine.COLUMNNAME_Ref_OrderLine_ID, null);
+        else setValue(I_C_OrderLine.COLUMNNAME_Ref_OrderLine_ID, Integer.valueOf(Ref_OrderLine_ID));
     }
 
     /**
@@ -916,9 +916,9 @@ public class X_C_OrderLine extends PO {
      */
     public void setS_ResourceAssignment_ID(int S_ResourceAssignment_ID) {
         if (S_ResourceAssignment_ID < 1)
-            set_Value(I_C_OrderLine.COLUMNNAME_S_ResourceAssignment_ID, null);
+            setValue(I_C_OrderLine.COLUMNNAME_S_ResourceAssignment_ID, null);
         else
-            set_Value(
+            setValue(
                     I_C_OrderLine.COLUMNNAME_S_ResourceAssignment_ID,
                     Integer.valueOf(S_ResourceAssignment_ID));
     }
@@ -928,7 +928,7 @@ public class X_C_OrderLine extends PO {
      *
      * @return User defined list element #1
      */
-    public int getUser1_ID() {
+    public int getUser1Id() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_User1_ID);
         if (ii == null) return 0;
         return ii;
@@ -939,7 +939,7 @@ public class X_C_OrderLine extends PO {
      *
      * @return User defined list element #2
      */
-    public int getUser2_ID() {
+    public int getUser2Id() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_User2_ID);
         if (ii == null) return 0;
         return ii;

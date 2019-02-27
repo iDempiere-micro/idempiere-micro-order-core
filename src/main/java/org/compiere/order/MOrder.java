@@ -156,14 +156,14 @@ public class MOrder extends X_C_Order implements I_C_Order {
             String trxName,
             MOrder to) {
         copyValues(from, to, from.getClientId(), from.getOrgId());
-        to.set_ValueNoCheck("C_Order_ID", I_ZERO);
-        to.set_ValueNoCheck("DocumentNo", null);
+        to.setValueNoCheck("C_Order_ID", I_ZERO);
+        to.setValueNoCheck("DocumentNo", null);
         //
         to.setDocStatus(DOCSTATUS_Drafted); // 	Draft
         to.setDocAction(DOCACTION_Complete);
         //
-        to.setC_DocType_ID(0);
-        to.setC_DocTypeTarget_ID(C_DocTypeTarget_ID);
+        to.setDocumentTypeId(0);
+        to.setTargetDocumentTypeId(C_DocTypeTarget_ID);
         to.setIsSOTrx(isSOTrx);
         //
         to.setIsSelected(false);
@@ -175,7 +175,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
         //
         to.setIsApproved(false);
         to.setIsCreditApproved(false);
-        to.setC_Payment_ID(0);
+        to.setPaymentId(0);
         to.setC_CashLine_ID(0);
         //	Amounts are updated  when adding lines
         to.setGrandTotal(Env.ZERO);
@@ -188,7 +188,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
         to.setPosted(false);
         to.setProcessed(false);
         if (counter) {
-            to.setRef_Order_ID(from.getC_Order_ID());
+            to.setRef_Order_ID(from.getOrderId());
             MOrg org = MOrg.get(from.getCtx(), from.getOrgId());
             int counterC_BPartner_ID = org.getLinkedC_BPartner_ID(trxName);
             if (counterC_BPartner_ID == 0) return null;
@@ -196,7 +196,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
         } else to.setRef_Order_ID(0);
         //
         if (!to.save()) throw new IllegalStateException("Could not create Order");
-        if (counter) from.setRef_Order_ID(to.getC_Order_ID());
+        if (counter) from.setRef_Order_ID(to.getOrderId());
 
         if (to.copyLinesFrom(from, counter, copyASI) == 0)
             throw new IllegalStateException("Could not create Order Lines");
@@ -233,28 +233,28 @@ public class MOrder extends X_C_Order implements I_C_Order {
      *
      * @param C_BPartner_ID bpartner
      */
-    public void setC_BPartner_ID(int C_BPartner_ID) {
-        super.setC_BPartner_ID(C_BPartner_ID);
+    public void setBusinessPartnerId(int C_BPartner_ID) {
+        super.setBusinessPartnerId(C_BPartner_ID);
         super.setBill_BPartner_ID(C_BPartner_ID);
-    } //	setC_BPartner_ID
+    } //	setBusinessPartnerId
 
     /**
      * Set Business Partner Location (Ship+Bill)
      *
      * @param C_BPartner_Location_ID bp location
      */
-    public void setC_BPartner_Location_ID(int C_BPartner_Location_ID) {
-        super.setC_BPartner_Location_ID(C_BPartner_Location_ID);
-        super.setBill_Location_ID(C_BPartner_Location_ID);
-    } //	setC_BPartner_Location_ID
+    public void setBusinessPartnerLocationId(int C_BPartner_Location_ID) {
+        super.setBusinessPartnerLocationId(C_BPartner_Location_ID);
+        super.setBusinessPartnerInvoicingLocationId(C_BPartner_Location_ID);
+    } //	setBusinessPartnerLocationId
 
     /**
      * Set Business Partner Contact (Ship+Bill)
      *
      * @param AD_User_ID user
      */
-    public void setAD_User_ID(int AD_User_ID) {
-        super.setAD_User_ID(AD_User_ID);
+    public void setUserId(int AD_User_ID) {
+        super.setUserId(AD_User_ID);
         super.setBill_User_ID(AD_User_ID);
     } //	setUserId
 
@@ -263,8 +263,8 @@ public class MOrder extends X_C_Order implements I_C_Order {
      *
      * @param M_Warehouse_ID warehouse
      */
-    public void setM_Warehouse_ID(int M_Warehouse_ID) {
-        super.setM_Warehouse_ID(M_Warehouse_ID);
+    public void setWarehouseId(int M_Warehouse_ID) {
+        super.setWarehouseId(M_Warehouse_ID);
     } //	setWarehouseId
 
     /**
@@ -281,7 +281,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
      *
      * @param DocSubTypeSO_x SO sub type - see DocSubTypeSO_*
      */
-    public void setC_DocTypeTarget_ID(String DocSubTypeSO_x) {
+    public void setTargetDocumentTypeId(String DocSubTypeSO_x) {
         String sql =
                 "SELECT C_DocType_ID FROM C_DocType "
                         + "WHERE AD_Client_ID=? AND AD_Org_ID IN (0,"
@@ -294,18 +294,18 @@ public class MOrder extends X_C_Order implements I_C_Order {
             log.severe("Not found for AD_Client_ID=" + getClientId() + ", SubType=" + DocSubTypeSO_x);
         else {
             if (log.isLoggable(Level.FINE)) log.fine("(SO) - " + DocSubTypeSO_x);
-            setC_DocTypeTarget_ID(C_DocType_ID);
+            setTargetDocumentTypeId(C_DocType_ID);
             setIsSOTrx(true);
         }
-    } //	setC_DocTypeTarget_ID
+    } //	setTargetDocumentTypeId
 
     /**
      * Set Target Document Type. Standard Order or PO
      */
-    public void setC_DocTypeTarget_ID() {
+    public void setTargetDocumentTypeId() {
         if (isSOTrx()) //	SO = Std Order
         {
-            setC_DocTypeTarget_ID(DocSubTypeSO_Standard);
+            setTargetDocumentTypeId(DocSubTypeSO_Standard);
             return;
         }
         //	PO
@@ -319,9 +319,9 @@ public class MOrder extends X_C_Order implements I_C_Order {
         if (C_DocType_ID <= 0) log.severe("No POO found for AD_Client_ID=" + getClientId());
         else {
             if (log.isLoggable(Level.FINE)) log.fine("(PO) - " + C_DocType_ID);
-            setC_DocTypeTarget_ID(C_DocType_ID);
+            setTargetDocumentTypeId(C_DocType_ID);
         }
-    } //	setC_DocTypeTarget_ID
+    } //	setTargetDocumentTypeId
 
     /**
      * Set Business Partner Defaults & Details. SOTrx should be set.
@@ -331,16 +331,16 @@ public class MOrder extends X_C_Order implements I_C_Order {
     public void setBPartner(I_C_BPartner bp) {
         if (bp == null) return;
 
-        setC_BPartner_ID(bp.getC_BPartner_ID());
+        setBusinessPartnerId(bp.getBusinessPartnerId());
         //	Defaults Payment Term
         int ii = 0;
-        if (isSOTrx()) ii = bp.getC_PaymentTerm_ID();
-        else ii = bp.getPO_PaymentTerm_ID();
-        if (ii != 0) setC_PaymentTerm_ID(ii);
+        if (isSOTrx()) ii = bp.getPaymentTermId();
+        else ii = bp.getPurchaseOrderPaymentTermId();
+        if (ii != 0) setPaymentTermId(ii);
         //	Default Price List
-        if (isSOTrx()) ii = bp.getM_PriceList_ID();
-        else ii = bp.getPO_PriceList_ID();
-        if (ii != 0) setM_PriceList_ID(ii);
+        if (isSOTrx()) ii = bp.getPriceListId();
+        else ii = bp.getPurchaseOrderPriceListId();
+        if (ii != 0) setPriceListId(ii);
         //	Default Delivery/Via Rule
         String ss = bp.getDeliveryRule();
         if (ss != null) setDeliveryRule(ss);
@@ -352,34 +352,34 @@ public class MOrder extends X_C_Order implements I_C_Order {
         ss = bp.getPaymentRule();
         if (ss != null) setPaymentRule(ss);
         //	Sales Rep
-        ii = bp.getSalesRep_ID();
-        if (ii != 0) setSalesRep_ID(ii);
+        ii = bp.getSalesRepresentativeId();
+        if (ii != 0) setSalesRepresentativeId(ii);
 
         //	Set Locations
         I_C_BPartner_Location[] locs = bp.getLocations();
         if (locs != null) {
             for (int i = 0; i < locs.length; i++) {
                 if (locs[i].isShipTo())
-                    super.setC_BPartner_Location_ID(locs[i].getC_BPartner_Location_ID());
-                if (locs[i].isBillTo()) setBill_Location_ID(locs[i].getC_BPartner_Location_ID());
+                    super.setBusinessPartnerLocationId(locs[i].getBusinessPartnerLocationId());
+                if (locs[i].isBillTo()) setBusinessPartnerInvoicingLocationId(locs[i].getBusinessPartnerLocationId());
             }
             //	set to first
-            if (getC_BPartner_Location_ID() == 0 && locs.length > 0)
-                super.setC_BPartner_Location_ID(locs[0].getC_BPartner_Location_ID());
-            if (getBill_Location_ID() == 0 && locs.length > 0)
-                setBill_Location_ID(locs[0].getC_BPartner_Location_ID());
+            if (getBusinessPartnerLocationId() == 0 && locs.length > 0)
+                super.setBusinessPartnerLocationId(locs[0].getBusinessPartnerLocationId());
+            if (getBusinessPartnerInvoicingLocationId() == 0 && locs.length > 0)
+                setBusinessPartnerInvoicingLocationId(locs[0].getBusinessPartnerLocationId());
         }
-        if (getC_BPartner_Location_ID() == 0) {
+        if (getBusinessPartnerLocationId() == 0) {
             throw new BPartnerNoShipToAddressException(bp);
         }
 
-        if (getBill_Location_ID() == 0) {
+        if (getBusinessPartnerInvoicingLocationId() == 0) {
             throw new BPartnerNoBillToAddressException(bp);
         }
 
         //	Set Contact
         I_AD_User[] contacts = bp.getContacts();
-        if (contacts != null && contacts.length == 1) setAD_User_ID(contacts[0].getUserId());
+        if (contacts != null && contacts.length == 1) setUserId(contacts[0].getUserId());
     } //	setBPartner
 
     /**
@@ -397,7 +397,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
         for (int i = 0; i < fromLines.length; i++) {
             MOrderLine line = new MOrderLine(this);
             copyValues(fromLines[i], line, getClientId(), getOrgId());
-            line.setC_Order_ID(getC_Order_ID());
+            line.setOrderId(getOrderId());
             //
             line.setQtyDelivered(Env.ZERO);
             line.setQtyInvoiced(Env.ZERO);
@@ -406,7 +406,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
             line.setDateInvoiced(null);
             //
             line.setOrder(this);
-            line.set_ValueNoCheck("C_OrderLine_ID", I_ZERO); // 	new
+            line.setValueNoCheck("C_OrderLine_ID", I_ZERO); // 	new
             //	References
             if (!copyASI) {
                 line.setM_AttributeSetInstance_ID(0);
@@ -418,7 +418,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
             // don't copy linked lines
             line.setLink_OrderLine_ID(0);
             //	Tax
-            if (getC_BPartner_ID() != otherOrder.getC_BPartner_ID()) line.setTax(); // 	recalculate
+            if (getBusinessPartnerId() != otherOrder.getBusinessPartnerId()) line.setTax(); // 	recalculate
             //
             //
             line.setProcessed(false);
@@ -448,7 +448,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
                         .append(",IsSOTrx=")
                         .append(isSOTrx())
                         .append(",C_DocType_ID=")
-                        .append(getC_DocType_ID())
+                        .append(getDocumentTypeId())
                         .append(", GrandTotal=")
                         .append(getGrandTotal())
                         .append("]");
@@ -462,7 +462,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
      */
     public String getDocumentInfo() {
         MDocType dt =
-                MDocType.get(getCtx(), getC_DocType_ID() > 0 ? getC_DocType_ID() : getC_DocTypeTarget_ID());
+                MDocType.get(getCtx(), getDocumentTypeId() > 0 ? getDocumentTypeId() : getTargetDocumentTypeId());
         return dt.getNameTrl() + " " + getDocumentNo();
     } //	getDocumentInfo
 
@@ -471,14 +471,14 @@ public class MOrder extends X_C_Order implements I_C_Order {
      *
      * @param M_PriceList_ID price list
      */
-    public void setM_PriceList_ID(int M_PriceList_ID) {
+    public void setPriceListId(int M_PriceList_ID) {
         MPriceList pl = MPriceList.get(getCtx(), M_PriceList_ID);
         if (pl.getId() == M_PriceList_ID) {
-            super.setM_PriceList_ID(M_PriceList_ID);
-            setC_Currency_ID(pl.getC_Currency_ID());
+            super.setPriceListId(M_PriceList_ID);
+            setCurrencyId(pl.getCurrencyId());
             setIsTaxIncluded(pl.isTaxIncluded());
         }
-    } //	setM_PriceList_ID
+    } //	setPriceListId
 
     /**
      * ************************************************************************ Get Lines of Order
@@ -604,14 +604,14 @@ public class MOrder extends X_C_Order implements I_C_Order {
      *
      * @return invoice id or 0
      */
-    public int getC_Invoice_ID() {
+    public int getInvoiceId() {
         String sql =
                 "SELECT C_Invoice_ID FROM C_Invoice "
                         + "WHERE C_Order_ID=? AND DocStatus IN ('CO','CL') "
                         + "ORDER BY C_Invoice_ID DESC";
         int C_Invoice_ID = getSQLValue(sql, getId());
         return C_Invoice_ID;
-    } //	getC_Invoice_ID
+    } //	getInvoiceId
 
     /**
      * Get Shipments of Order
@@ -638,7 +638,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
      * @return precision
      */
     public int getPrecision() {
-        return MCurrency.getStdPrecision(getCtx(), getC_Currency_ID());
+        return MCurrency.getStdPrecision(getCtx(), getCurrencyId());
     } //	getPrecision
 
     /**
@@ -670,7 +670,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
         super.setProcessed(processed);
         if (getId() == 0) return;
         String set =
-                "SET Processed='" + (processed ? "Y" : "N") + "' WHERE C_Order_ID=" + getC_Order_ID();
+                "SET Processed='" + (processed ? "Y" : "N") + "' WHERE C_Order_ID=" + getOrderId();
         int noLine = executeUpdateEx("UPDATE C_OrderLine " + set);
         int noTax = executeUpdateEx("UPDATE C_OrderTax " + set);
         m_lines = null;
@@ -686,7 +686,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
      */
     public boolean validatePaySchedule() {
         MOrderPaySchedule[] schedule =
-                MOrderPaySchedule.getOrderPaySchedule(getCtx(), getC_Order_ID(), 0);
+                MOrderPaySchedule.getOrderPaySchedule(getCtx(), getOrderId(), 0);
         if (log.isLoggable(Level.FINE)) log.fine("#" + schedule.length);
         if (schedule.length == 0) {
             setIsPayScheduleValid(false);
@@ -733,12 +733,12 @@ public class MOrder extends X_C_Order implements I_C_Order {
         }
 
         //	New Record Doc Type - make sure DocType set to 0
-        if (newRecord && getC_DocType_ID() == 0) setC_DocType_ID(0);
+        if (newRecord && getDocumentTypeId() == 0) setDocumentTypeId(0);
 
         //	Default Warehouse
-        if (getM_Warehouse_ID() == 0) {
+        if (getWarehouseId() == 0) {
             int ii = Env.getContextAsInt(getCtx(), "#M_Warehouse_ID");
-            if (ii != 0) setM_Warehouse_ID(ii);
+            if (ii != 0) setWarehouseId(ii);
             else {
                 throw new FillMandatoryException(COLUMNNAME_M_Warehouse_ID);
             }
@@ -759,18 +759,18 @@ public class MOrder extends X_C_Order implements I_C_Order {
         }
 
         //	No Partner Info - set Template
-        if (getC_BPartner_ID() == 0) setBPartner(MBPartner.getTemplate(getCtx(), getClientId()));
-        if (getC_BPartner_Location_ID() == 0)
-            setBPartner(new MBPartner(getCtx(), getC_BPartner_ID()));
+        if (getBusinessPartnerId() == 0) setBPartner(MBPartner.getTemplate(getCtx(), getClientId()));
+        if (getBusinessPartnerLocationId() == 0)
+            setBPartner(new MBPartner(getCtx(), getBusinessPartnerId()));
         //	No Bill - get from Ship
         if (getBill_BPartner_ID() == 0) {
-            setBill_BPartner_ID(getC_BPartner_ID());
-            setBill_Location_ID(getC_BPartner_Location_ID());
+            setBill_BPartner_ID(getBusinessPartnerId());
+            setBusinessPartnerInvoicingLocationId(getBusinessPartnerLocationId());
         }
-        if (getBill_Location_ID() == 0) setBill_Location_ID(getC_BPartner_Location_ID());
+        if (getBusinessPartnerInvoicingLocationId() == 0) setBusinessPartnerInvoicingLocationId(getBusinessPartnerLocationId());
 
         //	Default Price List
-        if (getM_PriceList_ID() == 0) {
+        if (getPriceListId() == 0) {
             int ii =
                     getSQLValueEx(
                             null,
@@ -780,34 +780,34 @@ public class MOrder extends X_C_Order implements I_C_Order {
                             getClientId(),
                             isSOTrx(),
                             true);
-            if (ii != 0) setM_PriceList_ID(ii);
+            if (ii != 0) setPriceListId(ii);
         }
         //	Default Currency
-        if (getC_Currency_ID() == 0) {
+        if (getCurrencyId() == 0) {
             String sql = "SELECT C_Currency_ID FROM M_PriceList WHERE M_PriceList_ID=?";
-            int ii = getSQLValue(sql, getM_PriceList_ID());
-            if (ii != 0) setC_Currency_ID(ii);
-            else setC_Currency_ID(Env.getContextAsInt(getCtx(), "#C_Currency_ID"));
+            int ii = getSQLValue(sql, getPriceListId());
+            if (ii != 0) setCurrencyId(ii);
+            else setCurrencyId(Env.getContextAsInt(getCtx(), "#C_Currency_ID"));
         }
 
         //	Default Sales Rep
-        if (getSalesRep_ID() == 0) {
+        if (getSalesRepresentativeId() == 0) {
             int ii = Env.getContextAsInt(getCtx(), "#SalesRep_ID");
-            if (ii != 0) setSalesRep_ID(ii);
+            if (ii != 0) setSalesRepresentativeId(ii);
         }
 
         //	Default Document Type
-        if (getC_DocTypeTarget_ID() == 0) setC_DocTypeTarget_ID(DocSubTypeSO_Standard);
+        if (getTargetDocumentTypeId() == 0) setTargetDocumentTypeId(DocSubTypeSO_Standard);
 
         //	Default Payment Term
-        if (getC_PaymentTerm_ID() == 0) {
+        if (getPaymentTermId() == 0) {
             int ii = Env.getContextAsInt(getCtx(), "#C_PaymentTerm_ID");
-            if (ii != 0) setC_PaymentTerm_ID(ii);
+            if (ii != 0) setPaymentTermId(ii);
             else {
                 String sql =
                         "SELECT C_PaymentTerm_ID FROM C_PaymentTerm WHERE AD_Client_ID=? AND IsDefault='Y' AND IsActive='Y'";
                 ii = getSQLValue(sql, getClientId());
-                if (ii != 0) setC_PaymentTerm_ID(ii);
+                if (ii != 0) setPaymentTermId(ii);
             }
         }
 
@@ -843,14 +843,14 @@ public class MOrder extends X_C_Order implements I_C_Order {
                     getSQLValueEx(
                             null,
                             "SELECT COUNT(*) FROM C_OrderLine WHERE C_Order_ID=? AND M_Product_ID>0",
-                            getC_Order_ID());
+                            getOrderId());
             if (cnt > 0) {
                 if (is_ValueChanged(COLUMNNAME_M_PriceList_ID)) {
                     log.saveError("Error", Msg.getMsg(getCtx(), "CannotChangePl"));
                     return false;
                 }
                 if (is_ValueChanged(COLUMNNAME_DateOrdered)) {
-                    MPriceList pList = MPriceList.get(getCtx(), getM_PriceList_ID());
+                    MPriceList pList = MPriceList.get(getCtx(), getPriceListId());
                     MPriceListVersion plOld =
                             pList.getPriceListVersion((Timestamp) get_ValueOld(COLUMNNAME_DateOrdered));
                     MPriceListVersion plNew =
@@ -866,7 +866,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
         if (!recursiveCall && (!newRecord && is_ValueChanged(COLUMNNAME_C_PaymentTerm_ID))) {
             recursiveCall = true;
             try {
-                MPaymentTerm pt = new MPaymentTerm(getCtx(), getC_PaymentTerm_ID());
+                MPaymentTerm pt = new MPaymentTerm(getCtx(), getPaymentTermId());
                 boolean valid = pt.applyOrder(this);
                 setIsPayScheduleValid(valid);
             } catch (Exception e) {
@@ -899,7 +899,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
                             + "(SELECT Description,POReference "
                             + "FROM C_Order o WHERE i.C_Order_ID=o.C_Order_ID) "
                             + "WHERE DocStatus NOT IN ('RE','CL') AND C_Order_ID="
-                            + getC_Order_ID();
+                            + getOrderId();
             int no = executeUpdateEx(sql);
             if (log.isLoggable(Level.FINE)) log.fine("Description -> #" + no);
         }
@@ -915,7 +915,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
                             + "(SELECT PaymentRule,C_PaymentTerm_ID,C_Payment_ID,C_CashLine_ID "
                             + "FROM C_Order o WHERE i.C_Order_ID=o.C_Order_ID)"
                             + "WHERE DocStatus NOT IN ('RE','CL') AND C_Order_ID="
-                            + getC_Order_ID();
+                            + getOrderId();
             //	Don't touch Closed/Reversed entries
             int no = executeUpdate(sql);
             if (log.isLoggable(Level.FINE)) log.fine("Payment -> #" + no);
@@ -929,7 +929,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
                             + "(SELECT DateAcct "
                             + "FROM C_Order o WHERE i.C_Order_ID=o.C_Order_ID)"
                             + "WHERE DocStatus NOT IN ('CO','RE','CL') AND Processed='N' AND C_Order_ID="
-                            + getC_Order_ID();
+                            + getOrderId();
             //	Don't touch Completed/Closed/Reversed entries
             int no = executeUpdate(sql);
             if (log.isLoggable(Level.FINE)) log.fine("DateAcct -> #" + no);
@@ -947,14 +947,14 @@ public class MOrder extends X_C_Order implements I_C_Order {
             MOrderLine[] lines = getLines();
             for (MOrderLine line : lines) {
                 if (is_ValueChanged("AD_Org_ID")) line.setOrgId(getOrgId());
-                if (is_ValueChanged(COLUMNNAME_C_BPartner_ID)) line.setC_BPartner_ID(getC_BPartner_ID());
+                if (is_ValueChanged(COLUMNNAME_C_BPartner_ID)) line.setBusinessPartnerId(getBusinessPartnerId());
                 if (is_ValueChanged(COLUMNNAME_C_BPartner_Location_ID))
-                    line.setC_BPartner_Location_ID(getC_BPartner_Location_ID());
+                    line.setBusinessPartnerLocationId(getBusinessPartnerLocationId());
                 if (is_ValueChanged(COLUMNNAME_DateOrdered)) line.setDateOrdered(getDateOrdered());
                 if (is_ValueChanged(COLUMNNAME_DatePromised)) line.setDatePromised(getDatePromised());
-                if (is_ValueChanged(COLUMNNAME_M_Warehouse_ID)) line.setM_Warehouse_ID(getM_Warehouse_ID());
-                if (is_ValueChanged(COLUMNNAME_M_Shipper_ID)) line.setM_Shipper_ID(getM_Shipper_ID());
-                if (is_ValueChanged(COLUMNNAME_C_Currency_ID)) line.setC_Currency_ID(getC_Currency_ID());
+                if (is_ValueChanged(COLUMNNAME_M_Warehouse_ID)) line.setWarehouseId(getWarehouseId());
+                if (is_ValueChanged(COLUMNNAME_M_Shipper_ID)) line.setShipperId(getShipperId());
+                if (is_ValueChanged(COLUMNNAME_C_Currency_ID)) line.setCurrencyId(getCurrencyId());
                 line.saveEx();
             }
         }
@@ -991,7 +991,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
         MOrderLine freightLine = null;
         for (MOrderLine ol : ols) {
             if ((ol.getM_Product_ID() > 0 && ol.getM_Product_ID() == ci.getProductFreightId())
-                    || (ol.getC_Charge_ID() > 0 && ol.getC_Charge_ID() == ci.getChargeFreightId())) {
+                    || (ol.getChargeId() > 0 && ol.getChargeId() == ci.getChargeFreightId())) {
                 freightLine = ol;
                 break;
             }
@@ -1001,8 +1001,8 @@ public class MOrder extends X_C_Order implements I_C_Order {
             if (freightLine != null) {
                 boolean deleted = freightLine.delete(false);
                 if (!deleted) {
-                    freightLine.setC_BPartner_Location_ID(getC_BPartner_Location_ID());
-                    freightLine.setM_Shipper_ID(getM_Shipper_ID());
+                    freightLine.setBusinessPartnerLocationId(getBusinessPartnerLocationId());
+                    freightLine.setShipperId(getShipperId());
                     freightLine.setQty(BigDecimal.ONE);
                     freightLine.setPrice(BigDecimal.ZERO);
                     freightLine.saveEx();
@@ -1012,7 +1012,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
             if (freightLine == null) {
                 freightLine = new MOrderLine(this);
 
-                if (ci.getChargeFreightId() > 0) freightLine.setC_Charge_ID(ci.getChargeFreightId());
+                if (ci.getChargeFreightId() > 0) freightLine.setChargeId(ci.getChargeFreightId());
                 else if (ci.getProductFreightId() > 0)
                     freightLine.setM_Product_ID(ci.getProductFreightId());
                 else
@@ -1020,8 +1020,8 @@ public class MOrder extends X_C_Order implements I_C_Order {
                             "Product or Charge for Freight is not defined at Client window > Client Info tab");
             }
 
-            freightLine.setC_BPartner_Location_ID(getC_BPartner_Location_ID());
-            freightLine.setM_Shipper_ID(getM_Shipper_ID());
+            freightLine.setBusinessPartnerLocationId(getBusinessPartnerLocationId());
+            freightLine.setShipperId(getShipperId());
             freightLine.setQty(BigDecimal.ONE);
             freightLine.setPrice(getFreightAmt());
             freightLine.saveEx();
@@ -1037,7 +1037,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
 
             for (MOrderLine ol : ols) {
                 if ((ol.getM_Product_ID() > 0 && ol.getM_Product_ID() == ci.getProductFreightId())
-                        || (ol.getC_Charge_ID() > 0 && ol.getC_Charge_ID() == ci.getChargeFreightId()))
+                        || (ol.getChargeId() > 0 && ol.getChargeId() == ci.getChargeFreightId()))
                     continue;
                 else if (ol.getM_Product_ID() > 0) {
                     MProduct product = new MProduct(getCtx(), ol.getM_Product_ID());
@@ -1058,8 +1058,8 @@ public class MOrder extends X_C_Order implements I_C_Order {
                                 getCtx(),
                                 this,
                                 MShippingTransaction.ACTION_RateInquiry,
-                                isPriviledgedRate(),
-                                null);
+                                isPriviledgedRate()
+                        );
                 ok = st.processOnline();
                 st.saveEx();
             } catch (Exception e) {
@@ -1071,7 +1071,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
                     freightLine = new MOrderLine(this);
 
                     if (ci.getChargeFreightId() > 0)
-                        freightLine.setC_Charge_ID(ci.getChargeFreightId());
+                        freightLine.setChargeId(ci.getChargeFreightId());
                     else if (ci.getProductFreightId() > 0)
                         freightLine.setM_Product_ID(ci.getProductFreightId());
                     else
@@ -1079,8 +1079,8 @@ public class MOrder extends X_C_Order implements I_C_Order {
                                 "Product or Charge for Freight is not defined at Client window > Client Info tab");
                 }
 
-                freightLine.setC_BPartner_Location_ID(getC_BPartner_Location_ID());
-                freightLine.setM_Shipper_ID(getM_Shipper_ID());
+                freightLine.setBusinessPartnerLocationId(getBusinessPartnerLocationId());
+                freightLine.setShipperId(getShipperId());
                 freightLine.setQty(BigDecimal.ONE);
                 freightLine.setPrice(st.getPrice());
                 freightLine.saveEx();
@@ -1106,7 +1106,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
                         + " AND	p.IsBOM='Y' AND p.IsVerified='Y' AND p.IsStocked='N')";
         //
         String sql = "SELECT COUNT(*) FROM C_OrderLine " + "WHERE C_Order_ID=? " + where;
-        int count = getSQLValue(sql, getC_Order_ID());
+        int count = getSQLValue(sql, getOrderId());
         while (count != 0) {
             retValue = true;
             renumberLines(1000); // 	max 999 bom items
@@ -1168,7 +1168,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
             } //	for all lines with BOM
 
             m_lines = null; // 	force requery
-            count = getSQLValue(sql, getC_Invoice_ID());
+            count = getSQLValue(sql, getInvoiceId());
             renumberLines(10);
         } //	while count != 0
         return retValue;
@@ -1182,7 +1182,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
     public boolean calculateTaxTotal() {
         log.fine("");
         //	Delete Taxes
-        executeUpdateEx("DELETE C_OrderTax WHERE C_Order_ID=" + getC_Order_ID());
+        executeUpdateEx("DELETE C_OrderTax WHERE C_Order_ID=" + getOrderId());
         m_taxes = null;
 
         MTaxProvider[] providers = getTaxProviders();
@@ -1201,14 +1201,14 @@ public class MOrder extends X_C_Order implements I_C_Order {
      * @return true if valid schedule
      */
     protected boolean createPaySchedule() {
-        if (getC_PaymentTerm_ID() == 0) return false;
-        MPaymentTerm pt = new MPaymentTerm(getCtx(), getC_PaymentTerm_ID());
+        if (getPaymentTermId() == 0) return false;
+        MPaymentTerm pt = new MPaymentTerm(getCtx(), getPaymentTermId());
         if (log.isLoggable(Level.FINE)) log.fine(pt.toString());
 
         int numSchema = pt.getSchedule(false).length;
 
         MOrderPaySchedule[] schedule =
-                MOrderPaySchedule.getOrderPaySchedule(getCtx(), getC_Order_ID(), 0);
+                MOrderPaySchedule.getOrderPaySchedule(getCtx(), getOrderId(), 0);
 
         if (schedule.length > 0) {
             if (numSchema == 0)

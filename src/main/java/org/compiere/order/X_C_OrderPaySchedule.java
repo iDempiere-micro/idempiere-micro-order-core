@@ -28,7 +28,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule {
     public X_C_OrderPaySchedule(Properties ctx, int C_OrderPaySchedule_ID) {
         super(ctx, C_OrderPaySchedule_ID);
         /**
-         * if (C_OrderPaySchedule_ID == 0) { setC_Order_ID (0); setC_OrderPaySchedule_ID (0);
+         * if (C_OrderPaySchedule_ID == 0) { setOrderId (0); setC_OrderPaySchedule_ID (0);
          * setDiscountAmt (Env.ZERO); setDiscountDate (new Timestamp( System.currentTimeMillis() ));
          * setDueAmt (Env.ZERO); setDueDate (new Timestamp( System.currentTimeMillis() )); setIsValid
          * (false); setProcessed (false); }
@@ -61,7 +61,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule {
      *
      * @return Order
      */
-    public int getC_Order_ID() {
+    public int getOrderId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_Order_ID);
         if (ii == null) return 0;
         return ii;
@@ -72,9 +72,9 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule {
      *
      * @param C_Order_ID Order
      */
-    public void setC_Order_ID(int C_Order_ID) {
-        if (C_Order_ID < 1) set_ValueNoCheck(COLUMNNAME_C_Order_ID, null);
-        else set_ValueNoCheck(COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
+    public void setOrderId(int C_Order_ID) {
+        if (C_Order_ID < 1) setValueNoCheck(COLUMNNAME_C_Order_ID, null);
+        else setValueNoCheck(COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
     }
 
     /**
@@ -83,8 +83,8 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule {
      * @param C_PaySchedule_ID Payment Schedule Template
      */
     public void setC_PaySchedule_ID(int C_PaySchedule_ID) {
-        if (C_PaySchedule_ID < 1) set_ValueNoCheck(COLUMNNAME_C_PaySchedule_ID, null);
-        else set_ValueNoCheck(COLUMNNAME_C_PaySchedule_ID, Integer.valueOf(C_PaySchedule_ID));
+        if (C_PaySchedule_ID < 1) setValueNoCheck(COLUMNNAME_C_PaySchedule_ID, null);
+        else setValueNoCheck(COLUMNNAME_C_PaySchedule_ID, Integer.valueOf(C_PaySchedule_ID));
     }
 
     /**
@@ -104,7 +104,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule {
      * @param DiscountAmt Calculated amount of discount
      */
     public void setDiscountAmt(BigDecimal DiscountAmt) {
-        set_Value(COLUMNNAME_DiscountAmt, DiscountAmt);
+        setValue(COLUMNNAME_DiscountAmt, DiscountAmt);
     }
 
     /**
@@ -122,7 +122,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule {
      * @param DiscountDate Last Date for payments with discount
      */
     public void setDiscountDate(Timestamp DiscountDate) {
-        set_Value(COLUMNNAME_DiscountDate, DiscountDate);
+        setValue(COLUMNNAME_DiscountDate, DiscountDate);
     }
 
     /**
@@ -142,7 +142,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule {
      * @param DueAmt Amount of the payment due
      */
     public void setDueAmt(BigDecimal DueAmt) {
-        set_Value(COLUMNNAME_DueAmt, DueAmt);
+        setValue(COLUMNNAME_DueAmt, DueAmt);
     }
 
     /**
@@ -160,7 +160,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule {
      * @param DueDate Date when the payment is due
      */
     public void setDueDate(Timestamp DueDate) {
-        set_Value(COLUMNNAME_DueDate, DueDate);
+        setValue(COLUMNNAME_DueDate, DueDate);
     }
 
     /**
@@ -169,7 +169,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule {
      * @param IsValid Element is valid
      */
     public void setIsValid(boolean IsValid) {
-        set_Value(COLUMNNAME_IsValid, Boolean.valueOf(IsValid));
+        setValue(COLUMNNAME_IsValid, Boolean.valueOf(IsValid));
     }
 
     /**

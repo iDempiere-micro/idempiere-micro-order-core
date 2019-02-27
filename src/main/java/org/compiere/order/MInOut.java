@@ -73,10 +73,10 @@ public class MInOut extends X_M_InOut {
         super(ctx, M_InOut_ID);
         if (M_InOut_ID == 0) {
             //	setDocumentNo (null);
-            //	setC_BPartner_ID (0);
-            //	setC_BPartner_Location_ID (0);
+            //	setBusinessPartnerId (0);
+            //	setBusinessPartnerLocationId (0);
             //	setWarehouseId (0);
-            //	setC_DocType_ID (0);
+            //	setDocumentTypeId (0);
             setIsSOTrx(false);
             setMovementDate(new Timestamp(System.currentTimeMillis()));
             setDateAcct(getMovementDate());
@@ -121,19 +121,19 @@ public class MInOut extends X_M_InOut {
     public MInOut(MOrder order, int C_DocTypeShipment_ID, Timestamp movementDate) {
         this(order.getCtx(), 0);
         setClientOrg(order);
-        setC_BPartner_ID(order.getC_BPartner_ID());
-        setC_BPartner_Location_ID(order.getC_BPartner_Location_ID()); // 	shipment address
-        setAD_User_ID(order.getAD_User_ID());
+        setBusinessPartnerId(order.getBusinessPartnerId());
+        setBusinessPartnerLocationId(order.getBusinessPartnerLocationId()); // 	shipment address
+        setUserId(order.getUserId());
         //
-        setM_Warehouse_ID(order.getM_Warehouse_ID());
+        setWarehouseId(order.getWarehouseId());
         setIsSOTrx(order.isSOTrx());
         if (C_DocTypeShipment_ID == 0)
             C_DocTypeShipment_ID =
                     getSQLValue(
                             null,
                             "SELECT C_DocTypeShipment_ID FROM C_DocType WHERE C_DocType_ID=?",
-                            order.getC_DocType_ID());
-        setC_DocType_ID(C_DocTypeShipment_ID);
+                            order.getDocumentTypeId());
+        setDocumentTypeId(C_DocTypeShipment_ID);
 
         // patch suggested by Armen
         // setMovementType (order.isSOTrx() ? MOVEMENTTYPE_CustomerShipment :
@@ -157,27 +157,27 @@ public class MInOut extends X_M_InOut {
         setDateAcct(getMovementDate());
 
         //	Copy from Order
-        setC_Order_ID(order.getC_Order_ID());
+        setOrderId(order.getOrderId());
         setDeliveryRule(order.getDeliveryRule());
         setDeliveryViaRule(order.getDeliveryViaRule());
-        setM_Shipper_ID(order.getM_Shipper_ID());
+        setShipperId(order.getShipperId());
         setFreightCostRule(order.getFreightCostRule());
         setFreightAmt(order.getFreightAmt());
-        setSalesRep_ID(order.getSalesRep_ID());
+        setSalesRepresentativeId(order.getSalesRepresentativeId());
         //
-        setC_Activity_ID(order.getC_Activity_ID());
-        setC_Campaign_ID(order.getC_Campaign_ID());
-        setC_Charge_ID(order.getC_Charge_ID());
+        setBusinessActivityId(order.getBusinessActivityId());
+        setCampaignId(order.getCampaignId());
+        setChargeId(order.getChargeId());
         setChargeAmt(order.getChargeAmt());
         //
-        setC_Project_ID(order.getC_Project_ID());
+        setProjectId(order.getProjectId());
         setDateOrdered(order.getDateOrdered());
         setDescription(order.getDescription());
         setPOReference(order.getPOReference());
-        setSalesRep_ID(order.getSalesRep_ID());
-        setAD_OrgTrx_ID(order.getAD_OrgTrx_ID());
-        setUser1_ID(order.getUser1_ID());
-        setUser2_ID(order.getUser2_ID());
+        setSalesRepresentativeId(order.getSalesRepresentativeId());
+        setTransactionOrganizationId(order.getTransactionOrganizationId());
+        setUser1Id(order.getUser1Id());
+        setUser2Id(order.getUser2Id());
         setPriorityRule(order.getPriorityRule());
         // Drop shipment
         setIsDropShip(order.isDropShip());
@@ -198,53 +198,53 @@ public class MInOut extends X_M_InOut {
             I_C_Invoice invoice, int C_DocTypeShipment_ID, Timestamp movementDate, int M_Warehouse_ID) {
         this(invoice.getCtx(), 0);
         setClientOrg(invoice);
-        setC_BPartner_ID(invoice.getC_BPartner_ID());
-        setC_BPartner_Location_ID(invoice.getC_BPartner_Location_ID()); // 	shipment address
-        setAD_User_ID(invoice.getAD_User_ID());
+        setBusinessPartnerId(invoice.getBusinessPartnerId());
+        setBusinessPartnerLocationId(invoice.getBusinessPartnerLocationId()); // 	shipment address
+        setUserId(invoice.getUserId());
         //
-        setM_Warehouse_ID(M_Warehouse_ID);
+        setWarehouseId(M_Warehouse_ID);
         setIsSOTrx(invoice.isSOTrx());
         setMovementType(
                 invoice.isSOTrx()
                         ? X_M_InOut.MOVEMENTTYPE_CustomerShipment
                         : X_M_InOut.MOVEMENTTYPE_VendorReceipts);
         MOrder order = null;
-        if (invoice.getC_Order_ID() != 0)
-            order = new MOrder(invoice.getCtx(), invoice.getC_Order_ID());
+        if (invoice.getOrderId() != 0)
+            order = new MOrder(invoice.getCtx(), invoice.getOrderId());
         if (C_DocTypeShipment_ID == 0 && order != null)
             C_DocTypeShipment_ID =
                     getSQLValue(
                             null,
                             "SELECT C_DocTypeShipment_ID FROM C_DocType WHERE C_DocType_ID=?",
-                            order.getC_DocType_ID());
-        if (C_DocTypeShipment_ID != 0) setC_DocType_ID(C_DocTypeShipment_ID);
-        else setC_DocType_ID();
+                            order.getDocumentTypeId());
+        if (C_DocTypeShipment_ID != 0) setDocumentTypeId(C_DocTypeShipment_ID);
+        else setDocumentTypeId();
 
         //	Default - Today
         if (movementDate != null) setMovementDate(movementDate);
         setDateAcct(getMovementDate());
 
         //	Copy from Invoice
-        setC_Order_ID(invoice.getC_Order_ID());
-        setSalesRep_ID(invoice.getSalesRep_ID());
+        setOrderId(invoice.getOrderId());
+        setSalesRepresentativeId(invoice.getSalesRepresentativeId());
         //
-        setC_Activity_ID(invoice.getC_Activity_ID());
-        setC_Campaign_ID(invoice.getC_Campaign_ID());
-        setC_Charge_ID(invoice.getC_Charge_ID());
+        setBusinessActivityId(invoice.getBusinessActivityId());
+        setCampaignId(invoice.getCampaignId());
+        setChargeId(invoice.getChargeId());
         setChargeAmt(invoice.getChargeAmt());
         //
-        setC_Project_ID(invoice.getC_Project_ID());
+        setProjectId(invoice.getProjectId());
         setDateOrdered(invoice.getDateOrdered());
         setDescription(invoice.getDescription());
         setPOReference(invoice.getPOReference());
-        setAD_OrgTrx_ID(invoice.getAD_OrgTrx_ID());
-        setUser1_ID(invoice.getUser1_ID());
-        setUser2_ID(invoice.getUser2_ID());
+        setTransactionOrganizationId(invoice.getTransactionOrganizationId());
+        setUser1Id(invoice.getUser1Id());
+        setUser2Id(invoice.getUser2Id());
 
         if (order != null) {
             setDeliveryRule(order.getDeliveryRule());
             setDeliveryViaRule(order.getDeliveryViaRule());
-            setM_Shipper_ID(order.getM_Shipper_ID());
+            setShipperId(order.getShipperId());
             setFreightCostRule(order.getFreightCostRule());
             setFreightAmt(order.getFreightAmt());
 
@@ -266,42 +266,42 @@ public class MInOut extends X_M_InOut {
     public MInOut(MInOut original, int C_DocTypeShipment_ID, Timestamp movementDate) {
         this(original.getCtx(), 0);
         setClientOrg(original);
-        setC_BPartner_ID(original.getC_BPartner_ID());
-        setC_BPartner_Location_ID(original.getC_BPartner_Location_ID()); // 	shipment address
-        setAD_User_ID(original.getAD_User_ID());
+        setBusinessPartnerId(original.getBusinessPartnerId());
+        setBusinessPartnerLocationId(original.getBusinessPartnerLocationId()); // 	shipment address
+        setUserId(original.getUserId());
         //
-        setM_Warehouse_ID(original.getM_Warehouse_ID());
+        setWarehouseId(original.getWarehouseId());
         setIsSOTrx(original.isSOTrx());
         setMovementType(original.getMovementType());
-        if (C_DocTypeShipment_ID == 0) setC_DocType_ID(original.getC_DocType_ID());
-        else setC_DocType_ID(C_DocTypeShipment_ID);
+        if (C_DocTypeShipment_ID == 0) setDocumentTypeId(original.getDocumentTypeId());
+        else setDocumentTypeId(C_DocTypeShipment_ID);
 
         //	Default - Today
         if (movementDate != null) setMovementDate(movementDate);
         setDateAcct(getMovementDate());
 
         //	Copy from Order
-        setC_Order_ID(original.getC_Order_ID());
+        setOrderId(original.getOrderId());
         setDeliveryRule(original.getDeliveryRule());
         setDeliveryViaRule(original.getDeliveryViaRule());
-        setM_Shipper_ID(original.getM_Shipper_ID());
+        setShipperId(original.getShipperId());
         setFreightCostRule(original.getFreightCostRule());
         setFreightAmt(original.getFreightAmt());
-        setSalesRep_ID(original.getSalesRep_ID());
+        setSalesRepresentativeId(original.getSalesRepresentativeId());
         //
-        setC_Activity_ID(original.getC_Activity_ID());
-        setC_Campaign_ID(original.getC_Campaign_ID());
-        setC_Charge_ID(original.getC_Charge_ID());
+        setBusinessActivityId(original.getBusinessActivityId());
+        setCampaignId(original.getCampaignId());
+        setChargeId(original.getChargeId());
         setChargeAmt(original.getChargeAmt());
         //
-        setC_Project_ID(original.getC_Project_ID());
+        setProjectId(original.getProjectId());
         setDateOrdered(original.getDateOrdered());
         setDescription(original.getDescription());
         setPOReference(original.getPOReference());
-        setSalesRep_ID(original.getSalesRep_ID());
-        setAD_OrgTrx_ID(original.getAD_OrgTrx_ID());
-        setUser1_ID(original.getUser1_ID());
-        setUser2_ID(original.getUser2_ID());
+        setSalesRepresentativeId(original.getSalesRepresentativeId());
+        setTransactionOrganizationId(original.getTransactionOrganizationId());
+        setUser1Id(original.getUser1Id());
+        setUser2Id(original.getUser2Id());
 
         // DropShipment
         setIsDropShip(original.isDropShip());
@@ -409,7 +409,7 @@ public class MInOut extends X_M_InOut {
                 PO.copyValues(fromLine, line, getClientId(), getOrgId());
             else PO.copyValues(fromLine, line, fromLine.getClientId(), fromLine.getOrgId());
             line.setM_InOut_ID(getM_InOut_ID());
-            line.set_ValueNoCheck("M_InOutLine_ID", I_ZERO); // 	new
+            line.setValueNoCheck("M_InOutLine_ID", I_ZERO); // 	new
             //	Reset
             if (!setOrder) {
                 line.setC_OrderLine_ID(0);
@@ -425,7 +425,7 @@ public class MInOut extends X_M_InOut {
             line.setScrappedQty(Env.ZERO);
             line.setTargetQty(Env.ZERO);
             //	Set Locator based on header Warehouse
-            if (getM_Warehouse_ID() != otherShipment.getM_Warehouse_ID()) {
+            if (getWarehouseId() != otherShipment.getWarehouseId()) {
                 line.setM_Locator_ID(0);
                 line.setM_Locator_ID(Env.ZERO);
             }
@@ -505,24 +505,24 @@ public class MInOut extends X_M_InOut {
     public void setBPartner(MBPartner bp) {
         if (bp == null) return;
 
-        setC_BPartner_ID(bp.getC_BPartner_ID());
+        setBusinessPartnerId(bp.getBusinessPartnerId());
 
         //	Set Locations
         I_C_BPartner_Location[] locs = bp.getLocations(false);
         if (locs != null) {
             for (int i = 0; i < locs.length; i++) {
-                if (locs[i].isShipTo()) setC_BPartner_Location_ID(locs[i].getC_BPartner_Location_ID());
+                if (locs[i].isShipTo()) setBusinessPartnerLocationId(locs[i].getBusinessPartnerLocationId());
             }
             //	set to first if not set
-            if (getC_BPartner_Location_ID() == 0 && locs.length > 0)
-                setC_BPartner_Location_ID(locs[0].getC_BPartner_Location_ID());
+            if (getBusinessPartnerLocationId() == 0 && locs.length > 0)
+                setBusinessPartnerLocationId(locs[0].getBusinessPartnerLocationId());
         }
-        if (getC_BPartner_Location_ID() == 0) log.log(Level.SEVERE, "Has no To Address: " + bp);
+        if (getBusinessPartnerLocationId() == 0) log.log(Level.SEVERE, "Has no To Address: " + bp);
 
         //	Set Contact
         MUser[] contacts = bp.getContacts(false);
         if (contacts != null && contacts.length > 0) // 	get first User
-            setAD_User_ID(contacts[0].getUserId());
+            setUserId(contacts[0].getUserId());
     } //	setBPartner
 
     /**
@@ -530,7 +530,7 @@ public class MInOut extends X_M_InOut {
      *
      * @param DocBaseType doc type MDocType.DOCBASETYPE_
      */
-    public void setC_DocType_ID(String DocBaseType) {
+    public void setDocumentTypeId(String DocBaseType) {
         String sql =
                 "SELECT C_DocType_ID FROM C_DocType "
                         + "WHERE AD_Client_ID=? AND DocBaseType=?"
@@ -545,19 +545,19 @@ public class MInOut extends X_M_InOut {
         else {
             if (log.isLoggable(Level.FINE))
                 log.fine("DocBaseType=" + DocBaseType + " - C_DocType_ID=" + C_DocType_ID);
-            setC_DocType_ID(C_DocType_ID);
+            setDocumentTypeId(C_DocType_ID);
             boolean isSOTrx = MDocType.DOCBASETYPE_MaterialDelivery.equals(DocBaseType);
             setIsSOTrx(isSOTrx);
         }
-    } //	setC_DocType_ID
+    } //	setDocumentTypeId
 
     /**
      * Set Default C_DocType_ID. Based on SO flag
      */
-    public void setC_DocType_ID() {
-        if (isSOTrx()) setC_DocType_ID(MDocType.DOCBASETYPE_MaterialDelivery);
-        else setC_DocType_ID(MDocType.DOCBASETYPE_MaterialReceipt);
-    } //	setC_DocType_ID
+    public void setDocumentTypeId() {
+        if (isSOTrx()) setDocumentTypeId(MDocType.DOCBASETYPE_MaterialDelivery);
+        else setDocumentTypeId(MDocType.DOCBASETYPE_MaterialReceipt);
+    } //	setDocumentTypeId
 
     /**
      * Before Save
@@ -573,7 +573,7 @@ public class MInOut extends X_M_InOut {
             setDeliveryRule(X_M_InOut.DELIVERYRULE_Availability);
 
         // Shipment/Receipt can have either Order/RMA (For Movement type)
-        if (getC_Order_ID() != 0 && getM_RMA_ID() != 0) {
+        if (getOrderId() != 0 && getM_RMA_ID() != 0) {
             log.saveError("OrderOrRMA", "");
             return false;
         }
@@ -582,7 +582,7 @@ public class MInOut extends X_M_InOut {
         boolean condition1 =
                 movementType != null && !movementType.contentEquals(X_M_InOut.MOVEMENTTYPE_CustomerReturns);
         //	Shipment - Needs Order/RMA
-        if (condition1 && isSOTrx() && getC_Order_ID() == 0 && getM_RMA_ID() == 0) {
+        if (condition1 && isSOTrx() && getOrderId() == 0 && getM_RMA_ID() == 0) {
             log.saveError("FillMandatory", Msg.translate(getCtx(), "C_Order_ID"));
             return false;
         }
@@ -590,8 +590,8 @@ public class MInOut extends X_M_InOut {
         if (isSOTrx() && getM_RMA_ID() != 0) {
             // Set Document and Movement type for this Receipt
             MRMA rma = new MRMA(getCtx(), getM_RMA_ID());
-            MDocType docType = MDocType.get(getCtx(), rma.getC_DocType_ID());
-            setC_DocType_ID(docType.getDocTypeShipmentId());
+            MDocType docType = MDocType.get(getCtx(), rma.getDocumentTypeId());
+            setDocumentTypeId(docType.getDocTypeShipmentId());
         }
 
         return true;

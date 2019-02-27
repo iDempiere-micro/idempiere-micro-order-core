@@ -142,10 +142,10 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
      * @return false as no payment schedule
      */
     private boolean applyOrderNoSchedule(MOrder order) {
-        deleteOrderPaySchedule(order.getC_Order_ID());
+        deleteOrderPaySchedule(order.getOrderId());
         //	updateOrder
-        if (order.getC_PaymentTerm_ID() != getC_PaymentTerm_ID())
-            order.setC_PaymentTerm_ID(getC_PaymentTerm_ID());
+        if (order.getPaymentTermId() != getPaymentTermId())
+            order.setPaymentTermId(getPaymentTermId());
         if (order.isPayScheduleValid()) order.setIsPayScheduleValid(false);
         return false;
     } //	applyOrderNoSchedule
@@ -157,7 +157,7 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
      * @return true if payment schedule is valid
      */
     private boolean applyOrderSchedule(MOrder order) {
-        deleteOrderPaySchedule(order.getC_Order_ID());
+        deleteOrderPaySchedule(order.getOrderId());
         //	Create Schedule
         MOrderPaySchedule ops = null;
         BigDecimal remainder = order.getGrandTotal();
@@ -176,8 +176,8 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
         }
 
         //	updateOrder
-        if (order.getC_PaymentTerm_ID() != getC_PaymentTerm_ID())
-            order.setC_PaymentTerm_ID(getC_PaymentTerm_ID());
+        if (order.getPaymentTermId() != getPaymentTermId())
+            order.setPaymentTermId(getPaymentTermId());
         return order.validatePaySchedule();
     } //	applyOrderSchedule
 

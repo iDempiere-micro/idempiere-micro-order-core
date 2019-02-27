@@ -107,8 +107,8 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
                 throw new IllegalStateException(
                         "No Invoice/Order line found the Shipment/Receipt line associated");
             }
-        } else if (getC_Charge_ID() != 0) {
-            MCharge charge = MCharge.get(this.getCtx(), getC_Charge_ID());
+        } else if (getChargeId() != 0) {
+            MCharge charge = MCharge.get(this.getCtx(), getChargeId());
             unitAmount = charge.getChargeAmt();
 
             {
@@ -239,12 +239,12 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
             log.saveError("ParentComplete", Msg.translate(getCtx(), "M_RMA"));
             return false;
         }
-        if (getM_InOutLine_ID() == 0 && getC_Charge_ID() == 0 && getM_Product_ID() == 0) {
+        if (getM_InOutLine_ID() == 0 && getChargeId() == 0 && getM_Product_ID() == 0) {
             log.saveError("FillShipLineOrProductOrCharge", "");
             return false;
         }
 
-        if (getM_Product_ID() != 0 && getC_Charge_ID() != 0) {
+        if (getM_Product_ID() != 0 && getChargeId() != 0) {
             log.saveError("JustProductOrCharge", "");
             return false;
         }
@@ -283,7 +283,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
         }
 
         // Set default amount and qty for charge
-        if (this.getC_Charge_ID() != 0
+        if (this.getChargeId() != 0
                 && this.getQty().doubleValue() <= 0
                 && !MRMA.DOCACTION_Void.equals(getParent().getDocAction())) {
             if (getQty().signum() == 0) this.setQty(Env.ONE);
@@ -293,7 +293,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
         // Set amount for products
         if (this.getM_InOutLine_ID() != 0 && !MRMA.DOCACTION_Void.equals(getParent().getDocAction())) {
             this.setM_Product_ID(m_ioLine.getM_Product_ID());
-            this.setC_Charge_ID(m_ioLine.getC_Charge_ID());
+            this.setChargeId(m_ioLine.getChargeId());
             this.setAmt(getUnitAmt());
 
             if (newRecord && getQty().signum() == 0) this.setQty(originalQty);
@@ -403,7 +403,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
      * @return UOM if based on shipment line and 100 for charge based
      */
     public int getC_UOM_ID() {
-        if (m_ioLine == null && getC_Charge_ID() != 0) // Charge
+        if (m_ioLine == null && getChargeId() != 0) // Charge
             return 100; // Each
         else if (m_ioLine == null && getM_Product_ID() != 0) {
             MProduct product = getProduct();
@@ -429,8 +429,8 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
      * @return product or null
      */
     public MCharge getCharge() {
-        if (m_charge == null && getC_Charge_ID() != 0)
-            m_charge = MCharge.get(getCtx(), getC_Charge_ID());
+        if (m_charge == null && getChargeId() != 0)
+            m_charge = MCharge.get(getCtx(), getChargeId());
         return m_charge;
     }
 
@@ -449,9 +449,9 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
      *
      * @return project if based on shipment line and 0 for charge based
      */
-    public int getC_Project_ID() {
+    public int getProjectId() {
         if (m_ioLine == null) return 0;
-        return m_ioLine.getC_Project_ID();
+        return m_ioLine.getProjectId();
     }
 
     /**
@@ -479,9 +479,9 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
      *
      * @return project phase if based on shipment line and 0 for charge based
      */
-    public int getC_Activity_ID() {
+    public int getBusinessActivityId() {
         if (m_ioLine == null) return 0;
-        return m_ioLine.getC_Activity_ID();
+        return m_ioLine.getBusinessActivityId();
     }
 
     /**
@@ -489,9 +489,9 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
      *
      * @return campaign if based on shipment line and 0 for charge based
      */
-    public int getC_Campaign_ID() {
+    public int getCampaignId() {
         if (m_ioLine == null) return 0;
-        return m_ioLine.getC_Campaign_ID();
+        return m_ioLine.getCampaignId();
     }
 
     /**
@@ -499,9 +499,9 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
      *
      * @return user1 if based on shipment line and 0 for charge based
      */
-    public int getUser1_ID() {
+    public int getUser1Id() {
         if (m_ioLine == null) return 0;
-        return m_ioLine.getUser1_ID();
+        return m_ioLine.getUser1Id();
     }
 
     /**
@@ -509,9 +509,9 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
      *
      * @return user2 if based on shipment line and 0 for charge based
      */
-    public int getUser2_ID() {
+    public int getUser2Id() {
         if (m_ioLine == null) return 0;
-        return m_ioLine.getUser2_ID();
+        return m_ioLine.getUser2Id();
     }
 
     /**
@@ -530,7 +530,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
      * @return locator if based on shipment line and 0 for charge based
      */
     public int getM_Locator_ID() {
-        if (m_ioLine == null && getC_Charge_ID() != 0) return 0;
+        if (m_ioLine == null && getChargeId() != 0) return 0;
         return m_ioLine.getM_Locator_ID();
     }
 

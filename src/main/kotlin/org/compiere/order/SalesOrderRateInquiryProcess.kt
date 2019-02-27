@@ -17,14 +17,13 @@ fun createShippingTransaction(
     ctx: Properties,
     m_order: MOrder,
     action: String,
-    isPriviledgedRate: Boolean,
-    trxName: String
+    isPriviledgedRate: Boolean
 ): MShippingTransaction {
-    val shipper = MShipper(ctx, m_order.m_Shipper_ID)
-    val whereClause = "M_Shipper_ID = " + shipper.m_Shipper_ID + " AND IsDefault='Y' AND IsActive='Y'"
+    val shipper = MShipper(ctx, m_order.shipperId)
+    val whereClause = "M_Shipper_ID = " + shipper.shipperId + " AND IsDefault='Y' AND IsActive='Y'"
     var M_ShipperLabels_ID = 0
     var ids = getAllIDs(MShipperLabels.Table_Name, whereClause)
-    if (ids.size > 0) M_ShipperLabels_ID = ids[0]
+    if (ids.isNotEmpty()) M_ShipperLabels_ID = ids[0]
 
     var M_ShipperPackaging_ID = 0
     ids = getAllIDs(MShipperPackaging.Table_Name, whereClause)
@@ -34,9 +33,9 @@ fun createShippingTransaction(
     ids = getAllIDs(MShipperPickupTypes.Table_Name, whereClause)
     if (ids.size > 0) M_ShipperPickupTypes_ID = ids[0]
 
-    val ShipperAccount = ShippingUtil.getSenderShipperAccount(shipper.m_Shipper_ID, shipper.orgId)
+    val ShipperAccount = ShippingUtil.getSenderShipperAccount(shipper.shipperId, shipper.orgId)
     val DutiesShipperAccount = ShippingUtil.getSenderDutiesShipperAccount(
-        shipper.m_Shipper_ID, shipper.orgId
+        shipper.shipperId, shipper.orgId
     )
 
     // 1 kg = 2.20462 lb
@@ -62,7 +61,7 @@ fun createShippingTransaction(
     }
 
     val CODAmount = m_order.grandTotal
-    var CustomsValue = BigDecimal.ZERO
+    var CustomsValue: BigDecimal
     val FreightAmt = BigDecimal.ZERO
     var TotalWeight = BigDecimal.ZERO
 
@@ -72,7 +71,7 @@ fun createShippingTransaction(
     val items = ArrayList<Array<Any>>()
     val ols = m_order.getLines(false, MOrderLine.COLUMNNAME_Line)
     for (ol in ols) {
-        if (ol.m_Product_ID > 0 && ol.m_Product_ID == ci.productFreightId || ol.c_Charge_ID > 0 && ol.c_Charge_ID == ci.chargeFreightId) {
+        if (ol.m_Product_ID > 0 && ol.m_Product_ID == ci.productFreightId || ol.chargeId > 0 && ol.chargeId == ci.chargeFreightId) {
             // 				FreightAmt = FreightAmt.add(ol.getLineNetAmt());
             continue
         } else if (ol.m_Product_ID > 0) {
@@ -186,15 +185,15 @@ fun createShippingTransaction(
     st.action = action
     // 		st.setADClientID(m_order.getADClientID());
     st.setOrgId(m_order.orgId)
-    st.setAD_User_ID(m_order.aD_User_ID)
-    st.setBill_Location_ID(m_order.bill_Location_ID)
+    st.setUserId(m_order.userId)
+    st.setBusinessPartnerInvoicingLocationId(m_order.businessPartnerInvoicingLocationId)
     st.setBoxCount(BoxCount)
     // 		st.setC_BP_ShippingAcct_ID(getC_BP_ShippingAcct_ID());
-    st.setC_BPartner_ID(m_order.c_BPartner_ID)
-    st.setC_BPartner_Location_ID(m_order.c_BPartner_Location_ID)
-    st.setC_Currency_ID(m_order.c_Currency_ID)
-    // 		st.setC_Invoice_ID(0);
-    st.setC_Order_ID(m_order.c_Order_ID)
+    st.setBusinessPartnerId(m_order.businessPartnerId)
+    st.setBusinessPartnerLocationId(m_order.businessPartnerLocationId)
+    st.setCurrencyId(m_order.currencyId)
+    // 		st.setInvoiceId(0);
+    st.setOrderId(m_order.orderId)
     st.setC_UOM_Length_ID(ci.uomLengthId)
     st.setC_UOM_Weight_ID(ci.uomWeightId)
     // 		st.setCashOnDelivery(isCashOnDelivery());
@@ -239,12 +238,12 @@ fun createShippingTransaction(
     // 		st.setLength(getLength());
     // 		st.setM_InOut_ID(0);
     // 		st.setM_Package_ID(getM_Package_ID());
-    st.m_Shipper_ID = m_order.m_Shipper_ID
+    st.shipperId = m_order.shipperId
     st.setM_ShipperLabels_ID(M_ShipperLabels_ID)
     st.setM_ShipperPackaging_ID(M_ShipperPackaging_ID)
     st.setM_ShipperPickupTypes_ID(M_ShipperPickupTypes_ID)
     st.setM_ShippingProcessor_ID(shipper.m_ShippingProcessor_ID)
-    st.setM_Warehouse_ID(m_order.m_Warehouse_ID)
+    st.setWarehouseId(m_order.warehouseId)
     // 		st.setNotificationMessage(getNotificationMessage());
     // 		st.setNotificationType(getNotificationType());
     st.setPaymentRule(m_order.paymentRule)
@@ -256,7 +255,7 @@ fun createShippingTransaction(
     // 		st.setReturnBPartner_ID(getReturnBPartner_ID());
     // 		st.setReturnLocation_ID(getReturnLocation_ID());
     // 		st.setReturnUser_ID(getReturnUser_ID());
-    st.setSalesRep_ID(m_order.salesRep_ID)
+    st.setSalesRepresentativeId(m_order.salesRepresentativeId)
     st.setShipDate(m_order.datePromised)
     st.setShipperAccount(ShipperAccount)
     // 		st.setShippingRespMessage(ShippingRespMessage);

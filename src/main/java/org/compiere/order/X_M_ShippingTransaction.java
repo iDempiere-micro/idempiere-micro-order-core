@@ -63,7 +63,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
          * setIsHazMat (false); // N setIsHoldAtLocation (false); // N setIsIgnoreZipNotFound (false);
          * // N setIsIgnoreZipStateNotMatch (false); // N setIsPriviledgedRate (false); // N
          * setIsResidential (true); // Y setIsSaturdayDelivery (false); // N setIsSaturdayPickup
-         * (false); // N setIsVerbalConfirmation (false); // N setM_Shipper_ID (0);
+         * (false); // N setIsVerbalConfirmation (false); // N setShipperId (0);
          * setM_ShippingTransaction_ID (0); setProcessed (false); // N }
          */
     }
@@ -105,7 +105,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      */
     public void setAction(String Action) {
 
-        set_Value(COLUMNNAME_Action, Action);
+        setValue(COLUMNNAME_Action, Action);
     }
 
     /**
@@ -113,9 +113,9 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      *
      * @param AD_User_ID User within the system - Internal or Business Partner Contact
      */
-    public void setAD_User_ID(int AD_User_ID) {
-        if (AD_User_ID < 1) set_Value(COLUMNNAME_AD_User_ID, null);
-        else set_Value(COLUMNNAME_AD_User_ID, Integer.valueOf(AD_User_ID));
+    public void setUserId(int AD_User_ID) {
+        if (AD_User_ID < 1) setValue(COLUMNNAME_AD_User_ID, null);
+        else setValue(COLUMNNAME_AD_User_ID, Integer.valueOf(AD_User_ID));
     }
 
     /**
@@ -123,9 +123,9 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      *
      * @param Bill_Location_ID Business Partner Location for invoicing
      */
-    public void setBill_Location_ID(int Bill_Location_ID) {
-        if (Bill_Location_ID < 1) set_Value(COLUMNNAME_Bill_Location_ID, null);
-        else set_Value(COLUMNNAME_Bill_Location_ID, Integer.valueOf(Bill_Location_ID));
+    public void setBusinessPartnerInvoicingLocationId(int Bill_Location_ID) {
+        if (Bill_Location_ID < 1) setValue(COLUMNNAME_Bill_Location_ID, null);
+        else setValue(COLUMNNAME_Bill_Location_ID, Integer.valueOf(Bill_Location_ID));
     }
 
     /**
@@ -134,7 +134,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @param BoxCount Box Count
      */
     public void setBoxCount(int BoxCount) {
-        set_Value(COLUMNNAME_BoxCount, Integer.valueOf(BoxCount));
+        setValue(COLUMNNAME_BoxCount, Integer.valueOf(BoxCount));
     }
 
     /**
@@ -156,9 +156,9 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      *
      * @param C_BPartner_ID Identifies a Business Partner
      */
-    public void setC_BPartner_ID(int C_BPartner_ID) {
-        if (C_BPartner_ID < 1) set_Value(COLUMNNAME_C_BPartner_ID, null);
-        else set_Value(COLUMNNAME_C_BPartner_ID, Integer.valueOf(C_BPartner_ID));
+    public void setBusinessPartnerId(int C_BPartner_ID) {
+        if (C_BPartner_ID < 1) setValue(COLUMNNAME_C_BPartner_ID, null);
+        else setValue(COLUMNNAME_C_BPartner_ID, Integer.valueOf(C_BPartner_ID));
     }
 
     /**
@@ -166,9 +166,9 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      *
      * @param C_BPartner_Location_ID Identifies the (ship to) address for this Business Partner
      */
-    public void setC_BPartner_Location_ID(int C_BPartner_Location_ID) {
-        if (C_BPartner_Location_ID < 1) set_Value(COLUMNNAME_C_BPartner_Location_ID, null);
-        else set_Value(COLUMNNAME_C_BPartner_Location_ID, Integer.valueOf(C_BPartner_Location_ID));
+    public void setBusinessPartnerLocationId(int C_BPartner_Location_ID) {
+        if (C_BPartner_Location_ID < 1) setValue(COLUMNNAME_C_BPartner_Location_ID, null);
+        else setValue(COLUMNNAME_C_BPartner_Location_ID, Integer.valueOf(C_BPartner_Location_ID));
     }
 
     /**
@@ -176,9 +176,9 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      *
      * @param C_Currency_ID The Currency for this record
      */
-    public void setC_Currency_ID(int C_Currency_ID) {
-        if (C_Currency_ID < 1) set_Value(COLUMNNAME_C_Currency_ID, null);
-        else set_Value(COLUMNNAME_C_Currency_ID, Integer.valueOf(C_Currency_ID));
+    public void setCurrencyId(int C_Currency_ID) {
+        if (C_Currency_ID < 1) setValue(COLUMNNAME_C_Currency_ID, null);
+        else setValue(COLUMNNAME_C_Currency_ID, Integer.valueOf(C_Currency_ID));
     }
 
     /**
@@ -187,7 +187,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @param CODAmount COD Amount
      */
     public void setCODAmount(BigDecimal CODAmount) {
-        set_Value(COLUMNNAME_CODAmount, CODAmount);
+        setValue(COLUMNNAME_CODAmount, CODAmount);
     }
 
     /**
@@ -195,9 +195,9 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      *
      * @param C_Order_ID Order
      */
-    public void setC_Order_ID(int C_Order_ID) {
-        if (C_Order_ID < 1) set_Value(COLUMNNAME_C_Order_ID, null);
-        else set_Value(COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
+    public void setOrderId(int C_Order_ID) {
+        if (C_Order_ID < 1) setValue(COLUMNNAME_C_Order_ID, null);
+        else setValue(COLUMNNAME_C_Order_ID, Integer.valueOf(C_Order_ID));
     }
 
     /**
@@ -206,8 +206,8 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @param C_UOM_Length_ID Standard Unit of Measure for Length
      */
     public void setC_UOM_Length_ID(int C_UOM_Length_ID) {
-        if (C_UOM_Length_ID < 1) set_Value(COLUMNNAME_C_UOM_Length_ID, null);
-        else set_Value(COLUMNNAME_C_UOM_Length_ID, Integer.valueOf(C_UOM_Length_ID));
+        if (C_UOM_Length_ID < 1) setValue(COLUMNNAME_C_UOM_Length_ID, null);
+        else setValue(COLUMNNAME_C_UOM_Length_ID, Integer.valueOf(C_UOM_Length_ID));
     }
 
     /**
@@ -216,8 +216,8 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @param C_UOM_Weight_ID Standard Unit of Measure for Weight
      */
     public void setC_UOM_Weight_ID(int C_UOM_Weight_ID) {
-        if (C_UOM_Weight_ID < 1) set_Value(COLUMNNAME_C_UOM_Weight_ID, null);
-        else set_Value(COLUMNNAME_C_UOM_Weight_ID, Integer.valueOf(C_UOM_Weight_ID));
+        if (C_UOM_Weight_ID < 1) setValue(COLUMNNAME_C_UOM_Weight_ID, null);
+        else setValue(COLUMNNAME_C_UOM_Weight_ID, Integer.valueOf(C_UOM_Weight_ID));
     }
 
     /**
@@ -226,7 +226,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @param CustomsValue Customs Value
      */
     public void setCustomsValue(BigDecimal CustomsValue) {
-        set_Value(COLUMNNAME_CustomsValue, CustomsValue);
+        setValue(COLUMNNAME_CustomsValue, CustomsValue);
     }
 
     /**
@@ -235,7 +235,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @param DutiesShipperAccount Duties Shipper Account
      */
     public void setDutiesShipperAccount(String DutiesShipperAccount) {
-        set_Value(COLUMNNAME_DutiesShipperAccount, DutiesShipperAccount);
+        setValue(COLUMNNAME_DutiesShipperAccount, DutiesShipperAccount);
     }
 
     /**
@@ -244,7 +244,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @param FreightAmt Freight Amount
      */
     public void setFreightAmt(BigDecimal FreightAmt) {
-        set_Value(COLUMNNAME_FreightAmt, FreightAmt);
+        setValue(COLUMNNAME_FreightAmt, FreightAmt);
     }
 
     /**
@@ -263,7 +263,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      */
     public void setFreightCharges(String FreightCharges) {
 
-        set_ValueNoCheck(COLUMNNAME_FreightCharges, FreightCharges);
+        setValueNoCheck(COLUMNNAME_FreightCharges, FreightCharges);
     }
 
     /**
@@ -272,7 +272,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @param IsPriviledgedRate Priviledged Rate
      */
     public void setIsPriviledgedRate(boolean IsPriviledgedRate) {
-        set_Value(COLUMNNAME_IsPriviledgedRate, Boolean.valueOf(IsPriviledgedRate));
+        setValue(COLUMNNAME_IsPriviledgedRate, Boolean.valueOf(IsPriviledgedRate));
     }
 
     /**
@@ -295,7 +295,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @param IsResidential Residential
      */
     public void setIsResidential(boolean IsResidential) {
-        set_Value(COLUMNNAME_IsResidential, Boolean.valueOf(IsResidential));
+        setValue(COLUMNNAME_IsResidential, Boolean.valueOf(IsResidential));
     }
 
     /**
@@ -304,7 +304,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @param IsSaturdayDelivery Saturday Delivery
      */
     public void setIsSaturdayDelivery(boolean IsSaturdayDelivery) {
-        set_Value(COLUMNNAME_IsSaturdayDelivery, Boolean.valueOf(IsSaturdayDelivery));
+        setValue(COLUMNNAME_IsSaturdayDelivery, Boolean.valueOf(IsSaturdayDelivery));
     }
 
     /**
@@ -312,7 +312,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      *
      * @return Method or manner of product delivery
      */
-    public int getM_Shipper_ID() {
+    public int getShipperId() {
         Integer ii = (Integer) getValue(COLUMNNAME_M_Shipper_ID);
         if (ii == null) return 0;
         return ii;
@@ -323,9 +323,9 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      *
      * @param M_Shipper_ID Method or manner of product delivery
      */
-    public void setM_Shipper_ID(int M_Shipper_ID) {
-        if (M_Shipper_ID < 1) set_Value(COLUMNNAME_M_Shipper_ID, null);
-        else set_Value(COLUMNNAME_M_Shipper_ID, Integer.valueOf(M_Shipper_ID));
+    public void setShipperId(int M_Shipper_ID) {
+        if (M_Shipper_ID < 1) setValue(COLUMNNAME_M_Shipper_ID, null);
+        else setValue(COLUMNNAME_M_Shipper_ID, Integer.valueOf(M_Shipper_ID));
     }
 
     /**
@@ -334,8 +334,8 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @param M_ShipperLabels_ID Shipper Labels
      */
     public void setM_ShipperLabels_ID(int M_ShipperLabels_ID) {
-        if (M_ShipperLabels_ID < 1) set_Value(COLUMNNAME_M_ShipperLabels_ID, null);
-        else set_Value(COLUMNNAME_M_ShipperLabels_ID, Integer.valueOf(M_ShipperLabels_ID));
+        if (M_ShipperLabels_ID < 1) setValue(COLUMNNAME_M_ShipperLabels_ID, null);
+        else setValue(COLUMNNAME_M_ShipperLabels_ID, Integer.valueOf(M_ShipperLabels_ID));
     }
 
     /**
@@ -344,8 +344,8 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @param M_ShipperPackaging_ID Shipper Packaging
      */
     public void setM_ShipperPackaging_ID(int M_ShipperPackaging_ID) {
-        if (M_ShipperPackaging_ID < 1) set_Value(COLUMNNAME_M_ShipperPackaging_ID, null);
-        else set_Value(COLUMNNAME_M_ShipperPackaging_ID, Integer.valueOf(M_ShipperPackaging_ID));
+        if (M_ShipperPackaging_ID < 1) setValue(COLUMNNAME_M_ShipperPackaging_ID, null);
+        else setValue(COLUMNNAME_M_ShipperPackaging_ID, Integer.valueOf(M_ShipperPackaging_ID));
     }
 
     /**
@@ -354,8 +354,8 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @param M_ShipperPickupTypes_ID Shipper Pickup Types
      */
     public void setM_ShipperPickupTypes_ID(int M_ShipperPickupTypes_ID) {
-        if (M_ShipperPickupTypes_ID < 1) set_Value(COLUMNNAME_M_ShipperPickupTypes_ID, null);
-        else set_Value(COLUMNNAME_M_ShipperPickupTypes_ID, Integer.valueOf(M_ShipperPickupTypes_ID));
+        if (M_ShipperPickupTypes_ID < 1) setValue(COLUMNNAME_M_ShipperPickupTypes_ID, null);
+        else setValue(COLUMNNAME_M_ShipperPickupTypes_ID, Integer.valueOf(M_ShipperPickupTypes_ID));
     }
 
     /**
@@ -364,9 +364,9 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @param M_ShippingProcessor_ID Shipping Processor
      */
     public void setM_ShippingProcessor_ID(int M_ShippingProcessor_ID) {
-        if (M_ShippingProcessor_ID < 1) set_ValueNoCheck(COLUMNNAME_M_ShippingProcessor_ID, null);
+        if (M_ShippingProcessor_ID < 1) setValueNoCheck(COLUMNNAME_M_ShippingProcessor_ID, null);
         else
-            set_ValueNoCheck(COLUMNNAME_M_ShippingProcessor_ID, Integer.valueOf(M_ShippingProcessor_ID));
+            setValueNoCheck(COLUMNNAME_M_ShippingProcessor_ID, Integer.valueOf(M_ShippingProcessor_ID));
     }
 
     /**
@@ -385,9 +385,9 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      *
      * @param M_Warehouse_ID Storage Warehouse and Service Point
      */
-    public void setM_Warehouse_ID(int M_Warehouse_ID) {
-        if (M_Warehouse_ID < 1) set_Value(COLUMNNAME_M_Warehouse_ID, null);
-        else set_Value(COLUMNNAME_M_Warehouse_ID, Integer.valueOf(M_Warehouse_ID));
+    public void setWarehouseId(int M_Warehouse_ID) {
+        if (M_Warehouse_ID < 1) setValue(COLUMNNAME_M_Warehouse_ID, null);
+        else setValue(COLUMNNAME_M_Warehouse_ID, Integer.valueOf(M_Warehouse_ID));
     }
 
     /**
@@ -397,7 +397,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      */
     public void setPaymentRule(String PaymentRule) {
 
-        set_Value(COLUMNNAME_PaymentRule, PaymentRule);
+        setValue(COLUMNNAME_PaymentRule, PaymentRule);
     }
 
     /**
@@ -407,7 +407,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      *                    Partner
      */
     public void setPOReference(String POReference) {
-        set_Value(COLUMNNAME_POReference, POReference);
+        setValue(COLUMNNAME_POReference, POReference);
     }
 
     /**
@@ -427,7 +427,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @param Processed The document has been processed
      */
     public void setProcessed(boolean Processed) {
-        set_Value(COLUMNNAME_Processed, Boolean.valueOf(Processed));
+        setValue(COLUMNNAME_Processed, Boolean.valueOf(Processed));
     }
 
     /**
@@ -435,9 +435,9 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      *
      * @param SalesRep_ID Sales Representative or Company Agent
      */
-    public void setSalesRep_ID(int SalesRep_ID) {
-        if (SalesRep_ID < 1) set_Value(COLUMNNAME_SalesRep_ID, null);
-        else set_Value(COLUMNNAME_SalesRep_ID, Integer.valueOf(SalesRep_ID));
+    public void setSalesRepresentativeId(int SalesRep_ID) {
+        if (SalesRep_ID < 1) setValue(COLUMNNAME_SalesRep_ID, null);
+        else setValue(COLUMNNAME_SalesRep_ID, SalesRep_ID);
     }
 
     /**
@@ -446,7 +446,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @param ShipDate Shipment Date/Time
      */
     public void setShipDate(Timestamp ShipDate) {
-        set_Value(COLUMNNAME_ShipDate, ShipDate);
+        setValue(COLUMNNAME_ShipDate, ShipDate);
     }
 
     /**
@@ -455,7 +455,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @param ShipperAccount Shipper Account Number
      */
     public void setShipperAccount(String ShipperAccount) {
-        set_Value(COLUMNNAME_ShipperAccount, ShipperAccount);
+        setValue(COLUMNNAME_ShipperAccount, ShipperAccount);
     }
 
     /**
@@ -473,7 +473,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @param TrackingInfo Tracking Info
      */
     public void setTrackingInfo(String TrackingInfo) {
-        set_Value(COLUMNNAME_TrackingInfo, TrackingInfo);
+        setValue(COLUMNNAME_TrackingInfo, TrackingInfo);
     }
 
     /**
@@ -482,7 +482,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @param Weight Weight of a product
      */
     public void setWeight(BigDecimal Weight) {
-        set_Value(COLUMNNAME_Weight, Weight);
+        setValue(COLUMNNAME_Weight, Weight);
     }
 
     @Override

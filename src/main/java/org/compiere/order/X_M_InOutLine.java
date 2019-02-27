@@ -67,7 +67,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @return Performing or initiating organization
      */
-    public int getAD_OrgTrx_ID() {
+    public int getTransactionOrganizationId() {
         Integer ii = (Integer) getValue(COLUMNNAME_AD_OrgTrx_ID);
         if (ii == null) return 0;
         return ii;
@@ -78,9 +78,9 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @param AD_OrgTrx_ID Performing or initiating organization
      */
-    public void setAD_OrgTrx_ID(int AD_OrgTrx_ID) {
-        if (AD_OrgTrx_ID < 1) set_Value(COLUMNNAME_AD_OrgTrx_ID, null);
-        else set_Value(COLUMNNAME_AD_OrgTrx_ID, Integer.valueOf(AD_OrgTrx_ID));
+    public void setTransactionOrganizationId(int AD_OrgTrx_ID) {
+        if (AD_OrgTrx_ID < 1) setValue(COLUMNNAME_AD_OrgTrx_ID, null);
+        else setValue(COLUMNNAME_AD_OrgTrx_ID, Integer.valueOf(AD_OrgTrx_ID));
     }
 
     /**
@@ -88,7 +88,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @return Business Activity
      */
-    public int getC_Activity_ID() {
+    public int getBusinessActivityId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_Activity_ID);
         if (ii == null) return 0;
         return ii;
@@ -99,9 +99,9 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @param C_Activity_ID Business Activity
      */
-    public void setC_Activity_ID(int C_Activity_ID) {
-        if (C_Activity_ID < 1) set_Value(COLUMNNAME_C_Activity_ID, null);
-        else set_Value(COLUMNNAME_C_Activity_ID, Integer.valueOf(C_Activity_ID));
+    public void setBusinessActivityId(int C_Activity_ID) {
+        if (C_Activity_ID < 1) setValue(COLUMNNAME_C_Activity_ID, null);
+        else setValue(COLUMNNAME_C_Activity_ID, Integer.valueOf(C_Activity_ID));
     }
 
     /**
@@ -109,7 +109,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @return Marketing Campaign
      */
-    public int getC_Campaign_ID() {
+    public int getCampaignId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_Campaign_ID);
         if (ii == null) return 0;
         return ii;
@@ -120,9 +120,9 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @param C_Campaign_ID Marketing Campaign
      */
-    public void setC_Campaign_ID(int C_Campaign_ID) {
-        if (C_Campaign_ID < 1) set_Value(COLUMNNAME_C_Campaign_ID, null);
-        else set_Value(COLUMNNAME_C_Campaign_ID, Integer.valueOf(C_Campaign_ID));
+    public void setCampaignId(int C_Campaign_ID) {
+        if (C_Campaign_ID < 1) setValue(COLUMNNAME_C_Campaign_ID, null);
+        else setValue(COLUMNNAME_C_Campaign_ID, Integer.valueOf(C_Campaign_ID));
     }
 
     /**
@@ -130,7 +130,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @return Additional document charges
      */
-    public int getC_Charge_ID() {
+    public int getChargeId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_Charge_ID);
         if (ii == null) return 0;
         return ii;
@@ -141,9 +141,9 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @param C_Charge_ID Additional document charges
      */
-    public void setC_Charge_ID(int C_Charge_ID) {
-        if (C_Charge_ID < 1) set_Value(COLUMNNAME_C_Charge_ID, null);
-        else set_Value(COLUMNNAME_C_Charge_ID, C_Charge_ID);
+    public void setChargeId(int C_Charge_ID) {
+        if (C_Charge_ID < 1) setValue(COLUMNNAME_C_Charge_ID, null);
+        else setValue(COLUMNNAME_C_Charge_ID, C_Charge_ID);
     }
 
     /**
@@ -152,7 +152,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param ConfirmedQty Confirmation of a received quantity
      */
     public void setConfirmedQty(BigDecimal ConfirmedQty) {
-        set_Value(COLUMNNAME_ConfirmedQty, ConfirmedQty);
+        setValue(COLUMNNAME_ConfirmedQty, ConfirmedQty);
     }
 
     public org.compiere.model.I_C_OrderLine getC_OrderLine() throws RuntimeException {
@@ -178,8 +178,8 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param C_OrderLine_ID Sales Order Line
      */
     public void setC_OrderLine_ID(int C_OrderLine_ID) {
-        if (C_OrderLine_ID < 1) set_ValueNoCheck(COLUMNNAME_C_OrderLine_ID, null);
-        else set_ValueNoCheck(COLUMNNAME_C_OrderLine_ID, C_OrderLine_ID);
+        if (C_OrderLine_ID < 1) setValueNoCheck(COLUMNNAME_C_OrderLine_ID, null);
+        else setValueNoCheck(COLUMNNAME_C_OrderLine_ID, C_OrderLine_ID);
     }
 
     /**
@@ -187,7 +187,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @return Financial Project
      */
-    public int getC_Project_ID() {
+    public int getProjectId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_Project_ID);
         if (ii == null) return 0;
         return ii;
@@ -198,9 +198,9 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @param C_Project_ID Financial Project
      */
-    public void setC_Project_ID(int C_Project_ID) {
-        if (C_Project_ID < 1) set_Value(COLUMNNAME_C_Project_ID, null);
-        else set_Value(COLUMNNAME_C_Project_ID, Integer.valueOf(C_Project_ID));
+    public void setProjectId(int C_Project_ID) {
+        if (C_Project_ID < 1) setValue(COLUMNNAME_C_Project_ID, null);
+        else setValue(COLUMNNAME_C_Project_ID, Integer.valueOf(C_Project_ID));
     }
 
     /**
@@ -220,8 +220,8 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param C_ProjectPhase_ID Phase of a Project
      */
     public void setC_ProjectPhase_ID(int C_ProjectPhase_ID) {
-        if (C_ProjectPhase_ID < 1) set_Value(COLUMNNAME_C_ProjectPhase_ID, null);
-        else set_Value(COLUMNNAME_C_ProjectPhase_ID, Integer.valueOf(C_ProjectPhase_ID));
+        if (C_ProjectPhase_ID < 1) setValue(COLUMNNAME_C_ProjectPhase_ID, null);
+        else setValue(COLUMNNAME_C_ProjectPhase_ID, Integer.valueOf(C_ProjectPhase_ID));
     }
 
     /**
@@ -241,8 +241,8 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param C_ProjectTask_ID Actual Project Task in a Phase
      */
     public void setC_ProjectTask_ID(int C_ProjectTask_ID) {
-        if (C_ProjectTask_ID < 1) set_Value(COLUMNNAME_C_ProjectTask_ID, null);
-        else set_Value(COLUMNNAME_C_ProjectTask_ID, Integer.valueOf(C_ProjectTask_ID));
+        if (C_ProjectTask_ID < 1) setValue(COLUMNNAME_C_ProjectTask_ID, null);
+        else setValue(COLUMNNAME_C_ProjectTask_ID, Integer.valueOf(C_ProjectTask_ID));
     }
 
     /**
@@ -262,8 +262,8 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param C_UOM_ID Unit of Measure
      */
     public void setC_UOM_ID(int C_UOM_ID) {
-        if (C_UOM_ID < 1) set_ValueNoCheck(COLUMNNAME_C_UOM_ID, null);
-        else set_ValueNoCheck(COLUMNNAME_C_UOM_ID, Integer.valueOf(C_UOM_ID));
+        if (C_UOM_ID < 1) setValueNoCheck(COLUMNNAME_C_UOM_ID, null);
+        else setValueNoCheck(COLUMNNAME_C_UOM_ID, Integer.valueOf(C_UOM_ID));
     }
 
     /**
@@ -281,7 +281,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param IsDescription if true, the line is just description and no transaction
      */
     public void setIsDescription(boolean IsDescription) {
-        set_Value(COLUMNNAME_IsDescription, Boolean.valueOf(IsDescription));
+        setValue(COLUMNNAME_IsDescription, Boolean.valueOf(IsDescription));
     }
 
     /**
@@ -304,7 +304,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param Description Optional short description of the record
      */
     public void setDescription(String Description) {
-        set_Value(COLUMNNAME_Description, Description);
+        setValue(COLUMNNAME_Description, Description);
     }
 
     /**
@@ -313,7 +313,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param IsInvoiced Is this invoiced?
      */
     public void setIsInvoiced(boolean IsInvoiced) {
-        set_Value(COLUMNNAME_IsInvoiced, Boolean.valueOf(IsInvoiced));
+        setValue(COLUMNNAME_IsInvoiced, Boolean.valueOf(IsInvoiced));
     }
 
     /**
@@ -347,7 +347,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param Line Unique line for this document
      */
     public void setLine(int Line) {
-        set_Value(COLUMNNAME_Line, Integer.valueOf(Line));
+        setValue(COLUMNNAME_Line, Integer.valueOf(Line));
     }
 
     /**
@@ -356,9 +356,9 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param M_AttributeSetInstance_ID Product Attribute Set Instance
      */
     public void setM_AttributeSetInstance_ID(int M_AttributeSetInstance_ID) {
-        if (M_AttributeSetInstance_ID < 0) set_Value(COLUMNNAME_M_AttributeSetInstance_ID, null);
+        if (M_AttributeSetInstance_ID < 0) setValue(COLUMNNAME_M_AttributeSetInstance_ID, null);
         else
-            set_Value(COLUMNNAME_M_AttributeSetInstance_ID, Integer.valueOf(M_AttributeSetInstance_ID));
+            setValue(COLUMNNAME_M_AttributeSetInstance_ID, Integer.valueOf(M_AttributeSetInstance_ID));
     }
 
     /**
@@ -395,8 +395,8 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param M_InOut_ID Material Shipment Document
      */
     public void setM_InOut_ID(int M_InOut_ID) {
-        if (M_InOut_ID < 1) set_ValueNoCheck(COLUMNNAME_M_InOut_ID, null);
-        else set_ValueNoCheck(COLUMNNAME_M_InOut_ID, M_InOut_ID);
+        if (M_InOut_ID < 1) setValueNoCheck(COLUMNNAME_M_InOut_ID, null);
+        else setValueNoCheck(COLUMNNAME_M_InOut_ID, M_InOut_ID);
     }
 
     /**
@@ -427,8 +427,8 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param M_Locator_ID Warehouse Locator
      */
     public void setM_Locator_ID(int M_Locator_ID) {
-        if (M_Locator_ID < 1) set_Value(COLUMNNAME_M_Locator_ID, null);
-        else set_Value(COLUMNNAME_M_Locator_ID, Integer.valueOf(M_Locator_ID));
+        if (M_Locator_ID < 1) setValue(COLUMNNAME_M_Locator_ID, null);
+        else setValue(COLUMNNAME_M_Locator_ID, Integer.valueOf(M_Locator_ID));
     }
 
     /**
@@ -448,7 +448,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param MovementQty Quantity of a product moved.
      */
     public void setMovementQty(BigDecimal MovementQty) {
-        set_Value(COLUMNNAME_MovementQty, MovementQty);
+        setValue(COLUMNNAME_MovementQty, MovementQty);
     }
 
     public org.compiere.model.I_M_Product getM_Product() throws RuntimeException {
@@ -474,8 +474,8 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param M_Product_ID Product, Service, Item
      */
     public void setM_Product_ID(int M_Product_ID) {
-        if (M_Product_ID < 1) set_Value(COLUMNNAME_M_Product_ID, null);
-        else set_Value(COLUMNNAME_M_Product_ID, M_Product_ID);
+        if (M_Product_ID < 1) setValue(COLUMNNAME_M_Product_ID, null);
+        else setValue(COLUMNNAME_M_Product_ID, M_Product_ID);
     }
 
     public org.compiere.model.I_M_RMALine getM_RMALine() throws RuntimeException {
@@ -501,8 +501,8 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param M_RMALine_ID Return Material Authorization Line
      */
     public void setM_RMALine_ID(int M_RMALine_ID) {
-        if (M_RMALine_ID < 1) set_Value(COLUMNNAME_M_RMALine_ID, null);
-        else set_Value(COLUMNNAME_M_RMALine_ID, M_RMALine_ID);
+        if (M_RMALine_ID < 1) setValue(COLUMNNAME_M_RMALine_ID, null);
+        else setValue(COLUMNNAME_M_RMALine_ID, M_RMALine_ID);
     }
 
     /**
@@ -511,7 +511,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param PickedQty Picked Quantity
      */
     public void setPickedQty(BigDecimal PickedQty) {
-        set_Value(COLUMNNAME_PickedQty, PickedQty);
+        setValue(COLUMNNAME_PickedQty, PickedQty);
     }
 
     /**
@@ -520,7 +520,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param Processed The document has been processed
      */
     public void setProcessed(boolean Processed) {
-        set_Value(COLUMNNAME_Processed, Processed);
+        setValue(COLUMNNAME_Processed, Processed);
     }
 
     /**
@@ -540,7 +540,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param QtyEntered The Quantity Entered is based on the selected UoM
      */
     public void setQtyEntered(BigDecimal QtyEntered) {
-        set_Value(COLUMNNAME_QtyEntered, QtyEntered);
+        setValue(COLUMNNAME_QtyEntered, QtyEntered);
     }
 
     /**
@@ -560,7 +560,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param QtyOverReceipt Over Receipt Quantity
      */
     public void setQtyOverReceipt(BigDecimal QtyOverReceipt) {
-        set_Value(COLUMNNAME_QtyOverReceipt, QtyOverReceipt);
+        setValue(COLUMNNAME_QtyOverReceipt, QtyOverReceipt);
     }
 
     /**
@@ -580,8 +580,8 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param Ref_InOutLine_ID Referenced Shipment Line
      */
     public void setRef_InOutLine_ID(int Ref_InOutLine_ID) {
-        if (Ref_InOutLine_ID < 1) set_Value(COLUMNNAME_Ref_InOutLine_ID, null);
-        else set_Value(COLUMNNAME_Ref_InOutLine_ID, Ref_InOutLine_ID);
+        if (Ref_InOutLine_ID < 1) setValue(COLUMNNAME_Ref_InOutLine_ID, null);
+        else setValue(COLUMNNAME_Ref_InOutLine_ID, Ref_InOutLine_ID);
     }
 
     /**
@@ -601,8 +601,8 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param ReversalLine_ID Use to keep the reversal line ID for reversing costing purpose
      */
     public void setReversalLine_ID(int ReversalLine_ID) {
-        if (ReversalLine_ID < 1) set_Value(COLUMNNAME_ReversalLine_ID, null);
-        else set_Value(COLUMNNAME_ReversalLine_ID, ReversalLine_ID);
+        if (ReversalLine_ID < 1) setValue(COLUMNNAME_ReversalLine_ID, null);
+        else setValue(COLUMNNAME_ReversalLine_ID, ReversalLine_ID);
     }
 
     /**
@@ -611,7 +611,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param ScrappedQty The Quantity scrapped due to QA issues
      */
     public void setScrappedQty(BigDecimal ScrappedQty) {
-        set_Value(COLUMNNAME_ScrappedQty, ScrappedQty);
+        setValue(COLUMNNAME_ScrappedQty, ScrappedQty);
     }
 
     /**
@@ -620,7 +620,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param TargetQty Target Movement Quantity
      */
     public void setTargetQty(BigDecimal TargetQty) {
-        set_Value(COLUMNNAME_TargetQty, TargetQty);
+        setValue(COLUMNNAME_TargetQty, TargetQty);
     }
 
     /**
@@ -628,7 +628,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @return User defined list element #1
      */
-    public int getUser1_ID() {
+    public int getUser1Id() {
         Integer ii = (Integer) getValue(COLUMNNAME_User1_ID);
         if (ii == null) return 0;
         return ii;
@@ -639,9 +639,9 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @param User1_ID User defined list element #1
      */
-    public void setUser1_ID(int User1_ID) {
-        if (User1_ID < 1) set_Value(COLUMNNAME_User1_ID, null);
-        else set_Value(COLUMNNAME_User1_ID, Integer.valueOf(User1_ID));
+    public void setUser1Id(int User1_ID) {
+        if (User1_ID < 1) setValue(COLUMNNAME_User1_ID, null);
+        else setValue(COLUMNNAME_User1_ID, Integer.valueOf(User1_ID));
     }
 
     /**
@@ -649,7 +649,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @return User defined list element #2
      */
-    public int getUser2_ID() {
+    public int getUser2Id() {
         Integer ii = (Integer) getValue(COLUMNNAME_User2_ID);
         if (ii == null) return 0;
         return ii;
@@ -660,9 +660,9 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @param User2_ID User defined list element #2
      */
-    public void setUser2_ID(int User2_ID) {
-        if (User2_ID < 1) set_Value(COLUMNNAME_User2_ID, null);
-        else set_Value(COLUMNNAME_User2_ID, Integer.valueOf(User2_ID));
+    public void setUser2Id(int User2_ID) {
+        if (User2_ID < 1) setValue(COLUMNNAME_User2_ID, null);
+        else setValue(COLUMNNAME_User2_ID, Integer.valueOf(User2_ID));
     }
 
     @Override
