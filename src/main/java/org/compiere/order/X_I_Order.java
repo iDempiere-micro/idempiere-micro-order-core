@@ -220,7 +220,7 @@ public class X_I_Order extends BasePOName implements I_I_Order {
      *
      * @return Country
      */
-    public int getC_Country_ID() {
+    public int getCountryId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_Country_ID);
         if (ii == null) return 0;
         return ii;
@@ -251,7 +251,7 @@ public class X_I_Order extends BasePOName implements I_I_Order {
      *
      * @return Location or Address
      */
-    public int getC_Location_ID() {
+    public int getLocationId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_Location_ID);
         if (ii == null) return 0;
         return ii;
@@ -262,7 +262,7 @@ public class X_I_Order extends BasePOName implements I_I_Order {
      *
      * @param C_Location_ID Location or Address
      */
-    public void setC_Location_ID(int C_Location_ID) {
+    public void setLocationId(int C_Location_ID) {
         if (C_Location_ID < 1) setValue(COLUMNNAME_C_Location_ID, null);
         else setValue(COLUMNNAME_C_Location_ID, Integer.valueOf(C_Location_ID));
     }
@@ -340,7 +340,7 @@ public class X_I_Order extends BasePOName implements I_I_Order {
      *
      * @return Identifies a geographical Region
      */
-    public int getC_Region_ID() {
+    public int getRegionId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_Region_ID);
         if (ii == null) return 0;
         return ii;

@@ -356,18 +356,19 @@ public class MOrder extends X_C_Order implements I_C_Order {
         if (ii != 0) setSalesRepresentativeId(ii);
 
         //	Set Locations
-        I_C_BPartner_Location[] locs = bp.getLocations();
+        List<I_C_BPartner_Location> locs = bp.getLocations();
         if (locs != null) {
-            for (int i = 0; i < locs.length; i++) {
-                if (locs[i].isShipTo())
-                    super.setBusinessPartnerLocationId(locs[i].getBusinessPartnerLocationId());
-                if (locs[i].isBillTo()) setBusinessPartnerInvoicingLocationId(locs[i].getBusinessPartnerLocationId());
+            for (int i = 0; i < locs.size(); i++) {
+                I_C_BPartner_Location loc = locs.get(i);
+                if (loc.isShipTo())
+                    super.setBusinessPartnerLocationId(loc.getBusinessPartnerLocationId());
+                if (loc.isBillTo()) setBusinessPartnerInvoicingLocationId(loc.getBusinessPartnerLocationId());
             }
             //	set to first
-            if (getBusinessPartnerLocationId() == 0 && locs.length > 0)
-                super.setBusinessPartnerLocationId(locs[0].getBusinessPartnerLocationId());
-            if (getBusinessPartnerInvoicingLocationId() == 0 && locs.length > 0)
-                setBusinessPartnerInvoicingLocationId(locs[0].getBusinessPartnerLocationId());
+            if (getBusinessPartnerLocationId() == 0 && locs.size() > 0)
+                super.setBusinessPartnerLocationId(locs.get(0).getBusinessPartnerLocationId());
+            if (getBusinessPartnerInvoicingLocationId() == 0 && locs.size() > 0)
+                setBusinessPartnerInvoicingLocationId(locs.get(0).getBusinessPartnerLocationId());
         }
         if (getBusinessPartnerLocationId() == 0) {
             throw new BPartnerNoShipToAddressException(bp);
@@ -378,8 +379,8 @@ public class MOrder extends X_C_Order implements I_C_Order {
         }
 
         //	Set Contact
-        I_AD_User[] contacts = bp.getContacts();
-        if (contacts != null && contacts.length == 1) setUserId(contacts[0].getUserId());
+        List<I_AD_User> contacts = bp.getContacts();
+        if (contacts != null && contacts.size() == 1) setUserId(contacts.get(0).getUserId());
     } //	setBPartner
 
     /**

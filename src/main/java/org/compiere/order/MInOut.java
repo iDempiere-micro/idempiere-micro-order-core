@@ -2,10 +2,7 @@ package org.compiere.order;
 
 import org.compiere.crm.MBPartner;
 import org.compiere.crm.MUser;
-import org.compiere.model.I_C_BPartner_Location;
-import org.compiere.model.I_C_Invoice;
-import org.compiere.model.I_M_InOutConfirm;
-import org.compiere.model.I_M_InOutLine;
+import org.compiere.model.*;
 import org.compiere.orm.MDocType;
 import org.compiere.orm.PO;
 import org.compiere.orm.Query;
@@ -508,21 +505,21 @@ public class MInOut extends X_M_InOut {
         setBusinessPartnerId(bp.getBusinessPartnerId());
 
         //	Set Locations
-        I_C_BPartner_Location[] locs = bp.getLocations(false);
+        List<I_C_BPartner_Location> locs = bp.getLocations(false);
         if (locs != null) {
-            for (int i = 0; i < locs.length; i++) {
-                if (locs[i].isShipTo()) setBusinessPartnerLocationId(locs[i].getBusinessPartnerLocationId());
+            for (int i = 0; i < locs.size(); i++) {
+                I_C_BPartner_Location loc = locs.get(i);
+                if (loc.isShipTo()) setBusinessPartnerLocationId(loc.getBusinessPartnerLocationId());
             }
             //	set to first if not set
-            if (getBusinessPartnerLocationId() == 0 && locs.length > 0)
-                setBusinessPartnerLocationId(locs[0].getBusinessPartnerLocationId());
+            if (getBusinessPartnerLocationId() == 0 && locs.size() > 0)
+                setBusinessPartnerLocationId(locs.get(0).getBusinessPartnerLocationId());
         }
         if (getBusinessPartnerLocationId() == 0) log.log(Level.SEVERE, "Has no To Address: " + bp);
 
         //	Set Contact
-        MUser[] contacts = bp.getContacts(false);
-        if (contacts != null && contacts.length > 0) // 	get first User
-            setUserId(contacts[0].getUserId());
+        List<I_AD_User> contacts = bp.getContacts(false);
+        if (contacts != null && contacts.size() == 1) setUserId(contacts.get(0).getUserId());
     } //	setBPartner
 
     /**
