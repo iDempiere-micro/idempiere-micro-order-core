@@ -6,7 +6,7 @@ import software.hsharp.core.util.DB
 import software.hsharp.core.util.asResource
 import software.hsharp.core.util.queryOf
 import java.sql.ResultSet
-import java.util.*
+import java.util.Properties
 
 abstract class MBasePaymentTerm : X_C_PaymentTerm {
     constructor(ctx: Properties, Id: Int) : super(ctx, Id)
