@@ -1,12 +1,12 @@
 package org.compiere.order;
 
+import kotliquery.Row;
 import org.compiere.crm.MUser;
 import org.compiere.orm.MRefList;
 import org.compiere.util.Msg;
 import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.Env;
 
-import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -67,8 +67,8 @@ public class MInOutConfirm extends X_M_InOutConfirm {
      * @param rs      result set
      * @param trxName transaction
      */
-    public MInOutConfirm(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public MInOutConfirm(Properties ctx, Row row) {
+        super(ctx, row);
     } //	MInOutConfirm
 
     /**

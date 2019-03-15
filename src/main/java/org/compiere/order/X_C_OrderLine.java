@@ -7,7 +7,6 @@ import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Properties;
 
@@ -47,10 +46,6 @@ public class X_C_OrderLine extends PO {
     /**
      * Load Constructor
      */
-    public X_C_OrderLine(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
-    }
-
     public X_C_OrderLine(Properties ctx, Row row) {
         super(ctx, row);
     }
@@ -98,7 +93,7 @@ public class X_C_OrderLine extends PO {
      */
     public void setBusinessActivityId(int C_Activity_ID) {
         if (C_Activity_ID < 1) setValue(I_C_OrderLine.COLUMNNAME_C_Activity_ID, null);
-        else setValue(I_C_OrderLine.COLUMNNAME_C_Activity_ID, Integer.valueOf(C_Activity_ID));
+        else setValue(I_C_OrderLine.COLUMNNAME_C_Activity_ID, C_Activity_ID);
     }
 
     /**

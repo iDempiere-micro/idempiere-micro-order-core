@@ -1,6 +1,7 @@
 package org.compiere.order;
 
-import java.sql.ResultSet;
+import kotliquery.Row;
+
 import java.util.Properties;
 
 public class MShippingTransactionLine extends X_M_ShippingTransactionLine {
@@ -15,8 +16,8 @@ public class MShippingTransactionLine extends X_M_ShippingTransactionLine {
         super(ctx, M_ShippingTransactionLine_ID);
     }
 
-    public MShippingTransactionLine(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public MShippingTransactionLine(Properties ctx, Row row) {
+        super(ctx, row);
     }
 
     public void setADClientID(int AD_Client_ID) {

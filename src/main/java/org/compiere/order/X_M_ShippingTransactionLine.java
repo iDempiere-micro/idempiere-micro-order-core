@@ -1,10 +1,10 @@
 package org.compiere.order;
 
+import kotliquery.Row;
 import org.compiere.model.I_M_ShippingTransactionLine;
 import org.compiere.orm.PO;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.util.Properties;
 
 /**
@@ -36,8 +36,8 @@ public class X_M_ShippingTransactionLine extends PO
     /**
      * Load Constructor
      */
-    public X_M_ShippingTransactionLine(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public X_M_ShippingTransactionLine(Properties ctx, Row row) {
+        super(ctx, row);
     }
 
     /**

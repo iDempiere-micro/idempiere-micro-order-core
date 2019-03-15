@@ -1,5 +1,6 @@
 package org.compiere.order;
 
+import kotliquery.Row;
 import org.compiere.model.IPODoc;
 import org.compiere.model.I_M_InOut;
 import org.compiere.orm.MTable;
@@ -7,7 +8,6 @@ import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -136,8 +136,8 @@ public class X_M_InOut extends PO implements I_M_InOut {
     /**
      * Load Constructor
      */
-    public X_M_InOut(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public X_M_InOut(Properties ctx, Row row) {
+        super(ctx, row);
     }
 
     /**

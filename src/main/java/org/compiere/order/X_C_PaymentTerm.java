@@ -5,7 +5,6 @@ import org.compiere.model.I_C_PaymentTerm;
 import org.compiere.orm.BasePONameValue;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.util.Properties;
 
 /**
@@ -31,10 +30,6 @@ public class X_C_PaymentTerm extends BasePONameValue {
     /**
      * Load Constructor
      */
-    public X_C_PaymentTerm(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
-    }
-
     public X_C_PaymentTerm(Properties ctx, Row row) {
         super(ctx, row);
     }
@@ -58,7 +53,7 @@ public class X_C_PaymentTerm extends BasePONameValue {
      * @param AfterDelivery Due after delivery rather than after invoicing
      */
     public void setAfterDelivery(boolean AfterDelivery) {
-        setValue(I_C_PaymentTerm.COLUMNNAME_AfterDelivery, Boolean.valueOf(AfterDelivery));
+        setValue(I_C_PaymentTerm.COLUMNNAME_AfterDelivery, AfterDelivery);
     }
 
     /**

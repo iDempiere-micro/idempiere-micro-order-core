@@ -1,9 +1,25 @@
 package org.compiere.order;
 
+import kotliquery.Row;
+import org.compiere.bo.MCurrency;
 import org.compiere.crm.MBPartner;
-import org.compiere.model.*;
-import org.compiere.orm.*;
-import org.compiere.product.*;
+import org.compiere.model.I_AD_User;
+import org.compiere.model.I_C_BPartner;
+import org.compiere.model.I_C_BPartner_Location;
+import org.compiere.model.I_C_Invoice;
+import org.compiere.model.I_C_Order;
+import org.compiere.model.I_C_OrderLine;
+import org.compiere.model.I_C_OrderTax;
+import org.compiere.model.I_M_InOut;
+import org.compiere.orm.MClientInfo;
+import org.compiere.orm.MDocType;
+import org.compiere.orm.MOrg;
+import org.compiere.orm.PO;
+import org.compiere.orm.Query;
+import org.compiere.product.MPriceList;
+import org.compiere.product.MPriceListVersion;
+import org.compiere.product.MProduct;
+import org.compiere.product.MProductBOM;
 import org.compiere.tax.ITaxProvider;
 import org.compiere.tax.MTax;
 import org.compiere.tax.MTaxProvider;
@@ -14,7 +30,6 @@ import org.idempiere.common.util.Env;
 import org.idempiere.common.util.Util;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Hashtable;
 import java.util.List;
@@ -23,7 +38,10 @@ import java.util.logging.Level;
 
 import static org.compiere.order.SalesOrderRateInquiryProcessKt.createShippingTransaction;
 import static software.hsharp.core.orm.POKt.I_ZERO;
-import static software.hsharp.core.util.DBKt.*;
+import static software.hsharp.core.util.DBKt.executeUpdate;
+import static software.hsharp.core.util.DBKt.executeUpdateEx;
+import static software.hsharp.core.util.DBKt.getSQLValue;
+import static software.hsharp.core.util.DBKt.getSQLValueEx;
 
 /**
  * Order Model. Please do not set DocStatus and C_DocType_ID directly. They are set in the process()
@@ -139,8 +157,8 @@ public class MOrder extends X_C_Order implements I_C_Order {
      * @param rs      result set record
      * @param trxName transaction
      */
-    public MOrder(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public MOrder(Properties ctx, Row row) {
+        super(ctx, row);
     } //	MOrder
 
     /**
@@ -360,9 +378,9 @@ public class MOrder extends X_C_Order implements I_C_Order {
         if (locs != null) {
             for (int i = 0; i < locs.size(); i++) {
                 I_C_BPartner_Location loc = locs.get(i);
-                if (loc.isShipTo())
+                if (loc.getIsShipTo())
                     super.setBusinessPartnerLocationId(loc.getBusinessPartnerLocationId());
-                if (loc.isBillTo()) setBusinessPartnerInvoicingLocationId(loc.getBusinessPartnerLocationId());
+                if (loc.getIsBillTo()) setBusinessPartnerInvoicingLocationId(loc.getBusinessPartnerLocationId());
             }
             //	set to first
             if (getBusinessPartnerLocationId() == 0 && locs.size() > 0)
@@ -768,7 +786,8 @@ public class MOrder extends X_C_Order implements I_C_Order {
             setBill_BPartner_ID(getBusinessPartnerId());
             setBusinessPartnerInvoicingLocationId(getBusinessPartnerLocationId());
         }
-        if (getBusinessPartnerInvoicingLocationId() == 0) setBusinessPartnerInvoicingLocationId(getBusinessPartnerLocationId());
+        if (getBusinessPartnerInvoicingLocationId() == 0)
+            setBusinessPartnerInvoicingLocationId(getBusinessPartnerLocationId());
 
         //	Default Price List
         if (getPriceListId() == 0) {
@@ -969,10 +988,8 @@ public class MOrder extends X_C_Order implements I_C_Order {
      * @return true of it can be deleted
      */
     protected boolean beforeDelete() {
-        if (isProcessed()) return false;
-        // automatic deletion of lines is driven by model cascade definition in dictionary - see
+        return !isProcessed();// automatic deletion of lines is driven by model cascade definition in dictionary - see
         // IDEMPIERE-2060
-        return true;
     } //	beforeDelete
 
     protected boolean calculateFreightCharge() {

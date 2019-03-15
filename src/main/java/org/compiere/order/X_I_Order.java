@@ -1,12 +1,12 @@
 package org.compiere.order;
 
+import kotliquery.Row;
 import org.compiere.model.I_I_Order;
 import org.compiere.orm.BasePOName;
 import org.compiere.orm.MTable;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.Properties;
 
@@ -33,8 +33,8 @@ public class X_I_Order extends BasePOName implements I_I_Order {
     /**
      * Load Constructor
      */
-    public X_I_Order(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public X_I_Order(Properties ctx, Row row) {
+        super(ctx, row);
     }
 
     /**

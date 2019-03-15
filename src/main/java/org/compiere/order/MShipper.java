@@ -1,6 +1,7 @@
 package org.compiere.order;
 
-import java.sql.ResultSet;
+import kotliquery.Row;
+
 import java.util.Properties;
 
 /**
@@ -33,8 +34,8 @@ public class MShipper extends X_M_Shipper {
      * @param rs      result set
      * @param trxName transaction
      */
-    public MShipper(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public MShipper(Properties ctx, Row row) {
+        super(ctx, row);
     } //	MShipper
 
     public String getShippingServiceCode() {

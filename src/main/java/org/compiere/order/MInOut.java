@@ -1,22 +1,27 @@
 package org.compiere.order;
 
+import kotliquery.Row;
 import org.compiere.crm.MBPartner;
-import org.compiere.crm.MUser;
-import org.compiere.model.*;
+import org.compiere.model.I_AD_User;
+import org.compiere.model.I_C_BPartner_Location;
+import org.compiere.model.I_C_Invoice;
+import org.compiere.model.I_M_InOutConfirm;
+import org.compiere.model.I_M_InOutLine;
 import org.compiere.orm.MDocType;
 import org.compiere.orm.PO;
 import org.compiere.orm.Query;
 import org.compiere.util.Msg;
 import org.idempiere.common.util.Env;
 
-import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 
 import static software.hsharp.core.orm.POKt.I_ZERO;
-import static software.hsharp.core.util.DBKt.*;
+import static software.hsharp.core.util.DBKt.executeUpdate;
+import static software.hsharp.core.util.DBKt.executeUpdateEx;
+import static software.hsharp.core.util.DBKt.getSQLValue;
 
 /**
  * Shipment Model
@@ -104,8 +109,8 @@ public class MInOut extends X_M_InOut {
      * @param rs      result set record
      * @param trxName transaction
      */
-    public MInOut(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public MInOut(Properties ctx, Row row) {
+        super(ctx, row);
     } //	MInOut
 
     /**
@@ -509,7 +514,7 @@ public class MInOut extends X_M_InOut {
         if (locs != null) {
             for (int i = 0; i < locs.size(); i++) {
                 I_C_BPartner_Location loc = locs.get(i);
-                if (loc.isShipTo()) setBusinessPartnerLocationId(loc.getBusinessPartnerLocationId());
+                if (loc.getIsShipTo()) setBusinessPartnerLocationId(loc.getBusinessPartnerLocationId());
             }
             //	set to first if not set
             if (getBusinessPartnerLocationId() == 0 && locs.size() > 0)

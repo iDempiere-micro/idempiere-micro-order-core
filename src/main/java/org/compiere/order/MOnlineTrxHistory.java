@@ -1,6 +1,7 @@
 package org.compiere.order;
 
-import java.sql.ResultSet;
+import kotliquery.Row;
+
 import java.util.Properties;
 
 /**
@@ -17,7 +18,7 @@ public class MOnlineTrxHistory extends X_C_OnlineTrxHistory {
         super(ctx, C_OnlineTrxHistory_ID);
     }
 
-    public MOnlineTrxHistory(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public MOnlineTrxHistory(Properties ctx, Row row) {
+        super(ctx, row);
     }
 }

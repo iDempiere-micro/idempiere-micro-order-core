@@ -11,7 +11,6 @@ import org.idempiere.common.exceptions.FillMandatoryException;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.util.Properties;
 
 import static software.hsharp.core.util.DBKt.getSQLValueEx;
@@ -75,14 +74,9 @@ public class MInOutLine extends X_M_InOutLine {
      * @param rs      result set record
      * @param trxName transaction
      */
-    public MInOutLine(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
-    } //	MInOutLine
-
     public MInOutLine(Properties ctx, Row row) {
         super(ctx, row);
-    }
-
+    } //	MInOutLine
 
     /**
      * Parent Constructor
@@ -426,10 +420,7 @@ public class MInOutLine extends X_M_InOutLine {
 
         MOrderLine oLine = new MOrderLine(getCtx(), getC_OrderLine_ID());
 
-        if (oLine.getC_UOM_ID() != getC_UOM_ID()) return false;
-
-        // inout has orderline and both has the same UOM
-        return true;
+        return oLine.getC_UOM_ID() == getC_UOM_ID();// inout has orderline and both has the same UOM
     }
 
     /* 	Set (default) Locator based on qty.

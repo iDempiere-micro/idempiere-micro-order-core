@@ -1,19 +1,14 @@
 package org.compiere.order;
 
+import kotliquery.Row;
+import org.compiere.bo.MCurrency;
 import org.compiere.orm.TimeUtil;
-import org.compiere.product.MCurrency;
 import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Properties;
-import java.util.logging.Level;
-
-import static software.hsharp.core.util.DBKt.prepareStatement;
 
 /**
  * Order Payment Schedule Model
@@ -40,7 +35,6 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
      *
      * @param ctx                   context
      * @param C_OrderPaySchedule_ID id
-     * @param trxName               transaction
      */
     public MOrderPaySchedule(Properties ctx, int C_OrderPaySchedule_ID) {
         super(ctx, C_OrderPaySchedule_ID);
@@ -57,12 +51,10 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
     /**
      * Load Constructor
      *
-     * @param ctx     context
-     * @param rs      result set
-     * @param trxName transaction
+     * @param ctx context
      */
-    public MOrderPaySchedule(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public MOrderPaySchedule(Properties ctx, Row row) {
+        super(ctx, row);
     } //	MOrderPaySchedule
 
     /**
@@ -108,43 +100,14 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
     /**
      * Get Payment Schedule of the Order
      *
-     * @param ctx                   context
-     * @param C_Order_ID            order id (direct)
-     * @param C_OrderPaySchedule_ID id (indirect)
-     * @param trxName               transaction
+     * @param ctx                context
+     * @param orderId            order id (direct)
+     * @param orderPayScheduleId id (indirect)
      * @return array of schedule
      */
     public static MOrderPaySchedule[] getOrderPaySchedule(
-            Properties ctx, int C_Order_ID, int C_OrderPaySchedule_ID) {
-        String sql = "SELECT * FROM C_OrderPaySchedule ips WHERE IsActive='Y' ";
-        if (C_Order_ID != 0) sql += "AND C_Order_ID=? ";
-        else
-            sql +=
-                    "AND EXISTS (SELECT * FROM C_OrderPaySchedule x"
-                            + " WHERE x.C_OrderPaySchedule_ID=? AND ips.C_Order_ID=x.C_Order_ID) ";
-        sql += "ORDER BY DueDate";
-        //
-        ArrayList<MOrderPaySchedule> list = new ArrayList<MOrderPaySchedule>();
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        try {
-            pstmt = prepareStatement(sql);
-            if (C_Order_ID != 0) pstmt.setInt(1, C_Order_ID);
-            else pstmt.setInt(1, C_OrderPaySchedule_ID);
-            rs = pstmt.executeQuery();
-            while (rs.next()) {
-                list.add(new MOrderPaySchedule(ctx, rs));
-            }
-        } catch (Exception e) {
-            s_log.log(Level.SEVERE, "getOrderPaySchedule", e);
-        } finally {
-            rs = null;
-            pstmt = null;
-        }
-
-        MOrderPaySchedule[] retValue = new MOrderPaySchedule[list.size()];
-        list.toArray(retValue);
-        return retValue;
+            Properties ctx, int orderId, int orderPayScheduleId) {
+        return MBaseOrderPayScheduleKt.getOrderPaySchedule(ctx, orderId, orderPayScheduleId);
     } //	getSchedule
 
     /**

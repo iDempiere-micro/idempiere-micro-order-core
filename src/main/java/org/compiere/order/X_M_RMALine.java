@@ -1,12 +1,12 @@
 package org.compiere.order;
 
+import kotliquery.Row;
 import org.compiere.model.I_M_RMALine;
 import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.util.Properties;
 
 /**
@@ -36,8 +36,8 @@ public class X_M_RMALine extends PO {
     /**
      * Load Constructor
      */
-    public X_M_RMALine(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public X_M_RMALine(Properties ctx, Row row) {
+        super(ctx, row);
     }
 
     /**

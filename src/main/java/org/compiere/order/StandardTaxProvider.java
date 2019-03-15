@@ -1,6 +1,13 @@
 package org.compiere.order;
 
-import org.compiere.model.*;
+import org.compiere.model.I_C_Order;
+import org.compiere.model.I_C_OrderLine;
+import org.compiere.model.I_C_OrderTax;
+import org.compiere.model.I_C_Tax;
+import org.compiere.model.I_C_TaxProvider;
+import org.compiere.model.I_M_RMA;
+import org.compiere.model.I_M_RMALine;
+import org.compiere.model.I_M_RMATax;
 import org.compiere.tax.ITaxProvider;
 import org.compiere.tax.MTax;
 import org.idempiere.common.util.CLogger;

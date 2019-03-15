@@ -1,5 +1,6 @@
 package org.compiere.order;
 
+import kotliquery.Row;
 import org.compiere.model.I_C_Order;
 import org.compiere.model.I_M_RMA;
 import org.compiere.model.I_M_RMALine;
@@ -14,12 +15,13 @@ import org.idempiere.common.util.Env;
 import org.idempiere.icommon.model.IPO;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.util.Properties;
 import java.util.logging.Level;
 
 import static software.hsharp.core.orm.POKt.getAllIDs;
-import static software.hsharp.core.util.DBKt.*;
+import static software.hsharp.core.util.DBKt.getSQLValue;
+import static software.hsharp.core.util.DBKt.getSQLValueBD;
+import static software.hsharp.core.util.DBKt.getSQLValueEx;
 
 /**
  * RMA Line Model
@@ -82,8 +84,8 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
      * @param rs      result set
      * @param trxName transaction
      */
-    public MRMALine(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public MRMALine(Properties ctx, Row row) {
+        super(ctx, row);
         init();
     } //	MRMALine
 
@@ -265,7 +267,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
                                 + " AND M_RMALine_ID!="
                                 + getM_RMALine_ID();
 
-                int lineIds[] = getAllIDs(MRMALine.Table_Name, whereClause);
+                int[] lineIds = getAllIDs(MRMALine.Table_Name, whereClause);
 
                 if (lineIds.length > 0) {
                     log.saveError("InOutLineAlreadyEntered", "");
@@ -325,9 +327,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
                         getM_RMALine_ID());
         if (totalQty == null) totalQty = Env.ZERO;
         totalQty = totalQty.add(getQty());
-        if (m_ioLine.getMovementQty().compareTo(totalQty) < 0) return false;
-
-        return true;
+        return m_ioLine.getMovementQty().compareTo(totalQty) >= 0;
     }
 
     public boolean updateOrderTax(boolean oldTax) {
@@ -335,9 +335,9 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
         if (tax != null) {
             if (!tax.calculateTaxFromLines()) return false;
             if (tax.getTaxAmt().signum() != 0) {
-                if (!tax.save()) return false;
+                return tax.save();
             } else {
-                if (!tax.isNew() && !tax.delete(false)) return false;
+                return tax.isNew() || tax.delete(false);
             }
         }
         return true;

@@ -7,7 +7,6 @@ import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.util.Properties;
 
 /**
@@ -40,10 +39,6 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
     /**
      * Load Constructor
      */
-    public X_M_InOutLine(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
-    }
-
     public X_M_InOutLine(Properties ctx, Row row) {
         super(ctx, row);
     }

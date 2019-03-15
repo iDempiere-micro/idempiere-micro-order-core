@@ -6,7 +6,6 @@ import org.idempiere.common.util.CCache;
 import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.Env;
 
-import java.sql.ResultSet;
 import java.util.Properties;
 
 /**
@@ -58,10 +57,6 @@ public class MCharge extends X_C_Charge {
      * @param rs      result set
      * @param trxName transaction
      */
-    public MCharge(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
-    } //	MCharge
-
     public MCharge(Properties ctx, Row row) {
         super(ctx, row);
     } //	MCharge
@@ -75,7 +70,7 @@ public class MCharge extends X_C_Charge {
      */
     public static MCharge get(Properties ctx, int C_Charge_ID) {
         Integer key = new Integer(C_Charge_ID);
-        MCharge retValue = (MCharge) s_cache.get(key);
+        MCharge retValue = s_cache.get(key);
         if (retValue != null) return retValue;
         retValue = new MCharge(ctx, C_Charge_ID);
         if (retValue.getId() != 0) s_cache.put(key, retValue);

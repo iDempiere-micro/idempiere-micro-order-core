@@ -1,5 +1,6 @@
 package org.compiere.order;
 
+import kotliquery.Row;
 import org.compiere.model.I_C_Tax;
 import org.compiere.model.I_M_RMALine;
 import org.compiere.model.I_M_RMATax;
@@ -60,8 +61,8 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
      * @param rs      result set
      * @param trxName transaction
      */
-    public MRMATax(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public MRMATax(Properties ctx, Row row) {
+        super(ctx, row);
     }
 
     /**
@@ -87,28 +88,14 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
                 s_log.fine("No Old Tax");
                 return null;
             }
-            C_Tax_ID = ((Integer) old).intValue();
+            C_Tax_ID = (Integer) old;
         }
         if (C_Tax_ID == 0) {
             s_log.fine("No Tax");
             return null;
         }
 
-        String sql = "SELECT * FROM M_RMATax WHERE M_RMA_ID=? AND C_Tax_ID=?";
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        try {
-            pstmt = prepareStatement(sql);
-            pstmt.setInt(1, line.getM_RMA_ID());
-            pstmt.setInt(2, C_Tax_ID);
-            rs = pstmt.executeQuery();
-            if (rs.next()) retValue = new MRMATax(line.getCtx(), rs);
-        } catch (Exception e) {
-            s_log.log(Level.SEVERE, sql, e);
-        } finally {
-            rs = null;
-            pstmt = null;
-        }
+        retValue = MBaseRMATaxKt.getRMATax(line.getCtx(), line.getM_RMA_ID(), C_Tax_ID);
         if (retValue != null) {
             retValue.setPrecision(precision);
             if (s_log.isLoggable(Level.FINE)) s_log.fine("(old=" + oldTax + ") " + retValue);

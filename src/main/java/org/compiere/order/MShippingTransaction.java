@@ -1,15 +1,12 @@
 package org.compiere.order;
 
+import kotliquery.Row;
 import org.compiere.util.Msg;
 import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.util.Env;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Properties;
 import java.util.logging.Level;
-
-import static software.hsharp.core.util.DBKt.prepareStatement;
 
 public class MShippingTransaction extends X_M_ShippingTransaction {
     /**
@@ -25,8 +22,8 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
         super(ctx, M_ShippingTransaction_ID);
     }
 
-    public MShippingTransaction(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public MShippingTransaction(Properties ctx, Row row) {
+        super(ctx, row);
     }
 
     public String getErrorMessage() {
@@ -88,42 +85,11 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
         // Payment Type must be SENDER or THIRD_PARTY when COD is requested
         if (FREIGHTCHARGES_Prepaid.equals(getFreightCharges())
                 || FREIGHTCHARGES_PrepaidAndBill.equals(getFreightCharges())) return true;
-        else if (!FREIGHTCHARGES_3rdParty.equals(getFreightCharges()) && isCashOnDelivery())
-            return true;
-        else return false;
+        else return !FREIGHTCHARGES_3rdParty.equals(getFreightCharges()) && isCashOnDelivery();
     }
 
     public X_M_CommodityShipment getCommodityShipment(int M_Product_ID) {
-        X_M_CommodityShipment commodityShipment = null;
-
-        StringBuilder sql = new StringBuilder();
-        sql.append("SELECT * FROM M_CommodityShipment ");
-        sql.append("WHERE M_Product_ID IN (0, ?) OR M_Product_ID IS NULL ");
-        sql.append("AND AD_Client_ID IN (0, ?) ");
-        sql.append("AND AD_Org_ID IN (0, ?) ");
-        sql.append("ORDER BY M_Product_ID, AD_Org_ID, AD_Client_ID");
-
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
-        try {
-            stmt = prepareStatement(sql.toString());
-            stmt.setInt(1, M_Product_ID);
-            stmt.setInt(2, getClientId());
-            stmt.setInt(3, getOrgId());
-            rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                commodityShipment = new X_M_CommodityShipment(getCtx(), rs);
-            }
-        } catch (Exception e) {
-            log.log(Level.SEVERE, e.getLocalizedMessage(), e);
-        } finally {
-        }
-
-        if (commodityShipment == null) commodityShipment = new X_M_CommodityShipment(getCtx(), 0);
-
-        return commodityShipment;
+        return MBaseShippingTransactionKt.getCommodityShipment(getCtx(), M_Product_ID, getClientId(), getOrgId());
     }
 
     public void setADClientID(int AD_Client_ID) {

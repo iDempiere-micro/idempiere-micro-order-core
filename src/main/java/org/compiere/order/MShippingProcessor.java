@@ -1,6 +1,7 @@
 package org.compiere.order;
 
-import java.sql.ResultSet;
+import kotliquery.Row;
+
 import java.util.Properties;
 
 public class MShippingProcessor extends X_M_ShippingProcessor {
@@ -14,8 +15,8 @@ public class MShippingProcessor extends X_M_ShippingProcessor {
         super(ctx, M_ShippingProcessor_ID);
     }
 
-    public MShippingProcessor(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public MShippingProcessor(Properties ctx, Row row) {
+        super(ctx, row);
     }
 
     public String getShippingProcessorClass() {

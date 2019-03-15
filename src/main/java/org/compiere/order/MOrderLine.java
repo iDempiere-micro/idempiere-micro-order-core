@@ -1,18 +1,27 @@
 package org.compiere.order;
 
 import kotliquery.Row;
+import org.compiere.bo.MCurrency;
 import org.compiere.model.IDocLine;
 import org.compiere.model.I_C_Order;
 import org.compiere.model.I_C_OrderLine;
 import org.compiere.orm.MRole;
-import org.compiere.product.*;
-import org.compiere.tax.*;
+import org.compiere.product.IProductPricing;
+import org.compiere.product.MAttributeSet;
+import org.compiere.product.MPriceList;
+import org.compiere.product.MProduct;
+import org.compiere.product.MUOM;
+import org.compiere.product.ProductNotOnPriceListException;
+import org.compiere.tax.ITaxProvider;
+import org.compiere.tax.MTax;
+import org.compiere.tax.MTaxCategory;
+import org.compiere.tax.MTaxProvider;
+import org.compiere.tax.Tax;
 import org.compiere.util.Msg;
 import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.util.Properties;
 import java.util.logging.Level;
 
@@ -135,10 +144,6 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      * @param rs      result set record
      * @param trxName transaction
      */
-    public MOrderLine(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
-    } //	MOrderLine
-
     public MOrderLine(Properties ctx, Row row) {
         super(ctx, row);
     } //	MOrderLine
@@ -856,9 +861,9 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
         if (tax != null) {
             if (!tax.calculateTaxFromLines()) return false;
             if (tax.getTaxAmt().signum() != 0) {
-                if (!tax.save()) return false;
+                return tax.save();
             } else {
-                if (!tax.isNew() && !tax.delete(false)) return false;
+                return tax.isNew() || tax.delete(false);
             }
         }
         return true;

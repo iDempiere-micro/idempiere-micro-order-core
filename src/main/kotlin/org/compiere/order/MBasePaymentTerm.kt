@@ -10,7 +10,6 @@ import java.util.Properties
 
 abstract class MBasePaymentTerm : X_C_PaymentTerm {
     constructor(ctx: Properties, Id: Int) : super(ctx, Id)
-    constructor(ctx: Properties, rs: ResultSet) : super(ctx, rs)
     constructor(ctx: Properties, row: Row) : super(ctx, row)
 
     /** Payment Schedule children  */

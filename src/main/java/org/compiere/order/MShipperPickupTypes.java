@@ -1,6 +1,7 @@
 package org.compiere.order;
 
-import java.sql.ResultSet;
+import kotliquery.Row;
+
 import java.util.Properties;
 
 public class MShipperPickupTypes extends X_M_ShipperPickupTypes {
@@ -14,8 +15,8 @@ public class MShipperPickupTypes extends X_M_ShipperPickupTypes {
         super(ctx, M_ShipperPickupTypes_ID);
     }
 
-    public MShipperPickupTypes(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public MShipperPickupTypes(Properties ctx, Row row) {
+        super(ctx, row);
     }
 
 }

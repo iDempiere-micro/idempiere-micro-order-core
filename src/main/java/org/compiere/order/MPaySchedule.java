@@ -4,7 +4,6 @@ import kotliquery.Row;
 import org.compiere.model.I_C_PaymentTerm;
 import org.idempiere.common.util.Env;
 
-import java.sql.ResultSet;
 import java.util.Properties;
 
 /**
@@ -50,10 +49,6 @@ public class MPaySchedule extends X_C_PaySchedule {
      * @param rs      result set
      * @param trxName transaction
      */
-    public MPaySchedule(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
-    } //	MPaySchedule
-
     public MPaySchedule(Properties ctx, Row row) {
         super(ctx, row);
     } //	MPaySchedule

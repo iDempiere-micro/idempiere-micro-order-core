@@ -1,10 +1,10 @@
 package org.compiere.order;
 
+import kotliquery.Row;
 import org.compiere.model.I_M_Shipper;
 import org.compiere.orm.BasePOName;
 import org.compiere.orm.MTable;
 
-import java.sql.ResultSet;
 import java.util.Properties;
 
 /**
@@ -30,8 +30,8 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper {
     /**
      * Load Constructor
      */
-    public X_M_Shipper(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public X_M_Shipper(Properties ctx, Row row) {
+        super(ctx, row);
     }
 
     /**

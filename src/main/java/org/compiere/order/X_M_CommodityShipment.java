@@ -1,9 +1,9 @@
 package org.compiere.order;
 
+import kotliquery.Row;
 import org.compiere.model.I_M_CommodityShipment;
 import org.compiere.orm.PO;
 
-import java.sql.ResultSet;
 import java.util.Properties;
 
 /**
@@ -33,8 +33,8 @@ public class X_M_CommodityShipment extends PO implements I_M_CommodityShipment {
     /**
      * Load Constructor
      */
-    public X_M_CommodityShipment(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public X_M_CommodityShipment(Properties ctx, Row row) {
+        super(ctx, row);
     }
 
     /**

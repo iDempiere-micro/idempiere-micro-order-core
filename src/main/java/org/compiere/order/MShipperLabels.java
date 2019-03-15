@@ -1,6 +1,7 @@
 package org.compiere.order;
 
-import java.sql.ResultSet;
+import kotliquery.Row;
+
 import java.util.Properties;
 
 public class MShipperLabels extends X_M_ShipperLabels {
@@ -14,8 +15,8 @@ public class MShipperLabels extends X_M_ShipperLabels {
         super(ctx, M_ShipperLabels_ID);
     }
 
-    public MShipperLabels(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public MShipperLabels(Properties ctx, Row row) {
+        super(ctx, row);
     }
 
 }

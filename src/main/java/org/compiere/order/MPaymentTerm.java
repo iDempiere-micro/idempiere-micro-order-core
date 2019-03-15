@@ -10,7 +10,6 @@ import org.idempiere.common.util.Env;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -55,14 +54,8 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
     /**
      * Load Constructor
      *
-     * @param ctx     context
-     * @param rs      result set
-     * @param trxName transaction
+     * @param ctx context
      */
-    public MPaymentTerm(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
-    } //	MPaymentTerm
-
     public MPaymentTerm(Properties ctx, Row row) {
         super(ctx, row);
     } //	MPaymentTerm

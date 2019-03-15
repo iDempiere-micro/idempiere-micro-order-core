@@ -1,9 +1,9 @@
 package org.compiere.order;
 
+import kotliquery.Row;
 import org.compiere.model.I_M_ShipperPickupTypes;
 import org.compiere.orm.BasePOName;
 
-import java.sql.ResultSet;
 import java.util.Properties;
 
 /**
@@ -30,8 +30,8 @@ public class X_M_ShipperPickupTypes extends BasePOName
     /**
      * Load Constructor
      */
-    public X_M_ShipperPickupTypes(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public X_M_ShipperPickupTypes(Properties ctx, Row row) {
+        super(ctx, row);
     }
 
     /**

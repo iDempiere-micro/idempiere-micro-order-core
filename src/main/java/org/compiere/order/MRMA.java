@@ -1,12 +1,13 @@
 package org.compiere.order;
 
+import kotliquery.Row;
+import org.compiere.bo.MCurrency;
 import org.compiere.model.I_M_RMA;
 import org.compiere.model.I_M_RMALine;
 import org.compiere.model.I_M_RMATax;
 import org.compiere.orm.MDocType;
 import org.compiere.orm.MSequence;
 import org.compiere.orm.Query;
-import org.compiere.product.MCurrency;
 import org.compiere.tax.ITaxProvider;
 import org.compiere.tax.MTax;
 import org.compiere.tax.MTaxProvider;
@@ -15,7 +16,6 @@ import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -87,8 +87,8 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
      * @param rs      result set
      * @param trxName transaction
      */
-    public MRMA(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
+    public MRMA(Properties ctx, Row row) {
+        super(ctx, row);
     } //	MRMA
 
     /**
@@ -456,7 +456,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
         whereClause.append(getId());
         whereClause.append(" AND C_Charge_ID IS NOT null");
 
-        int rmaLineIds[] = getAllIDs(MRMALine.Table_Name, whereClause.toString());
+        int[] rmaLineIds = getAllIDs(MRMALine.Table_Name, whereClause.toString());
 
         ArrayList<MRMALine> chargeLineList = new ArrayList<MRMALine>();
 
@@ -465,7 +465,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
             chargeLineList.add(rmaLine);
         }
 
-        MRMALine lines[] = new MRMALine[chargeLineList.size()];
+        MRMALine[] lines = new MRMALine[chargeLineList.size()];
         chargeLineList.toArray(lines);
 
         return lines;

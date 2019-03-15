@@ -47,7 +47,6 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
      *
      * @param ctx     context
      * @param ignored ignored
-     * @param trxName transaction
      */
     public MOrderTax(Properties ctx, int ignored) {
         super(ctx, 0);
@@ -60,14 +59,8 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
     /**
      * Load Constructor. Set Precision and TaxIncluded for tax calculations!
      *
-     * @param ctx     context
-     * @param rs      result set
-     * @param trxName transaction
+     * @param ctx context
      */
-    public MOrderTax(Properties ctx, ResultSet rs) {
-        super(ctx, rs);
-    } //	MOrderTax
-
     public MOrderTax(Properties ctx, Row row) {
         super(ctx, row);
     } //	MOrderTax
@@ -78,7 +71,6 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
      * @param line      Order line
      * @param precision currency precision
      * @param oldTax    get old tax
-     * @param trxName   transaction
      * @return existing or new tax
      */
     public static MOrderTax get(I_C_OrderLine line, int precision, boolean oldTax) {
@@ -95,28 +87,14 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
                 s_log.fine("No Old Tax");
                 return null;
             }
-            C_Tax_ID = ((Integer) old).intValue();
+            C_Tax_ID = (Integer) old;
         }
         if (C_Tax_ID == 0) {
             if (!line.isDescription()) s_log.fine("No Tax");
             return null;
         }
 
-        String sql = "SELECT * FROM C_OrderTax WHERE C_Order_ID=? AND C_Tax_ID=?";
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        try {
-            pstmt = prepareStatement(sql);
-            pstmt.setInt(1, line.getOrderId());
-            pstmt.setInt(2, C_Tax_ID);
-            rs = pstmt.executeQuery();
-            if (rs.next()) retValue = new MOrderTax(line.getCtx(), rs);
-        } catch (Exception e) {
-            s_log.log(Level.SEVERE, sql, e);
-        } finally {
-            rs = null;
-            pstmt = null;
-        }
+        retValue = MBaseOrderTaxKt.getOrderTax(line.getCtx(), line.getOrderId(), C_Tax_ID);
         if (retValue != null) {
             retValue.setPrecision(precision);
             if (s_log.isLoggable(Level.FINE)) s_log.fine("(old=" + oldTax + ") " + retValue);
