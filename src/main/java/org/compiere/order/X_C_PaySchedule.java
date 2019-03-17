@@ -27,7 +27,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule {
     public X_C_PaySchedule(Properties ctx, int C_PaySchedule_ID) {
         super(ctx, C_PaySchedule_ID);
         /**
-         * if (C_PaySchedule_ID == 0) { setPaymentTermId (0); setC_PaySchedule_ID (0); setDiscount
+         * if (C_PaySchedule_ID == 0) { setPaymentTermId (0); setPayScheduleId (0); setDiscount
          * (Env.ZERO); setDiscountDays (0); setGraceDays (0); setIsValid (false); setNetDays (0);
          * setPercentage (Env.ZERO); }
          */
@@ -80,7 +80,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule {
      *
      * @return Payment Schedule Template
      */
-    public int getC_PaySchedule_ID() {
+    public int getPayScheduleId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_PaySchedule_ID);
         if (ii == null) return 0;
         return ii;

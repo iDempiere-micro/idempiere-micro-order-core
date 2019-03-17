@@ -53,10 +53,10 @@ public class MInOutLine extends X_M_InOutLine {
         super(ctx, M_InOutLine_ID);
         if (M_InOutLine_ID == 0) {
             //	setLine (0);
-            //	setM_Locator_ID (0);
-            //	setC_UOM_ID (0);
-            //	setM_Product_ID (0);
-            setM_AttributeSetInstance_ID(0);
+            //	setLocatorId (0);
+            //	setUOMId (0);
+            //	setProductId (0);
+            setAttributeSetInstanceId(0);
             //	setMovementQty (Env.ZERO);
             setConfirmedQty(Env.ZERO);
             setPickedQty(Env.ZERO);
@@ -86,7 +86,7 @@ public class MInOutLine extends X_M_InOutLine {
     public MInOutLine(MInOut inout) {
         this(inout.getCtx(), 0);
         setClientOrg(inout);
-        setM_InOut_ID(inout.getM_InOut_ID());
+        setInOutId(inout.getInOutId());
         setWarehouseId(inout.getWarehouseId());
         setProjectId(inout.getProjectId());
         m_parent = inout;
@@ -98,7 +98,7 @@ public class MInOutLine extends X_M_InOutLine {
      * @return parent
      */
     public MInOut getParent() {
-        if (m_parent == null) m_parent = new MInOut(getCtx(), getM_InOut_ID());
+        if (m_parent == null) m_parent = new MInOut(getCtx(), getInOutId());
         return m_parent;
     } //	getParent
 
@@ -110,21 +110,21 @@ public class MInOutLine extends X_M_InOutLine {
      * @param Qty          used only to find suitable locator
      */
     public void setOrderLine(MOrderLine oLine, int M_Locator_ID, BigDecimal Qty) {
-        setC_OrderLine_ID(oLine.getC_OrderLine_ID());
+        setOrderLineId(oLine.getOrderLineId());
         setLine(oLine.getLine());
-        setC_UOM_ID(oLine.getC_UOM_ID());
+        setUOMId(oLine.getUOMId());
         MProduct product = oLine.getProduct();
         if (product == null) {
             setValueNoCheck("M_Product_ID", null);
             setValueNoCheck("M_AttributeSetInstance_ID", null);
             setValueNoCheck("M_Locator_ID", null);
         } else {
-            setM_Product_ID(oLine.getM_Product_ID());
-            setM_AttributeSetInstance_ID(oLine.getMAttributeSetInstance_ID());
+            setProductId(oLine.getProductId());
+            setAttributeSetInstanceId(oLine.getAttributeSetInstanceId());
             //
             if (product.isItem()) {
-                if (M_Locator_ID == 0) setM_Locator_ID(Qty); // 	requires warehouse, product, asi
-                else setM_Locator_ID(M_Locator_ID);
+                if (M_Locator_ID == 0) setLocatorId(Qty); // 	requires warehouse, product, asi
+                else setLocatorId(M_Locator_ID);
             } else setValueNoCheck("M_Locator_ID", null);
         }
         setChargeId(oLine.getChargeId());
@@ -132,8 +132,8 @@ public class MInOutLine extends X_M_InOutLine {
         setIsDescription(oLine.isDescription());
         //
         setProjectId(oLine.getProjectId());
-        setC_ProjectPhase_ID(oLine.getC_ProjectPhase_ID());
-        setC_ProjectTask_ID(oLine.getC_ProjectTask_ID());
+        setProjectPhaseId(oLine.getProjectPhaseId());
+        setProjectTaskId(oLine.getProjectTaskId());
         setBusinessActivityId(oLine.getBusinessActivityId());
         setCampaignId(oLine.getCampaignId());
         setTransactionOrganizationId(oLine.getTransactionOrganizationId());
@@ -166,11 +166,11 @@ public class MInOutLine extends X_M_InOutLine {
      * @param M_Locator_ID id
      */
     @Override
-    public void setM_Locator_ID(int M_Locator_ID) {
+    public void setLocatorId(int M_Locator_ID) {
         if (M_Locator_ID < 0) throw new IllegalArgumentException("M_Locator_ID is mandatory.");
         //	set to 0 explicitly to reset
         setValue(I_M_InOutLine.COLUMNNAME_M_Locator_ID, new Integer(M_Locator_ID));
-    } //	setM_Locator_ID
+    } //	setLocatorId
 
     /**
      * Set Movement/Movement Qty
@@ -188,8 +188,8 @@ public class MInOutLine extends X_M_InOutLine {
      * @param QtyEntered
      */
     public void setQtyEntered(BigDecimal QtyEntered) {
-        if (QtyEntered != null && getC_UOM_ID() != 0) {
-            int precision = MUOM.getPrecision(getCtx(), getC_UOM_ID());
+        if (QtyEntered != null && getUOMId() != 0) {
+            int precision = MUOM.getPrecision(getCtx(), getUOMId());
             QtyEntered = QtyEntered.setScale(precision, BigDecimal.ROUND_HALF_UP);
         }
         super.setQtyEntered(QtyEntered);
@@ -215,8 +215,8 @@ public class MInOutLine extends X_M_InOutLine {
      * @return product or null
      */
     public MProduct getProduct() {
-        if (m_product == null && getM_Product_ID() != 0)
-            m_product = MProduct.get(getCtx(), getM_Product_ID());
+        if (m_product == null && getProductId() != 0)
+            m_product = MProduct.get(getCtx(), getProductId());
         return m_product;
     } //	getProduct
 
@@ -314,7 +314,7 @@ public class MInOutLine extends X_M_InOutLine {
         }
         // Locator is mandatory if no charge is defined - teo_sarca BF [ 2757978 ]
         if (getProduct() != null && MProduct.PRODUCTTYPE_Item.equals(getProduct().getProductType())) {
-            if (getM_Locator_ID() <= 0 && getChargeId() <= 0) {
+            if (getLocatorId() <= 0 && getChargeId() <= 0) {
                 throw new FillMandatoryException(I_M_InOutLine.COLUMNNAME_M_Locator_ID);
             }
         }
@@ -322,49 +322,49 @@ public class MInOutLine extends X_M_InOutLine {
         //	Get Line No
         if (getLine() == 0) {
             String sql = "SELECT COALESCE(MAX(Line),0)+10 FROM M_InOutLine WHERE M_InOut_ID=?";
-            int ii = getSQLValueEx(null, sql, getM_InOut_ID());
+            int ii = getSQLValueEx(null, sql, getInOutId());
             setLine(ii);
         }
         //	UOM
-        if (getC_UOM_ID() == 0) setC_UOM_ID(Env.getContextAsInt(getCtx(), "#C_UOM_ID"));
-        if (getC_UOM_ID() == 0) {
-            int C_UOM_ID = MUOM.getDefault_UOM_ID(getCtx());
-            if (C_UOM_ID > 0) setC_UOM_ID(C_UOM_ID);
+        if (getUOMId() == 0) setUOMId(Env.getContextAsInt(getCtx(), "#C_UOM_ID"));
+        if (getUOMId() == 0) {
+            int C_UOM_ID = MUOM.getDefault_UOMId(getCtx());
+            if (C_UOM_ID > 0) setUOMId(C_UOM_ID);
         }
         //	Qty Precision
-        if (newRecord || is_ValueChanged("QtyEntered")) setQtyEntered(getQtyEntered());
-        if (newRecord || is_ValueChanged("MovementQty")) setMovementQty(getMovementQty());
+        if (newRecord || isValueChanged("QtyEntered")) setQtyEntered(getQtyEntered());
+        if (newRecord || isValueChanged("MovementQty")) setMovementQty(getMovementQty());
 
         //	Order/RMA Line
-        if (getC_OrderLine_ID() == 0 && getM_RMALine_ID() == 0) {
+        if (getOrderLineId() == 0 && getRMALineId() == 0) {
             if (getParent().isSOTrx()) {
                 log.saveError("FillMandatory", Msg.translate(getCtx(), "C_Order_ID"));
                 return false;
             }
         }
 
-        I_M_AttributeSet attributeset = getM_Product().getMAttributeSet();
+        I_M_AttributeSet attributeset = getProduct().getMAttributeSet();
         boolean isAutoGenerateLot = false;
         if (attributeset != null) isAutoGenerateLot = attributeset.isAutoGenerateLot();
-        if (getReversalLine_ID() == 0
+        if (getReversalLineId() == 0
                 && !getParent().isSOTrx()
                 && !getParent().getMovementType().equals(MInOut.MOVEMENTTYPE_VendorReturns)
                 && isAutoGenerateLot
-                && getMAttributeSetInstance_ID() == 0) {
+                && getAttributeSetInstanceId() == 0) {
             MAttributeSetInstance asi =
-                    MAttributeSetInstance.generateLot(getCtx(), (MProduct) getM_Product());
-            setM_AttributeSetInstance_ID(asi.getMAttributeSetInstance_ID());
+                    MAttributeSetInstance.generateLot(getCtx(), getProduct());
+            setAttributeSetInstanceId(asi.getAttributeSetInstanceId());
         }
-        //	if (getChargeId() == 0 && getM_Product_ID() == 0)
+        //	if (getChargeId() == 0 && getProductId() == 0)
         //		;
 
         /**
-         * Qty on instance ASI if (getMAttributeSetInstance_ID() != 0) { MProduct product =
-         * getProduct(); int M_AttributeSet_ID = product.getMAttributeSet_ID(); boolean isInstance =
+         * Qty on instance ASI if (getAttributeSetInstanceId() != 0) { MProduct product =
+         * getProduct(); int M_AttributeSet_ID = product.getAttributeSetId(); boolean isInstance =
          * M_AttributeSet_ID != 0; if (isInstance) { MAttributeSet mas = MAttributeSet.get(getCtx(),
          * M_AttributeSet_ID); isInstance = mas.isInstanceAttribute(); } // Max if (isInstance) {
-         * MStorage storage = MStorage.get(getCtx(), getM_Locator_ID(), getM_Product_ID(),
-         * getMAttributeSetInstance_ID(), null); if (storage != null) { BigDecimal qty =
+         * MStorage storage = MStorage.get(getCtx(), getLocatorId(), getProductId(),
+         * getAttributeSetInstanceId(), null); if (storage != null) { BigDecimal qty =
          * storage.getQtyOnHand(); if (getMovementQty().compareTo(qty) > 0) { log.warning("Qty - Stock="
          * + qty + ", Movement=" + getMovementQty()); log.saveError("QtyInsufficient", "=" + qty);
          * return false; } } } } /*
@@ -374,7 +374,7 @@ public class MInOutLine extends X_M_InOutLine {
          * IDEMPIERE-178 Orders and Invoices must disallow amount lines without product/charge
          */
         if (getParent().getDocumentType().isChargeOrProductMandatory()) {
-            if (getChargeId() == 0 && getM_Product_ID() == 0) {
+            if (getChargeId() == 0 && getProductId() == 0) {
                 log.saveError("FillMandatory", Msg.translate(getCtx(), "ChargeOrProductMandatory"));
                 return false;
             }
@@ -404,36 +404,36 @@ public class MInOutLine extends X_M_InOutLine {
                 new StringBuilder("MInOutLine[")
                         .append(getId())
                         .append(",M_Product_ID=")
-                        .append(getM_Product_ID())
+                        .append(getProductId())
                         .append(",QtyEntered=")
                         .append(getQtyEntered())
                         .append(",MovementQty=")
                         .append(getMovementQty())
                         .append(",M_AttributeSetInstance_ID=")
-                        .append(getMAttributeSetInstance_ID())
+                        .append(getAttributeSetInstanceId())
                         .append("]");
         return sb.toString();
     } //	toString
 
     public boolean sameOrderLineUOM() {
-        if (getC_OrderLine_ID() <= 0) return false;
+        if (getOrderLineId() <= 0) return false;
 
-        MOrderLine oLine = new MOrderLine(getCtx(), getC_OrderLine_ID());
+        MOrderLine oLine = new MOrderLine(getCtx(), getOrderLineId());
 
-        return oLine.getC_UOM_ID() == getC_UOM_ID();// inout has orderline and both has the same UOM
+        return oLine.getUOMId() == getUOMId();// inout has orderline and both has the same UOM
     }
 
     /* 	Set (default) Locator based on qty.
      * 	@param Qty quantity
      * 	Assumes Warehouse is set
      */
-    public void setM_Locator_ID(BigDecimal Qty) {
+    public void setLocatorId(BigDecimal Qty) {
         //	Locator established
-        if (getM_Locator_ID() != 0) return;
+        if (getLocatorId() != 0) return;
         //	No Product
-        if (getM_Product_ID() == 0) {
+        if (getProductId() == 0) {
             setValueNoCheck(I_M_InOutLine.COLUMNNAME_M_Locator_ID, null);
             return;
         }
-    } //	setM_Locator_ID
+    } //	setLocatorId
 } //	MInOutLine

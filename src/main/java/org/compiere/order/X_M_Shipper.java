@@ -59,10 +59,10 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper {
         return ii;
     }
 
-    public org.compiere.model.I_M_ShipperCfg getM_ShipperCfg() throws RuntimeException {
+    public org.compiere.model.I_M_ShipperCfg getShipperCfg() throws RuntimeException {
         return (org.compiere.model.I_M_ShipperCfg)
                 MTable.get(getCtx(), org.compiere.model.I_M_ShipperCfg.Table_Name)
-                        .getPO(getM_ShipperCfg_ID());
+                        .getPO(getShipperCfgId());
     }
 
     /**
@@ -70,7 +70,7 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper {
      *
      * @return Shipper Configuration
      */
-    public int getM_ShipperCfg_ID() {
+    public int getShipperCfgId() {
         Integer ii = (Integer) getValue(COLUMNNAME_M_ShipperCfg_ID);
         if (ii == null) return 0;
         return ii;
@@ -92,7 +92,7 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper {
      *
      * @return Shipping Processor
      */
-    public int getM_ShippingProcessor_ID() {
+    public int getShippingProcessorId() {
         Integer ii = (Integer) getValue(COLUMNNAME_M_ShippingProcessor_ID);
         if (ii == null) return 0;
         return ii;

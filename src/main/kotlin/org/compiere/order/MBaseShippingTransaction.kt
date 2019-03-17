@@ -3,7 +3,6 @@ package org.compiere.order
 import software.hsharp.core.util.DB
 import software.hsharp.core.util.queryOf
 import java.util.Properties
-import java.util.logging.Level
 
 fun getCommodityShipment(ctx: Properties, productId: Int, clientId: Int, orgId: Int): X_M_CommodityShipment {
     val sql = StringBuilder()

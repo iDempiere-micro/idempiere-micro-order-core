@@ -30,7 +30,7 @@ import static software.hsharp.core.util.DBKt.getSQLValue;
 /**
  * Order Line Model. <code>
  * MOrderLine ol = new MOrderLine(m_order);
- * ol.setM_Product_ID(wbl.getM_Product_ID());
+ * ol.setProductId(wbl.getProductId());
  * ol.setQtyOrdered(wbl.getQuantity());
  * ol.setPrice();
  * ol.setPriceActual(wbl.getPrice());
@@ -98,8 +98,8 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
             //	setCurrencyId (0);	// @C_Currency_ID@
             //	setDateOrdered (new Timestamp(System.currentTimeMillis()));	// @DateOrdered@
             //
-            //	setC_Tax_ID (0);
-            //	setC_UOM_ID (0);
+            //	setTaxId (0);
+            //	setUOMId (0);
             //
             setFreightAmt(Env.ZERO);
             setLineNetAmt(Env.ZERO);
@@ -109,7 +109,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
             setPriceLimit(Env.ZERO);
             setPriceList(Env.ZERO);
             //
-            setM_AttributeSetInstance_ID(0);
+            setAttributeSetInstanceId(0);
             //
             setQtyEntered(Env.ZERO);
             setQtyOrdered(Env.ZERO); // 1
@@ -124,7 +124,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
     } //	MOrderLine
 
     /**
-     * Parent Constructor. ol.setM_Product_ID(wbl.getM_Product_ID());
+     * Parent Constructor. ol.setProductId(wbl.getProductId());
      * ol.setQtyOrdered(wbl.getQuantity()); ol.setPrice(); ol.setPriceActual(wbl.getPrice());
      * ol.setTax(); ol.saveEx();
      *
@@ -213,7 +213,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      * set by order constructor
      */
     public void setPrice() {
-        if (getM_Product_ID() == 0) return;
+        if (getProductId() == 0) return;
         if (m_M_PriceList_ID == 0) throw new IllegalStateException("PriceList unknown!");
         setPrice(m_M_PriceList_ID);
     } //	setPrice
@@ -224,7 +224,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      * @param M_PriceList_ID price list
      */
     public void setPrice(int M_PriceList_ID) {
-        if (getM_Product_ID() == 0) return;
+        if (getProductId() == 0) return;
         //
         if (log.isLoggable(Level.FINE)) log.fine(toString() + " - M_PriceList_ID=" + M_PriceList_ID);
         getProductPricing(M_PriceList_ID);
@@ -243,7 +243,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
         //	Calculate Discount
         setDiscount(m_productPrice.getDiscount());
         //	Set UOM
-        setC_UOM_ID(m_productPrice.getC_UOM_ID());
+        setUOMId(m_productPrice.getUOMId());
     } //	setPrice
 
     /**
@@ -270,7 +270,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
         int ii =
                 Tax.get(
                         getCtx(),
-                        getM_Product_ID(),
+                        getProductId(),
                         getChargeId(),
                         getDateOrdered(),
                         getDateOrdered(),
@@ -284,7 +284,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
             log.log(Level.SEVERE, "No Tax found");
             return false;
         }
-        setC_Tax_ID(ii);
+        setTaxId(ii);
         return true;
     } //	setTax
 
@@ -311,14 +311,14 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
                     stdTax =
                             new MTax(
                                     getCtx(),
-                                    ((MTaxCategory) getCharge().getC_TaxCategory()).getDefaultTax().getC_Tax_ID());
+                                    ((MTaxCategory) getCharge().getTaxCategory()).getDefaultTax().getTaxId());
                 }
 
             } else // Product
                 stdTax =
                         new MTax(
                                 getCtx(),
-                                ((MTaxCategory) getProduct().getC_TaxCategory()).getDefaultTax().getC_Tax_ID());
+                                ((MTaxCategory) getProduct().getTaxCategory()).getDefaultTax().getTaxId());
 
             if (stdTax != null) {
                 if (log.isLoggable(Level.FINE)) {
@@ -363,7 +363,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      * @return tax
      */
     protected MTax getTax() {
-        if (m_tax == null) m_tax = MTax.get(getCtx(), getC_Tax_ID());
+        if (m_tax == null) m_tax = MTax.get(getCtx(), getTaxId());
         return m_tax;
     } //	getTax
 
@@ -402,11 +402,11 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      * @param M_Product_ID product
      * @param setUOM       set also UOM
      */
-    public void setM_Product_ID(int M_Product_ID, boolean setUOM) {
+    public void setProductId(int M_Product_ID, boolean setUOM) {
         if (setUOM) setProduct(MProduct.get(getCtx(), M_Product_ID));
-        else super.setM_Product_ID(M_Product_ID);
-        setM_AttributeSetInstance_ID(0);
-    } //	setM_Product_ID
+        else super.setProductId(M_Product_ID);
+        setAttributeSetInstanceId(0);
+    } //	setProductId
 
     /**
      * Set Product and UOM
@@ -414,11 +414,11 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      * @param M_Product_ID product
      * @param C_UOM_ID     uom
      */
-    public void setM_Product_ID(int M_Product_ID, int C_UOM_ID) {
-        super.setM_Product_ID(M_Product_ID);
-        if (C_UOM_ID != 0) super.setC_UOM_ID(C_UOM_ID);
-        setM_AttributeSetInstance_ID(0);
-    } //	setM_Product_ID
+    public void setProductId(int M_Product_ID, int C_UOM_ID) {
+        super.setProductId(M_Product_ID);
+        if (C_UOM_ID != 0) super.setUOMId(C_UOM_ID);
+        setAttributeSetInstanceId(0);
+    } //	setProductId
 
     /**
      * Get Product
@@ -426,8 +426,8 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      * @return product or null
      */
     public MProduct getProduct() {
-        if (m_product == null && getM_Product_ID() != 0)
-            m_product = MProduct.get(getCtx(), getM_Product_ID());
+        if (m_product == null && getProductId() != 0)
+            m_product = MProduct.get(getCtx(), getProductId());
         return m_product;
     } //	getProduct
 
@@ -439,13 +439,13 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
     public void setProduct(MProduct product) {
         m_product = product;
         if (m_product != null) {
-            setM_Product_ID(m_product.getM_Product_ID());
-            setC_UOM_ID(m_product.getC_UOM_ID());
+            setProductId(m_product.getProductId());
+            setUOMId(m_product.getUOMId());
         } else {
-            setM_Product_ID(0);
+            setProductId(0);
             setValueNoCheck("C_UOM_ID", null);
         }
-        setM_AttributeSetInstance_ID(0);
+        setAttributeSetInstanceId(0);
     } //	setProduct
 
     /**
@@ -453,11 +453,11 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      *
      * @param M_AttributeSetInstance_ID id
      */
-    public void setM_AttributeSetInstance_ID(int M_AttributeSetInstance_ID) {
+    public void setAttributeSetInstanceId(int M_AttributeSetInstance_ID) {
         if (M_AttributeSetInstance_ID == 0) // 	 0 is valid ID
             setValue("M_AttributeSetInstance_ID", new Integer(0));
-        else super.setM_AttributeSetInstance_ID(M_AttributeSetInstance_ID);
-    } //	setM_AttributeSetInstance_ID
+        else super.setAttributeSetInstanceId(M_AttributeSetInstance_ID);
+    } //	setAttributeSetInstanceId
 
     /**
      * Set Warehouse
@@ -651,8 +651,8 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      * @param QtyEntered
      */
     public void setQtyEntered(BigDecimal QtyEntered) {
-        if (QtyEntered != null && getC_UOM_ID() != 0) {
-            int precision = MUOM.getPrecision(getCtx(), getC_UOM_ID());
+        if (QtyEntered != null && getUOMId() != 0) {
+            int precision = MUOM.getPrecision(getCtx(), getUOMId());
             QtyEntered = QtyEntered.setScale(precision, BigDecimal.ROUND_HALF_UP);
         }
         super.setQtyEntered(QtyEntered);
@@ -691,14 +691,14 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
         if (m_M_PriceList_ID == 0) setHeaderInfo(getParent());
 
         //	R/O Check - Product/Warehouse Change
-        if (!newRecord && (is_ValueChanged("M_Product_ID") || is_ValueChanged("M_Warehouse_ID"))) {
+        if (!newRecord && (isValueChanged("M_Product_ID") || isValueChanged("M_Warehouse_ID"))) {
             if (!canChangeWarehouse()) return false;
         } //	Product Changed
 
         //	Charge
-        if (getChargeId() != 0 && getM_Product_ID() != 0) setM_Product_ID(0);
+        if (getChargeId() != 0 && getProductId() != 0) setProductId(0);
         //	No Product
-        if (getM_Product_ID() == 0) setM_AttributeSetInstance_ID(0);
+        if (getProductId() == 0) setAttributeSetInstanceId(0);
             //	Product
         else //	Set/check Product Price
         {
@@ -728,27 +728,27 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
         }
 
         //	UOM
-        if (getC_UOM_ID() == 0
-                && (getM_Product_ID() != 0
+        if (getUOMId() == 0
+                && (getProductId() != 0
                 || getPriceEntered().compareTo(Env.ZERO) != 0
                 || getChargeId() != 0)) {
-            int C_UOM_ID = MUOM.getDefault_UOM_ID(getCtx());
-            if (C_UOM_ID > 0) setC_UOM_ID(C_UOM_ID);
+            int C_UOM_ID = MUOM.getDefault_UOMId(getCtx());
+            if (C_UOM_ID > 0) setUOMId(C_UOM_ID);
         }
         //	Qty Precision
-        if (newRecord || is_ValueChanged("QtyEntered")) setQtyEntered(getQtyEntered());
-        if (newRecord || is_ValueChanged("QtyOrdered")) setQtyOrdered(getQtyOrdered());
+        if (newRecord || isValueChanged("QtyEntered")) setQtyEntered(getQtyEntered());
+        if (newRecord || isValueChanged("QtyOrdered")) setQtyOrdered(getQtyOrdered());
 
         //	Qty on instance ASI for SO
         if (m_IsSOTrx
-                && getMAttributeSetInstance_ID() != 0
+                && getAttributeSetInstanceId() != 0
                 && (newRecord
-                || is_ValueChanged("M_Product_ID")
-                || is_ValueChanged("M_AttributeSetInstance_ID")
-                || is_ValueChanged("M_Warehouse_ID"))) {
+                || isValueChanged("M_Product_ID")
+                || isValueChanged("M_AttributeSetInstance_ID")
+                || isValueChanged("M_Warehouse_ID"))) {
             MProduct product = getProduct();
             if (product.isStocked()) {
-                int M_AttributeSet_ID = product.getMAttributeSet_ID();
+                int M_AttributeSet_ID = product.getAttributeSetId();
                 boolean isInstance = M_AttributeSet_ID != 0;
                 if (isInstance) {
                     MAttributeSet mas = MAttributeSet.get(getCtx(), M_AttributeSet_ID);
@@ -761,7 +761,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
         if (Env.ZERO.compareTo(getFreightAmt()) != 0) setFreightAmt(Env.ZERO);
 
         //	Set Tax
-        if (getC_Tax_ID() == 0) setTax();
+        if (getTaxId() == 0) setTax();
 
         //	Get Line No
         if (getLine() == 0) {
@@ -779,7 +779,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
          */
         if (getParent().getTargetDocumentType().isChargeOrProductMandatory()) {
             if (getChargeId() == 0
-                    && getM_Product_ID() == 0
+                    && getProductId() == 0
                     && (getPriceEntered().signum() != 0 || getQtyEntered().signum() != 0)) {
                 log.saveError("FillMandatory", Msg.translate(getCtx(), "ChargeOrProductMandatory"));
                 return false;
@@ -825,11 +825,11 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
         if (!success) return success;
         if (getParent().isProcessed()) return success;
         if (newRecord
-                || is_ValueChanged(I_C_OrderLine.COLUMNNAME_C_Tax_ID)
-                || is_ValueChanged(I_C_OrderLine.COLUMNNAME_LineNetAmt)) {
-            MTax tax = new MTax(getCtx(), getC_Tax_ID());
+                || isValueChanged(I_C_OrderLine.COLUMNNAME_C_Tax_ID)
+                || isValueChanged(I_C_OrderLine.COLUMNNAME_LineNetAmt)) {
+            MTax tax = new MTax(getCtx(), getTaxId());
             MTaxProvider provider =
-                    new MTaxProvider(tax.getCtx(), tax.getC_TaxProvider_ID());
+                    new MTaxProvider(tax.getCtx(), tax.getTaxProviderId());
             ITaxProvider calculator = MTaxProvider.getTaxProvider(provider, new StandardTaxProvider());
             if (calculator == null) throw new AdempiereException(Msg.getMsg(getCtx(), "TaxNoProvider"));
             return calculator.recalculateTax(provider, this, newRecord);
@@ -877,11 +877,11 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
     public boolean updateHeaderTax() {
 
         // Update header only if the document is not processed
-        if (isProcessed() && !is_ValueChanged(I_C_OrderLine.COLUMNNAME_Processed)) return true;
+        if (isProcessed() && !isValueChanged(I_C_OrderLine.COLUMNNAME_Processed)) return true;
 
-        MTax tax = new MTax(getCtx(), getC_Tax_ID());
+        MTax tax = new MTax(getCtx(), getTaxId());
         MTaxProvider provider =
-                new MTaxProvider(tax.getCtx(), tax.getC_TaxProvider_ID());
+                new MTaxProvider(tax.getCtx(), tax.getTaxProviderId());
         ITaxProvider calculator = MTaxProvider.getTaxProvider(provider, new StandardTaxProvider());
         if (calculator == null) throw new AdempiereException(Msg.getMsg(getCtx(), "TaxNoProvider"));
         if (!calculator.updateOrderTax(provider, this)) return false;

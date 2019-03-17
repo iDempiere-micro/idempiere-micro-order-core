@@ -106,7 +106,7 @@ public class X_I_Order extends BasePOName implements I_I_Order {
      *
      * @return Bill to Address
      */
-    public int getBillTo_ID() {
+    public int getBillToId() {
         Integer ii = (Integer) getValue(COLUMNNAME_BillTo_ID);
         if (ii == null) return 0;
         return ii;
@@ -117,7 +117,7 @@ public class X_I_Order extends BasePOName implements I_I_Order {
      *
      * @param BillTo_ID Bill to Address
      */
-    public void setBillTo_ID(int BillTo_ID) {
+    public void setBillToId(int BillTo_ID) {
         if (BillTo_ID < 1) setValue(COLUMNNAME_BillTo_ID, null);
         else setValue(COLUMNNAME_BillTo_ID, Integer.valueOf(BillTo_ID));
     }
@@ -291,15 +291,15 @@ public class X_I_Order extends BasePOName implements I_I_Order {
      *
      * @param C_OrderLine_ID Sales Order Line
      */
-    public void setC_OrderLine_ID(int C_OrderLine_ID) {
+    public void setOrderLineId(int C_OrderLine_ID) {
         if (C_OrderLine_ID < 1) setValue(COLUMNNAME_C_OrderLine_ID, null);
         else setValue(COLUMNNAME_C_OrderLine_ID, C_OrderLine_ID);
     }
 
-    public org.compiere.model.I_C_OrderSource getC_OrderSource() throws RuntimeException {
+    public org.compiere.model.I_C_OrderSource getOrderSource() throws RuntimeException {
         return (org.compiere.model.I_C_OrderSource)
                 MTable.get(getCtx(), org.compiere.model.I_C_OrderSource.Table_Name)
-                        .getPO(getC_OrderSource_ID());
+                        .getPO(getOrderSourceId());
     }
 
     /**
@@ -307,7 +307,7 @@ public class X_I_Order extends BasePOName implements I_I_Order {
      *
      * @return Order Source
      */
-    public int getC_OrderSource_ID() {
+    public int getOrderSourceId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_OrderSource_ID);
         if (ii == null) return 0;
         return ii;
@@ -351,7 +351,7 @@ public class X_I_Order extends BasePOName implements I_I_Order {
      *
      * @return Tax identifier
      */
-    public int getC_Tax_ID() {
+    public int getTaxId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_Tax_ID);
         if (ii == null) return 0;
         return ii;
@@ -362,7 +362,7 @@ public class X_I_Order extends BasePOName implements I_I_Order {
      *
      * @param C_Tax_ID Tax identifier
      */
-    public void setC_Tax_ID(int C_Tax_ID) {
+    public void setTaxId(int C_Tax_ID) {
         if (C_Tax_ID < 1) setValue(COLUMNNAME_C_Tax_ID, null);
         else setValue(COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
     }
@@ -437,7 +437,7 @@ public class X_I_Order extends BasePOName implements I_I_Order {
      *
      * @param I_IsImported Has this import been processed
      */
-    public void setI_IsImported(boolean I_IsImported) {
+    public void setIsImported(boolean I_IsImported) {
         setValue(COLUMNNAME_I_IsImported, Boolean.valueOf(I_IsImported));
     }
 
@@ -480,7 +480,7 @@ public class X_I_Order extends BasePOName implements I_I_Order {
      *
      * @return Product, Service, Item
      */
-    public int getM_Product_ID() {
+    public int getProductId() {
         Integer ii = (Integer) getValue(COLUMNNAME_M_Product_ID);
         if (ii == null) return 0;
         return ii;

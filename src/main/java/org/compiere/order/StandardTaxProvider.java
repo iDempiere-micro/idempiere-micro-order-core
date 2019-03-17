@@ -40,10 +40,10 @@ public class StandardTaxProvider implements ITaxProvider {
         for (int i = 0; i < lines.length; i++) {
             I_C_OrderLine line = lines[i];
             totalLines = totalLines.add(line.getLineNetAmt());
-            Integer taxID = line.getC_Tax_ID();
+            Integer taxID = line.getTaxId();
             if (!taxList.contains(taxID)) {
                 MTax tax = new MTax(order.getCtx(), taxID);
-                if (tax.getC_TaxProvider_ID() != 0) continue;
+                if (tax.getTaxProviderId() != 0) continue;
                 MOrderTax oTax =
                         MOrderTax.get(line, order.getPrecision(), false); // 	current Tax
                 oTax.setIsTaxIncluded(order.isTaxIncluded());
@@ -58,7 +58,7 @@ public class StandardTaxProvider implements ITaxProvider {
         I_C_OrderTax[] taxes = order.getTaxes(true);
         for (int i = 0; i < taxes.length; i++) {
             I_C_OrderTax oTax = taxes[i];
-            if (oTax.getC_TaxProvider_ID() != 0) {
+            if (oTax.getTaxProviderId() != 0) {
                 if (!order.isTaxIncluded()) grandTotal = grandTotal.add(oTax.getTaxAmt());
                 continue;
             }
@@ -72,7 +72,7 @@ public class StandardTaxProvider implements ITaxProvider {
                     MOrderTax newOTax = new MOrderTax(order.getCtx(), 0);
                     newOTax.setClientOrg(order);
                     newOTax.setOrderId(order.getOrderId());
-                    newOTax.setC_Tax_ID(cTax.getC_Tax_ID());
+                    newOTax.setTaxId(cTax.getTaxId());
                     newOTax.setPrecision(order.getPrecision());
                     newOTax.setIsTaxIncluded(order.isTaxIncluded());
                     newOTax.setTaxBaseAmt(oTax.getTaxBaseAmt());
@@ -94,17 +94,17 @@ public class StandardTaxProvider implements ITaxProvider {
     }
 
     public boolean updateOrderTax(I_C_TaxProvider provider, I_C_OrderLine line) {
-        MTax mtax = new MTax(line.getCtx(), line.getC_Tax_ID());
-        if (mtax.getC_TaxProvider_ID() == 0) return line.updateOrderTax(false);
+        MTax mtax = new MTax(line.getCtx(), line.getTaxId());
+        if (mtax.getTaxProviderId() == 0) return line.updateOrderTax(false);
         return true;
     }
 
     public boolean recalculateTax(I_C_TaxProvider provider, I_C_OrderLine line, boolean newRecord) {
         if (!newRecord
-                && line.is_ValueChanged(MOrderLine.COLUMNNAME_C_Tax_ID)
+                && line.isValueChanged(MOrderLine.COLUMNNAME_C_Tax_ID)
                 && !line.getParent().isProcessed()) {
-            MTax mtax = new MTax(line.getCtx(), line.getC_Tax_ID());
-            if (mtax.getC_TaxProvider_ID() == 0) {
+            MTax mtax = new MTax(line.getCtx(), line.getTaxId());
+            if (mtax.getTaxProviderId() == 0) {
                 //	Recalculate Tax for old Tax
                 if (!line.updateOrderTax(true)) return false;
             }
@@ -151,10 +151,10 @@ public class StandardTaxProvider implements ITaxProvider {
         for (int i = 0; i < lines.length; i++) {
             I_M_RMALine line = lines[i];
             totalLines = totalLines.add(line.getLineNetAmt());
-            Integer taxID = new Integer(line.getC_Tax_ID());
+            Integer taxID = new Integer(line.getTaxId());
             if (!taxList.contains(taxID)) {
                 MTax tax = new MTax(rma.getCtx(), taxID);
-                if (tax.getC_TaxProvider_ID() != 0) continue;
+                if (tax.getTaxProviderId() != 0) continue;
                 MRMATax oTax =
                         MRMATax.get(line, rma.getPrecision(), false); // 	current Tax
                 oTax.setIsTaxIncluded(rma.isTaxIncluded());
@@ -169,7 +169,7 @@ public class StandardTaxProvider implements ITaxProvider {
         I_M_RMATax[] taxes = rma.getTaxes(true);
         for (int i = 0; i < taxes.length; i++) {
             I_M_RMATax oTax = taxes[i];
-            if (oTax.getC_TaxProvider_ID() != 0) {
+            if (oTax.getTaxProviderId() != 0) {
                 if (!rma.isTaxIncluded()) grandTotal = grandTotal.add(oTax.getTaxAmt());
                 continue;
             }
@@ -182,8 +182,8 @@ public class StandardTaxProvider implements ITaxProvider {
                     //
                     MRMATax newOTax = new MRMATax(rma.getCtx(), 0);
                     newOTax.setClientOrg(rma);
-                    newOTax.setM_RMA_ID(rma.getM_RMA_ID());
-                    newOTax.setC_Tax_ID(cTax.getC_Tax_ID());
+                    newOTax.setRMAId(rma.getRMAId());
+                    newOTax.setTaxId(cTax.getTaxId());
                     newOTax.setPrecision(rma.getPrecision());
                     newOTax.setIsTaxIncluded(rma.isTaxIncluded());
                     newOTax.setTaxBaseAmt(oTax.getTaxBaseAmt());
@@ -204,17 +204,17 @@ public class StandardTaxProvider implements ITaxProvider {
     }
 
     public boolean updateRMATax(I_C_TaxProvider provider, I_M_RMALine line) {
-        MTax mtax = new MTax(line.getCtx(), line.getC_Tax_ID());
-        if (mtax.getC_TaxProvider_ID() == 0) return line.updateOrderTax(false);
+        MTax mtax = new MTax(line.getCtx(), line.getTaxId());
+        if (mtax.getTaxProviderId() == 0) return line.updateOrderTax(false);
         return true;
     }
 
     public boolean recalculateTax(I_C_TaxProvider provider, I_M_RMALine line, boolean newRecord) {
         if (!newRecord
-                && line.is_ValueChanged(MRMALine.COLUMNNAME_C_Tax_ID)
+                && line.isValueChanged(MRMALine.COLUMNNAME_C_Tax_ID)
                 && !line.getParent().isProcessed()) {
-            MTax mtax = new MTax(line.getCtx(), line.getC_Tax_ID());
-            if (mtax.getC_TaxProvider_ID() == 0) {
+            MTax mtax = new MTax(line.getCtx(), line.getTaxId());
+            if (mtax.getTaxProviderId() == 0) {
                 //	Recalculate Tax for old Tax
                 if (!line.updateOrderTax(true)) return false;
             }
@@ -230,7 +230,7 @@ public class StandardTaxProvider implements ITaxProvider {
                         + " SET Amt="
                         + "(SELECT COALESCE(SUM(LineNetAmt),0) FROM M_RMALine WHERE M_RMA.M_RMA_ID=M_RMALine.M_RMA_ID) "
                         + "WHERE M_RMA_ID=?";
-        int no = executeUpdateEx(sql, new Object[]{line.getM_RMA_ID()});
+        int no = executeUpdateEx(sql, new Object[]{line.getRMAId()});
         if (no != 1) log.warning("(1) #" + no);
 
         line.clearParent();

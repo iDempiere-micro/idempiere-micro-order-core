@@ -27,7 +27,7 @@ public class X_M_RMATax extends PO {
     public X_M_RMATax(Properties ctx, int M_RMATax_ID) {
         super(ctx, M_RMATax_ID);
         /**
-         * if (M_RMATax_ID == 0) { setC_Tax_ID (0); setIsTaxIncluded (false); setM_RMA_ID (0);
+         * if (M_RMATax_ID == 0) { setTaxId (0); setIsTaxIncluded (false); setRMAId (0);
          * setProcessed (false); setTaxAmt (Env.ZERO); setTaxBaseAmt (Env.ZERO); }
          */
     }
@@ -58,7 +58,7 @@ public class X_M_RMATax extends PO {
      *
      * @return Tax identifier
      */
-    public int getC_Tax_ID() {
+    public int getTaxId() {
         Integer ii = (Integer) getValue(I_M_RMATax.COLUMNNAME_C_Tax_ID);
         if (ii == null) return 0;
         return ii;
@@ -69,7 +69,7 @@ public class X_M_RMATax extends PO {
      *
      * @param C_Tax_ID Tax identifier
      */
-    public void setC_Tax_ID(int C_Tax_ID) {
+    public void setTaxId(int C_Tax_ID) {
         if (C_Tax_ID < 1) setValueNoCheck(I_M_RMATax.COLUMNNAME_C_Tax_ID, null);
         else setValueNoCheck(I_M_RMATax.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
     }
@@ -79,7 +79,7 @@ public class X_M_RMATax extends PO {
      *
      * @return Tax Provider
      */
-    public int getC_TaxProvider_ID() {
+    public int getTaxProviderId() {
         Integer ii = (Integer) getValue(I_M_RMATax.COLUMNNAME_C_TaxProvider_ID);
         if (ii == null) return 0;
         return ii;
@@ -113,7 +113,7 @@ public class X_M_RMATax extends PO {
      *
      * @return Return Material Authorization
      */
-    public int getM_RMA_ID() {
+    public int getRMAId() {
         Integer ii = (Integer) getValue(I_M_RMATax.COLUMNNAME_M_RMA_ID);
         if (ii == null) return 0;
         return ii;
@@ -124,7 +124,7 @@ public class X_M_RMATax extends PO {
      *
      * @param M_RMA_ID Return Material Authorization
      */
-    public void setM_RMA_ID(int M_RMA_ID) {
+    public void setRMAId(int M_RMA_ID) {
         if (M_RMA_ID < 1) setValueNoCheck(I_M_RMATax.COLUMNNAME_M_RMA_ID, null);
         else setValueNoCheck(I_M_RMATax.COLUMNNAME_M_RMA_ID, Integer.valueOf(M_RMA_ID));
     }

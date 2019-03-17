@@ -46,7 +46,7 @@ public class MCharge extends X_C_Charge {
             setIsSameTax(false);
             setIsTaxIncluded(false); // N
             //	setName (null);
-            //	setC_TaxCategory_ID (0);
+            //	setTaxCategoryId (0);
         }
     } //	MCharge
 

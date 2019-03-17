@@ -54,7 +54,7 @@ public class X_M_ShipperPackaging extends BasePOName implements I_M_ShipperPacka
      *
      * @return Shipper Packaging Configuration
      */
-    public int getM_ShipperPackagingCfg_ID() {
+    public int getShipperPackagingCfgId() {
         Integer ii = (Integer) getValue(COLUMNNAME_M_ShipperPackagingCfg_ID);
         if (ii == null) return 0;
         return ii;

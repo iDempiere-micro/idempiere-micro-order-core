@@ -183,9 +183,9 @@ public class MInOut extends X_M_InOut {
         setPriorityRule(order.getPriorityRule());
         // Drop shipment
         setIsDropShip(order.isDropShip());
-        setDropShip_BPartner_ID(order.getDropShip_BPartner_ID());
-        setDropShip_Location_ID(order.getDropShip_Location_ID());
-        setDropShip_User_ID(order.getDropShip_User_ID());
+        setDropShipBPartnerId(order.getDropShipBPartnerId());
+        setDropShipLocationId(order.getDropShipLocationId());
+        setDropShipUserId(order.getDropShipUserId());
     } //	MInOut
 
     /**
@@ -252,9 +252,9 @@ public class MInOut extends X_M_InOut {
 
             // Drop Shipment
             setIsDropShip(order.isDropShip());
-            setDropShip_BPartner_ID(order.getDropShip_BPartner_ID());
-            setDropShip_Location_ID(order.getDropShip_Location_ID());
-            setDropShip_User_ID(order.getDropShip_User_ID());
+            setDropShipBPartnerId(order.getDropShipBPartnerId());
+            setDropShipLocationId(order.getDropShipLocationId());
+            setDropShipUserId(order.getDropShipUserId());
         }
     } //	MInOut
 
@@ -307,9 +307,9 @@ public class MInOut extends X_M_InOut {
 
         // DropShipment
         setIsDropShip(original.isDropShip());
-        setDropShip_BPartner_ID(original.getDropShip_BPartner_ID());
-        setDropShip_Location_ID(original.getDropShip_Location_ID());
-        setDropShip_User_ID(original.getDropShip_User_ID());
+        setDropShipBPartnerId(original.getDropShipBPartnerId());
+        setDropShipLocationId(original.getDropShipLocationId());
+        setDropShipUserId(original.getDropShipUserId());
     } //	MInOut
 
     /**
@@ -355,7 +355,7 @@ public class MInOut extends X_M_InOut {
         }
         List<MInOutLine> list =
                 new Query(getCtx(), I_M_InOutLine.Table_Name, "M_InOut_ID=?")
-                        .setParameters(getM_InOut_ID())
+                        .setParameters(getInOutId())
                         .setOrderBy(MInOutLine.COLUMNNAME_Line)
                         .list();
         //
@@ -385,7 +385,7 @@ public class MInOut extends X_M_InOut {
         }
         List<MInOutConfirm> list =
                 new Query(getCtx(), I_M_InOutConfirm.Table_Name, "M_InOut_ID=?")
-                        .setParameters(getM_InOut_ID())
+                        .setParameters(getInOutId())
                         .list();
         m_confirms = new MInOutConfirm[list.size()];
         list.toArray(m_confirms);
@@ -410,16 +410,16 @@ public class MInOut extends X_M_InOut {
             if (counter) //	header
                 PO.copyValues(fromLine, line, getClientId(), getOrgId());
             else PO.copyValues(fromLine, line, fromLine.getClientId(), fromLine.getOrgId());
-            line.setM_InOut_ID(getM_InOut_ID());
+            line.setInOutId(getInOutId());
             line.setValueNoCheck("M_InOutLine_ID", I_ZERO); // 	new
             //	Reset
             if (!setOrder) {
-                line.setC_OrderLine_ID(0);
-                line.setM_RMALine_ID(0); // Reset RMA Line
+                line.setOrderLineId(0);
+                line.setRMALineId(0); // Reset RMA Line
             }
-            if (!counter) line.setM_AttributeSetInstance_ID(0);
-            //	line.setS_ResourceAssignment_ID(0);
-            line.setRef_InOutLine_ID(0);
+            if (!counter) line.setAttributeSetInstanceId(0);
+            //	line.setS_ResourceAssignmentId(0);
+            line.setReferencedInOutLineId(0);
             line.setIsInvoiced(false);
             //
             line.setConfirmedQty(Env.ZERO);
@@ -428,20 +428,20 @@ public class MInOut extends X_M_InOut {
             line.setTargetQty(Env.ZERO);
             //	Set Locator based on header Warehouse
             if (getWarehouseId() != otherShipment.getWarehouseId()) {
-                line.setM_Locator_ID(0);
-                line.setM_Locator_ID(Env.ZERO);
+                line.setLocatorId(0);
+                line.setLocatorId(Env.ZERO);
             }
             //
             if (counter) {
-                line.setRef_InOutLine_ID(fromLine.getM_InOutLine_ID());
-                if (fromLine.getC_OrderLine_ID() != 0) {
-                    MOrderLine peer = new MOrderLine(getCtx(), fromLine.getC_OrderLine_ID());
-                    if (peer.getRef_OrderLine_ID() != 0) line.setC_OrderLine_ID(peer.getRef_OrderLine_ID());
+                line.setReferencedInOutLineId(fromLine.getInOutLineId());
+                if (fromLine.getOrderLineId() != 0) {
+                    MOrderLine peer = new MOrderLine(getCtx(), fromLine.getOrderLineId());
+                    if (peer.getRef_OrderLineId() != 0) line.setOrderLineId(peer.getRef_OrderLineId());
                 }
                 // RMALine link
-                if (fromLine.getM_RMALine_ID() != 0) {
-                    MRMALine peer = new MRMALine(getCtx(), fromLine.getM_RMALine_ID());
-                    if (peer.getRef_RMALine_ID() > 0) line.setM_RMALine_ID(peer.getRef_RMALine_ID());
+                if (fromLine.getRMALineId() != 0) {
+                    MRMALine peer = new MRMALine(getCtx(), fromLine.getRMALineId());
+                    if (peer.getRef_RMALineId() > 0) line.setRMALineId(peer.getRef_RMALineId());
                 }
             }
 
@@ -452,7 +452,7 @@ public class MInOut extends X_M_InOut {
             if (line.save()) count++;
             //	Cross Link
             if (counter) {
-                fromLine.setRef_InOutLine_ID(line.getM_InOutLine_ID());
+                fromLine.setReferencedInOutLineId(line.getInOutLineId());
                 fromLine.saveEx();
             }
         }
@@ -493,7 +493,7 @@ public class MInOut extends X_M_InOut {
                 new StringBuilder("UPDATE M_InOutLine SET Processed='")
                         .append((processed ? "Y" : "N"))
                         .append("' WHERE M_InOut_ID=")
-                        .append(getM_InOut_ID());
+                        .append(getInOutId());
         int noLine = executeUpdate(sql.toString());
         m_lines = null;
         if (log.isLoggable(Level.FINE)) log.fine(processed + " - Lines=" + noLine);
@@ -575,7 +575,7 @@ public class MInOut extends X_M_InOut {
             setDeliveryRule(X_M_InOut.DELIVERYRULE_Availability);
 
         // Shipment/Receipt can have either Order/RMA (For Movement type)
-        if (getOrderId() != 0 && getM_RMA_ID() != 0) {
+        if (getOrderId() != 0 && getRMAId() != 0) {
             log.saveError("OrderOrRMA", "");
             return false;
         }
@@ -584,14 +584,14 @@ public class MInOut extends X_M_InOut {
         boolean condition1 =
                 movementType != null && !movementType.contentEquals(X_M_InOut.MOVEMENTTYPE_CustomerReturns);
         //	Shipment - Needs Order/RMA
-        if (condition1 && isSOTrx() && getOrderId() == 0 && getM_RMA_ID() == 0) {
+        if (condition1 && isSOTrx() && getOrderId() == 0 && getRMAId() == 0) {
             log.saveError("FillMandatory", Msg.translate(getCtx(), "C_Order_ID"));
             return false;
         }
 
-        if (isSOTrx() && getM_RMA_ID() != 0) {
+        if (isSOTrx() && getRMAId() != 0) {
             // Set Document and Movement type for this Receipt
-            MRMA rma = new MRMA(getCtx(), getM_RMA_ID());
+            MRMA rma = new MRMA(getCtx(), getRMAId());
             MDocType docType = MDocType.get(getCtx(), rma.getDocumentTypeId());
             setDocumentTypeId(docType.getDocTypeShipmentId());
         }
@@ -609,14 +609,14 @@ public class MInOut extends X_M_InOut {
     protected boolean afterSave(boolean newRecord, boolean success) {
         if (!success || newRecord) return success;
 
-        if (is_ValueChanged("AD_Org_ID")) {
+        if (isValueChanged("AD_Org_ID")) {
             final String sql =
                     "UPDATE M_InOutLine ol"
                             + " SET AD_Org_ID ="
                             + "(SELECT AD_Org_ID"
                             + " FROM M_InOut o WHERE ol.M_InOut_ID=o.M_InOut_ID) "
                             + "WHERE M_InOut_ID=?";
-            int no = executeUpdateEx(sql, new Object[]{getM_InOut_ID()});
+            int no = executeUpdateEx(sql, new Object[]{getInOutId()});
             if (log.isLoggable(Level.FINE)) log.fine("Lines -> #" + no);
         }
         return true;

@@ -79,10 +79,10 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
             s_log.fine("No Order");
             return null;
         }
-        int C_Tax_ID = line.getC_Tax_ID();
-        boolean isOldTax = oldTax && line.is_ValueChanged(MOrderTax.COLUMNNAME_C_Tax_ID);
+        int C_Tax_ID = line.getTaxId();
+        boolean isOldTax = oldTax && line.isValueChanged(MOrderTax.COLUMNNAME_C_Tax_ID);
         if (isOldTax) {
-            Object old = line.get_ValueOld(MOrderTax.COLUMNNAME_C_Tax_ID);
+            Object old = line.getValueOld(MOrderTax.COLUMNNAME_C_Tax_ID);
             if (old == null) {
                 s_log.fine("No Old Tax");
                 return null;
@@ -110,7 +110,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
         retValue = new MOrderTax(line.getCtx(), 0);
         retValue.setClientOrg(line);
         retValue.setOrderId(line.getOrderId());
-        retValue.setC_Tax_ID(line.getC_Tax_ID());
+        retValue.setTaxId(line.getTaxId());
         retValue.setPrecision(precision);
         retValue.setIsTaxIncluded(line.isTaxIncluded());
         if (s_log.isLoggable(Level.FINE)) s_log.fine("(new) " + retValue);
@@ -142,7 +142,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
      * @return tax
      */
     public I_C_Tax getTax() {
-        if (m_tax == null) m_tax = MTax.get(getCtx(), getC_Tax_ID());
+        if (m_tax == null) m_tax = MTax.get(getCtx(), getTaxId());
         return m_tax;
     } //	getTax
 
@@ -165,7 +165,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
         try {
             pstmt = prepareStatement(sql);
             pstmt.setInt(1, getOrderId());
-            pstmt.setInt(2, getC_Tax_ID());
+            pstmt.setInt(2, getTaxId());
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 BigDecimal baseAmt = rs.getBigDecimal(1);
@@ -207,7 +207,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
                         .append("C_Order_ID=")
                         .append(getOrderId())
                         .append(", C_Tax_ID=")
-                        .append(getC_Tax_ID())
+                        .append(getTaxId())
                         .append(", Base=")
                         .append(getTaxBaseAmt())
                         .append(", Tax=")

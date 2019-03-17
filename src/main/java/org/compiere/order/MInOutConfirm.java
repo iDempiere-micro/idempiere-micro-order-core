@@ -80,7 +80,7 @@ public class MInOutConfirm extends X_M_InOutConfirm {
     public MInOutConfirm(MInOut ship, String confirmType) {
         this(ship.getCtx(), 0);
         setClientOrg(ship);
-        setM_InOut_ID(ship.getM_InOut_ID());
+        setInOutId(ship.getInOutId());
         setConfirmType(confirmType);
     } //	MInOutConfirm
 

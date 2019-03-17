@@ -106,7 +106,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
         /**
          * if (M_InOutConfirm_ID == 0) { setConfirmType (null); setDocAction (null); // CO setDocStatus
          * (null); // DR setDocumentNo (null); setIsApproved (false); setIsCancelled (false);
-         * setIsInDispute (false); // N setM_InOutConfirm_ID (0); setM_InOut_ID (0); setProcessed
+         * setIsInDispute (false); // N setInOutConfirmId (0); setInOutId (0); setProcessed
          * (false); }
          */
     }
@@ -297,16 +297,16 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      *
      * @return Material Shipment or Receipt Confirmation
      */
-    public int getM_InOutConfirm_ID() {
+    public int getInOutConfirmId() {
         Integer ii = (Integer) getValue(COLUMNNAME_M_InOutConfirm_ID);
         if (ii == null) return 0;
         return ii;
     }
 
-    public org.compiere.model.I_M_InOut getM_InOut() throws RuntimeException {
+    public org.compiere.model.I_M_InOut getInOut() throws RuntimeException {
         return (org.compiere.model.I_M_InOut)
                 MTable.get(getCtx(), org.compiere.model.I_M_InOut.Table_Name)
-                        .getPO(getM_InOut_ID());
+                        .getPO(getInOutId());
     }
 
     /**
@@ -314,7 +314,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      *
      * @return Material Shipment Document
      */
-    public int getM_InOut_ID() {
+    public int getInOutId() {
         Integer ii = (Integer) getValue(COLUMNNAME_M_InOut_ID);
         if (ii == null) return 0;
         return ii;
@@ -325,7 +325,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      *
      * @param M_InOut_ID Material Shipment Document
      */
-    public void setM_InOut_ID(int M_InOut_ID) {
+    public void setInOutId(int M_InOut_ID) {
         if (M_InOut_ID < 1) setValueNoCheck(COLUMNNAME_M_InOut_ID, null);
         else setValueNoCheck(COLUMNNAME_M_InOut_ID, M_InOut_ID);
     }
@@ -335,7 +335,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      *
      * @param M_Inventory_ID Parameters for a Physical Inventory
      */
-    public void setM_Inventory_ID(int M_Inventory_ID) {
+    public void setInventoryId(int M_Inventory_ID) {
         if (M_Inventory_ID < 1) setValue(COLUMNNAME_M_Inventory_ID, null);
         else setValue(COLUMNNAME_M_Inventory_ID, M_Inventory_ID);
     }

@@ -126,7 +126,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
          * (null); // A setDeliveryViaRule (null); // P setDocAction (null); // CO setDocStatus (null);
          * // DR setDocumentNo (null); setFreightCostRule (null); // I setIsAlternateReturnAddress
          * (false); // N setIsApproved (false); setIsInDispute (false); setIsInTransit (false);
-         * setIsPrinted (false); setIsSOTrx (false); // @IsSOTrx@ setM_InOut_ID (0); setMovementDate
+         * setIsPrinted (false); setIsSOTrx (false); // @IsSOTrx@ setInOutId (0); setMovementDate
          * (new Timestamp( System.currentTimeMillis() )); // @#Date@ setMovementType (null);
          * setWarehouseId (0); setPosted (false); setPriorityRule (null); // 5 setProcessed (false);
          * setSendEMail (false); }
@@ -369,7 +369,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
         else setValueNoCheck(COLUMNNAME_C_Invoice_ID, C_Invoice_ID);
     }
 
-    public org.compiere.model.I_C_Order getC_Order() throws RuntimeException {
+    public org.compiere.model.I_C_Order getOrder() throws RuntimeException {
         return (org.compiere.model.I_C_Order)
                 MTable.get(getCtx(), org.compiere.model.I_C_Order.Table_Name)
                         .getPO(getOrderId());
@@ -588,7 +588,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return Business Partner to ship to
      */
-    public int getDropShip_BPartner_ID() {
+    public int getDropShipBPartnerId() {
         Integer ii = (Integer) getValue(COLUMNNAME_DropShip_BPartner_ID);
         if (ii == null) return 0;
         return ii;
@@ -599,7 +599,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param DropShip_BPartner_ID Business Partner to ship to
      */
-    public void setDropShip_BPartner_ID(int DropShip_BPartner_ID) {
+    public void setDropShipBPartnerId(int DropShip_BPartner_ID) {
         if (DropShip_BPartner_ID < 1) setValue(COLUMNNAME_DropShip_BPartner_ID, null);
         else setValue(COLUMNNAME_DropShip_BPartner_ID, Integer.valueOf(DropShip_BPartner_ID));
     }
@@ -609,7 +609,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return Business Partner Location for shipping to
      */
-    public int getDropShip_Location_ID() {
+    public int getDropShipLocationId() {
         Integer ii = (Integer) getValue(COLUMNNAME_DropShip_Location_ID);
         if (ii == null) return 0;
         return ii;
@@ -620,7 +620,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param DropShip_Location_ID Business Partner Location for shipping to
      */
-    public void setDropShip_Location_ID(int DropShip_Location_ID) {
+    public void setDropShipLocationId(int DropShip_Location_ID) {
         if (DropShip_Location_ID < 1) setValue(COLUMNNAME_DropShip_Location_ID, null);
         else setValue(COLUMNNAME_DropShip_Location_ID, Integer.valueOf(DropShip_Location_ID));
     }
@@ -630,7 +630,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return Business Partner Contact for drop shipment
      */
-    public int getDropShip_User_ID() {
+    public int getDropShipUserId() {
         Integer ii = (Integer) getValue(COLUMNNAME_DropShip_User_ID);
         if (ii == null) return 0;
         return ii;
@@ -641,7 +641,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param DropShip_User_ID Business Partner Contact for drop shipment
      */
-    public void setDropShip_User_ID(int DropShip_User_ID) {
+    public void setDropShipUserId(int DropShip_User_ID) {
         if (DropShip_User_ID < 1) setValue(COLUMNNAME_DropShip_User_ID, null);
         else setValue(COLUMNNAME_DropShip_User_ID, Integer.valueOf(DropShip_User_ID));
     }
@@ -786,7 +786,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return Material Shipment Document
      */
-    public int getM_InOut_ID() {
+    public int getInOutId() {
         Integer ii = (Integer) getValue(COLUMNNAME_M_InOut_ID);
         if (ii == null) return 0;
         return ii;
@@ -834,7 +834,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return Return Material Authorization
      */
-    public int getM_RMA_ID() {
+    public int getRMAId() {
         Integer ii = (Integer) getValue(COLUMNNAME_M_RMA_ID);
         if (ii == null) return 0;
         return ii;
@@ -845,7 +845,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param M_RMA_ID Return Material Authorization
      */
-    public void setM_RMA_ID(int M_RMA_ID) {
+    public void setRMAId(int M_RMA_ID) {
         if (M_RMA_ID < 1) setValue(COLUMNNAME_M_RMA_ID, null);
         else setValue(COLUMNNAME_M_RMA_ID, Integer.valueOf(M_RMA_ID));
     }
@@ -1010,7 +1010,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return Referenced Shipment
      */
-    public int getRef_InOut_ID() {
+    public int getReferencedInOutId() {
         Integer ii = (Integer) getValue(COLUMNNAME_Ref_InOut_ID);
         if (ii == null) return 0;
         return ii;
@@ -1021,7 +1021,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param Ref_InOut_ID Referenced Shipment
      */
-    public void setRef_InOut_ID(int Ref_InOut_ID) {
+    public void setReferencedInOutId(int Ref_InOut_ID) {
         if (Ref_InOut_ID < 1) setValue(COLUMNNAME_Ref_InOut_ID, null);
         else setValue(COLUMNNAME_Ref_InOut_ID, Integer.valueOf(Ref_InOut_ID));
     }
@@ -1031,7 +1031,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @return ID of document reversal
      */
-    public int getReversal_ID() {
+    public int getReversalId() {
         Integer ii = (Integer) getValue(COLUMNNAME_Reversal_ID);
         if (ii == null) return 0;
         return ii;
@@ -1042,7 +1042,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
      *
      * @param Reversal_ID ID of document reversal
      */
-    public void setReversal_ID(int Reversal_ID) {
+    public void setReversalId(int Reversal_ID) {
         if (Reversal_ID < 1) setValue(COLUMNNAME_Reversal_ID, null);
         else setValue(COLUMNNAME_Reversal_ID, Integer.valueOf(Reversal_ID));
     }

@@ -49,11 +49,11 @@ public class X_M_ShippingProcessor extends BasePOName
         return sb.toString();
     }
 
-    public org.compiere.model.I_M_ShippingProcessorCfg getM_ShippingProcessorCfg()
+    public org.compiere.model.I_M_ShippingProcessorCfg getShippingProcessorCfg()
             throws RuntimeException {
         return (org.compiere.model.I_M_ShippingProcessorCfg)
                 MTable.get(getCtx(), org.compiere.model.I_M_ShippingProcessorCfg.Table_Name)
-                        .getPO(getM_ShippingProcessorCfg_ID());
+                        .getPO(getShippingProcessorCfgId());
     }
 
     /**
@@ -61,7 +61,7 @@ public class X_M_ShippingProcessor extends BasePOName
      *
      * @return Shipping Processor Configuration
      */
-    public int getM_ShippingProcessorCfg_ID() {
+    public int getShippingProcessorCfgId() {
         Integer ii = (Integer) getValue(COLUMNNAME_M_ShippingProcessorCfg_ID);
         if (ii == null) return 0;
         return ii;

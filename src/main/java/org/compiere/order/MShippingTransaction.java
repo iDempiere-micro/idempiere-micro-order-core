@@ -60,8 +60,8 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
         }
 
         MOnlineTrxHistory history = new MOnlineTrxHistory(getCtx(), 0);
-        history.setAD_Table_ID(Table_ID);
-        history.setRecord_ID(getM_ShippingTransaction_ID());
+        history.setRowTableId(Table_ID);
+        history.setRecordId(getShippingTransactionId());
         history.setIsError(!processed);
         history.setProcessed(processed);
 

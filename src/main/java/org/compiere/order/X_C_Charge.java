@@ -29,7 +29,7 @@ public class X_C_Charge extends PO implements I_C_Charge {
     public X_C_Charge(Properties ctx, int C_Charge_ID) {
         super(ctx, C_Charge_ID);
         /**
-         * if (C_Charge_ID == 0) { setChargeId (0); setChargeAmt (Env.ZERO); setC_TaxCategory_ID (0);
+         * if (C_Charge_ID == 0) { setChargeId (0); setChargeAmt (Env.ZERO); setTaxCategoryId (0);
          * setIsSameCurrency (false); setIsSameTax (false); setIsTaxIncluded (false); // N setName
          * (null); }
          */
@@ -87,10 +87,10 @@ public class X_C_Charge extends PO implements I_C_Charge {
         setValue(COLUMNNAME_ChargeAmt, ChargeAmt);
     }
 
-    public org.compiere.model.I_C_TaxCategory getC_TaxCategory() throws RuntimeException {
+    public org.compiere.model.I_C_TaxCategory getTaxCategory() throws RuntimeException {
         return (org.compiere.model.I_C_TaxCategory)
                 MTable.get(getCtx(), org.compiere.model.I_C_TaxCategory.Table_Name)
-                        .getPO(getC_TaxCategory_ID());
+                        .getPO(getTaxCategoryId());
     }
 
     /**
@@ -98,7 +98,7 @@ public class X_C_Charge extends PO implements I_C_Charge {
      *
      * @return Tax Category
      */
-    public int getC_TaxCategory_ID() {
+    public int getTaxCategoryId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_TaxCategory_ID);
         if (ii == null) return 0;
         return ii;

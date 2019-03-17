@@ -30,12 +30,12 @@ public class X_C_OrderLine extends PO {
         super(ctx, C_OrderLine_ID);
         /**
          * if (C_OrderLine_ID == 0) { setBusinessPartnerLocationId (0); // @C_BPartner_Location_ID@
-         * setCurrencyId (0); // @C_Currency_ID@ setOrderId (0); setC_OrderLine_ID (0);
-         * setC_Tax_ID (0); setC_UOM_ID (0); // @#C_UOM_ID@ setDateOrdered (new Timestamp(
+         * setCurrencyId (0); // @C_Currency_ID@ setOrderId (0); setOrderLineId (0);
+         * setTaxId (0); setUOMId (0); // @#C_UOM_ID@ setDateOrdered (new Timestamp(
          * System.currentTimeMillis() )); // @DateOrdered@ setFreightAmt (Env.ZERO); setIsDescription
          * (false); // N setLine (0); // @SQL=SELECT COALESCE(MAX(Line),0)+10 AS DefaultValue FROM
          * C_OrderLine WHERE C_Order_ID=@C_Order_ID@ setLineNetAmt (Env.ZERO);
-         * setM_AttributeSetInstance_ID (0); setWarehouseId (0); // @M_Warehouse_ID@ setPriceActual
+         * setAttributeSetInstanceId (0); setWarehouseId (0); // @M_Warehouse_ID@ setPriceActual
          * (Env.ZERO); setPriceEntered (Env.ZERO); setPriceLimit (Env.ZERO); setPriceList (Env.ZERO);
          * setProcessed (false); setQtyDelivered (Env.ZERO); setQtyEntered (Env.ZERO); // 1
          * setQtyInvoiced (Env.ZERO); setQtyLostSales (Env.ZERO); setQtyOrdered (Env.ZERO); // 1
@@ -205,7 +205,7 @@ public class X_C_OrderLine extends PO {
     }
 
 
-    public org.compiere.model.I_C_Order getC_Order() throws RuntimeException {
+    public org.compiere.model.I_C_Order getOrder() throws RuntimeException {
         return (org.compiere.model.I_C_Order)
                 MTable.get(getCtx(), org.compiere.model.I_C_Order.Table_Name)
                         .getPO(getOrderId());
@@ -237,7 +237,7 @@ public class X_C_OrderLine extends PO {
      *
      * @return Sales Order Line
      */
-    public int getC_OrderLine_ID() {
+    public int getOrderLineId() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_C_OrderLine_ID);
         if (ii == null) return 0;
         return ii;
@@ -269,7 +269,7 @@ public class X_C_OrderLine extends PO {
      *
      * @return Phase of a Project
      */
-    public int getC_ProjectPhase_ID() {
+    public int getProjectPhaseId() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_C_ProjectPhase_ID);
         if (ii == null) return 0;
         return ii;
@@ -280,7 +280,7 @@ public class X_C_OrderLine extends PO {
      *
      * @param C_ProjectPhase_ID Phase of a Project
      */
-    public void setC_ProjectPhase_ID(int C_ProjectPhase_ID) {
+    public void setProjectPhaseId(int C_ProjectPhase_ID) {
         if (C_ProjectPhase_ID < 1) setValueNoCheck(I_C_OrderLine.COLUMNNAME_C_ProjectPhase_ID, null);
         else
             setValueNoCheck(
@@ -292,7 +292,7 @@ public class X_C_OrderLine extends PO {
      *
      * @return Actual Project Task in a Phase
      */
-    public int getC_ProjectTask_ID() {
+    public int getProjectTaskId() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_C_ProjectTask_ID);
         if (ii == null) return 0;
         return ii;
@@ -303,7 +303,7 @@ public class X_C_OrderLine extends PO {
      *
      * @param C_ProjectTask_ID Actual Project Task in a Phase
      */
-    public void setC_ProjectTask_ID(int C_ProjectTask_ID) {
+    public void setProjectTaskId(int C_ProjectTask_ID) {
         if (C_ProjectTask_ID < 1) setValueNoCheck(I_C_OrderLine.COLUMNNAME_C_ProjectTask_ID, null);
         else
             setValueNoCheck(
@@ -315,7 +315,7 @@ public class X_C_OrderLine extends PO {
      *
      * @return Tax identifier
      */
-    public int getC_Tax_ID() {
+    public int getTaxId() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_C_Tax_ID);
         if (ii == null) return 0;
         return ii;
@@ -326,7 +326,7 @@ public class X_C_OrderLine extends PO {
      *
      * @param C_Tax_ID Tax identifier
      */
-    public void setC_Tax_ID(int C_Tax_ID) {
+    public void setTaxId(int C_Tax_ID) {
         if (C_Tax_ID < 1) setValue(I_C_OrderLine.COLUMNNAME_C_Tax_ID, null);
         else setValue(I_C_OrderLine.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
     }
@@ -336,7 +336,7 @@ public class X_C_OrderLine extends PO {
      *
      * @return Unit of Measure
      */
-    public int getC_UOM_ID() {
+    public int getUOMId() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_C_UOM_ID);
         if (ii == null) return 0;
         return ii;
@@ -347,7 +347,7 @@ public class X_C_OrderLine extends PO {
      *
      * @param C_UOM_ID Unit of Measure
      */
-    public void setC_UOM_ID(int C_UOM_ID) {
+    public void setUOMId(int C_UOM_ID) {
         if (C_UOM_ID < 1) setValueNoCheck(I_C_OrderLine.COLUMNNAME_C_UOM_ID, null);
         else setValueNoCheck(I_C_OrderLine.COLUMNNAME_C_UOM_ID, Integer.valueOf(C_UOM_ID));
     }
@@ -522,7 +522,7 @@ public class X_C_OrderLine extends PO {
      * @return This field links a sales order line to the purchase order line that is generated from
      * it.
      */
-    public int getLink_OrderLine_ID() {
+    public int getLink_OrderLineId() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_Link_OrderLine_ID);
         if (ii == null) return 0;
         return ii;
@@ -534,7 +534,7 @@ public class X_C_OrderLine extends PO {
      * @param Link_OrderLine_ID This field links a sales order line to the purchase order line that is
      *                          generated from it.
      */
-    public void setLink_OrderLine_ID(int Link_OrderLine_ID) {
+    public void setLink_OrderLineId(int Link_OrderLine_ID) {
         if (Link_OrderLine_ID < 1) setValueNoCheck(I_C_OrderLine.COLUMNNAME_Link_OrderLine_ID, null);
         else
             setValueNoCheck(
@@ -542,11 +542,22 @@ public class X_C_OrderLine extends PO {
     }
 
     /**
+     * Get Attribute Set Instance.
+     *
+     * @return Product Attribute Set Instance
+     */
+    public int getAttributeSetInstanceId() {
+        Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_M_AttributeSetInstance_ID);
+        if (ii == null) return 0;
+        return ii;
+    }
+
+    /**
      * Set Attribute Set Instance.
      *
      * @param M_AttributeSetInstance_ID Product Attribute Set Instance
      */
-    public void setM_AttributeSetInstance_ID(int M_AttributeSetInstance_ID) {
+    public void setAttributeSetInstanceId(int M_AttributeSetInstance_ID) {
         if (M_AttributeSetInstance_ID < 0)
             setValue(I_C_OrderLine.COLUMNNAME_M_AttributeSetInstance_ID, null);
         else
@@ -556,22 +567,11 @@ public class X_C_OrderLine extends PO {
     }
 
     /**
-     * Get Attribute Set Instance.
-     *
-     * @return Product Attribute Set Instance
-     */
-    public int getMAttributeSetInstance_ID() {
-        Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_M_AttributeSetInstance_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
      * Get Product.
      *
      * @return Product, Service, Item
      */
-    public int getM_Product_ID() {
+    public int getProductId() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_M_Product_ID);
         if (ii == null) return 0;
         return ii;
@@ -582,7 +582,7 @@ public class X_C_OrderLine extends PO {
      *
      * @param M_Product_ID Product, Service, Item
      */
-    public void setM_Product_ID(int M_Product_ID) {
+    public void setProductId(int M_Product_ID) {
         if (M_Product_ID < 1) setValue(I_C_OrderLine.COLUMNNAME_M_Product_ID, null);
         else setValue(I_C_OrderLine.COLUMNNAME_M_Product_ID, Integer.valueOf(M_Product_ID));
     }
@@ -857,7 +857,7 @@ public class X_C_OrderLine extends PO {
      *
      * @return Reference to corresponding Sales/Purchase Order
      */
-    public int getRef_OrderLine_ID() {
+    public int getRef_OrderLineId() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_Ref_OrderLine_ID);
         if (ii == null) return 0;
         return ii;
@@ -868,7 +868,7 @@ public class X_C_OrderLine extends PO {
      *
      * @param Ref_OrderLine_ID Reference to corresponding Sales/Purchase Order
      */
-    public void setRef_OrderLine_ID(int Ref_OrderLine_ID) {
+    public void setRef_OrderLineId(int Ref_OrderLine_ID) {
         if (Ref_OrderLine_ID < 1) setValue(I_C_OrderLine.COLUMNNAME_Ref_OrderLine_ID, null);
         else setValue(I_C_OrderLine.COLUMNNAME_Ref_OrderLine_ID, Integer.valueOf(Ref_OrderLine_ID));
     }
@@ -898,7 +898,7 @@ public class X_C_OrderLine extends PO {
      *
      * @return Resource Assignment
      */
-    public int getS_ResourceAssignment_ID() {
+    public int getResourceAssignmentId() {
         Integer ii = (Integer) getValue(I_C_OrderLine.COLUMNNAME_S_ResourceAssignment_ID);
         if (ii == null) return 0;
         return ii;
@@ -909,7 +909,7 @@ public class X_C_OrderLine extends PO {
      *
      * @param S_ResourceAssignment_ID Resource Assignment
      */
-    public void setS_ResourceAssignment_ID(int S_ResourceAssignment_ID) {
+    public void setS_ResourceAssignmentId(int S_ResourceAssignment_ID) {
         if (S_ResourceAssignment_ID < 1)
             setValue(I_C_OrderLine.COLUMNNAME_S_ResourceAssignment_ID, null);
         else

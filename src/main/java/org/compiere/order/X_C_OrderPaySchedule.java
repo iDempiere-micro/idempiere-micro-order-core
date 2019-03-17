@@ -28,7 +28,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule {
     public X_C_OrderPaySchedule(Properties ctx, int C_OrderPaySchedule_ID) {
         super(ctx, C_OrderPaySchedule_ID);
         /**
-         * if (C_OrderPaySchedule_ID == 0) { setOrderId (0); setC_OrderPaySchedule_ID (0);
+         * if (C_OrderPaySchedule_ID == 0) { setOrderId (0); setOrderPaySchedule_ID (0);
          * setDiscountAmt (Env.ZERO); setDiscountDate (new Timestamp( System.currentTimeMillis() ));
          * setDueAmt (Env.ZERO); setDueDate (new Timestamp( System.currentTimeMillis() )); setIsValid
          * (false); setProcessed (false); }
@@ -82,7 +82,7 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule {
      *
      * @param C_PaySchedule_ID Payment Schedule Template
      */
-    public void setC_PaySchedule_ID(int C_PaySchedule_ID) {
+    public void setPayScheduleId(int C_PaySchedule_ID) {
         if (C_PaySchedule_ID < 1) setValueNoCheck(COLUMNNAME_C_PaySchedule_ID, null);
         else setValueNoCheck(COLUMNNAME_C_PaySchedule_ID, Integer.valueOf(C_PaySchedule_ID));
     }

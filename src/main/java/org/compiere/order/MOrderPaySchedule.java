@@ -68,7 +68,7 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
         m_parent = order;
         setClientOrg(order);
         setOrderId(order.getOrderId());
-        setC_PaySchedule_ID(paySchedule.getC_PaySchedule_ID());
+        setPayScheduleId(paySchedule.getPayScheduleId());
 
         //	Amounts
         int scale = MCurrency.getStdPrecision(getCtx(), order.getCurrencyId());
@@ -147,7 +147,7 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
      * @return true
      */
     protected boolean beforeSave(boolean newRecord) {
-        if (is_ValueChanged("DueAmt")) {
+        if (isValueChanged("DueAmt")) {
             log.fine("beforeSave");
             setIsValid(false);
         }
@@ -163,7 +163,7 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
      */
     protected boolean afterSave(boolean newRecord, boolean success) {
         if (!success) return success;
-        if (is_ValueChanged("DueAmt") || is_ValueChanged("IsActive")) {
+        if (isValueChanged("DueAmt") || isValueChanged("IsActive")) {
             log.fine("afterSave");
             getParent();
             m_parent.validatePaySchedule();

@@ -32,9 +32,9 @@ public class MShipperFacade {
     }
 
     private MShippingProcessor getShippingProcessor() {
-        if (m_shipper.getM_ShippingProcessor_ID() > 0)
+        if (m_shipper.getShippingProcessorId() > 0)
             return new MShippingProcessor(
-                    m_shipper.getCtx(), m_shipper.getM_ShippingProcessor_ID());
+                    m_shipper.getCtx(), m_shipper.getShippingProcessorId());
         return null;
     }
 

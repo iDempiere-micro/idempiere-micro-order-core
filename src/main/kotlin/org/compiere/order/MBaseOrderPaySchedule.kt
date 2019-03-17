@@ -7,13 +7,15 @@ import java.util.Properties
 /**
  * Get Payment Schedule of the Order
  *
- * @param ctx                   context
- * @param orderId            order id (direct)
+ * @param ctx context
+ * @param orderId order id (direct)
  * @param orderPayScheduleId id (indirect)
  * @return array of schedule
  */
 fun getOrderPaySchedule(
-    ctx: Properties, orderId: Int, orderPayScheduleId: Int
+    ctx: Properties,
+    orderId: Int,
+    orderPayScheduleId: Int
 ): Array<MOrderPaySchedule> {
     var sql = "SELECT * FROM C_OrderPaySchedule ips WHERE IsActive='Y' "
     if (orderId != 0)
@@ -30,4 +32,4 @@ fun getOrderPaySchedule(
 
     val query = queryOf(sql, params).map { row -> MOrderPaySchedule(ctx, row) }.asList
     return DB.current.run(query).toTypedArray()
-} //	getSchedule
+} // 	getSchedule

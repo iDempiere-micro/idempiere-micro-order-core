@@ -247,7 +247,7 @@ public class X_C_Order extends PO {
      *
      * @return Business Partner to be invoiced
      */
-    public int getBill_BPartner_ID() {
+    public int getBill_BPartnerId() {
         Integer ii = (Integer) getValue(I_C_Order.COLUMNNAME_Bill_BPartner_ID);
         if (ii == null) return 0;
         return ii;
@@ -258,7 +258,7 @@ public class X_C_Order extends PO {
      *
      * @param Bill_BPartner_ID Business Partner to be invoiced
      */
-    public void setBill_BPartner_ID(int Bill_BPartner_ID) {
+    public void setBill_BPartnerId(int Bill_BPartner_ID) {
         if (Bill_BPartner_ID < 1) setValue(I_C_Order.COLUMNNAME_Bill_BPartner_ID, null);
         else setValue(I_C_Order.COLUMNNAME_Bill_BPartner_ID, Integer.valueOf(Bill_BPartner_ID));
     }
@@ -289,7 +289,7 @@ public class X_C_Order extends PO {
      *
      * @return Business Partner Contact for invoicing
      */
-    public int getBill_User_ID() {
+    public int getBill_UserId() {
         Integer ii = (Integer) getValue(I_C_Order.COLUMNNAME_Bill_User_ID);
         if (ii == null) return 0;
         return ii;
@@ -300,7 +300,7 @@ public class X_C_Order extends PO {
      *
      * @param Bill_User_ID Business Partner Contact for invoicing
      */
-    public void setBill_User_ID(int Bill_User_ID) {
+    public void setBill_UserId(int Bill_User_ID) {
         if (Bill_User_ID < 1) setValue(I_C_Order.COLUMNNAME_Bill_User_ID, null);
         else setValue(I_C_Order.COLUMNNAME_Bill_User_ID, Integer.valueOf(Bill_User_ID));
     }
@@ -396,7 +396,7 @@ public class X_C_Order extends PO {
      *
      * @return Cash Journal Line
      */
-    public int getC_CashLine_ID() {
+    public int getCashLineId() {
         Integer ii = (Integer) getValue(I_C_Order.COLUMNNAME_C_CashLine_ID);
         if (ii == null) return 0;
         return ii;
@@ -407,7 +407,7 @@ public class X_C_Order extends PO {
      *
      * @param C_CashLine_ID Cash Journal Line
      */
-    public void setC_CashLine_ID(int C_CashLine_ID) {
+    public void setCashLineId(int C_CashLine_ID) {
         if (C_CashLine_ID < 1) setValue(I_C_Order.COLUMNNAME_C_CashLine_ID, null);
         else setValue(I_C_Order.COLUMNNAME_C_CashLine_ID, Integer.valueOf(C_CashLine_ID));
     }
@@ -417,7 +417,7 @@ public class X_C_Order extends PO {
      *
      * @return Cash Plan Line
      */
-    public int getC_CashPlanLine_ID() {
+    public int getCashPlanLineId() {
         Integer ii = (Integer) getValue(I_C_Order.COLUMNNAME_C_CashPlanLine_ID);
         if (ii == null) return 0;
         return ii;
@@ -564,7 +564,7 @@ public class X_C_Order extends PO {
      *
      * @param C_OrderSource_ID Order Source
      */
-    public void setC_OrderSource_ID(int C_OrderSource_ID) {
+    public void setOrderSourceId(int C_OrderSource_ID) {
         if (C_OrderSource_ID < 1) setValue(I_C_Order.COLUMNNAME_C_OrderSource_ID, null);
         else setValue(I_C_Order.COLUMNNAME_C_OrderSource_ID, Integer.valueOf(C_OrderSource_ID));
     }
@@ -823,7 +823,7 @@ public class X_C_Order extends PO {
      *
      * @return Business Partner to ship to
      */
-    public int getDropShip_BPartner_ID() {
+    public int getDropShipBPartnerId() {
         Integer ii = (Integer) getValue(I_C_Order.COLUMNNAME_DropShip_BPartner_ID);
         if (ii == null) return 0;
         return ii;
@@ -834,7 +834,7 @@ public class X_C_Order extends PO {
      *
      * @param DropShip_BPartner_ID Business Partner to ship to
      */
-    public void setDropShip_BPartner_ID(int DropShip_BPartner_ID) {
+    public void setDropShipBPartnerId(int DropShip_BPartner_ID) {
         if (DropShip_BPartner_ID < 1) setValue(I_C_Order.COLUMNNAME_DropShip_BPartner_ID, null);
         else
             setValue(I_C_Order.COLUMNNAME_DropShip_BPartner_ID, Integer.valueOf(DropShip_BPartner_ID));
@@ -845,7 +845,7 @@ public class X_C_Order extends PO {
      *
      * @return Business Partner Location for shipping to
      */
-    public int getDropShip_Location_ID() {
+    public int getDropShipLocationId() {
         Integer ii = (Integer) getValue(I_C_Order.COLUMNNAME_DropShip_Location_ID);
         if (ii == null) return 0;
         return ii;
@@ -856,7 +856,7 @@ public class X_C_Order extends PO {
      *
      * @param DropShip_Location_ID Business Partner Location for shipping to
      */
-    public void setDropShip_Location_ID(int DropShip_Location_ID) {
+    public void setDropShipLocationId(int DropShip_Location_ID) {
         if (DropShip_Location_ID < 1) setValue(I_C_Order.COLUMNNAME_DropShip_Location_ID, null);
         else
             setValue(I_C_Order.COLUMNNAME_DropShip_Location_ID, Integer.valueOf(DropShip_Location_ID));
@@ -867,7 +867,7 @@ public class X_C_Order extends PO {
      *
      * @return Business Partner Contact for drop shipment
      */
-    public int getDropShip_User_ID() {
+    public int getDropShipUserId() {
         Integer ii = (Integer) getValue(I_C_Order.COLUMNNAME_DropShip_User_ID);
         if (ii == null) return 0;
         return ii;
@@ -878,7 +878,7 @@ public class X_C_Order extends PO {
      *
      * @param DropShip_User_ID Business Partner Contact for drop shipment
      */
-    public void setDropShip_User_ID(int DropShip_User_ID) {
+    public void setDropShipUserId(int DropShip_User_ID) {
         if (DropShip_User_ID < 1) setValue(I_C_Order.COLUMNNAME_DropShip_User_ID, null);
         else setValue(I_C_Order.COLUMNNAME_DropShip_User_ID, Integer.valueOf(DropShip_User_ID));
     }
@@ -1195,7 +1195,7 @@ public class X_C_Order extends PO {
      *
      * @return This field links a sales order to the purchase order that is generated from it.
      */
-    public int getLink_Order_ID() {
+    public int getLink_OrderId() {
         Integer ii = (Integer) getValue(I_C_Order.COLUMNNAME_Link_Order_ID);
         if (ii == null) return 0;
         return ii;
@@ -1207,7 +1207,7 @@ public class X_C_Order extends PO {
      * @param Link_Order_ID This field links a sales order to the purchase order that is generated
      *                      from it.
      */
-    public void setLink_Order_ID(int Link_Order_ID) {
+    public void setLink_OrderId(int Link_Order_ID) {
         if (Link_Order_ID < 1) setValueNoCheck(I_C_Order.COLUMNNAME_Link_Order_ID, null);
         else setValueNoCheck(I_C_Order.COLUMNNAME_Link_Order_ID, Link_Order_ID);
     }
@@ -1409,7 +1409,7 @@ public class X_C_Order extends PO {
      *
      * @param QuotationOrder_ID Quotation used for generating this order
      */
-    public void setQuotationOrder_ID(int QuotationOrder_ID) {
+    public void setQuotationOrderId(int QuotationOrder_ID) {
         if (QuotationOrder_ID < 1) setValue(I_C_Order.COLUMNNAME_QuotationOrder_ID, null);
         else setValue(I_C_Order.COLUMNNAME_QuotationOrder_ID, Integer.valueOf(QuotationOrder_ID));
     }
@@ -1419,7 +1419,7 @@ public class X_C_Order extends PO {
      *
      * @return Reference to corresponding Sales/Purchase Order
      */
-    public int getRef_Order_ID() {
+    public int getRef_OrderId() {
         Integer ii = (Integer) getValue(I_C_Order.COLUMNNAME_Ref_Order_ID);
         if (ii == null) return 0;
         return ii;
@@ -1430,7 +1430,7 @@ public class X_C_Order extends PO {
      *
      * @param Ref_Order_ID Reference to corresponding Sales/Purchase Order
      */
-    public void setRef_Order_ID(int Ref_Order_ID) {
+    public void setRef_OrderId(int Ref_Order_ID) {
         if (Ref_Order_ID < 1) setValue(I_C_Order.COLUMNNAME_Ref_Order_ID, null);
         else setValue(I_C_Order.COLUMNNAME_Ref_Order_ID, Integer.valueOf(Ref_Order_ID));
     }

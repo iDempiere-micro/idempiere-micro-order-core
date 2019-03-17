@@ -76,14 +76,14 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
      */
     public static MRMATax get(I_M_RMALine line, int precision, boolean oldTax) {
         MRMATax retValue = null;
-        if (line == null || line.getM_RMA_ID() == 0) {
+        if (line == null || line.getRMAId() == 0) {
             s_log.fine("No RMA");
             return null;
         }
-        int C_Tax_ID = line.getC_Tax_ID();
-        boolean isOldTax = oldTax && line.is_ValueChanged(MRMATax.COLUMNNAME_C_Tax_ID);
+        int C_Tax_ID = line.getTaxId();
+        boolean isOldTax = oldTax && line.isValueChanged(MRMATax.COLUMNNAME_C_Tax_ID);
         if (isOldTax) {
-            Object old = line.get_ValueOld(MRMATax.COLUMNNAME_C_Tax_ID);
+            Object old = line.getValueOld(MRMATax.COLUMNNAME_C_Tax_ID);
             if (old == null) {
                 s_log.fine("No Old Tax");
                 return null;
@@ -95,7 +95,7 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
             return null;
         }
 
-        retValue = MBaseRMATaxKt.getRMATax(line.getCtx(), line.getM_RMA_ID(), C_Tax_ID);
+        retValue = MBaseRMATaxKt.getRMATax(line.getCtx(), line.getRMAId(), C_Tax_ID);
         if (retValue != null) {
             retValue.setPrecision(precision);
             if (s_log.isLoggable(Level.FINE)) s_log.fine("(old=" + oldTax + ") " + retValue);
@@ -110,8 +110,8 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
         //	Create New
         retValue = new MRMATax(line.getCtx(), 0);
         retValue.setClientOrg(line);
-        retValue.setM_RMA_ID(line.getM_RMA_ID());
-        retValue.setC_Tax_ID(line.getC_Tax_ID());
+        retValue.setRMAId(line.getRMAId());
+        retValue.setTaxId(line.getTaxId());
         retValue.setPrecision(precision);
         retValue.setIsTaxIncluded(line.getParent().isTaxIncluded());
         if (s_log.isLoggable(Level.FINE)) s_log.fine("(new) " + retValue);
@@ -143,7 +143,7 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
      * @return tax
      */
     public I_C_Tax getTax() {
-        if (m_tax == null) m_tax = MTax.get(getCtx(), getC_Tax_ID());
+        if (m_tax == null) m_tax = MTax.get(getCtx(), getTaxId());
         return m_tax;
     } //	getTax
 
@@ -165,8 +165,8 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
         ResultSet rs;
         try {
             pstmt = prepareStatement(sql);
-            pstmt.setInt(1, getM_RMA_ID());
-            pstmt.setInt(2, getC_Tax_ID());
+            pstmt.setInt(1, getRMAId());
+            pstmt.setInt(2, getTaxId());
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 BigDecimal baseAmt = rs.getBigDecimal(1);
@@ -206,9 +206,9 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
         StringBuffer sb =
                 new StringBuffer("MRMATax[")
                         .append("M_RMA_ID=")
-                        .append(getM_RMA_ID())
+                        .append(getRMAId())
                         .append(", C_Tax_ID=")
-                        .append(getC_Tax_ID())
+                        .append(getTaxId())
                         .append(", Base=")
                         .append(getTaxBaseAmt())
                         .append(", Tax=")

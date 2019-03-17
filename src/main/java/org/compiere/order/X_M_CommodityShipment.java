@@ -26,7 +26,7 @@ public class X_M_CommodityShipment extends PO implements I_M_CommodityShipment {
         super(ctx, M_CommodityShipment_ID);
         /**
          * if (M_CommodityShipment_ID == 0) { setCountryOfManufacture_ID (0); setHarmonizedCode (null);
-         * setM_CommodityShipment_ID (0); }
+         * setCommodityShipment_ID (0); }
          */
     }
 

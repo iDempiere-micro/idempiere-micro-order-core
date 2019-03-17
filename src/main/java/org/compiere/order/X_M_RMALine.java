@@ -28,7 +28,7 @@ public class X_M_RMALine extends PO {
     public X_M_RMALine(Properties ctx, int M_RMALine_ID) {
         super(ctx, M_RMALine_ID);
         /**
-         * if (M_RMALine_ID == 0) { setC_Tax_ID (0); setM_RMA_ID (0); setM_RMALine_ID (0); setProcessed
+         * if (M_RMALine_ID == 0) { setTaxId (0); setRMAId (0); setRMALine_ID (0); setProcessed
          * (false); setQty (Env.ZERO); }
          */
     }
@@ -100,7 +100,7 @@ public class X_M_RMALine extends PO {
      *
      * @return Tax identifier
      */
-    public int getC_Tax_ID() {
+    public int getTaxId() {
         Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_C_Tax_ID);
         if (ii == null) return 0;
         return ii;
@@ -111,7 +111,7 @@ public class X_M_RMALine extends PO {
      *
      * @param C_Tax_ID Tax identifier
      */
-    public void setC_Tax_ID(int C_Tax_ID) {
+    public void setTaxId(int C_Tax_ID) {
         if (C_Tax_ID < 1) setValue(I_M_RMALine.COLUMNNAME_C_Tax_ID, null);
         else setValue(I_M_RMALine.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
     }
@@ -174,10 +174,10 @@ public class X_M_RMALine extends PO {
         setValue(I_M_RMALine.COLUMNNAME_LineNetAmt, LineNetAmt);
     }
 
-    public org.compiere.model.I_M_InOutLine getM_InOutLine() throws RuntimeException {
+    public org.compiere.model.I_M_InOutLine getInOutLine() throws RuntimeException {
         return (org.compiere.model.I_M_InOutLine)
                 MTable.get(getCtx(), org.compiere.model.I_M_InOutLine.Table_Name)
-                        .getPO(getM_InOutLine_ID());
+                        .getPO(getInOutLineId());
     }
 
 
@@ -186,7 +186,7 @@ public class X_M_RMALine extends PO {
      *
      * @return Line on Shipment or Receipt document
      */
-    public int getM_InOutLine_ID() {
+    public int getInOutLineId() {
         Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_M_InOutLine_ID);
         if (ii == null) return 0;
         return ii;
@@ -197,7 +197,7 @@ public class X_M_RMALine extends PO {
      *
      * @param M_InOutLine_ID Line on Shipment or Receipt document
      */
-    public void setM_InOutLine_ID(int M_InOutLine_ID) {
+    public void setInOutLineId(int M_InOutLine_ID) {
         if (M_InOutLine_ID < 1) setValue(I_M_RMALine.COLUMNNAME_M_InOutLine_ID, null);
         else setValue(I_M_RMALine.COLUMNNAME_M_InOutLine_ID, Integer.valueOf(M_InOutLine_ID));
     }
@@ -207,7 +207,7 @@ public class X_M_RMALine extends PO {
      *
      * @return Product, Service, Item
      */
-    public int getM_Product_ID() {
+    public int getProductId() {
         Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_M_Product_ID);
         if (ii == null) return 0;
         return ii;
@@ -218,7 +218,7 @@ public class X_M_RMALine extends PO {
      *
      * @param M_Product_ID Product, Service, Item
      */
-    public void setM_Product_ID(int M_Product_ID) {
+    public void setProductId(int M_Product_ID) {
         if (M_Product_ID < 1) setValue(I_M_RMALine.COLUMNNAME_M_Product_ID, null);
         else setValue(I_M_RMALine.COLUMNNAME_M_Product_ID, M_Product_ID);
     }
@@ -228,7 +228,7 @@ public class X_M_RMALine extends PO {
      *
      * @return Return Material Authorization
      */
-    public int getM_RMA_ID() {
+    public int getRMAId() {
         Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_M_RMA_ID);
         if (ii == null) return 0;
         return ii;
@@ -239,7 +239,7 @@ public class X_M_RMALine extends PO {
      *
      * @param M_RMA_ID Return Material Authorization
      */
-    public void setM_RMA_ID(int M_RMA_ID) {
+    public void setRMAId(int M_RMA_ID) {
         if (M_RMA_ID < 1) setValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMA_ID, null);
         else setValueNoCheck(I_M_RMALine.COLUMNNAME_M_RMA_ID, M_RMA_ID);
     }
@@ -249,7 +249,7 @@ public class X_M_RMALine extends PO {
      *
      * @return Return Material Authorization Line
      */
-    public int getM_RMALine_ID() {
+    public int getRMALineId() {
         Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_M_RMALine_ID);
         if (ii == null) return 0;
         return ii;
@@ -343,7 +343,7 @@ public class X_M_RMALine extends PO {
      *
      * @return Referenced RMA Line
      */
-    public int getRef_RMALine_ID() {
+    public int getRef_RMALineId() {
         Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID);
         if (ii == null) return 0;
         return ii;
@@ -354,7 +354,7 @@ public class X_M_RMALine extends PO {
      *
      * @param Ref_RMALine_ID Referenced RMA Line
      */
-    public void setRef_RMALine_ID(int Ref_RMALine_ID) {
+    public void setRef_RMALineId(int Ref_RMALine_ID) {
         if (Ref_RMALine_ID < 1) setValue(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID, null);
         else setValue(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID, Integer.valueOf(Ref_RMALine_ID));
     }

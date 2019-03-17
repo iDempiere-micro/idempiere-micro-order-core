@@ -5,7 +5,6 @@ import org.compiere.model.I_C_PaymentTerm
 import software.hsharp.core.util.DB
 import software.hsharp.core.util.asResource
 import software.hsharp.core.util.queryOf
-import java.sql.ResultSet
 import java.util.Properties
 
 abstract class MBasePaymentTerm : X_C_PaymentTerm {

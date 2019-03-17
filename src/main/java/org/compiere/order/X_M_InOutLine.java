@@ -28,10 +28,10 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
     public X_M_InOutLine(Properties ctx, int M_InOutLine_ID) {
         super(ctx, M_InOutLine_ID);
         /**
-         * if (M_InOutLine_ID == 0) { setC_UOM_ID (0); // @#C_UOM_ID@ setIsDescription (false); // N
+         * if (M_InOutLine_ID == 0) { setUOMId (0); // @#C_UOM_ID@ setIsDescription (false); // N
          * setIsInvoiced (false); setLine (0); // @SQL=SELECT NVL(MAX(Line),0)+10 AS DefaultValue FROM
-         * M_InOutLine WHERE M_InOut_ID=@M_InOut_ID@ setM_AttributeSetInstance_ID (0); setM_InOut_ID
-         * (0); setM_InOutLine_ID (0); setMovementQty (Env.ZERO); // 1 setProcessed (false);
+         * M_InOutLine WHERE M_InOut_ID=@M_InOut_ID@ setAttributeSetInstanceId (0); setInOutId
+         * (0); setInOutLineId (0); setMovementQty (Env.ZERO); // 1 setProcessed (false);
          * setQtyEntered (Env.ZERO); // 1 }
          */
     }
@@ -150,10 +150,10 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
         setValue(COLUMNNAME_ConfirmedQty, ConfirmedQty);
     }
 
-    public org.compiere.model.I_C_OrderLine getC_OrderLine() throws RuntimeException {
+    public org.compiere.model.I_C_OrderLine getOrderLine() throws RuntimeException {
         return (org.compiere.model.I_C_OrderLine)
                 MTable.get(getCtx(), org.compiere.model.I_C_OrderLine.Table_Name)
-                        .getPO(getC_OrderLine_ID());
+                        .getPO(getOrderLineId());
     }
 
     /**
@@ -161,7 +161,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @return Sales Order Line
      */
-    public int getC_OrderLine_ID() {
+    public int getOrderLineId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_OrderLine_ID);
         if (ii == null) return 0;
         return ii;
@@ -172,7 +172,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @param C_OrderLine_ID Sales Order Line
      */
-    public void setC_OrderLine_ID(int C_OrderLine_ID) {
+    public void setOrderLineId(int C_OrderLine_ID) {
         if (C_OrderLine_ID < 1) setValueNoCheck(COLUMNNAME_C_OrderLine_ID, null);
         else setValueNoCheck(COLUMNNAME_C_OrderLine_ID, C_OrderLine_ID);
     }
@@ -203,7 +203,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @return Phase of a Project
      */
-    public int getC_ProjectPhase_ID() {
+    public int getProjectPhaseId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_ProjectPhase_ID);
         if (ii == null) return 0;
         return ii;
@@ -214,7 +214,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @param C_ProjectPhase_ID Phase of a Project
      */
-    public void setC_ProjectPhase_ID(int C_ProjectPhase_ID) {
+    public void setProjectPhaseId(int C_ProjectPhase_ID) {
         if (C_ProjectPhase_ID < 1) setValue(COLUMNNAME_C_ProjectPhase_ID, null);
         else setValue(COLUMNNAME_C_ProjectPhase_ID, Integer.valueOf(C_ProjectPhase_ID));
     }
@@ -224,7 +224,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @return Actual Project Task in a Phase
      */
-    public int getC_ProjectTask_ID() {
+    public int getProjectTaskId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_ProjectTask_ID);
         if (ii == null) return 0;
         return ii;
@@ -235,7 +235,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @param C_ProjectTask_ID Actual Project Task in a Phase
      */
-    public void setC_ProjectTask_ID(int C_ProjectTask_ID) {
+    public void setProjectTaskId(int C_ProjectTask_ID) {
         if (C_ProjectTask_ID < 1) setValue(COLUMNNAME_C_ProjectTask_ID, null);
         else setValue(COLUMNNAME_C_ProjectTask_ID, Integer.valueOf(C_ProjectTask_ID));
     }
@@ -245,7 +245,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @return Unit of Measure
      */
-    public int getC_UOM_ID() {
+    public int getUOMId() {
         Integer ii = (Integer) getValue(COLUMNNAME_C_UOM_ID);
         if (ii == null) return 0;
         return ii;
@@ -256,7 +256,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @param C_UOM_ID Unit of Measure
      */
-    public void setC_UOM_ID(int C_UOM_ID) {
+    public void setUOMId(int C_UOM_ID) {
         if (C_UOM_ID < 1) setValueNoCheck(COLUMNNAME_C_UOM_ID, null);
         else setValueNoCheck(COLUMNNAME_C_UOM_ID, Integer.valueOf(C_UOM_ID));
     }
@@ -346,31 +346,31 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
     }
 
     /**
-     * Set Attribute Set Instance.
-     *
-     * @param M_AttributeSetInstance_ID Product Attribute Set Instance
-     */
-    public void setM_AttributeSetInstance_ID(int M_AttributeSetInstance_ID) {
-        if (M_AttributeSetInstance_ID < 0) setValue(COLUMNNAME_M_AttributeSetInstance_ID, null);
-        else
-            setValue(COLUMNNAME_M_AttributeSetInstance_ID, Integer.valueOf(M_AttributeSetInstance_ID));
-    }
-
-    /**
      * Get Attribute Set Instance.
      *
      * @return Product Attribute Set Instance
      */
-    public int getMAttributeSetInstance_ID() {
+    public int getAttributeSetInstanceId() {
         Integer ii = (Integer) getValue(COLUMNNAME_M_AttributeSetInstance_ID);
         if (ii == null) return 0;
         return ii;
     }
 
-    public org.compiere.model.I_M_InOut getM_InOut() throws RuntimeException {
+    /**
+     * Set Attribute Set Instance.
+     *
+     * @param M_AttributeSetInstance_ID Product Attribute Set Instance
+     */
+    public void setAttributeSetInstanceId(int M_AttributeSetInstance_ID) {
+        if (M_AttributeSetInstance_ID < 0) setValue(COLUMNNAME_M_AttributeSetInstance_ID, null);
+        else
+            setValue(COLUMNNAME_M_AttributeSetInstance_ID, Integer.valueOf(M_AttributeSetInstance_ID));
+    }
+
+    public org.compiere.model.I_M_InOut getInOut() throws RuntimeException {
         return (org.compiere.model.I_M_InOut)
                 MTable.get(getCtx(), org.compiere.model.I_M_InOut.Table_Name)
-                        .getPO(getM_InOut_ID());
+                        .getPO(getInOutId());
     }
 
     /**
@@ -378,7 +378,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @return Material Shipment Document
      */
-    public int getM_InOut_ID() {
+    public int getInOutId() {
         Integer ii = (Integer) getValue(COLUMNNAME_M_InOut_ID);
         if (ii == null) return 0;
         return ii;
@@ -389,7 +389,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @param M_InOut_ID Material Shipment Document
      */
-    public void setM_InOut_ID(int M_InOut_ID) {
+    public void setInOutId(int M_InOut_ID) {
         if (M_InOut_ID < 1) setValueNoCheck(COLUMNNAME_M_InOut_ID, null);
         else setValueNoCheck(COLUMNNAME_M_InOut_ID, M_InOut_ID);
     }
@@ -399,7 +399,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @return Line on Shipment or Receipt document
      */
-    public int getM_InOutLine_ID() {
+    public int getInOutLineId() {
         Integer ii = (Integer) getValue(COLUMNNAME_M_InOutLine_ID);
         if (ii == null) return 0;
         return ii;
@@ -410,7 +410,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @return Warehouse Locator
      */
-    public int getM_Locator_ID() {
+    public int getLocatorId() {
         Integer ii = (Integer) getValue(COLUMNNAME_M_Locator_ID);
         if (ii == null) return 0;
         return ii;
@@ -421,7 +421,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @param M_Locator_ID Warehouse Locator
      */
-    public void setM_Locator_ID(int M_Locator_ID) {
+    public void setLocatorId(int M_Locator_ID) {
         if (M_Locator_ID < 1) setValue(COLUMNNAME_M_Locator_ID, null);
         else setValue(COLUMNNAME_M_Locator_ID, Integer.valueOf(M_Locator_ID));
     }
@@ -446,10 +446,10 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
         setValue(COLUMNNAME_MovementQty, MovementQty);
     }
 
-    public org.compiere.model.I_M_Product getM_Product() throws RuntimeException {
+    public org.compiere.model.I_M_Product getProduct() throws RuntimeException {
         return (org.compiere.model.I_M_Product)
                 MTable.get(getCtx(), org.compiere.model.I_M_Product.Table_Name)
-                        .getPO(getM_Product_ID());
+                        .getPO(getProductId());
     }
 
     /**
@@ -457,7 +457,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @return Product, Service, Item
      */
-    public int getM_Product_ID() {
+    public int getProductId() {
         Integer ii = (Integer) getValue(COLUMNNAME_M_Product_ID);
         if (ii == null) return 0;
         return ii;
@@ -468,15 +468,15 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @param M_Product_ID Product, Service, Item
      */
-    public void setM_Product_ID(int M_Product_ID) {
+    public void setProductId(int M_Product_ID) {
         if (M_Product_ID < 1) setValue(COLUMNNAME_M_Product_ID, null);
         else setValue(COLUMNNAME_M_Product_ID, M_Product_ID);
     }
 
-    public org.compiere.model.I_M_RMALine getM_RMALine() throws RuntimeException {
+    public org.compiere.model.I_M_RMALine getRMALine() throws RuntimeException {
         return (org.compiere.model.I_M_RMALine)
                 MTable.get(getCtx(), org.compiere.model.I_M_RMALine.Table_Name)
-                        .getPO(getM_RMALine_ID());
+                        .getPO(getRMALineId());
     }
 
     /**
@@ -484,7 +484,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @return Return Material Authorization Line
      */
-    public int getM_RMALine_ID() {
+    public int getRMALineId() {
         Integer ii = (Integer) getValue(COLUMNNAME_M_RMALine_ID);
         if (ii == null) return 0;
         return ii;
@@ -495,7 +495,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @param M_RMALine_ID Return Material Authorization Line
      */
-    public void setM_RMALine_ID(int M_RMALine_ID) {
+    public void setRMALineId(int M_RMALine_ID) {
         if (M_RMALine_ID < 1) setValue(COLUMNNAME_M_RMALine_ID, null);
         else setValue(COLUMNNAME_M_RMALine_ID, M_RMALine_ID);
     }
@@ -563,7 +563,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @return Referenced Shipment Line
      */
-    public int getRef_InOutLine_ID() {
+    public int getReferencedInOutLineId() {
         Integer ii = (Integer) getValue(COLUMNNAME_Ref_InOutLine_ID);
         if (ii == null) return 0;
         return ii;
@@ -574,7 +574,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @param Ref_InOutLine_ID Referenced Shipment Line
      */
-    public void setRef_InOutLine_ID(int Ref_InOutLine_ID) {
+    public void setReferencedInOutLineId(int Ref_InOutLine_ID) {
         if (Ref_InOutLine_ID < 1) setValue(COLUMNNAME_Ref_InOutLine_ID, null);
         else setValue(COLUMNNAME_Ref_InOutLine_ID, Ref_InOutLine_ID);
     }
@@ -584,7 +584,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @return Use to keep the reversal line ID for reversing costing purpose
      */
-    public int getReversalLine_ID() {
+    public int getReversalLineId() {
         Integer ii = (Integer) getValue(COLUMNNAME_ReversalLine_ID);
         if (ii == null) return 0;
         return ii;
@@ -595,7 +595,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      *
      * @param ReversalLine_ID Use to keep the reversal line ID for reversing costing purpose
      */
-    public void setReversalLine_ID(int ReversalLine_ID) {
+    public void setReversalLineId(int ReversalLine_ID) {
         if (ReversalLine_ID < 1) setValue(COLUMNNAME_ReversalLine_ID, null);
         else setValue(COLUMNNAME_ReversalLine_ID, ReversalLine_ID);
     }

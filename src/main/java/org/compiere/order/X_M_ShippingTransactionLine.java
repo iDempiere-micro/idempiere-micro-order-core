@@ -28,8 +28,8 @@ public class X_M_ShippingTransactionLine extends PO
             Properties ctx, int M_ShippingTransactionLine_ID) {
         super(ctx, M_ShippingTransactionLine_ID);
         /**
-         * if (M_ShippingTransactionLine_ID == 0) { setM_ShippingTransaction_ID (0);
-         * setM_ShippingTransactionLine_ID (0); setProcessed (false); // N }
+         * if (M_ShippingTransactionLine_ID == 0) { setShippingTransactionId (0);
+         * setShippingTransactionLine_ID (0); setProcessed (false); // N }
          */
     }
 
@@ -59,7 +59,7 @@ public class X_M_ShippingTransactionLine extends PO
      *
      * @param C_UOM_Length_ID Standard Unit of Measure for Length
      */
-    public void setC_UOM_Length_ID(int C_UOM_Length_ID) {
+    public void setUOMLengthId(int C_UOM_Length_ID) {
         if (C_UOM_Length_ID < 1) setValue(COLUMNNAME_C_UOM_Length_ID, null);
         else setValue(COLUMNNAME_C_UOM_Length_ID, Integer.valueOf(C_UOM_Length_ID));
     }
@@ -69,7 +69,7 @@ public class X_M_ShippingTransactionLine extends PO
      *
      * @param C_UOM_Weight_ID Standard Unit of Measure for Weight
      */
-    public void setC_UOM_Weight_ID(int C_UOM_Weight_ID) {
+    public void setUOMWeightId(int C_UOM_Weight_ID) {
         if (C_UOM_Weight_ID < 1) setValue(COLUMNNAME_C_UOM_Weight_ID, null);
         else setValue(COLUMNNAME_C_UOM_Weight_ID, Integer.valueOf(C_UOM_Weight_ID));
     }
@@ -106,7 +106,7 @@ public class X_M_ShippingTransactionLine extends PO
      *
      * @param M_ShippingTransaction_ID Shipping Transaction
      */
-    public void setM_ShippingTransaction_ID(int M_ShippingTransaction_ID) {
+    public void setShippingTransactionId(int M_ShippingTransaction_ID) {
         if (M_ShippingTransaction_ID < 1) setValueNoCheck(COLUMNNAME_M_ShippingTransaction_ID, null);
         else
             setValueNoCheck(

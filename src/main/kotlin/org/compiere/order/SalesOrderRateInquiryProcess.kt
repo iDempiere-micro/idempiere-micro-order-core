@@ -71,11 +71,11 @@ fun createShippingTransaction(
     val items = ArrayList<Array<Any>>()
     val ols = m_order.getLines(false, MOrderLine.COLUMNNAME_Line)
     for (ol in ols) {
-        if (ol.m_Product_ID > 0 && ol.m_Product_ID == ci.productFreightId || ol.chargeId > 0 && ol.chargeId == ci.chargeFreightId) {
+        if (ol.productId > 0 && ol.productId == ci.productFreightId || ol.chargeId > 0 && ol.chargeId == ci.chargeFreightId) {
             // 				FreightAmt = FreightAmt.add(ol.getLineNetAmt());
             continue
-        } else if (ol.m_Product_ID > 0) {
-            val product = MProduct(ctx, ol.m_Product_ID)
+        } else if (ol.productId > 0) {
+            val product = MProduct(ctx, ol.productId)
 
             val weight = product.weight
             if (weight == null || weight.compareTo(BigDecimal.ZERO) == 0)
@@ -188,14 +188,14 @@ fun createShippingTransaction(
     st.setUserId(m_order.userId)
     st.setBusinessPartnerInvoicingLocationId(m_order.businessPartnerInvoicingLocationId)
     st.setBoxCount(BoxCount)
-    // 		st.setC_BP_ShippingAcct_ID(getC_BP_ShippingAcct_ID());
+    // 		st.setBP_ShippingAcctId(getBP_ShippingAcctId());
     st.setBusinessPartnerId(m_order.businessPartnerId)
     st.setBusinessPartnerLocationId(m_order.businessPartnerLocationId)
     st.setCurrencyId(m_order.currencyId)
     // 		st.setInvoiceId(0);
     st.setOrderId(m_order.orderId)
-    st.setC_UOM_Length_ID(ci.uomLengthId)
-    st.setC_UOM_Weight_ID(ci.uomWeightId)
+    st.setUOMLengthId(ci.uomLengthId)
+    st.setUOMWeightId(ci.uomWeightId)
     // 		st.setCashOnDelivery(isCashOnDelivery());
     st.setCODAmount(CODAmount)
     st.setCustomsValue(CustomsValue)
@@ -236,13 +236,13 @@ fun createShippingTransaction(
     // 		st.setIsVerbalConfirmation(isVerbalConfirmation());
     // 		st.setLatestPickupTime(getLatestPickupTime());
     // 		st.setLength(getLength());
-    // 		st.setM_InOut_ID(0);
-    // 		st.setM_Package_ID(getM_Package_ID());
+    // 		st.setInOutId(0);
+    // 		st.setPackageId(getPackageId());
     st.shipperId = m_order.shipperId
-    st.setM_ShipperLabels_ID(M_ShipperLabels_ID)
-    st.setM_ShipperPackaging_ID(M_ShipperPackaging_ID)
-    st.setM_ShipperPickupTypes_ID(M_ShipperPickupTypes_ID)
-    st.setM_ShippingProcessor_ID(shipper.m_ShippingProcessor_ID)
+    st.setShipperLabelsId(M_ShipperLabels_ID)
+    st.setShipperPackagingId(M_ShipperPackaging_ID)
+    st.setShipperPickupTypesId(M_ShipperPickupTypes_ID)
+    st.setShippingProcessorId(shipper.shippingProcessorId)
     st.setWarehouseId(m_order.warehouseId)
     // 		st.setNotificationMessage(getNotificationMessage());
     // 		st.setNotificationType(getNotificationType());
@@ -252,9 +252,9 @@ fun createShippingTransaction(
     // 		st.setPriceActual(getPriceActual());
     // 		st.setProcessed(isProcessed());
     // 		st.setReceivedInfo(getReceivedInfo());
-    // 		st.setReturnBPartner_ID(getReturnBPartner_ID());
-    // 		st.setReturnLocation_ID(getReturnLocation_ID());
-    // 		st.setReturnUser_ID(getReturnUser_ID());
+    // 		st.setReturnBPartnerId(getReturnBPartnerId());
+    // 		st.setReturnLocationId(getReturnLocationId());
+    // 		st.setReturnUserId(getReturnUserId());
     st.setSalesRepresentativeId(m_order.salesRepresentativeId)
     st.setShipDate(m_order.datePromised)
     st.setShipperAccount(ShipperAccount)
@@ -270,21 +270,15 @@ fun createShippingTransaction(
         val shippingPackage = packages[i]
 
         val stl = MShippingTransactionLine(st.ctx, 0)
-        // 			stl.setADClientID(m_order.getADClientID());
         stl.setOrgId(m_order.orgId)
-        stl.setC_UOM_Length_ID(ci.uomLengthId)
-        stl.setC_UOM_Weight_ID(ci.uomWeightId)
+        stl.setUOMLengthId(ci.uomLengthId)
+        stl.setUOMWeightId(ci.uomWeightId)
         stl.setDescription(shippingPackage.description)
         stl.setHeight(shippingPackage.height)
         stl.setIsActive(m_order.isActive)
         stl.setLength(shippingPackage.length)
-        // 			stl.setM_PackageMPS_ID(0);
-        stl.setM_ShippingTransaction_ID(st.m_ShippingTransaction_ID)
-        // 			stl.setMasterTrackingNo(getMasterTrackingNo());
-        // 			stl.setPrice(getPrice());
-        // 			stl.setProcessed(isProcessed());
+        stl.setShippingTransactionId(st.shippingTransactionId)
         stl.setSeqNo((i + 1) * 10)
-        // 			stl.setTrackingNo(getTrackingNo());
         stl.setWeight(shippingPackage.weight)
         stl.setWidth(shippingPackage.width)
         stl.saveEx()

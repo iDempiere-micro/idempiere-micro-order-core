@@ -64,7 +64,7 @@ public class X_M_ShipperLabels extends BasePOName implements I_M_ShipperLabels {
      *
      * @return Shipper Labels Configuration
      */
-    public int getM_ShipperLabelsCfg_ID() {
+    public int getShipperLabelsCfgId() {
         Integer ii = (Integer) getValue(COLUMNNAME_M_ShipperLabelsCfg_ID);
         if (ii == null) return 0;
         return ii;

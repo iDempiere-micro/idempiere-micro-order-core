@@ -281,7 +281,7 @@ public class X_M_RMA extends BasePOName {
      *
      * @return MaterialShipment Document
      */
-    public int getInOut_ID() {
+    public int getInOutId() {
         Integer ii = (Integer) getValue(I_M_RMA.COLUMNNAME_InOut_ID);
         if (ii == null) return 0;
         return ii;
@@ -292,7 +292,7 @@ public class X_M_RMA extends BasePOName {
      *
      * @param InOut_ID MaterialShipment Document
      */
-    public void setInOut_ID(int InOut_ID) {
+    public void setInOutId(int InOut_ID) {
         if (InOut_ID < 1) setValueNoCheck(I_M_RMA.COLUMNNAME_InOut_ID, null);
         else setValueNoCheck(I_M_RMA.COLUMNNAME_InOut_ID, InOut_ID);
     }
@@ -348,7 +348,7 @@ public class X_M_RMA extends BasePOName {
      *
      * @return Return Material Authorization
      */
-    public int getM_RMA_ID() {
+    public int getRMAId() {
         Integer ii = (Integer) getValue(I_M_RMA.COLUMNNAME_M_RMA_ID);
         if (ii == null) return 0;
         return ii;
@@ -359,7 +359,7 @@ public class X_M_RMA extends BasePOName {
      *
      * @return Return Material Authorization Type
      */
-    public int getM_RMAType_ID() {
+    public int getRMATypeId() {
         Integer ii = (Integer) getValue(I_M_RMA.COLUMNNAME_M_RMAType_ID);
         if (ii == null) return 0;
         return ii;
@@ -370,7 +370,7 @@ public class X_M_RMA extends BasePOName {
      *
      * @param M_RMAType_ID Return Material Authorization Type
      */
-    public void setM_RMAType_ID(int M_RMAType_ID) {
+    public void setRMATypeId(int M_RMAType_ID) {
         if (M_RMAType_ID < 1) setValue(I_M_RMA.COLUMNNAME_M_RMAType_ID, null);
         else setValue(I_M_RMA.COLUMNNAME_M_RMAType_ID, M_RMAType_ID);
     }
@@ -412,7 +412,7 @@ public class X_M_RMA extends BasePOName {
      *
      * @return Referenced RMA
      */
-    public int getRef_RMA_ID() {
+    public int getRef_RMAId() {
         Integer ii = (Integer) getValue(I_M_RMA.COLUMNNAME_Ref_RMA_ID);
         if (ii == null) return 0;
         return ii;
@@ -423,7 +423,7 @@ public class X_M_RMA extends BasePOName {
      *
      * @param Ref_RMA_ID Referenced RMA
      */
-    public void setRef_RMA_ID(int Ref_RMA_ID) {
+    public void setRef_RMAId(int Ref_RMA_ID) {
         if (Ref_RMA_ID < 1) setValue(I_M_RMA.COLUMNNAME_Ref_RMA_ID, null);
         else setValue(I_M_RMA.COLUMNNAME_Ref_RMA_ID, Ref_RMA_ID);
     }
