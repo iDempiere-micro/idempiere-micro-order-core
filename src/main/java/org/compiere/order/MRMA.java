@@ -500,7 +500,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
      *
      * @return AD_User_ID
      */
-    public int getDoc_UserId() {
+    public int getDocumentUserId() {
         return getSalesRepresentativeId();
     } //	getDoc_User_ID
 

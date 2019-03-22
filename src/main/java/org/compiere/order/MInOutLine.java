@@ -322,7 +322,7 @@ public class MInOutLine extends X_M_InOutLine {
         //	Get Line No
         if (getLine() == 0) {
             String sql = "SELECT COALESCE(MAX(Line),0)+10 FROM M_InOutLine WHERE M_InOut_ID=?";
-            int ii = getSQLValueEx(null, sql, getInOutId());
+            int ii = getSQLValueEx(sql, getInOutId());
             setLine(ii);
         }
         //	UOM

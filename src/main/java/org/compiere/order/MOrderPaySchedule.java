@@ -22,10 +22,6 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
      */
     private static final long serialVersionUID = 2158181283878369676L;
     /**
-     * Static Logger
-     */
-    private static CLogger s_log = CLogger.getCLogger(MOrderPaySchedule.class);
-    /**
      * Parent
      */
     private MOrder m_parent = null;
