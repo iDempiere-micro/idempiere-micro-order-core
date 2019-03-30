@@ -89,7 +89,7 @@ fun createShippingTransaction(
                     val itemQty = BigDecimal(Math.min(remainingQty.toDouble(), 1.0))
                     val shippingPackage = ShippingPackage()
                     shippingPackage.weight = weight.multiply(itemQty)
-                    shippingPackage.description = df.format(itemQty) + " x " + product.value
+                    shippingPackage.description = df.format(itemQty) + " x " + product.searchKey
                     shippingPackage.height = product.shelfHeight
                     shippingPackage.width = BigDecimal(product.shelfWidth)
                     shippingPackage.length = BigDecimal(product.shelfDepth)
@@ -122,7 +122,7 @@ fun createShippingTransaction(
 
             val shippingPackage = ShippingPackage()
             shippingPackage.weight = itemWeight
-            shippingPackage.description = df.format(qty) + " x " + product.value
+            shippingPackage.description = df.format(qty) + " x " + product.searchKey
             shippingPackage.height = product.shelfHeight
             shippingPackage.width = BigDecimal(product.shelfWidth)
             shippingPackage.length = BigDecimal(product.shelfDepth)
@@ -136,7 +136,7 @@ fun createShippingTransaction(
             while (en.hasMoreElements()) {
                 val packageProduct = en.nextElement()
                 val packageQty = packageItems[packageProduct]
-                description += df.format(packageQty) + " x " + packageProduct.value + ", "
+                description += df.format(packageQty) + " x " + packageProduct.searchKey + ", "
             }
             if (description.length > 0)
                 description = description.substring(0, description.length - 2)
@@ -168,7 +168,7 @@ fun createShippingTransaction(
         while (en.hasMoreElements()) {
             val packageProduct = en.nextElement()
             val packageQty = packageItems[packageProduct]
-            description += df.format(packageQty) + " x " + packageProduct.value + ", "
+            description += df.format(packageQty) + " x " + packageProduct.searchKey + ", "
         }
         if (description.length > 0)
             description = description.substring(0, description.length - 2)

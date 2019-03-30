@@ -43,13 +43,19 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
             IShipmentProcessor processor = MShipperFacade.getShipmentProcessor(sf);
             if (processor == null) setErrorMessage(Msg.getMsg(Env.getCtx(), "ShippingNoProcessor"));
             else {
-                if (getAction().equals(ACTION_ProcessShipment))
-                    processed = processor.processShipment(getCtx(), this);
-                else if (getAction().equals(ACTION_RateInquiry))
-                    processed = processor.rateInquiry(getCtx(), this, isPriviledgedRate(), null);
-                else if (getAction().equals(ACTION_VoidShipment))
-                    processed = processor.voidShipment(getCtx(), this, null);
-                else throw new AdempiereException(Msg.getMsg(Env.getCtx(), "ActionNotSupported"));
+                switch (getAction()) {
+                    case ACTION_ProcessShipment:
+                        processed = processor.processShipment(getCtx(), this);
+                        break;
+                    case ACTION_RateInquiry:
+                        processed = processor.rateInquiry(getCtx(), this, isPriviledgedRate(), null);
+                        break;
+                    case ACTION_VoidShipment:
+                        processed = processor.voidShipment(getCtx(), this, null);
+                        break;
+                    default:
+                        throw new AdempiereException(Msg.getMsg(Env.getCtx(), "ActionNotSupported"));
+                }
 
                 if (!processed)
                     setErrorMessage("From " + getMShipper().getName() + ": " + getShippingRespMessage());
@@ -67,8 +73,8 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
 
         StringBuilder msg = new StringBuilder();
         if (processed) msg.append(getShippingRespMessage());
-        else msg.append("ERROR: " + getErrorMessage());
-        msg.append("\nAction: " + getAction());
+        else msg.append("ERROR: ").append(getErrorMessage());
+        msg.append("\nAction: ").append(getAction());
         history.setTextMsg(msg.toString());
 
         history.saveEx();

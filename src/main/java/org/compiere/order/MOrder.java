@@ -14,6 +14,7 @@ import org.compiere.model.I_M_InOut;
 import org.compiere.orm.MClientInfo;
 import org.compiere.orm.MDocType;
 import org.compiere.orm.MOrg;
+import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.compiere.orm.Query;
 import org.compiere.product.MPriceList;
@@ -57,7 +58,6 @@ import static software.hsharp.core.util.DBKt.getSQLValueEx;
  * @author Michael Judd, www.akunagroup.com
  * <li>BF [ 2804888 ] Incorrect reservation of products with attributes
  * @version $Id: MOrder.java,v 1.5 2006/10/06 00:42:24 jjanke Exp $
- * @see http://sourceforge.net/tracker2/?func=detail&atid=879335&aid=2520591&group_id=176962
  */
 public class MOrder extends X_C_Order implements I_C_Order {
     /**
@@ -104,7 +104,6 @@ public class MOrder extends X_C_Order implements I_C_Order {
      *
      * @param ctx        context
      * @param C_Order_ID order to load, (0 create new order)
-     * @param trxName    trx name
      */
     public MOrder(Properties ctx, int C_Order_ID) {
         super(ctx, C_Order_ID);
@@ -154,8 +153,6 @@ public class MOrder extends X_C_Order implements I_C_Order {
      * Load Constructor
      *
      * @param ctx     context
-     * @param rs      result set record
-     * @param trxName transaction
      */
     public MOrder(Properties ctx, Row row) {
         super(ctx, row);
@@ -208,7 +205,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
         if (counter) {
             to.setRef_OrderId(from.getOrderId());
             MOrg org = MOrg.get(from.getCtx(), from.getOrgId());
-            int counterC_BPartner_ID = org.getLinkedC_BPartnerId(trxName);
+            int counterC_BPartner_ID = org.getLinkedC_BPartnerId();
             if (counterC_BPartner_ID == 0) return null;
             to.setBPartner(MBPartner.get(from.getCtx(), counterC_BPartner_ID));
         } else to.setRef_OrderId(0);
@@ -266,6 +263,12 @@ public class MOrder extends X_C_Order implements I_C_Order {
         super.setBusinessPartnerInvoicingLocationId(C_BPartner_Location_ID);
     } //	setBusinessPartnerLocationId
 
+    @Override
+    public String getDateOrderedISOFormat() {
+        Timestamp dateOrdered = getDateOrdered();
+        return dateOrdered == null ? null : dateOrdered.toInstant().toString();
+    }
+
     /**
      * Set Business Partner Contact (Ship+Bill)
      *
@@ -275,6 +278,12 @@ public class MOrder extends X_C_Order implements I_C_Order {
         super.setUserId(AD_User_ID);
         super.setBill_UserId(AD_User_ID);
     } //	setUserId
+
+    @Override
+    public I_C_BPartner getCustomer() {
+        return (I_C_BPartner) MTable.get(getCtx(), I_C_BPartner.Table_Name)
+                .getPO(getBusinessPartnerId());
+    }
 
     /**
      * Set Warehouse

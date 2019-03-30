@@ -340,7 +340,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
     }
     */
         if (dt.isOverwriteSeqOnComplete()) {
-            String value = MSequence.getDocumentNo(getDocumentTypeId(), null, true, this);
+            String value = MSequence.getDocumentNo(getDocumentTypeId(), true, this);
             if (value != null) setDocumentNo(value);
         }
     }
