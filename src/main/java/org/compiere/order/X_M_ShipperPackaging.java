@@ -6,7 +6,6 @@ import org.compiere.orm.BasePOName;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
-import java.util.Properties;
 
 /**
  * Generated Model for M_ShipperPackaging
@@ -24,15 +23,15 @@ public class X_M_ShipperPackaging extends BasePOName implements I_M_ShipperPacka
     /**
      * Standard Constructor
      */
-    public X_M_ShipperPackaging(Properties ctx, int M_ShipperPackaging_ID) {
-        super(ctx, M_ShipperPackaging_ID);
+    public X_M_ShipperPackaging(int M_ShipperPackaging_ID) {
+        super(M_ShipperPackaging_ID);
     }
 
     /**
      * Load Constructor
      */
-    public X_M_ShipperPackaging(Properties ctx, Row row) {
-        super(ctx, row);
+    public X_M_ShipperPackaging(Row row) {
+        super(row);
     }
 
     /**

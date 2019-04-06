@@ -7,7 +7,6 @@ import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
-import java.util.Properties;
 
 /**
  * Generated Model for M_RMALine
@@ -25,8 +24,8 @@ public class X_M_RMALine extends PO {
     /**
      * Standard Constructor
      */
-    public X_M_RMALine(Properties ctx, int M_RMALine_ID) {
-        super(ctx, M_RMALine_ID);
+    public X_M_RMALine(int M_RMALine_ID) {
+        super(M_RMALine_ID);
         /**
          * if (M_RMALine_ID == 0) { setTaxId (0); setRMAId (0); setRMALine_ID (0); setProcessed
          * (false); setQty (Env.ZERO); }
@@ -36,8 +35,8 @@ public class X_M_RMALine extends PO {
     /**
      * Load Constructor
      */
-    public X_M_RMALine(Properties ctx, Row row) {
-        super(ctx, row);
+    public X_M_RMALine(Row row) {
+        super(row);
     }
 
     /**
@@ -176,7 +175,7 @@ public class X_M_RMALine extends PO {
 
     public org.compiere.model.I_M_InOutLine getInOutLine() throws RuntimeException {
         return (org.compiere.model.I_M_InOutLine)
-                MTable.get(getCtx(), org.compiere.model.I_M_InOutLine.Table_Name)
+                MTable.get(org.compiere.model.I_M_InOutLine.Table_Name)
                         .getPO(getInOutLineId());
     }
 

@@ -10,7 +10,6 @@ import org.idempiere.common.util.Env;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Properties;
 
 /**
  * Generated Model for M_InOut
@@ -118,8 +117,8 @@ public class X_M_InOut extends PO implements I_M_InOut {
     /**
      * Standard Constructor
      */
-    public X_M_InOut(Properties ctx, int M_InOut_ID) {
-        super(ctx, M_InOut_ID);
+    public X_M_InOut(int M_InOut_ID) {
+        super(M_InOut_ID);
         /**
          * if (M_InOut_ID == 0) { setBusinessPartnerId (0); setBusinessPartnerLocationId (0); setDocumentTypeId
          * (0); setDateAcct (new Timestamp( System.currentTimeMillis() )); // @#Date@ setDeliveryRule
@@ -136,8 +135,8 @@ public class X_M_InOut extends PO implements I_M_InOut {
     /**
      * Load Constructor
      */
-    public X_M_InOut(Properties ctx, Row row) {
-        super(ctx, row);
+    public X_M_InOut(Row row) {
+        super(row);
     }
 
     /**
@@ -303,7 +302,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
 
     public org.compiere.model.I_C_DocType getDocumentType() throws RuntimeException {
         return (org.compiere.model.I_C_DocType)
-                MTable.get(getCtx(), org.compiere.model.I_C_DocType.Table_Name)
+                MTable.get(org.compiere.model.I_C_DocType.Table_Name)
                         .getPO(getDocumentTypeId());
     }
 
@@ -371,7 +370,7 @@ public class X_M_InOut extends PO implements I_M_InOut {
 
     public org.compiere.model.I_C_Order getOrder() throws RuntimeException {
         return (org.compiere.model.I_C_Order)
-                MTable.get(getCtx(), org.compiere.model.I_C_Order.Table_Name)
+                MTable.get(org.compiere.model.I_C_Order.Table_Name)
                         .getPO(getOrderId());
     }
 

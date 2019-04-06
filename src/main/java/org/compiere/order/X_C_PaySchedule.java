@@ -6,7 +6,6 @@ import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
-import java.util.Properties;
 
 /**
  * Generated Model for C_PaySchedule
@@ -24,8 +23,8 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule {
     /**
      * Standard Constructor
      */
-    public X_C_PaySchedule(Properties ctx, int C_PaySchedule_ID) {
-        super(ctx, C_PaySchedule_ID);
+    public X_C_PaySchedule(int C_PaySchedule_ID) {
+        super(C_PaySchedule_ID);
         /**
          * if (C_PaySchedule_ID == 0) { setPaymentTermId (0); setPayScheduleId (0); setDiscount
          * (Env.ZERO); setDiscountDays (0); setGraceDays (0); setIsValid (false); setNetDays (0);
@@ -36,8 +35,8 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule {
     /**
      * Load Constructor
      */
-    public X_C_PaySchedule(Properties ctx, Row row) {
-        super(ctx, row);
+    public X_C_PaySchedule(Row row) {
+        super(row);
     }
 
     /**

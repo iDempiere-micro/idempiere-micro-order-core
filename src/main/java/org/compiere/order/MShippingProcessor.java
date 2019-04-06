@@ -2,8 +2,6 @@ package org.compiere.order;
 
 import kotliquery.Row;
 
-import java.util.Properties;
-
 public class MShippingProcessor extends X_M_ShippingProcessor {
 
     /**
@@ -11,12 +9,12 @@ public class MShippingProcessor extends X_M_ShippingProcessor {
      */
     private static final long serialVersionUID = -7635817773750467895L;
 
-    public MShippingProcessor(Properties ctx, int M_ShippingProcessor_ID) {
-        super(ctx, M_ShippingProcessor_ID);
+    public MShippingProcessor(int M_ShippingProcessor_ID) {
+        super(M_ShippingProcessor_ID);
     }
 
-    public MShippingProcessor(Properties ctx, Row row) {
-        super(ctx, row);
+    public MShippingProcessor(Row row) {
+        super(row);
     }
 
     public String getShippingProcessorClass() {

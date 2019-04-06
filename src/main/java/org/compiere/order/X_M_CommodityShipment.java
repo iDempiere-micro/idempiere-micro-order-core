@@ -4,8 +4,6 @@ import kotliquery.Row;
 import org.compiere.model.I_M_CommodityShipment;
 import org.compiere.orm.PO;
 
-import java.util.Properties;
-
 /**
  * Generated Model for M_CommodityShipment
  *
@@ -22,19 +20,15 @@ public class X_M_CommodityShipment extends PO implements I_M_CommodityShipment {
     /**
      * Standard Constructor
      */
-    public X_M_CommodityShipment(Properties ctx, int M_CommodityShipment_ID) {
-        super(ctx, M_CommodityShipment_ID);
-        /**
-         * if (M_CommodityShipment_ID == 0) { setCountryOfManufacture_ID (0); setHarmonizedCode (null);
-         * setCommodityShipment_ID (0); }
-         */
+    public X_M_CommodityShipment(int M_CommodityShipment_ID) {
+        super(M_CommodityShipment_ID);
     }
 
     /**
      * Load Constructor
      */
-    public X_M_CommodityShipment(Properties ctx, Row row) {
-        super(ctx, row);
+    public X_M_CommodityShipment(Row row) {
+        super(row);
     }
 
     /**

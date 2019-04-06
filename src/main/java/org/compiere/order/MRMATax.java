@@ -12,7 +12,6 @@ import org.idempiere.icommon.model.IPO;
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Properties;
 import java.util.logging.Level;
 
 import static software.hsharp.core.util.DBKt.prepareStatement;
@@ -46,8 +45,8 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
      * @param ignored ignored
      * @param trxName transaction
      */
-    public MRMATax(Properties ctx, int ignored) {
-        super(ctx, 0);
+    public MRMATax(int ignored) {
+        super(0);
         if (ignored != 0) throw new IllegalArgumentException("Multi-Key");
         setTaxAmt(Env.ZERO);
         setTaxBaseAmt(Env.ZERO);
@@ -61,8 +60,8 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
      * @param rs      result set
      * @param trxName transaction
      */
-    public MRMATax(Properties ctx, Row row) {
-        super(ctx, row);
+    public MRMATax(Row row) {
+        super(row);
     }
 
     /**
@@ -95,7 +94,7 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
             return null;
         }
 
-        retValue = MBaseRMATaxKt.getRMATax(line.getCtx(), line.getRMAId(), C_Tax_ID);
+        retValue = MBaseRMATaxKt.getRMATax(line.getRMAId(), C_Tax_ID);
         if (retValue != null) {
             retValue.setPrecision(precision);
             if (s_log.isLoggable(Level.FINE)) s_log.fine("(old=" + oldTax + ") " + retValue);
@@ -108,7 +107,7 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
         }
 
         //	Create New
-        retValue = new MRMATax(line.getCtx(), 0);
+        retValue = new MRMATax(0);
         retValue.setClientOrg(line);
         retValue.setRMAId(line.getRMAId());
         retValue.setTaxId(line.getTaxId());
@@ -143,7 +142,7 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
      * @return tax
      */
     public I_C_Tax getTax() {
-        if (m_tax == null) m_tax = MTax.get(getCtx(), getTaxId());
+        if (m_tax == null) m_tax = MTax.get(getTaxId());
         return m_tax;
     } //	getTax
 

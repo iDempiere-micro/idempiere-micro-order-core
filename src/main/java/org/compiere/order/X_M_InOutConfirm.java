@@ -7,7 +7,6 @@ import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
-import java.util.Properties;
 
 /**
  * Generated Model for M_InOutConfirm
@@ -101,8 +100,8 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
     /**
      * Standard Constructor
      */
-    public X_M_InOutConfirm(Properties ctx, int M_InOutConfirm_ID) {
-        super(ctx, M_InOutConfirm_ID);
+    public X_M_InOutConfirm(int M_InOutConfirm_ID) {
+        super(M_InOutConfirm_ID);
         /**
          * if (M_InOutConfirm_ID == 0) { setConfirmType (null); setDocAction (null); // CO setDocStatus
          * (null); // DR setDocumentNo (null); setIsApproved (false); setIsCancelled (false);
@@ -114,8 +113,8 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
     /**
      * Load Constructor
      */
-    public X_M_InOutConfirm(Properties ctx, Row row) {
-        super(ctx, row);
+    public X_M_InOutConfirm(Row row) {
+        super(row);
     }
 
     /**
@@ -305,7 +304,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
 
     public org.compiere.model.I_M_InOut getInOut() throws RuntimeException {
         return (org.compiere.model.I_M_InOut)
-                MTable.get(getCtx(), org.compiere.model.I_M_InOut.Table_Name)
+                MTable.get(org.compiere.model.I_M_InOut.Table_Name)
                         .getPO(getInOutId());
     }
 

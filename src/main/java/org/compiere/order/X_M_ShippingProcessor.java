@@ -5,8 +5,6 @@ import org.compiere.model.I_M_ShippingProcessor;
 import org.compiere.orm.BasePOName;
 import org.compiere.orm.MTable;
 
-import java.util.Properties;
-
 /**
  * Generated Model for M_ShippingProcessor
  *
@@ -24,15 +22,15 @@ public class X_M_ShippingProcessor extends BasePOName
     /**
      * Standard Constructor
      */
-    public X_M_ShippingProcessor(Properties ctx, int M_ShippingProcessor_ID) {
-        super(ctx, M_ShippingProcessor_ID);
+    public X_M_ShippingProcessor(int M_ShippingProcessor_ID) {
+        super(M_ShippingProcessor_ID);
     }
 
     /**
      * Load Constructor
      */
-    public X_M_ShippingProcessor(Properties ctx, Row row) {
-        super(ctx, row);
+    public X_M_ShippingProcessor(Row row) {
+        super(row);
     }
 
     /**
@@ -52,7 +50,7 @@ public class X_M_ShippingProcessor extends BasePOName
     public org.compiere.model.I_M_ShippingProcessorCfg getShippingProcessorCfg()
             throws RuntimeException {
         return (org.compiere.model.I_M_ShippingProcessorCfg)
-                MTable.get(getCtx(), org.compiere.model.I_M_ShippingProcessorCfg.Table_Name)
+                MTable.get(org.compiere.model.I_M_ShippingProcessorCfg.Table_Name)
                         .getPO(getShippingProcessorCfgId());
     }
 

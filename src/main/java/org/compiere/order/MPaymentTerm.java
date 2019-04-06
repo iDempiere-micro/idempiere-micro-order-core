@@ -11,7 +11,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Properties;
 import java.util.logging.Level;
 
 /**
@@ -36,8 +35,8 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
      * @param C_PaymentTerm_ID id
      * @param trxName          transaction
      */
-    public MPaymentTerm(Properties ctx, int C_PaymentTerm_ID) {
-        super(ctx, C_PaymentTerm_ID);
+    public MPaymentTerm(int C_PaymentTerm_ID) {
+        super(C_PaymentTerm_ID);
         if (C_PaymentTerm_ID == 0) {
             setAfterDelivery(false);
             setNetDays(0);
@@ -56,8 +55,8 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
      *
      * @param ctx context
      */
-    public MPaymentTerm(Properties ctx, Row row) {
-        super(ctx, row);
+    public MPaymentTerm(Row row) {
+        super(row);
     } //	MPaymentTerm
 
     /**
@@ -66,7 +65,7 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
      * @return Validation Message @OK@ or error
      */
     public String validate() {
-        String validMsg = Msg.parseTranslation(getCtx(), "@OK@");
+        String validMsg = Msg.parseTranslation("@OK@");
         MPaySchedule[] m_schedule = getSchedule(true);
         if (m_schedule.length == 0) {
             if (!isValid()) setIsValid(true);
@@ -181,7 +180,7 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
      * @param trxName    transaction
      */
     private void deleteOrderPaySchedule(int C_Order_ID) {
-        Query query = new Query(Env.getCtx(), I_C_OrderPaySchedule.Table_Name, "C_Order_ID=?");
+        Query query = new Query(I_C_OrderPaySchedule.Table_Name, "C_Order_ID=?");
         List<MOrderPaySchedule> opsList = query.setParameters(C_Order_ID).list();
         for (MOrderPaySchedule ops : opsList) {
             ops.deleteEx(true);
@@ -215,21 +214,21 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
         if (isDueFixed()) {
             int dd = getFixMonthDay();
             if (dd < 1 || dd > 31) {
-                log.saveError("Error", Msg.parseTranslation(getCtx(), "@Invalid@ @FixMonthDay@"));
+                log.saveError("Error", Msg.parseTranslation("@Invalid@ @FixMonthDay@"));
                 return false;
             }
             dd = getFixMonthCutoff();
             if (dd < 1 || dd > 31) {
-                log.saveError("Error", Msg.parseTranslation(getCtx(), "@Invalid@ @FixMonthCutoff@"));
+                log.saveError("Error", Msg.parseTranslation("@Invalid@ @FixMonthCutoff@"));
                 return false;
             }
         }
 
         if (Integer.signum(getNetDays()) < 0) {
             throw new AdempiereException(
-                    Msg.parseTranslation(getCtx(), "@NetDays@")
+                    Msg.parseTranslation("@NetDays@")
                             + " "
-                            + Msg.parseTranslation(getCtx(), "@positive.number@"));
+                            + Msg.parseTranslation("@positive.number@"));
         }
 
         if (!newRecord || !isValid()) validate();

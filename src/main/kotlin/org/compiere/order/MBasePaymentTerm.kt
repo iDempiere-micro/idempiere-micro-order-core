@@ -5,11 +5,10 @@ import org.compiere.model.I_C_PaymentTerm
 import software.hsharp.core.util.DB
 import software.hsharp.core.util.asResource
 import software.hsharp.core.util.queryOf
-import java.util.Properties
 
 abstract class MBasePaymentTerm : X_C_PaymentTerm {
-    constructor(ctx: Properties, Id: Int) : super(ctx, Id)
-    constructor(ctx: Properties, row: Row) : super(ctx, row)
+    constructor(Id: Int) : super(Id)
+    constructor(row: Row) : super(row)
 
     /** Payment Schedule children  */
     protected var schedule: Array<MPaySchedule> = arrayOf()
@@ -20,7 +19,7 @@ abstract class MBasePaymentTerm : X_C_PaymentTerm {
         if (schedule.isNotEmpty() && !requery) return schedule
 
         return "/sql/getSchedule.sql".asResource { sql ->
-            val loadQuery = queryOf(sql, listOf(getPaymentTermId())).map { MPaySchedule(ctx, it) }.asList
+            val loadQuery = queryOf(sql, listOf(getPaymentTermId())).map { MPaySchedule(it) }.asList
             val result = DB.current.run(loadQuery)
             result.forEach { it.parent = self() }
             result

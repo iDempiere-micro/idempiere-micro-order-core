@@ -6,7 +6,6 @@ import org.compiere.orm.BasePOName;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
-import java.util.Properties;
 
 /**
  * Generated Model for M_RMA
@@ -56,15 +55,15 @@ public class X_M_RMA extends BasePOName {
     /**
      * Standard Constructor
      */
-    public X_M_RMA(Properties ctx, int M_RMA_ID) {
-        super(ctx, M_RMA_ID);
+    public X_M_RMA(int M_RMA_ID) {
+        super(M_RMA_ID);
     }
 
     /**
      * Load Constructor
      */
-    public X_M_RMA(Properties ctx, Row row) {
-        super(ctx, row);
+    public X_M_RMA(Row row) {
+        super(row);
     }
 
     /**

@@ -11,7 +11,6 @@ import org.idempiere.common.exceptions.FillMandatoryException;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
-import java.util.Properties;
 
 import static software.hsharp.core.util.DBKt.getSQLValueEx;
 
@@ -47,10 +46,9 @@ public class MInOutLine extends X_M_InOutLine {
      *
      * @param ctx            context
      * @param M_InOutLine_ID id
-     * @param trxName        trx name
      */
-    public MInOutLine(Properties ctx, int M_InOutLine_ID) {
-        super(ctx, M_InOutLine_ID);
+    public MInOutLine(int M_InOutLine_ID) {
+        super(M_InOutLine_ID);
         if (M_InOutLine_ID == 0) {
             //	setLine (0);
             //	setLocatorId (0);
@@ -70,12 +68,10 @@ public class MInOutLine extends X_M_InOutLine {
     /**
      * Load Constructor
      *
-     * @param ctx     context
-     * @param rs      result set record
-     * @param trxName transaction
+     * @param ctx context
      */
-    public MInOutLine(Properties ctx, Row row) {
-        super(ctx, row);
+    public MInOutLine(Row row) {
+        super(row);
     } //	MInOutLine
 
     /**
@@ -84,7 +80,7 @@ public class MInOutLine extends X_M_InOutLine {
      * @param inout parent
      */
     public MInOutLine(MInOut inout) {
-        this(inout.getCtx(), 0);
+        this(0);
         setClientOrg(inout);
         setInOutId(inout.getInOutId());
         setWarehouseId(inout.getWarehouseId());
@@ -98,7 +94,7 @@ public class MInOutLine extends X_M_InOutLine {
      * @return parent
      */
     public MInOut getParent() {
-        if (m_parent == null) m_parent = new MInOut(getCtx(), getInOutId());
+        if (m_parent == null) m_parent = new MInOut(getInOutId());
         return m_parent;
     } //	getParent
 
@@ -169,7 +165,7 @@ public class MInOutLine extends X_M_InOutLine {
     public void setLocatorId(int M_Locator_ID) {
         if (M_Locator_ID < 0) throw new IllegalArgumentException("M_Locator_ID is mandatory.");
         //	set to 0 explicitly to reset
-        setValue(I_M_InOutLine.COLUMNNAME_M_Locator_ID, new Integer(M_Locator_ID));
+        setValue(I_M_InOutLine.COLUMNNAME_M_Locator_ID, M_Locator_ID);
     } //	setLocatorId
 
     /**
@@ -189,7 +185,7 @@ public class MInOutLine extends X_M_InOutLine {
      */
     public void setQtyEntered(BigDecimal QtyEntered) {
         if (QtyEntered != null && getUOMId() != 0) {
-            int precision = MUOM.getPrecision(getCtx(), getUOMId());
+            int precision = MUOM.getPrecision(getUOMId());
             QtyEntered = QtyEntered.setScale(precision, BigDecimal.ROUND_HALF_UP);
         }
         super.setQtyEntered(QtyEntered);
@@ -216,7 +212,7 @@ public class MInOutLine extends X_M_InOutLine {
      */
     public MProduct getProduct() {
         if (m_product == null && getProductId() != 0)
-            m_product = MProduct.get(getCtx(), getProductId());
+            m_product = MProduct.get(getProductId());
         return m_product;
     } //	getProduct
 
@@ -229,8 +225,7 @@ public class MInOutLine extends X_M_InOutLine {
         String desc = getDescription();
         if (desc == null) setDescription(description);
         else {
-            StringBuilder msgd = new StringBuilder(desc).append(" | ").append(description);
-            setDescription(msgd.toString());
+            setDescription(desc + " | " + description);
         }
     } //	addDescription
 
@@ -309,7 +304,7 @@ public class MInOutLine extends X_M_InOutLine {
     protected boolean beforeSave(boolean newRecord) {
         log.fine("");
         if (newRecord && getParent().isComplete()) {
-            log.saveError("ParentComplete", Msg.translate(getCtx(), "M_InOutLine"));
+            log.saveError("ParentComplete", Msg.translate("M_InOutLine"));
             return false;
         }
         // Locator is mandatory if no charge is defined - teo_sarca BF [ 2757978 ]
@@ -326,9 +321,9 @@ public class MInOutLine extends X_M_InOutLine {
             setLine(ii);
         }
         //	UOM
-        if (getUOMId() == 0) setUOMId(Env.getContextAsInt(getCtx(), "#C_UOM_ID"));
+        if (getUOMId() == 0) setUOMId(Env.getContextAsInt("#C_UOM_ID"));
         if (getUOMId() == 0) {
-            int C_UOM_ID = MUOM.getDefault_UOMId(getCtx());
+            int C_UOM_ID = MUOM.getDefault_UOMId();
             if (C_UOM_ID > 0) setUOMId(C_UOM_ID);
         }
         //	Qty Precision
@@ -338,7 +333,7 @@ public class MInOutLine extends X_M_InOutLine {
         //	Order/RMA Line
         if (getOrderLineId() == 0 && getRMALineId() == 0) {
             if (getParent().isSOTrx()) {
-                log.saveError("FillMandatory", Msg.translate(getCtx(), "C_Order_ID"));
+                log.saveError("FillMandatory", Msg.translate("C_Order_ID"));
                 return false;
             }
         }
@@ -352,30 +347,18 @@ public class MInOutLine extends X_M_InOutLine {
                 && isAutoGenerateLot
                 && getAttributeSetInstanceId() == 0) {
             MAttributeSetInstance asi =
-                    MAttributeSetInstance.generateLot(getCtx(), getProduct());
+                    MAttributeSetInstance.generateLot(getProduct());
             setAttributeSetInstanceId(asi.getAttributeSetInstanceId());
         }
         //	if (getChargeId() == 0 && getProductId() == 0)
         //		;
-
-        /**
-         * Qty on instance ASI if (getAttributeSetInstanceId() != 0) { MProduct product =
-         * getProduct(); int M_AttributeSet_ID = product.getAttributeSetId(); boolean isInstance =
-         * M_AttributeSet_ID != 0; if (isInstance) { MAttributeSet mas = MAttributeSet.get(getCtx(),
-         * M_AttributeSet_ID); isInstance = mas.isInstanceAttribute(); } // Max if (isInstance) {
-         * MStorage storage = MStorage.get(getCtx(), getLocatorId(), getProductId(),
-         * getAttributeSetInstanceId(), null); if (storage != null) { BigDecimal qty =
-         * storage.getQtyOnHand(); if (getMovementQty().compareTo(qty) > 0) { log.warning("Qty - Stock="
-         * + qty + ", Movement=" + getMovementQty()); log.saveError("QtyInsufficient", "=" + qty);
-         * return false; } } } } /*
-         */
 
         /* Carlos Ruiz - globalqss
          * IDEMPIERE-178 Orders and Invoices must disallow amount lines without product/charge
          */
         if (getParent().getDocumentType().isChargeOrProductMandatory()) {
             if (getChargeId() == 0 && getProductId() == 0) {
-                log.saveError("FillMandatory", Msg.translate(getCtx(), "ChargeOrProductMandatory"));
+                log.saveError("FillMandatory", Msg.translate("ChargeOrProductMandatory"));
                 return false;
             }
         }
@@ -390,7 +373,7 @@ public class MInOutLine extends X_M_InOutLine {
      */
     protected boolean beforeDelete() {
         if (getParent().getDocStatus().equals(MInOut.DOCSTATUS_Drafted)) return true;
-        log.saveError("Error", Msg.getMsg(getCtx(), "CannotDelete"));
+        log.saveError("Error", Msg.getMsg("CannotDelete"));
         return false;
     } //	beforeDelete
 
@@ -400,25 +383,23 @@ public class MInOutLine extends X_M_InOutLine {
      * @return info
      */
     public String toString() {
-        StringBuilder sb =
-                new StringBuilder("MInOutLine[")
-                        .append(getId())
-                        .append(",M_Product_ID=")
-                        .append(getProductId())
-                        .append(",QtyEntered=")
-                        .append(getQtyEntered())
-                        .append(",MovementQty=")
-                        .append(getMovementQty())
-                        .append(",M_AttributeSetInstance_ID=")
-                        .append(getAttributeSetInstanceId())
-                        .append("]");
-        return sb.toString();
+        return "MInOutLine[" +
+                getId() +
+                ",M_Product_ID=" +
+                getProductId() +
+                ",QtyEntered=" +
+                getQtyEntered() +
+                ",MovementQty=" +
+                getMovementQty() +
+                ",M_AttributeSetInstance_ID=" +
+                getAttributeSetInstanceId() +
+                "]";
     } //	toString
 
     public boolean sameOrderLineUOM() {
         if (getOrderLineId() <= 0) return false;
 
-        MOrderLine oLine = new MOrderLine(getCtx(), getOrderLineId());
+        MOrderLine oLine = new MOrderLine(getOrderLineId());
 
         return oLine.getUOMId() == getUOMId();// inout has orderline and both has the same UOM
     }
@@ -433,7 +414,6 @@ public class MInOutLine extends X_M_InOutLine {
         //	No Product
         if (getProductId() == 0) {
             setValueNoCheck(I_M_InOutLine.COLUMNNAME_M_Locator_ID, null);
-            return;
         }
     } //	setLocatorId
 } //	MInOutLine

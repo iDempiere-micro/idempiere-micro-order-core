@@ -12,7 +12,6 @@ import org.idempiere.icommon.model.IPO;
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Properties;
 import java.util.logging.Level;
 
 import static software.hsharp.core.util.DBKt.prepareStatement;
@@ -48,8 +47,8 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
      * @param ctx     context
      * @param ignored ignored
      */
-    public MOrderTax(Properties ctx, int ignored) {
-        super(ctx, 0);
+    public MOrderTax(int ignored) {
+        super(0);
         if (ignored != 0) throw new IllegalArgumentException("Multi-Key");
         setTaxAmt(Env.ZERO);
         setTaxBaseAmt(Env.ZERO);
@@ -61,8 +60,8 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
      *
      * @param ctx context
      */
-    public MOrderTax(Properties ctx, Row row) {
-        super(ctx, row);
+    public MOrderTax(Row row) {
+        super(row);
     } //	MOrderTax
 
     /**
@@ -74,7 +73,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
      * @return existing or new tax
      */
     public static MOrderTax get(I_C_OrderLine line, int precision, boolean oldTax) {
-        MOrderTax retValue = null;
+        MOrderTax retValue;
         if (line == null || line.getOrderId() == 0) {
             s_log.fine("No Order");
             return null;
@@ -94,7 +93,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
             return null;
         }
 
-        retValue = MBaseOrderTaxKt.getOrderTax(line.getCtx(), line.getOrderId(), C_Tax_ID);
+        retValue = MBaseOrderTaxKt.getOrderTax(line.getOrderId(), C_Tax_ID);
         if (retValue != null) {
             retValue.setPrecision(precision);
             if (s_log.isLoggable(Level.FINE)) s_log.fine("(old=" + oldTax + ") " + retValue);
@@ -107,7 +106,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
         }
 
         //	Create New
-        retValue = new MOrderTax(line.getCtx(), 0);
+        retValue = new MOrderTax(0);
         retValue.setClientOrg(line);
         retValue.setOrderId(line.getOrderId());
         retValue.setTaxId(line.getTaxId());
@@ -142,7 +141,7 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
      * @return tax
      */
     public I_C_Tax getTax() {
-        if (m_tax == null) m_tax = MTax.get(getCtx(), getTaxId());
+        if (m_tax == null) m_tax = MTax.get(getTaxId());
         return m_tax;
     } //	getTax
 
@@ -160,8 +159,8 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
         I_C_Tax tax = getTax();
         //
         String sql = "SELECT LineNetAmt FROM C_OrderLine WHERE C_Order_ID=? AND C_Tax_ID=?";
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
+        PreparedStatement pstmt;
+        ResultSet rs;
         try {
             pstmt = prepareStatement(sql);
             pstmt.setInt(1, getOrderId());
@@ -177,9 +176,6 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
         } catch (Exception e) {
             log.log(Level.SEVERE, null, e);
             taxBaseAmt = null;
-        } finally {
-            rs = null;
-            pstmt = null;
         }
         //
         if (taxBaseAmt == null) return false;
@@ -202,18 +198,16 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
      * @return info
      */
     public String toString() {
-        StringBuffer sb =
-                new StringBuffer("MOrderTax[")
-                        .append("C_Order_ID=")
-                        .append(getOrderId())
-                        .append(", C_Tax_ID=")
-                        .append(getTaxId())
-                        .append(", Base=")
-                        .append(getTaxBaseAmt())
-                        .append(", Tax=")
-                        .append(getTaxAmt())
-                        .append("]");
-        return sb.toString();
+        return "MOrderTax[" +
+                "C_Order_ID=" +
+                getOrderId() +
+                ", C_Tax_ID=" +
+                getTaxId() +
+                ", Base=" +
+                getTaxBaseAmt() +
+                ", Tax=" +
+                getTaxAmt() +
+                "]";
     } //	toString
 
     protected void setClientOrg(IPO po) {

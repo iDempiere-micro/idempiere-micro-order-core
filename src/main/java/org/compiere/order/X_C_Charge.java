@@ -8,7 +8,6 @@ import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
-import java.util.Properties;
 
 /**
  * Generated Model for C_Charge
@@ -26,8 +25,8 @@ public class X_C_Charge extends PO implements I_C_Charge {
     /**
      * Standard Constructor
      */
-    public X_C_Charge(Properties ctx, int C_Charge_ID) {
-        super(ctx, C_Charge_ID);
+    public X_C_Charge(int C_Charge_ID) {
+        super(C_Charge_ID);
         /**
          * if (C_Charge_ID == 0) { setChargeId (0); setChargeAmt (Env.ZERO); setTaxCategoryId (0);
          * setIsSameCurrency (false); setIsSameTax (false); setIsTaxIncluded (false); // N setName
@@ -38,8 +37,8 @@ public class X_C_Charge extends PO implements I_C_Charge {
     /**
      * Load Constructor
      */
-    public X_C_Charge(Properties ctx, Row row) {
-        super(ctx, row);
+    public X_C_Charge(Row row) {
+        super(row);
     }
 
     /**
@@ -89,7 +88,7 @@ public class X_C_Charge extends PO implements I_C_Charge {
 
     public org.compiere.model.I_C_TaxCategory getTaxCategory() throws RuntimeException {
         return (org.compiere.model.I_C_TaxCategory)
-                MTable.get(getCtx(), org.compiere.model.I_C_TaxCategory.Table_Name)
+                MTable.get(org.compiere.model.I_C_TaxCategory.Table_Name)
                         .getPO(getTaxCategoryId());
     }
 
@@ -137,7 +136,7 @@ public class X_C_Charge extends PO implements I_C_Charge {
      * @return Alphanumeric identifier of the entity
      */
     public String getName() {
-        return (String) getValue(HasName.Companion.getCOLUMNNAME_Name());
+        return (String) getValue(HasName.COLUMNNAME_Name);
     }
 
     /**
@@ -146,7 +145,7 @@ public class X_C_Charge extends PO implements I_C_Charge {
      * @param Name Alphanumeric identifier of the entity
      */
     public void setName(String Name) {
-        setValue(HasName.Companion.getCOLUMNNAME_Name(), Name);
+        setValue(HasName.COLUMNNAME_Name, Name);
     }
 
     @Override

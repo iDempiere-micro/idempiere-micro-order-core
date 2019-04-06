@@ -8,7 +8,6 @@ import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Properties;
 
 /**
  * Generated Model for C_OrderLine
@@ -26,8 +25,8 @@ public class X_C_OrderLine extends PO {
     /**
      * Standard Constructor
      */
-    public X_C_OrderLine(Properties ctx, int C_OrderLine_ID) {
-        super(ctx, C_OrderLine_ID);
+    public X_C_OrderLine(int C_OrderLine_ID) {
+        super(C_OrderLine_ID);
         /**
          * if (C_OrderLine_ID == 0) { setBusinessPartnerLocationId (0); // @C_BPartner_Location_ID@
          * setCurrencyId (0); // @C_Currency_ID@ setOrderId (0); setOrderLineId (0);
@@ -46,8 +45,8 @@ public class X_C_OrderLine extends PO {
     /**
      * Load Constructor
      */
-    public X_C_OrderLine(Properties ctx, Row row) {
-        super(ctx, row);
+    public X_C_OrderLine(Row row) {
+        super(row);
     }
 
     /**
@@ -207,7 +206,7 @@ public class X_C_OrderLine extends PO {
 
     public org.compiere.model.I_C_Order getOrder() throws RuntimeException {
         return (org.compiere.model.I_C_Order)
-                MTable.get(getCtx(), org.compiere.model.I_C_Order.Table_Name)
+                MTable.get(org.compiere.model.I_C_Order.Table_Name)
                         .getPO(getOrderId());
     }
 

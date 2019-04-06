@@ -2,7 +2,6 @@ package org.compiere.order
 
 import software.hsharp.core.util.DB
 import software.hsharp.core.util.queryOf
-import java.util.Properties
 
 /**
  * Get Payment Schedule of the Order
@@ -13,7 +12,6 @@ import java.util.Properties
  * @return array of schedule
  */
 fun getOrderPaySchedule(
-    ctx: Properties,
     orderId: Int,
     orderPayScheduleId: Int
 ): Array<MOrderPaySchedule> {
@@ -30,6 +28,6 @@ fun getOrderPaySchedule(
         else
             listOf(orderPayScheduleId)
 
-    val query = queryOf(sql, params).map { row -> MOrderPaySchedule(ctx, row) }.asList
+    val query = queryOf(sql, params).map { row -> MOrderPaySchedule(row) }.asList
     return DB.current.run(query).toTypedArray()
 } // 	getSchedule

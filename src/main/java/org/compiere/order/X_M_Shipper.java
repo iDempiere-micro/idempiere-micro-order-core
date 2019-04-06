@@ -5,8 +5,6 @@ import org.compiere.model.I_M_Shipper;
 import org.compiere.orm.BasePOName;
 import org.compiere.orm.MTable;
 
-import java.util.Properties;
-
 /**
  * Generated Model for M_Shipper
  *
@@ -23,15 +21,15 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper {
     /**
      * Standard Constructor
      */
-    public X_M_Shipper(Properties ctx, int M_Shipper_ID) {
-        super(ctx, M_Shipper_ID);
+    public X_M_Shipper(int M_Shipper_ID) {
+        super(M_Shipper_ID);
     }
 
     /**
      * Load Constructor
      */
-    public X_M_Shipper(Properties ctx, Row row) {
-        super(ctx, row);
+    public X_M_Shipper(Row row) {
+        super(row);
     }
 
     /**
@@ -61,7 +59,7 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper {
 
     public org.compiere.model.I_M_ShipperCfg getShipperCfg() throws RuntimeException {
         return (org.compiere.model.I_M_ShipperCfg)
-                MTable.get(getCtx(), org.compiere.model.I_M_ShipperCfg.Table_Name)
+                MTable.get(org.compiere.model.I_M_ShipperCfg.Table_Name)
                         .getPO(getShipperCfgId());
     }
 

@@ -9,17 +9,15 @@ import org.idempiere.common.exceptions.AdempiereException
 import software.hsharp.core.orm.getAllIDs
 import java.math.BigDecimal
 import java.util.Hashtable
-import java.util.Properties
 import kotlin.collections.ArrayList
 import kotlin.collections.set
 
 fun createShippingTransaction(
-    ctx: Properties,
     m_order: MOrder,
     action: String,
     isPriviledgedRate: Boolean
 ): MShippingTransaction {
-    val shipper = MShipper(ctx, m_order.shipperId)
+    val shipper = MShipper(m_order.shipperId)
     val whereClause = "M_Shipper_ID = " + shipper.shipperId + " AND IsDefault='Y' AND IsActive='Y'"
     var M_ShipperLabels_ID = 0
     var ids = getAllIDs(MShipperLabels.Table_Name, whereClause)
@@ -39,8 +37,8 @@ fun createShippingTransaction(
     )
 
     // 1 kg = 2.20462 lb
-    val ci = MClientInfo.get(ctx, m_order.clientId)
-    val uom = MUOM(ctx, ci.uomWeightId)
+    val ci = MClientInfo.get(m_order.clientId)
+    val uom = MUOM(ci.uomWeightId)
     var unit: String? = uom.x12DE355
     var isPound = false
     if (unit != null) {
@@ -48,7 +46,7 @@ fun createShippingTransaction(
         if (unit == "LB" || unit == "LBS") isPound = true
     }
 
-    val sp = MShipperPackaging(ctx, M_ShipperPackaging_ID)
+    val sp = MShipperPackaging(M_ShipperPackaging_ID)
     var WeightPerPackage: BigDecimal? =
         sp.weight.multiply(if (isPound) BigDecimal.valueOf(2.20462) else BigDecimal.ONE)
 
@@ -75,7 +73,7 @@ fun createShippingTransaction(
             // 				FreightAmt = FreightAmt.add(ol.getLineNetAmt());
             continue
         } else if (ol.productId > 0) {
-            val product = MProduct(ctx, ol.productId)
+            val product = MProduct(ol.productId)
 
             val weight = product.weight
             if (weight == null || weight.compareTo(BigDecimal.ZERO) == 0)
@@ -181,7 +179,7 @@ fun createShippingTransaction(
 
     val BoxCount = packages.size
 
-    val st = MShippingTransaction(ctx, 0)
+    val st = MShippingTransaction(0)
     st.action = action
     // 		st.setADClientID(m_order.getADClientID());
     st.setOrgId(m_order.orgId)
@@ -218,7 +216,7 @@ fun createShippingTransaction(
     // 		st.setInsurance(getInsurance());
     // 		st.setInsuredAmount(getInsuredAmount());
     // 		st.setIsAccessible(isAccessible());
-    st.setIsActive(m_order.isActive)
+    st.setIsActive(m_order.isActive())
     // 		st.setIsAddedHandling(isAddedHandling());
     // 		st.setIsAlternateReturnAddress(isAlternateReturnAddress());
     // 		st.setIsCargoAircraftOnly(isCargoAircraftOnly());
@@ -269,13 +267,13 @@ fun createShippingTransaction(
     for (i in packages.indices) {
         val shippingPackage = packages[i]
 
-        val stl = MShippingTransactionLine(st.ctx, 0)
+        val stl = MShippingTransactionLine(0)
         stl.setOrgId(m_order.orgId)
         stl.setUOMLengthId(ci.uomLengthId)
         stl.setUOMWeightId(ci.uomWeightId)
         stl.setDescription(shippingPackage.description)
         stl.setHeight(shippingPackage.height)
-        stl.setIsActive(m_order.isActive)
+        stl.setIsActive(m_order.isActive())
         stl.setLength(shippingPackage.length)
         stl.setShippingTransactionId(st.shippingTransactionId)
         stl.setSeqNo((i + 1) * 10)

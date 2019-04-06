@@ -4,8 +4,6 @@ import kotliquery.Row;
 import org.compiere.model.I_M_ShipperLabels;
 import org.compiere.orm.BasePOName;
 
-import java.util.Properties;
-
 /**
  * Generated Model for M_ShipperLabels
  *
@@ -34,15 +32,15 @@ public class X_M_ShipperLabels extends BasePOName implements I_M_ShipperLabels {
     /**
      * Standard Constructor
      */
-    public X_M_ShipperLabels(Properties ctx, int M_ShipperLabels_ID) {
-        super(ctx, M_ShipperLabels_ID);
+    public X_M_ShipperLabels(int M_ShipperLabels_ID) {
+        super(M_ShipperLabels_ID);
     }
 
     /**
      * Load Constructor
      */
-    public X_M_ShipperLabels(Properties ctx, Row row) {
-        super(ctx, row);
+    public X_M_ShipperLabels(Row row) {
+        super(row);
     }
 
     /**

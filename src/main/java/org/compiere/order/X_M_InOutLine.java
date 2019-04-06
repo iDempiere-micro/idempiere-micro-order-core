@@ -7,7 +7,6 @@ import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
-import java.util.Properties;
 
 /**
  * Generated Model for M_InOutLine
@@ -25,8 +24,8 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
     /**
      * Standard Constructor
      */
-    public X_M_InOutLine(Properties ctx, int M_InOutLine_ID) {
-        super(ctx, M_InOutLine_ID);
+    public X_M_InOutLine(int M_InOutLine_ID) {
+        super(M_InOutLine_ID);
         /**
          * if (M_InOutLine_ID == 0) { setUOMId (0); // @#C_UOM_ID@ setIsDescription (false); // N
          * setIsInvoiced (false); setLine (0); // @SQL=SELECT NVL(MAX(Line),0)+10 AS DefaultValue FROM
@@ -39,8 +38,8 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
     /**
      * Load Constructor
      */
-    public X_M_InOutLine(Properties ctx, Row row) {
-        super(ctx, row);
+    public X_M_InOutLine(Row row) {
+        super(row);
     }
 
     /**
@@ -152,7 +151,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
 
     public org.compiere.model.I_C_OrderLine getOrderLine() throws RuntimeException {
         return (org.compiere.model.I_C_OrderLine)
-                MTable.get(getCtx(), org.compiere.model.I_C_OrderLine.Table_Name)
+                MTable.get(org.compiere.model.I_C_OrderLine.Table_Name)
                         .getPO(getOrderLineId());
     }
 
@@ -369,7 +368,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
 
     public org.compiere.model.I_M_InOut getInOut() throws RuntimeException {
         return (org.compiere.model.I_M_InOut)
-                MTable.get(getCtx(), org.compiere.model.I_M_InOut.Table_Name)
+                MTable.get(org.compiere.model.I_M_InOut.Table_Name)
                         .getPO(getInOutId());
     }
 
@@ -448,7 +447,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
 
     public org.compiere.model.I_M_Product getProduct() throws RuntimeException {
         return (org.compiere.model.I_M_Product)
-                MTable.get(getCtx(), org.compiere.model.I_M_Product.Table_Name)
+                MTable.get(org.compiere.model.I_M_Product.Table_Name)
                         .getPO(getProductId());
     }
 
@@ -475,7 +474,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
 
     public org.compiere.model.I_M_RMALine getRMALine() throws RuntimeException {
         return (org.compiere.model.I_M_RMALine)
-                MTable.get(getCtx(), org.compiere.model.I_M_RMALine.Table_Name)
+                MTable.get(org.compiere.model.I_M_RMALine.Table_Name)
                         .getPO(getRMALineId());
     }
 

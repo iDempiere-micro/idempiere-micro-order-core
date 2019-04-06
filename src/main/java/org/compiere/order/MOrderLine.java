@@ -2,6 +2,7 @@ package org.compiere.order;
 
 import kotliquery.Row;
 import org.compiere.bo.MCurrency;
+import org.compiere.bo.MCurrencyKt;
 import org.compiere.model.IDocLine;
 import org.compiere.model.I_C_Order;
 import org.compiere.model.I_C_OrderLine;
@@ -22,7 +23,6 @@ import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
-import java.util.Properties;
 import java.util.logging.Level;
 
 import static software.hsharp.core.util.DBKt.getSQLValue;
@@ -83,24 +83,11 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
     /**
      * ************************************************************************ Default Constructor
      *
-     * @param ctx            context
      * @param C_OrderLine_ID order line to load
-     * @param trxName        trx name
      */
-    public MOrderLine(Properties ctx, int C_OrderLine_ID) {
-        super(ctx, C_OrderLine_ID);
+    public MOrderLine(int C_OrderLine_ID) {
+        super(C_OrderLine_ID);
         if (C_OrderLine_ID == 0) {
-            //	setOrderId (0);
-            //	setLine (0);
-            //	setWarehouseId (0);	// @M_Warehouse_ID@
-            //	setBusinessPartnerId(0);
-            //	setBusinessPartnerLocationId (0);	// @C_BPartner_Location_ID@
-            //	setCurrencyId (0);	// @C_Currency_ID@
-            //	setDateOrdered (new Timestamp(System.currentTimeMillis()));	// @DateOrdered@
-            //
-            //	setTaxId (0);
-            //	setUOMId (0);
-            //
             setFreightAmt(Env.ZERO);
             setLineNetAmt(Env.ZERO);
             //
@@ -131,7 +118,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      * @param order parent order
      */
     public MOrderLine(MOrder order) {
-        this(order.getCtx(), 0);
+        this(0);
         if (order.getId() == 0) throw new IllegalArgumentException("Header not saved");
         setOrderId(order.getOrderId()); // 	parent
         setOrder(order);
@@ -139,13 +126,9 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
 
     /**
      * Load Constructor
-     *
-     * @param ctx     context
-     * @param rs      result set record
-     * @param trxName transaction
      */
-    public MOrderLine(Properties ctx, Row row) {
-        super(ctx, row);
+    public MOrderLine(Row row) {
+        super(row);
     } //	MOrderLine
 
     /**
@@ -184,7 +167,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      * @return parent
      */
     public I_C_Order getParent() {
-        if (m_parent == null) m_parent = new MOrder(getCtx(), getOrderId());
+        if (m_parent == null) m_parent = new MOrder(getOrderId());
         return m_parent;
     } //	getParent
 
@@ -269,7 +252,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
     public boolean setTax() {
         int ii =
                 Tax.get(
-                        getCtx(),
+
                         getProductId(),
                         getChargeId(),
                         getDateOrdered(),
@@ -310,14 +293,12 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
                 {
                     stdTax =
                             new MTax(
-                                    getCtx(),
                                     ((MTaxCategory) getCharge().getTaxCategory()).getDefaultTax().getTaxId());
                 }
 
             } else // Product
                 stdTax =
                         new MTax(
-                                getCtx(),
                                 ((MTaxCategory) getProduct().getTaxCategory()).getDefaultTax().getTaxId());
 
             if (stdTax != null) {
@@ -353,7 +334,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      */
     public MCharge getCharge() {
         if (m_charge == null && getChargeId() != 0)
-            m_charge = MCharge.get(getCtx(), getChargeId());
+            m_charge = MCharge.get(getChargeId());
         return m_charge;
     }
 
@@ -363,7 +344,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      * @return tax
      */
     protected MTax getTax() {
-        if (m_tax == null) m_tax = MTax.get(getCtx(), getTaxId());
+        if (m_tax == null) m_tax = MTax.get(getTaxId());
         return m_tax;
     } //	getTax
 
@@ -373,17 +354,17 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      * @return precision
      */
     public int getPrecision() {
-        if (m_precision != null) return m_precision.intValue();
+        if (m_precision != null) return m_precision;
         //
         if (getCurrencyId() == 0) {
             setOrder(getParent());
-            if (m_precision != null) return m_precision.intValue();
+            if (m_precision != null) return m_precision;
         }
         if (getCurrencyId() != 0) {
-            MCurrency cur = MCurrency.get(getCtx(), getCurrencyId());
+            MCurrency cur = MCurrencyKt.getCurrency(getCurrencyId());
             if (cur.getId() != 0) {
-                m_precision = new Integer(cur.getStdPrecision());
-                return m_precision.intValue();
+                m_precision = cur.getStdPrecision();
+                return m_precision;
             }
         }
         //	Fallback
@@ -391,9 +372,8 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
                 "SELECT c.StdPrecision "
                         + "FROM C_Currency c INNER JOIN C_Order x ON (x.C_Currency_ID=c.C_Currency_ID) "
                         + "WHERE x.C_Order_ID=?";
-        int i = getSQLValue(sql, getOrderId());
-        m_precision = new Integer(i);
-        return m_precision.intValue();
+        m_precision = getSQLValue(sql, getOrderId());
+        return m_precision;
     } //	getPrecision
 
     /**
@@ -403,7 +383,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      * @param setUOM       set also UOM
      */
     public void setProductId(int M_Product_ID, boolean setUOM) {
-        if (setUOM) setProduct(MProduct.get(getCtx(), M_Product_ID));
+        if (setUOM) setProduct(MProduct.get(M_Product_ID));
         else super.setProductId(M_Product_ID);
         setAttributeSetInstanceId(0);
     } //	setProductId
@@ -427,7 +407,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      */
     public MProduct getProduct() {
         if (m_product == null && getProductId() != 0)
-            m_product = MProduct.get(getCtx(), getProductId());
+            m_product = MProduct.get(getProductId());
         return m_product;
     } //	getProduct
 
@@ -455,7 +435,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      */
     public void setAttributeSetInstanceId(int M_AttributeSetInstance_ID) {
         if (M_AttributeSetInstance_ID == 0) // 	 0 is valid ID
-            setValue("M_AttributeSetInstance_ID", new Integer(0));
+            setValue("M_AttributeSetInstance_ID", 0);
         else super.setAttributeSetInstanceId(M_AttributeSetInstance_ID);
     } //	setAttributeSetInstanceId
 
@@ -477,15 +457,15 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      */
     public boolean canChangeWarehouse() {
         if (getQtyDelivered().signum() != 0) {
-            log.saveError("Error", Msg.translate(getCtx(), "QtyDelivered") + "=" + getQtyDelivered());
+            log.saveError("Error", Msg.translate("QtyDelivered") + "=" + getQtyDelivered());
             return false;
         }
         if (getQtyInvoiced().signum() != 0) {
-            log.saveError("Error", Msg.translate(getCtx(), "QtyInvoiced") + "=" + getQtyInvoiced());
+            log.saveError("Error", Msg.translate("QtyInvoiced") + "=" + getQtyInvoiced());
             return false;
         }
         if (getQtyReserved().signum() != 0) {
-            log.saveError("Error", Msg.translate(getCtx(), "QtyReserved") + "=" + getQtyReserved());
+            log.saveError("Error", Msg.translate("QtyReserved") + "=" + getQtyReserved());
             return false;
         }
         //	We can change
@@ -564,23 +544,21 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      * @return info
      */
     public String toString() {
-        StringBuffer sb =
-                new StringBuffer("MOrderLine[")
-                        .append(getId())
-                        .append(", Line=")
-                        .append(getLine())
-                        .append(", Ordered=")
-                        .append(getQtyOrdered())
-                        .append(", Delivered=")
-                        .append(getQtyDelivered())
-                        .append(", Invoiced=")
-                        .append(getQtyInvoiced())
-                        .append(", Reserved=")
-                        .append(getQtyReserved())
-                        .append(", LineNet=")
-                        .append(getLineNetAmt())
-                        .append("]");
-        return sb.toString();
+        return "MOrderLine[" +
+                getId() +
+                ", Line=" +
+                getLine() +
+                ", Ordered=" +
+                getQtyOrdered() +
+                ", Delivered=" +
+                getQtyDelivered() +
+                ", Invoiced=" +
+                getQtyInvoiced() +
+                ", Reserved=" +
+                getQtyReserved() +
+                ", LineNet=" +
+                getLineNetAmt() +
+                "]";
     } //	toString
 
     /**
@@ -627,11 +605,10 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
         if (m_M_PriceList_ID == 0) {
             m_M_PriceList_ID =
                     getSQLValue(
-                            null,
                             "SELECT M_PriceList_ID FROM C_Order WHERE C_Order_ID=?",
                             getOrderId());
         }
-        MPriceList pl = MPriceList.get(getCtx(), m_M_PriceList_ID);
+        MPriceList pl = MPriceList.get(m_M_PriceList_ID);
         return pl.isTaxIncluded();
     } //	isTaxIncluded
 
@@ -652,7 +629,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      */
     public void setQtyEntered(BigDecimal QtyEntered) {
         if (QtyEntered != null && getUOMId() != 0) {
-            int precision = MUOM.getPrecision(getCtx(), getUOMId());
+            int precision = MUOM.getPrecision(getUOMId());
             QtyEntered = QtyEntered.setScale(precision, BigDecimal.ROUND_HALF_UP);
         }
         super.setQtyEntered(QtyEntered);
@@ -680,7 +657,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      */
     protected boolean beforeSave(boolean newRecord) {
         if (newRecord && getParent().isComplete()) {
-            log.saveError("ParentComplete", Msg.translate(getCtx(), "C_OrderLine"));
+            log.saveError("ParentComplete", Msg.translate("C_OrderLine"));
             return false;
         }
         //	Get Defaults from Parent
@@ -714,7 +691,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
             if (enforce && MRole.getDefault().isOverwritePriceLimit()) enforce = false;
             //	Check Price Limit?
             if (enforce
-                    && getPriceLimit() != Env.ZERO
+                    && !getPriceLimit().equals(Env.ZERO)
                     && getPriceActual().compareTo(getPriceLimit()) < 0) {
                 log.saveError(
                         "UnderLimitPrice",
@@ -732,7 +709,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
                 && (getProductId() != 0
                 || getPriceEntered().compareTo(Env.ZERO) != 0
                 || getChargeId() != 0)) {
-            int C_UOM_ID = MUOM.getDefault_UOMId(getCtx());
+            int C_UOM_ID = MUOM.getDefault_UOMId();
             if (C_UOM_ID > 0) setUOMId(C_UOM_ID);
         }
         //	Qty Precision
@@ -751,7 +728,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
                 int M_AttributeSet_ID = product.getAttributeSetId();
                 boolean isInstance = M_AttributeSet_ID != 0;
                 if (isInstance) {
-                    MAttributeSet mas = MAttributeSet.get(getCtx(), M_AttributeSet_ID);
+                    MAttributeSet mas = MAttributeSet.get(M_AttributeSet_ID);
                     isInstance = mas.isInstanceAttribute();
                 }
             } //	stocked
@@ -781,7 +758,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
             if (getChargeId() == 0
                     && getProductId() == 0
                     && (getPriceEntered().signum() != 0 || getQtyEntered().signum() != 0)) {
-                log.saveError("FillMandatory", Msg.translate(getCtx(), "ChargeOrProductMandatory"));
+                log.saveError("FillMandatory", Msg.translate("ChargeOrProductMandatory"));
                 return false;
             }
         }
@@ -798,16 +775,16 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
         //	R/O Check - Something delivered. etc.
         if (Env.ZERO.compareTo(getQtyDelivered()) != 0) {
             log.saveError(
-                    "DeleteError", Msg.translate(getCtx(), "QtyDelivered") + "=" + getQtyDelivered());
+                    "DeleteError", Msg.translate("QtyDelivered") + "=" + getQtyDelivered());
             return false;
         }
         if (Env.ZERO.compareTo(getQtyInvoiced()) != 0) {
-            log.saveError("DeleteError", Msg.translate(getCtx(), "QtyInvoiced") + "=" + getQtyInvoiced());
+            log.saveError("DeleteError", Msg.translate("QtyInvoiced") + "=" + getQtyInvoiced());
             return false;
         }
         if (Env.ZERO.compareTo(getQtyReserved()) != 0) {
             //	For PO should be On Order
-            log.saveError("DeleteError", Msg.translate(getCtx(), "QtyReserved") + "=" + getQtyReserved());
+            log.saveError("DeleteError", Msg.translate("QtyReserved") + "=" + getQtyReserved());
             return false;
         }
 
@@ -827,11 +804,11 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
         if (newRecord
                 || isValueChanged(I_C_OrderLine.COLUMNNAME_C_Tax_ID)
                 || isValueChanged(I_C_OrderLine.COLUMNNAME_LineNetAmt)) {
-            MTax tax = new MTax(getCtx(), getTaxId());
+            MTax tax = new MTax(getTaxId());
             MTaxProvider provider =
-                    new MTaxProvider(tax.getCtx(), tax.getTaxProviderId());
+                    new MTaxProvider(tax.getTaxProviderId());
             ITaxProvider calculator = MTaxProvider.getTaxProvider(provider, new StandardTaxProvider());
-            if (calculator == null) throw new AdempiereException(Msg.getMsg(getCtx(), "TaxNoProvider"));
+            if (calculator == null) throw new AdempiereException(Msg.getMsg("TaxNoProvider"));
             return calculator.recalculateTax(provider, this, newRecord);
         }
         return success;
@@ -879,11 +856,11 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
         // Update header only if the document is not processed
         if (isProcessed() && !isValueChanged(I_C_OrderLine.COLUMNNAME_Processed)) return true;
 
-        MTax tax = new MTax(getCtx(), getTaxId());
+        MTax tax = new MTax(getTaxId());
         MTaxProvider provider =
-                new MTaxProvider(tax.getCtx(), tax.getTaxProviderId());
+                new MTaxProvider(tax.getTaxProviderId());
         ITaxProvider calculator = MTaxProvider.getTaxProvider(provider, new StandardTaxProvider());
-        if (calculator == null) throw new AdempiereException(Msg.getMsg(getCtx(), "TaxNoProvider"));
+        if (calculator == null) throw new AdempiereException(Msg.getMsg("TaxNoProvider"));
         if (!calculator.updateOrderTax(provider, this)) return false;
 
         return calculator.updateHeaderTax(provider, this);

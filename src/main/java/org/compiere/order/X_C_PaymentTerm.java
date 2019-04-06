@@ -5,7 +5,6 @@ import org.compiere.model.I_C_PaymentTerm;
 import org.compiere.orm.BasePONameValue;
 
 import java.math.BigDecimal;
-import java.util.Properties;
 
 /**
  * Generated Model for C_PaymentTerm
@@ -23,15 +22,15 @@ public class X_C_PaymentTerm extends BasePONameValue {
     /**
      * Standard Constructor
      */
-    public X_C_PaymentTerm(Properties ctx, int C_PaymentTerm_ID) {
-        super(ctx, C_PaymentTerm_ID);
+    public X_C_PaymentTerm(int C_PaymentTerm_ID) {
+        super(C_PaymentTerm_ID);
     }
 
     /**
      * Load Constructor
      */
-    public X_C_PaymentTerm(Properties ctx, Row row) {
-        super(ctx, row);
+    public X_C_PaymentTerm(Row row) {
+        super(row);
     }
 
     /**

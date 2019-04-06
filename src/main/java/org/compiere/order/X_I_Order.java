@@ -8,7 +8,6 @@ import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Properties;
 
 /**
  * Generated Model for I_Order
@@ -26,15 +25,15 @@ public class X_I_Order extends BasePOName implements I_I_Order {
     /**
      * Standard Constructor
      */
-    public X_I_Order(Properties ctx, int I_Order_ID) {
-        super(ctx, I_Order_ID);
+    public X_I_Order(int I_Order_ID) {
+        super(I_Order_ID);
     }
 
     /**
      * Load Constructor
      */
-    public X_I_Order(Properties ctx, Row row) {
-        super(ctx, row);
+    public X_I_Order(Row row) {
+        super(row);
     }
 
     /**
@@ -298,7 +297,7 @@ public class X_I_Order extends BasePOName implements I_I_Order {
 
     public org.compiere.model.I_C_OrderSource getOrderSource() throws RuntimeException {
         return (org.compiere.model.I_C_OrderSource)
-                MTable.get(getCtx(), org.compiere.model.I_C_OrderSource.Table_Name)
+                MTable.get(org.compiere.model.I_C_OrderSource.Table_Name)
                         .getPO(getOrderSourceId());
     }
 

@@ -4,8 +4,6 @@ import kotliquery.Row;
 import org.compiere.model.I_C_OnlineTrxHistory;
 import org.compiere.orm.PO;
 
-import java.util.Properties;
-
 /**
  * Generated Model for C_OnlineTrxHistory
  *
@@ -22,8 +20,8 @@ public class X_C_OnlineTrxHistory extends PO implements I_C_OnlineTrxHistory {
     /**
      * Standard Constructor
      */
-    public X_C_OnlineTrxHistory(Properties ctx, int C_OnlineTrxHistory_ID) {
-        super(ctx, C_OnlineTrxHistory_ID);
+    public X_C_OnlineTrxHistory(int C_OnlineTrxHistory_ID) {
+        super(C_OnlineTrxHistory_ID);
         /**
          * if (C_OnlineTrxHistory_ID == 0) { setColumnTableId (0); setOnlineTrxHistory_ID (0);
          * setIsError (false); // N setProcessed (false); // N setRecordId (0); }
@@ -33,8 +31,8 @@ public class X_C_OnlineTrxHistory extends PO implements I_C_OnlineTrxHistory {
     /**
      * Load Constructor
      */
-    public X_C_OnlineTrxHistory(Properties ctx, Row row) {
-        super(ctx, row);
+    public X_C_OnlineTrxHistory(Row row) {
+        super(row);
     }
 
     /**

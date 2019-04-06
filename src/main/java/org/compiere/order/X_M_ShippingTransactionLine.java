@@ -5,7 +5,6 @@ import org.compiere.model.I_M_ShippingTransactionLine;
 import org.compiere.orm.PO;
 
 import java.math.BigDecimal;
-import java.util.Properties;
 
 /**
  * Generated Model for M_ShippingTransactionLine
@@ -25,8 +24,8 @@ public class X_M_ShippingTransactionLine extends PO
      * Standard Constructor
      */
     public X_M_ShippingTransactionLine(
-            Properties ctx, int M_ShippingTransactionLine_ID) {
-        super(ctx, M_ShippingTransactionLine_ID);
+            int M_ShippingTransactionLine_ID) {
+        super(M_ShippingTransactionLine_ID);
         /**
          * if (M_ShippingTransactionLine_ID == 0) { setShippingTransactionId (0);
          * setShippingTransactionLine_ID (0); setProcessed (false); // N }
@@ -36,8 +35,8 @@ public class X_M_ShippingTransactionLine extends PO
     /**
      * Load Constructor
      */
-    public X_M_ShippingTransactionLine(Properties ctx, Row row) {
-        super(ctx, row);
+    public X_M_ShippingTransactionLine(Row row) {
+        super(row);
     }
 
     /**

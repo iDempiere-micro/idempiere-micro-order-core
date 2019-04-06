@@ -4,8 +4,6 @@ import kotliquery.Row;
 import org.compiere.model.I_C_PaymentTerm;
 import org.idempiere.common.util.Env;
 
-import java.util.Properties;
-
 /**
  * Payment Term Schedule Model
  *
@@ -27,10 +25,9 @@ public class MPaySchedule extends X_C_PaySchedule {
      *
      * @param ctx              context
      * @param C_PaySchedule_ID id
-     * @param trxName          transaction
      */
-    public MPaySchedule(Properties ctx, int C_PaySchedule_ID) {
-        super(ctx, C_PaySchedule_ID);
+    public MPaySchedule(int C_PaySchedule_ID) {
+        super(C_PaySchedule_ID);
         if (C_PaySchedule_ID == 0) {
             //	setPaymentTermId (0);	//	Parent
             setPercentage(Env.ZERO);
@@ -45,12 +42,10 @@ public class MPaySchedule extends X_C_PaySchedule {
     /**
      * Load Constructor
      *
-     * @param ctx     context
-     * @param rs      result set
-     * @param trxName transaction
+     * @param ctx context
      */
-    public MPaySchedule(Properties ctx, Row row) {
-        super(ctx, row);
+    public MPaySchedule(Row row) {
+        super(row);
     } //	MPaySchedule
 
     /**
@@ -58,7 +53,7 @@ public class MPaySchedule extends X_C_PaySchedule {
      */
     public I_C_PaymentTerm getParent() {
         if (m_parent == null)
-            m_parent = new MPaymentTerm(getCtx(), getPaymentTermId());
+            m_parent = new MPaymentTerm(getPaymentTermId());
         return m_parent;
     } //	getParent
 

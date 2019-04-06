@@ -4,8 +4,6 @@ import kotliquery.Row;
 import org.compiere.model.I_M_ShipperPickupTypes;
 import org.compiere.orm.BasePOName;
 
-import java.util.Properties;
-
 /**
  * Generated Model for M_ShipperPickupTypes
  *
@@ -23,15 +21,15 @@ public class X_M_ShipperPickupTypes extends BasePOName
     /**
      * Standard Constructor
      */
-    public X_M_ShipperPickupTypes(Properties ctx, int M_ShipperPickupTypes_ID) {
-        super(ctx, M_ShipperPickupTypes_ID);
+    public X_M_ShipperPickupTypes(int M_ShipperPickupTypes_ID) {
+        super(M_ShipperPickupTypes_ID);
     }
 
     /**
      * Load Constructor
      */
-    public X_M_ShipperPickupTypes(Properties ctx, Row row) {
-        super(ctx, row);
+    public X_M_ShipperPickupTypes(Row row) {
+        super(row);
     }
 
     /**

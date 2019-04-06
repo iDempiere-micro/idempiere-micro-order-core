@@ -1,14 +1,12 @@
 package org.compiere.order;
 
 import kotliquery.Row;
-import org.compiere.bo.MCurrency;
+import org.compiere.bo.MCurrencyKt;
 import org.compiere.orm.TimeUtil;
-import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Properties;
 
 /**
  * Order Payment Schedule Model
@@ -29,28 +27,20 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
     /**
      * ************************************************************************ Standard Constructor
      *
-     * @param ctx                   context
      * @param C_OrderPaySchedule_ID id
      */
-    public MOrderPaySchedule(Properties ctx, int C_OrderPaySchedule_ID) {
-        super(ctx, C_OrderPaySchedule_ID);
+    public MOrderPaySchedule(int C_OrderPaySchedule_ID) {
+        super(C_OrderPaySchedule_ID);
         if (C_OrderPaySchedule_ID == 0) {
-            //	setOrderId (0);
-            //	setDiscountAmt (Env.ZERO);
-            //	setDiscountDate (new Timestamp(System.currentTimeMillis()));
-            //	setDueAmt (Env.ZERO);
-            //	setDueDate (new Timestamp(System.currentTimeMillis()));
             setIsValid(false);
         }
     } //	MOrderPaySchedule
 
     /**
      * Load Constructor
-     *
-     * @param ctx context
      */
-    public MOrderPaySchedule(Properties ctx, Row row) {
-        super(ctx, row);
+    public MOrderPaySchedule(Row row) {
+        super(row);
     } //	MOrderPaySchedule
 
     /**
@@ -60,14 +50,14 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
      * @param paySchedule payment schedule
      */
     public MOrderPaySchedule(MOrder order, MPaySchedule paySchedule) {
-        super(order.getCtx(), 0);
+        super(0);
         m_parent = order;
         setClientOrg(order);
         setOrderId(order.getOrderId());
         setPayScheduleId(paySchedule.getPayScheduleId());
 
         //	Amounts
-        int scale = MCurrency.getStdPrecision(getCtx(), order.getCurrencyId());
+        int scale = MCurrencyKt.getCurrencyStdPrecision(order.getCurrencyId());
         BigDecimal due = order.getGrandTotal();
         if (due.compareTo(Env.ZERO) == 0) {
             setDueAmt(Env.ZERO);
@@ -96,21 +86,20 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
     /**
      * Get Payment Schedule of the Order
      *
-     * @param ctx                context
      * @param orderId            order id (direct)
      * @param orderPayScheduleId id (indirect)
      * @return array of schedule
      */
     public static MOrderPaySchedule[] getOrderPaySchedule(
-            Properties ctx, int orderId, int orderPayScheduleId) {
-        return MBaseOrderPayScheduleKt.getOrderPaySchedule(ctx, orderId, orderPayScheduleId);
+            int orderId, int orderPayScheduleId) {
+        return MBaseOrderPayScheduleKt.getOrderPaySchedule(orderId, orderPayScheduleId);
     } //	getSchedule
 
     /**
      * @return Returns the parent.
      */
     public MOrder getParent() {
-        if (m_parent == null) m_parent = new MOrder(getCtx(), getOrderId());
+        if (m_parent == null) m_parent = new MOrder(getOrderId());
         return m_parent;
     } //	getParent
 
@@ -127,13 +116,11 @@ public class MOrderPaySchedule extends X_C_OrderPaySchedule {
      * @return info
      */
     public String toString() {
-        StringBuilder sb = new StringBuilder("MOrderPaySchedule[");
-        sb.append(getId())
-                .append("-Due=" + getDueDate() + "/" + getDueAmt())
-                .append(";Discount=")
-                .append(getDiscountDate() + "/" + getDiscountAmt())
-                .append("]");
-        return sb.toString();
+        return "MOrderPaySchedule[" + getId() +
+                "-Due=" + getDueDate() + "/" + getDueAmt() +
+                ";Discount=" +
+                getDiscountDate() + "/" + getDiscountAmt() +
+                "]";
     } //	toString
 
     /**

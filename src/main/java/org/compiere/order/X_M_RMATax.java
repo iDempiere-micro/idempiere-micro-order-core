@@ -6,7 +6,6 @@ import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
-import java.util.Properties;
 
 /**
  * Generated Model for M_RMATax
@@ -24,8 +23,8 @@ public class X_M_RMATax extends PO {
     /**
      * Standard Constructor
      */
-    public X_M_RMATax(Properties ctx, int M_RMATax_ID) {
-        super(ctx, M_RMATax_ID);
+    public X_M_RMATax(int M_RMATax_ID) {
+        super(M_RMATax_ID);
         /**
          * if (M_RMATax_ID == 0) { setTaxId (0); setIsTaxIncluded (false); setRMAId (0);
          * setProcessed (false); setTaxAmt (Env.ZERO); setTaxBaseAmt (Env.ZERO); }
@@ -35,8 +34,8 @@ public class X_M_RMATax extends PO {
     /**
      * Load Constructor
      */
-    public X_M_RMATax(Properties ctx, Row row) {
-        super(ctx, row);
+    public X_M_RMATax(Row row) {
+        super(row);
     }
 
     /**

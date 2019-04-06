@@ -2,13 +2,13 @@ package org.compiere.order;
 
 import kotliquery.Row;
 import org.compiere.crm.MUser;
+import org.compiere.crm.MUserKt;
 import org.compiere.orm.MRefList;
 import org.compiere.util.Msg;
 import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.Env;
 
 import java.sql.Timestamp;
-import java.util.Properties;
 import java.util.logging.Level;
 
 /**
@@ -45,10 +45,9 @@ public class MInOutConfirm extends X_M_InOutConfirm {
      *
      * @param ctx               context
      * @param M_InOutConfirm_ID id
-     * @param trxName           transaction
      */
-    public MInOutConfirm(Properties ctx, int M_InOutConfirm_ID) {
-        super(ctx, M_InOutConfirm_ID);
+    public MInOutConfirm(int M_InOutConfirm_ID) {
+        super(M_InOutConfirm_ID);
         if (M_InOutConfirm_ID == 0) {
             //	setConfirmType (null);
             setDocAction(X_M_InOutConfirm.DOCACTION_Complete); // CO
@@ -63,12 +62,10 @@ public class MInOutConfirm extends X_M_InOutConfirm {
     /**
      * Load Constructor
      *
-     * @param ctx     context
-     * @param rs      result set
-     * @param trxName transaction
+     * @param ctx context
      */
-    public MInOutConfirm(Properties ctx, Row row) {
-        super(ctx, row);
+    public MInOutConfirm(Row row) {
+        super(row);
     } //	MInOutConfirm
 
     /**
@@ -78,7 +75,7 @@ public class MInOutConfirm extends X_M_InOutConfirm {
      * @param confirmType confirmation type
      */
     public MInOutConfirm(MInOut ship, String confirmType) {
-        this(ship.getCtx(), 0);
+        this(0);
         setClientOrg(ship);
         setInOutId(ship.getInOutId());
         setConfirmType(confirmType);
@@ -105,7 +102,7 @@ public class MInOutConfirm extends X_M_InOutConfirm {
      */
     public String getConfirmTypeName() {
         return MRefList.getListName(
-                getCtx(), X_M_InOutConfirm.CONFIRMTYPE_AD_Reference_ID, getConfirmType());
+                X_M_InOutConfirm.CONFIRMTYPE_AD_Reference_ID, getConfirmType());
     } //	getConfirmTypeName
 
     /**
@@ -115,16 +112,14 @@ public class MInOutConfirm extends X_M_InOutConfirm {
      */
     public void setIsApproved(boolean IsApproved) {
         if (IsApproved && !isApproved()) {
-            int AD_User_ID = Env.getUserId(getCtx());
-            MUser user = MUser.get(getCtx(), AD_User_ID);
-            StringBuilder info =
-                    new StringBuilder()
-                            .append(user.getName())
-                            .append(": ")
-                            .append(Msg.translate(getCtx(), "IsApproved"))
-                            .append(" - ")
-                            .append(new Timestamp(System.currentTimeMillis()));
-            addDescription(info.toString());
+            int AD_User_ID = Env.getUserId();
+            MUser user = MUserKt.getUser(AD_User_ID);
+            String info = user.getName() +
+                    ": " +
+                    Msg.translate("IsApproved") +
+                    " - " +
+                    new Timestamp(System.currentTimeMillis());
+            addDescription(info);
         }
         super.setIsApproved(IsApproved);
     } //	setIsApproved

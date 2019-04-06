@@ -7,7 +7,6 @@ import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Properties;
 
 /**
  * Generated Model for C_OrderPaySchedule
@@ -25,8 +24,8 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule {
     /**
      * Standard Constructor
      */
-    public X_C_OrderPaySchedule(Properties ctx, int C_OrderPaySchedule_ID) {
-        super(ctx, C_OrderPaySchedule_ID);
+    public X_C_OrderPaySchedule(int C_OrderPaySchedule_ID) {
+        super(C_OrderPaySchedule_ID);
         /**
          * if (C_OrderPaySchedule_ID == 0) { setOrderId (0); setOrderPaySchedule_ID (0);
          * setDiscountAmt (Env.ZERO); setDiscountDate (new Timestamp( System.currentTimeMillis() ));
@@ -38,8 +37,8 @@ public class X_C_OrderPaySchedule extends PO implements I_C_OrderPaySchedule {
     /**
      * Load Constructor
      */
-    public X_C_OrderPaySchedule(Properties ctx, Row row) {
-        super(ctx, row);
+    public X_C_OrderPaySchedule(Row row) {
+        super(row);
     }
 
     /**

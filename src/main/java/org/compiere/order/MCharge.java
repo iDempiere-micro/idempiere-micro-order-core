@@ -6,8 +6,6 @@ import org.idempiere.common.util.CCache;
 import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.Env;
 
-import java.util.Properties;
-
 /**
  * Charge Model
  *
@@ -38,8 +36,8 @@ public class MCharge extends X_C_Charge {
      * @param C_Charge_ID id
      * @param trxName     transaction
      */
-    public MCharge(Properties ctx, int C_Charge_ID) {
-        super(ctx, C_Charge_ID);
+    public MCharge(int C_Charge_ID) {
+        super(C_Charge_ID);
         if (C_Charge_ID == 0) {
             setChargeAmt(Env.ZERO);
             setIsSameCurrency(false);
@@ -57,8 +55,8 @@ public class MCharge extends X_C_Charge {
      * @param rs      result set
      * @param trxName transaction
      */
-    public MCharge(Properties ctx, Row row) {
-        super(ctx, row);
+    public MCharge(Row row) {
+        super(row);
     } //	MCharge
 
     /**
@@ -68,11 +66,11 @@ public class MCharge extends X_C_Charge {
      * @param C_Charge_ID id
      * @return MCharge
      */
-    public static MCharge get(Properties ctx, int C_Charge_ID) {
+    public static MCharge get(int C_Charge_ID) {
         Integer key = new Integer(C_Charge_ID);
         MCharge retValue = s_cache.get(key);
         if (retValue != null) return retValue;
-        retValue = new MCharge(ctx, C_Charge_ID);
+        retValue = new MCharge(C_Charge_ID);
         if (retValue.getId() != 0) s_cache.put(key, retValue);
         return retValue;
     } //	get
