@@ -6,7 +6,7 @@ import org.compiere.bo.MCurrencyKt;
 import org.compiere.model.IDocLine;
 import org.compiere.model.I_C_Order;
 import org.compiere.model.I_C_OrderLine;
-import org.compiere.orm.MRole;
+import org.compiere.orm.MRoleKt;
 import org.compiere.product.IProductPricing;
 import org.compiere.product.MAttributeSet;
 import org.compiere.product.MPriceList;
@@ -18,7 +18,7 @@ import org.compiere.tax.MTax;
 import org.compiere.tax.MTaxCategory;
 import org.compiere.tax.MTaxProvider;
 import org.compiere.tax.Tax;
-import org.compiere.util.Msg;
+import org.compiere.util.MsgKt;
 import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.util.Env;
 
@@ -457,15 +457,15 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      */
     public boolean canChangeWarehouse() {
         if (getQtyDelivered().signum() != 0) {
-            log.saveError("Error", Msg.translate("QtyDelivered") + "=" + getQtyDelivered());
+            log.saveError("Error", MsgKt.translate("QtyDelivered") + "=" + getQtyDelivered());
             return false;
         }
         if (getQtyInvoiced().signum() != 0) {
-            log.saveError("Error", Msg.translate("QtyInvoiced") + "=" + getQtyInvoiced());
+            log.saveError("Error", MsgKt.translate("QtyInvoiced") + "=" + getQtyInvoiced());
             return false;
         }
         if (getQtyReserved().signum() != 0) {
-            log.saveError("Error", Msg.translate("QtyReserved") + "=" + getQtyReserved());
+            log.saveError("Error", MsgKt.translate("QtyReserved") + "=" + getQtyReserved());
             return false;
         }
         //	We can change
@@ -657,7 +657,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      */
     protected boolean beforeSave(boolean newRecord) {
         if (newRecord && getParent().isComplete()) {
-            log.saveError("ParentComplete", Msg.translate("C_OrderLine"));
+            log.saveError("ParentComplete", MsgKt.translate("C_OrderLine"));
             return false;
         }
         //	Get Defaults from Parent
@@ -688,7 +688,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
             // IDEMPIERE-1574 Sales Order Line lets Price under the Price Limit when updating
             //	Check PriceLimit
             boolean enforce = m_IsSOTrx && getParent().getPriceList().isEnforcePriceLimit();
-            if (enforce && MRole.getDefault().isOverwritePriceLimit()) enforce = false;
+            if (enforce && MRoleKt.getDefaultRole().isOverwritePriceLimit()) enforce = false;
             //	Check Price Limit?
             if (enforce
                     && !getPriceLimit().equals(Env.ZERO)
@@ -758,7 +758,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
             if (getChargeId() == 0
                     && getProductId() == 0
                     && (getPriceEntered().signum() != 0 || getQtyEntered().signum() != 0)) {
-                log.saveError("FillMandatory", Msg.translate("ChargeOrProductMandatory"));
+                log.saveError("FillMandatory", MsgKt.translate("ChargeOrProductMandatory"));
                 return false;
             }
         }
@@ -775,16 +775,16 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
         //	R/O Check - Something delivered. etc.
         if (Env.ZERO.compareTo(getQtyDelivered()) != 0) {
             log.saveError(
-                    "DeleteError", Msg.translate("QtyDelivered") + "=" + getQtyDelivered());
+                    "DeleteError", MsgKt.translate("QtyDelivered") + "=" + getQtyDelivered());
             return false;
         }
         if (Env.ZERO.compareTo(getQtyInvoiced()) != 0) {
-            log.saveError("DeleteError", Msg.translate("QtyInvoiced") + "=" + getQtyInvoiced());
+            log.saveError("DeleteError", MsgKt.translate("QtyInvoiced") + "=" + getQtyInvoiced());
             return false;
         }
         if (Env.ZERO.compareTo(getQtyReserved()) != 0) {
             //	For PO should be On Order
-            log.saveError("DeleteError", Msg.translate("QtyReserved") + "=" + getQtyReserved());
+            log.saveError("DeleteError", MsgKt.translate("QtyReserved") + "=" + getQtyReserved());
             return false;
         }
 
@@ -808,7 +808,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
             MTaxProvider provider =
                     new MTaxProvider(tax.getTaxProviderId());
             ITaxProvider calculator = MTaxProvider.getTaxProvider(provider, new StandardTaxProvider());
-            if (calculator == null) throw new AdempiereException(Msg.getMsg("TaxNoProvider"));
+            if (calculator == null) throw new AdempiereException(MsgKt.getMsg("TaxNoProvider"));
             return calculator.recalculateTax(provider, this, newRecord);
         }
         return success;
@@ -860,7 +860,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
         MTaxProvider provider =
                 new MTaxProvider(tax.getTaxProviderId());
         ITaxProvider calculator = MTaxProvider.getTaxProvider(provider, new StandardTaxProvider());
-        if (calculator == null) throw new AdempiereException(Msg.getMsg("TaxNoProvider"));
+        if (calculator == null) throw new AdempiereException(MsgKt.getMsg("TaxNoProvider"));
         if (!calculator.updateOrderTax(provider, this)) return false;
 
         return calculator.updateHeaderTax(provider, this);

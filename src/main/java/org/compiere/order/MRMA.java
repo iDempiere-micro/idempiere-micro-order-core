@@ -6,12 +6,13 @@ import org.compiere.model.I_M_RMA;
 import org.compiere.model.I_M_RMALine;
 import org.compiere.model.I_M_RMATax;
 import org.compiere.orm.MDocType;
+import org.compiere.orm.MDocTypeKt;
 import org.compiere.orm.MSequence;
 import org.compiere.orm.Query;
 import org.compiere.tax.ITaxProvider;
 import org.compiere.tax.MTax;
 import org.compiere.tax.MTaxProvider;
-import org.compiere.util.Msg;
+import org.compiere.util.MsgKt;
 import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.util.Env;
 
@@ -216,7 +217,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
      * @return document info (untranslated)
      */
     public String getDocumentInfo() {
-        MDocType dt = MDocType.get(getDocumentTypeId());
+        MDocType dt = MDocTypeKt.getDocumentType(getDocumentTypeId());
         return dt.getNameTrl() + " " + getDocumentNo();
     } //	getDocumentInfo
 
@@ -287,7 +288,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
         MTaxProvider[] providers = getTaxProviders();
         for (MTaxProvider provider : providers) {
             ITaxProvider calculator = MTaxProvider.getTaxProvider(provider, new StandardTaxProvider());
-            if (calculator == null) throw new AdempiereException(Msg.getMsg("TaxNoProvider"));
+            if (calculator == null) throw new AdempiereException(MsgKt.getMsg("TaxNoProvider"));
 
             if (!calculator.calculateRMATaxTotal(provider, this)) return false;
         }
@@ -320,7 +321,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
      * Set the definite document number after completed
      */
     protected void setDefiniteDocumentNo() {
-        MDocType dt = MDocType.get(getDocumentTypeId());
+        MDocType dt = MDocTypeKt.getDocumentType(getDocumentTypeId());
     /* No Document Date on RMA
     if (dt.isOverwriteDateOnComplete()) {
     	setDate???(new Timestamp (System.currentTimeMillis()));
@@ -418,7 +419,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
         sb.append(getDocumentNo());
         //	: Total Lines = 123.00 (#1)
         sb.append(": ")
-                .append(Msg.translate("Amt"))
+                .append(MsgKt.translate("Amt"))
                 .append("=")
                 .append(getAmt())
                 .append(" (#")
@@ -525,7 +526,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
      * @return array of tax provider
      */
     public MTaxProvider[] getTaxProviders() {
-        Hashtable<Integer, MTaxProvider> providers = new Hashtable<Integer, MTaxProvider>();
+        Hashtable<Integer, MTaxProvider> providers = new Hashtable<>();
         MRMALine[] lines = getLines(false);
         for (MRMALine line : lines) {
             MTax tax = new MTax(line.getTaxId());

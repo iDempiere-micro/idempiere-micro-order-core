@@ -1,6 +1,6 @@
 package org.compiere.order
 
-import org.compiere.crm.MClientInfo
+import org.compiere.crm.getClientInfo
 import org.compiere.orm.MSysConfig
 import org.compiere.product.MProduct
 import org.compiere.product.MUOM
@@ -9,7 +9,6 @@ import org.idempiere.common.exceptions.AdempiereException
 import software.hsharp.core.orm.getAllIDs
 import java.math.BigDecimal
 import java.util.Hashtable
-import kotlin.collections.ArrayList
 import kotlin.collections.set
 
 fun createShippingTransaction(
@@ -37,7 +36,7 @@ fun createShippingTransaction(
     )
 
     // 1 kg = 2.20462 lb
-    val ci = MClientInfo.get(m_order.clientId)
+    val ci = getClientInfo(m_order.clientId)
     val uom = MUOM(ci.uomWeightId)
     var unit: String? = uom.x12DE355
     var isPound = false
@@ -59,7 +58,7 @@ fun createShippingTransaction(
     }
 
     val CODAmount = m_order.grandTotal
-    var CustomsValue: BigDecimal
+    val CustomsValue: BigDecimal
     val FreightAmt = BigDecimal.ZERO
     var TotalWeight = BigDecimal.ZERO
 
@@ -77,7 +76,7 @@ fun createShippingTransaction(
 
             val weight = product.weight
             if (weight == null || weight.compareTo(BigDecimal.ZERO) == 0)
-                throw AdempiereException("No weight defined for product " + product.toString())
+                throw AdempiereException("No weight defined for product $product")
 
             val qty: BigDecimal = ol.qtyEntered ?: BigDecimal.ZERO
 
@@ -114,50 +113,54 @@ fun createShippingTransaction(
         val qty = item[1] as BigDecimal
         val itemWeight = product.weight.multiply(qty)
 
-        if (itemWeight.compareTo(WeightPerPackage!!) >= 0) {
-            val ownBoxProducts = ArrayList<MProduct>()
-            ownBoxProducts.add(product)
+        when {
+            itemWeight >= WeightPerPackage!! -> {
+                val ownBoxProducts = ArrayList<MProduct>()
+                ownBoxProducts.add(product)
 
-            val shippingPackage = ShippingPackage()
-            shippingPackage.weight = itemWeight
-            shippingPackage.description = df.format(qty) + " x " + product.searchKey
-            shippingPackage.height = product.shelfHeight
-            shippingPackage.width = BigDecimal(product.shelfWidth)
-            shippingPackage.length = BigDecimal(product.shelfDepth)
-            packages.add(shippingPackage)
-        } else if (itemWeight.add(TotalPackageWeight).compareTo(WeightPerPackage) > 0) {
-            val shippingPackage = ShippingPackage()
-            shippingPackage.weight = TotalPackageWeight
-
-            var description = ""
-            val en = packageItems.keys()
-            while (en.hasMoreElements()) {
-                val packageProduct = en.nextElement()
-                val packageQty = packageItems[packageProduct]
-                description += df.format(packageQty) + " x " + packageProduct.searchKey + ", "
+                val shippingPackage = ShippingPackage()
+                shippingPackage.weight = itemWeight
+                shippingPackage.description = df.format(qty) + " x " + product.searchKey
+                shippingPackage.height = product.shelfHeight
+                shippingPackage.width = BigDecimal(product.shelfWidth)
+                shippingPackage.length = BigDecimal(product.shelfDepth)
+                packages.add(shippingPackage)
             }
-            if (description.length > 0)
-                description = description.substring(0, description.length - 2)
-            shippingPackage.description = description
+            itemWeight.add(TotalPackageWeight) > WeightPerPackage -> {
+                val shippingPackage = ShippingPackage()
+                shippingPackage.weight = TotalPackageWeight
 
-            packages.add(shippingPackage)
+                var description = ""
+                val en = packageItems.keys()
+                while (en.hasMoreElements()) {
+                    val packageProduct = en.nextElement()
+                    val packageQty = packageItems[packageProduct]
+                    description += df.format(packageQty) + " x " + packageProduct.searchKey + ", "
+                }
+                if (description.isNotEmpty())
+                    description = description.substring(0, description.length - 2)
+                shippingPackage.description = description
 
-            packageItems.clear()
-            TotalPackageWeight = BigDecimal.ZERO
+                packages.add(shippingPackage)
 
-            TotalPackageWeight = TotalPackageWeight.add(itemWeight)
-            var packageQty: BigDecimal? = packageItems[product]
-            if (packageQty == null) packageQty = BigDecimal.ZERO
-            packageItems[product] = packageQty!!.add(qty)
-        } else {
-            TotalPackageWeight = TotalPackageWeight.add(itemWeight)
-            var packageQty: BigDecimal? = packageItems[product]
-            if (packageQty == null) packageQty = BigDecimal.ZERO
-            packageItems[product] = packageQty!!.add(qty)
+                packageItems.clear()
+                TotalPackageWeight = BigDecimal.ZERO
+
+                TotalPackageWeight = TotalPackageWeight.add(itemWeight)
+                var packageQty: BigDecimal? = packageItems[product]
+                if (packageQty == null) packageQty = BigDecimal.ZERO
+                packageItems[product] = packageQty!!.add(qty)
+            }
+            else -> {
+                TotalPackageWeight = TotalPackageWeight.add(itemWeight)
+                var packageQty: BigDecimal? = packageItems[product]
+                if (packageQty == null) packageQty = BigDecimal.ZERO
+                packageItems[product] = packageQty!!.add(qty)
+            }
         }
     }
 
-    if (TotalPackageWeight.compareTo(BigDecimal.ZERO) > 0) {
+    if (TotalPackageWeight > BigDecimal.ZERO) {
         val shippingPackage = ShippingPackage()
         shippingPackage.weight = TotalPackageWeight
 
@@ -168,7 +171,7 @@ fun createShippingTransaction(
             val packageQty = packageItems[packageProduct]
             description += df.format(packageQty) + " x " + packageProduct.searchKey + ", "
         }
-        if (description.length > 0)
+        if (description.isNotEmpty())
             description = description.substring(0, description.length - 2)
         shippingPackage.description = description
 
@@ -177,7 +180,7 @@ fun createShippingTransaction(
 
     CustomsValue = CODAmount.subtract(FreightAmt)
 
-    val BoxCount = packages.size
+    val boxCount = packages.size
 
     val st = MShippingTransaction(0)
     st.action = action
@@ -185,7 +188,7 @@ fun createShippingTransaction(
     st.setOrgId(m_order.orgId)
     st.setUserId(m_order.userId)
     st.setBusinessPartnerInvoicingLocationId(m_order.businessPartnerInvoicingLocationId)
-    st.setBoxCount(BoxCount)
+    st.setBoxCount(boxCount)
     // 		st.setBP_ShippingAcctId(getBP_ShippingAcctId());
     st.setBusinessPartnerId(m_order.businessPartnerId)
     st.setBusinessPartnerLocationId(m_order.businessPartnerLocationId)

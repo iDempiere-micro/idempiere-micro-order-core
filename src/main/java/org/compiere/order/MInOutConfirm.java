@@ -3,8 +3,8 @@ package org.compiere.order;
 import kotliquery.Row;
 import org.compiere.crm.MUser;
 import org.compiere.crm.MUserKt;
-import org.compiere.orm.MRefList;
-import org.compiere.util.Msg;
+import org.compiere.orm.MRefListKt;
+import org.compiere.util.MsgKt;
 import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.Env;
 
@@ -43,13 +43,11 @@ public class MInOutConfirm extends X_M_InOutConfirm {
     /**
      * ************************************************************************ Standard Constructor
      *
-     * @param ctx               context
      * @param M_InOutConfirm_ID id
      */
     public MInOutConfirm(int M_InOutConfirm_ID) {
         super(M_InOutConfirm_ID);
         if (M_InOutConfirm_ID == 0) {
-            //	setConfirmType (null);
             setDocAction(X_M_InOutConfirm.DOCACTION_Complete); // CO
             setDocStatus(X_M_InOutConfirm.DOCSTATUS_Drafted); // DR
             setIsApproved(false);
@@ -61,8 +59,6 @@ public class MInOutConfirm extends X_M_InOutConfirm {
 
     /**
      * Load Constructor
-     *
-     * @param ctx context
      */
     public MInOutConfirm(Row row) {
         super(row);
@@ -90,8 +86,7 @@ public class MInOutConfirm extends X_M_InOutConfirm {
         String desc = getDescription();
         if (desc == null) setDescription(description);
         else {
-            StringBuilder msgd = new StringBuilder(desc).append(" | ").append(description);
-            setDescription(msgd.toString());
+            setDescription(desc + " | " + description);
         }
     } //	addDescription
 
@@ -101,7 +96,7 @@ public class MInOutConfirm extends X_M_InOutConfirm {
      * @return confirm type
      */
     public String getConfirmTypeName() {
-        return MRefList.getListName(
+        return MRefListKt.getListName(
                 X_M_InOutConfirm.CONFIRMTYPE_AD_Reference_ID, getConfirmType());
     } //	getConfirmTypeName
 
@@ -116,7 +111,7 @@ public class MInOutConfirm extends X_M_InOutConfirm {
             MUser user = MUserKt.getUser(AD_User_ID);
             String info = user.getName() +
                     ": " +
-                    Msg.translate("IsApproved") +
+                    MsgKt.translate("IsApproved") +
                     " - " +
                     new Timestamp(System.currentTimeMillis());
             addDescription(info);

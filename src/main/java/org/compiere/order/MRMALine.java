@@ -9,7 +9,7 @@ import org.compiere.tax.ITaxProvider;
 import org.compiere.tax.MTax;
 import org.compiere.tax.MTaxCategory;
 import org.compiere.tax.MTaxProvider;
-import org.compiere.util.Msg;
+import org.compiere.util.MsgKt;
 import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.util.Env;
 import org.idempiere.icommon.model.IPO;
@@ -63,7 +63,6 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
     /**
      * Standard Constructor
      *
-     * @param ctx          context
      * @param M_RMALine_ID id
      */
     public MRMALine(int M_RMALine_ID) {
@@ -78,8 +77,6 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
 
     /**
      * Load Constructor
-     *
-     * @param ctx context
      */
     public MRMALine(Row row) {
         super(row);
@@ -233,7 +230,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
     @Override
     protected boolean beforeSave(boolean newRecord) {
         if (newRecord && getParent().isComplete()) {
-            log.saveError("ParentComplete", Msg.translate("M_RMA"));
+            log.saveError("ParentComplete", MsgKt.translate("M_RMA"));
             return false;
         }
         if (getInOutLineId() == 0 && getChargeId() == 0 && getProductId() == 0) {
@@ -344,7 +341,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
         MTaxProvider provider =
                 new MTaxProvider(tax.getTaxProviderId());
         ITaxProvider calculator = MTaxProvider.getTaxProvider(provider, new StandardTaxProvider());
-        if (calculator == null) throw new AdempiereException(Msg.getMsg("TaxNoProvider"));
+        if (calculator == null) throw new AdempiereException(MsgKt.getMsg("TaxNoProvider"));
         return calculator.recalculateTax(provider, this, newRecord);
     }
 
@@ -367,7 +364,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
         MTaxProvider provider =
                 new MTaxProvider(tax.getTaxProviderId());
         ITaxProvider calculator = MTaxProvider.getTaxProvider(provider, new StandardTaxProvider());
-        if (calculator == null) throw new AdempiereException(Msg.getMsg("TaxNoProvider"));
+        if (calculator == null) throw new AdempiereException(MsgKt.getMsg("TaxNoProvider"));
         if (!calculator.updateRMATax(provider, this)) return false;
 
         return calculator.updateHeaderTax(provider, this);

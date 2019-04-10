@@ -8,9 +8,10 @@ import org.compiere.model.I_C_Invoice;
 import org.compiere.model.I_M_InOutConfirm;
 import org.compiere.model.I_M_InOutLine;
 import org.compiere.orm.MDocType;
+import org.compiere.orm.MDocTypeKt;
 import org.compiere.orm.PO;
 import org.compiere.orm.Query;
-import org.compiere.util.Msg;
+import org.compiere.util.MsgKt;
 import org.idempiere.common.util.Env;
 
 import java.sql.Timestamp;
@@ -66,7 +67,6 @@ public class MInOut extends X_M_InOut {
     /**
      * ************************************************************************ Standard Constructor
      *
-     * @param ctx        context
      * @param M_InOut_ID
      */
     public MInOut(int M_InOut_ID) {
@@ -96,8 +96,6 @@ public class MInOut extends X_M_InOut {
 
     /**
      * Load Constructor
-     *
-     * @param ctx context
      */
     public MInOut(Row row) {
         super(row);
@@ -575,14 +573,14 @@ public class MInOut extends X_M_InOut {
                 movementType != null && !movementType.contentEquals(X_M_InOut.MOVEMENTTYPE_CustomerReturns);
         //	Shipment - Needs Order/RMA
         if (condition1 && isSOTrx() && getOrderId() == 0 && getRMAId() == 0) {
-            log.saveError("FillMandatory", Msg.translate("C_Order_ID"));
+            log.saveError("FillMandatory", MsgKt.translate("C_Order_ID"));
             return false;
         }
 
         if (isSOTrx() && getRMAId() != 0) {
             // Set Document and Movement type for this Receipt
             MRMA rma = new MRMA(getRMAId());
-            MDocType docType = MDocType.get(rma.getDocumentTypeId());
+            MDocType docType = MDocTypeKt.getDocumentType(rma.getDocumentTypeId());
             setDocumentTypeId(docType.getDocTypeShipmentId());
         }
 

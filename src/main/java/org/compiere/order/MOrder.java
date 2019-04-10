@@ -12,7 +12,9 @@ import org.compiere.model.I_C_OrderLine;
 import org.compiere.model.I_C_OrderTax;
 import org.compiere.model.I_M_InOut;
 import org.compiere.orm.MClientInfo;
+import org.compiere.orm.MClientInfoKt;
 import org.compiere.orm.MDocType;
+import org.compiere.orm.MDocTypeKt;
 import org.compiere.orm.MOrg;
 import org.compiere.orm.MOrgKt;
 import org.compiere.orm.MTable;
@@ -25,7 +27,7 @@ import org.compiere.product.MProductBOM;
 import org.compiere.tax.ITaxProvider;
 import org.compiere.tax.MTax;
 import org.compiere.tax.MTaxProvider;
-import org.compiere.util.Msg;
+import org.compiere.util.MsgKt;
 import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.exceptions.FillMandatoryException;
 import org.idempiere.common.util.Env;
@@ -102,7 +104,6 @@ public class MOrder extends X_C_Order implements I_C_Order {
     /**
      * ************************************************************************ Default Constructor
      *
-     * @param ctx        context
      * @param C_Order_ID order to load, (0 create new order)
      */
     public MOrder(int C_Order_ID) {
@@ -151,8 +152,6 @@ public class MOrder extends X_C_Order implements I_C_Order {
 
     /**
      * Load Constructor
-     *
-     * @param ctx context
      */
     public MOrder(Row row) {
         super(row);
@@ -486,7 +485,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
      */
     public String getDocumentInfo() {
         MDocType dt =
-                MDocType.get(getDocumentTypeId() > 0 ? getDocumentTypeId() : getTargetDocumentTypeId());
+                MDocTypeKt.getDocumentType(getDocumentTypeId() > 0 ? getDocumentTypeId() : getTargetDocumentTypeId());
         return dt.getNameTrl() + " " + getDocumentNo();
     } //	getDocumentInfo
 
@@ -715,9 +714,9 @@ public class MOrder extends X_C_Order implements I_C_Order {
         }
         //	Add up due amounts
         BigDecimal total = Env.ZERO;
-        for (int i = 0; i < schedule.length; i++) {
-            schedule[i].setParent(this);
-            BigDecimal due = schedule[i].getDueAmt();
+        for (MOrderPaySchedule orderPaySchedule : schedule) {
+            orderPaySchedule.setParent(this);
+            BigDecimal due = orderPaySchedule.getDueAmt();
             if (due != null) total = total.add(due);
         }
         boolean valid = getGrandTotal().compareTo(total) == 0;
@@ -840,17 +839,17 @@ public class MOrder extends X_C_Order implements I_C_Order {
         BigDecimal previousProcessedOn = (BigDecimal) getValueOld(COLUMNNAME_ProcessedOn);
         if (!newRecord && previousProcessedOn != null && previousProcessedOn.signum() > 0) {
             int previousDocTypeID = (Integer) getValueOld(COLUMNNAME_C_DocTypeTarget_ID);
-            MDocType previousdt = MDocType.get(previousDocTypeID);
+            MDocType previousdt = MDocTypeKt.getDocumentType(previousDocTypeID);
             if (isValueChanged(COLUMNNAME_C_DocType_ID)
                     || isValueChanged(COLUMNNAME_C_DocTypeTarget_ID)) {
                 if (previousdt.isOverwriteSeqOnComplete()) {
-                    log.saveError("Error", Msg.getMsg("CannotChangeProcessedDocType"));
+                    log.saveError("Error", MsgKt.getMsg("CannotChangeProcessedDocType"));
                     return false;
                 }
             }
             if (isValueChanged(COLUMNNAME_DateOrdered)) {
                 if (previousdt.isOverwriteDateOnComplete()) {
-                    log.saveError("Error", Msg.getMsg("CannotChangeProcessedDate"));
+                    log.saveError("Error", MsgKt.getMsg("CannotChangeProcessedDate"));
                     return false;
                 }
             }
@@ -866,7 +865,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
                             getOrderId());
             if (cnt > 0) {
                 if (isValueChanged(COLUMNNAME_M_PriceList_ID)) {
-                    log.saveError("Error", Msg.getMsg("CannotChangePl"));
+                    log.saveError("Error", MsgKt.getMsg("CannotChangePl"));
                     return false;
                 }
                 if (isValueChanged(COLUMNNAME_DateOrdered)) {
@@ -876,7 +875,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
                     MPriceListVersion plNew =
                             pList.getPriceListVersion((Timestamp) getValue(COLUMNNAME_DateOrdered));
                     if (plNew == null || !plNew.equals(plOld)) {
-                        log.saveError("Error", Msg.getMsg("CannotChangeDateOrdered"));
+                        log.saveError("Error", MsgKt.getMsg("CannotChangeDateOrdered"));
                         return false;
                     }
                 }
@@ -991,7 +990,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
     } //	beforeDelete
 
     protected boolean calculateFreightCharge() {
-        MClientInfo ci = MClientInfo.get(getClientId());
+        MClientInfo ci = MClientInfoKt.getClientInfo(getClientId());
         if (ci.getChargeFreightId() == 0 && ci.getProductFreightId() == 0) {
             m_processMsg =
                     "Product or Charge for Freight is not defined at Client window > Client Info tab";
@@ -1186,7 +1185,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
         MTaxProvider[] providers = getTaxProviders();
         for (MTaxProvider provider : providers) {
             ITaxProvider calculator = MTaxProvider.getTaxProvider(provider, new StandardTaxProvider());
-            if (calculator == null) throw new AdempiereException(Msg.getMsg("TaxNoProvider"));
+            if (calculator == null) throw new AdempiereException(MsgKt.getMsg("TaxNoProvider"));
 
             if (!calculator.calculateOrderTaxTotal(provider, this)) return false;
         }
@@ -1257,7 +1256,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
      * @return array of tax provider
      */
     public MTaxProvider[] getTaxProviders() {
-        Hashtable<Integer, MTaxProvider> providers = new Hashtable<Integer, MTaxProvider>();
+        Hashtable<Integer, MTaxProvider> providers = new Hashtable<>();
         MOrderLine[] lines = getLines();
         for (MOrderLine line : lines) {
             MTax tax = new MTax(line.getTaxId());

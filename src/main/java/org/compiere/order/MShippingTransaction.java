@@ -1,7 +1,7 @@
 package org.compiere.order;
 
 import kotliquery.Row;
-import org.compiere.util.Msg;
+import org.compiere.util.MsgKt;
 import org.idempiere.common.exceptions.AdempiereException;
 
 import java.util.logging.Level;
@@ -39,7 +39,7 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
         try {
             MShipperFacade sf = new MShipperFacade(getMShipper());
             IShipmentProcessor processor = MShipperFacade.getShipmentProcessor(sf);
-            if (processor == null) setErrorMessage(Msg.getMsg("ShippingNoProcessor"));
+            if (processor == null) setErrorMessage(MsgKt.getMsg("ShippingNoProcessor"));
             else {
                 switch (getAction()) {
                     case ACTION_ProcessShipment:
@@ -52,7 +52,7 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
                         processed = processor.voidShipment(this, null);
                         break;
                     default:
-                        throw new AdempiereException(Msg.getMsg("ActionNotSupported"));
+                        throw new AdempiereException(MsgKt.getMsg("ActionNotSupported"));
                 }
 
                 if (!processed)
@@ -60,7 +60,7 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
             }
         } catch (Exception e) {
             log.log(Level.SEVERE, "processOnline", e);
-            setErrorMessage(Msg.getMsg("ShippingNotProcessed") + ":\n" + e.getMessage());
+            setErrorMessage(MsgKt.getMsg("ShippingNotProcessed") + ":\n" + e.getMessage());
         }
 
         MOnlineTrxHistory history = new MOnlineTrxHistory(0);

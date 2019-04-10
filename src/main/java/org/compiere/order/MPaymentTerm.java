@@ -4,7 +4,7 @@ import kotliquery.Row;
 import org.compiere.model.I_C_OrderPaySchedule;
 import org.compiere.model.I_C_PaymentTerm;
 import org.compiere.orm.Query;
-import org.compiere.util.Msg;
+import org.compiere.util.MsgKt;
 import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.util.Env;
 import org.jetbrains.annotations.NotNull;
@@ -31,9 +31,7 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
     /**
      * Standard Constructor
      *
-     * @param ctx              context
      * @param C_PaymentTerm_ID id
-     * @param trxName          transaction
      */
     public MPaymentTerm(int C_PaymentTerm_ID) {
         super(C_PaymentTerm_ID);
@@ -52,8 +50,6 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
 
     /**
      * Load Constructor
-     *
-     * @param ctx context
      */
     public MPaymentTerm(Row row) {
         super(row);
@@ -65,36 +61,25 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
      * @return Validation Message @OK@ or error
      */
     public String validate() {
-        String validMsg = Msg.parseTranslation("@OK@");
+        String validMsg = MsgKt.parseTranslation("@OK@");
         MPaySchedule[] m_schedule = getSchedule(true);
         if (m_schedule.length == 0) {
             if (!isValid()) setIsValid(true);
             return validMsg;
         }
-        // Allow schedules with just one record
-        // if (m_schedule.length == 1)
-        // {
-        // 	setIsValid(false);
-        // 	if (m_schedule[0].isValid())
-        // 	{
-        // 		m_schedule[0].setIsValid(false);
-        // 		m_schedule[0].saveEx();
-        // 	}
-        // 	return "@Invalid@ @Count@ # = 1 (@C_PaySchedule_ID@)";
-        // }
 
         //	Add up
         BigDecimal total = Env.ZERO;
-        for (int i = 0; i < m_schedule.length; i++) {
-            BigDecimal percent = m_schedule[i].getPercentage();
+        for (MPaySchedule mPaySchedule : m_schedule) {
+            BigDecimal percent = mPaySchedule.getPercentage();
             if (percent != null) total = total.add(percent);
         }
         boolean valid = total.compareTo(Env.ONEHUNDRED) == 0;
         if (isValid() != valid) setIsValid(valid);
-        for (int i = 0; i < m_schedule.length; i++) {
-            if (m_schedule[i].isValid() != valid) {
-                m_schedule[i].setIsValid(valid);
-                m_schedule[i].saveEx();
+        for (MPaySchedule mPaySchedule : m_schedule) {
+            if (mPaySchedule.isValid() != valid) {
+                mPaySchedule.setIsValid(valid);
+                mPaySchedule.saveEx();
             }
         }
         if (valid) return validMsg;
@@ -154,8 +139,8 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
         MOrderPaySchedule ops = null;
         BigDecimal remainder = order.getGrandTotal();
         MPaySchedule[] m_schedule = getSchedule(true);
-        for (int i = 0; i < m_schedule.length; i++) {
-            ops = new MOrderPaySchedule(order, m_schedule[i]);
+        for (MPaySchedule mPaySchedule : m_schedule) {
+            ops = new MOrderPaySchedule(order, mPaySchedule);
             ops.saveEx();
             if (log.isLoggable(Level.FINE)) log.fine(ops.toString());
             remainder = remainder.subtract(ops.getDueAmt());
@@ -177,7 +162,6 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
      * Delete existing Order Payment Schedule
      *
      * @param C_Order_ID id
-     * @param trxName    transaction
      */
     private void deleteOrderPaySchedule(int C_Order_ID) {
         Query query = new Query(I_C_OrderPaySchedule.Table_Name, "C_Order_ID=?");
@@ -194,14 +178,12 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
      * @return info
      */
     public String toString() {
-        StringBuilder sb = new StringBuilder("MPaymentTerm[");
-        sb.append(getId())
-                .append("-")
-                .append(getName())
-                .append(",Valid=")
-                .append(isValid())
-                .append("]");
-        return sb.toString();
+        return "MPaymentTerm[" + getId() +
+                "-" +
+                getName() +
+                ",Valid=" +
+                isValid() +
+                "]";
     } //	toString
 
     /**
@@ -214,21 +196,21 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
         if (isDueFixed()) {
             int dd = getFixMonthDay();
             if (dd < 1 || dd > 31) {
-                log.saveError("Error", Msg.parseTranslation("@Invalid@ @FixMonthDay@"));
+                log.saveError("Error", MsgKt.parseTranslation("@Invalid@ @FixMonthDay@"));
                 return false;
             }
             dd = getFixMonthCutoff();
             if (dd < 1 || dd > 31) {
-                log.saveError("Error", Msg.parseTranslation("@Invalid@ @FixMonthCutoff@"));
+                log.saveError("Error", MsgKt.parseTranslation("@Invalid@ @FixMonthCutoff@"));
                 return false;
             }
         }
 
         if (Integer.signum(getNetDays()) < 0) {
             throw new AdempiereException(
-                    Msg.parseTranslation("@NetDays@")
+                    MsgKt.parseTranslation("@NetDays@")
                             + " "
-                            + Msg.parseTranslation("@positive.number@"));
+                            + MsgKt.parseTranslation("@positive.number@"));
         }
 
         if (!newRecord || !isValid()) validate();

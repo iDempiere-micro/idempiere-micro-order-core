@@ -6,7 +6,7 @@ import org.compiere.model.I_M_InOutLine;
 import org.compiere.product.MAttributeSetInstance;
 import org.compiere.product.MProduct;
 import org.compiere.product.MUOM;
-import org.compiere.util.Msg;
+import org.compiere.util.MsgKt;
 import org.idempiere.common.exceptions.FillMandatoryException;
 import org.idempiere.common.util.Env;
 
@@ -44,18 +44,12 @@ public class MInOutLine extends X_M_InOutLine {
     /**
      * ************************************************************************ Standard Constructor
      *
-     * @param ctx            context
      * @param M_InOutLine_ID id
      */
     public MInOutLine(int M_InOutLine_ID) {
         super(M_InOutLine_ID);
         if (M_InOutLine_ID == 0) {
-            //	setLine (0);
-            //	setLocatorId (0);
-            //	setUOMId (0);
-            //	setProductId (0);
             setAttributeSetInstanceId(0);
-            //	setMovementQty (Env.ZERO);
             setConfirmedQty(Env.ZERO);
             setPickedQty(Env.ZERO);
             setScrappedQty(Env.ZERO);
@@ -67,8 +61,6 @@ public class MInOutLine extends X_M_InOutLine {
 
     /**
      * Load Constructor
-     *
-     * @param ctx context
      */
     public MInOutLine(Row row) {
         super(row);
@@ -304,7 +296,7 @@ public class MInOutLine extends X_M_InOutLine {
     protected boolean beforeSave(boolean newRecord) {
         log.fine("");
         if (newRecord && getParent().isComplete()) {
-            log.saveError("ParentComplete", Msg.translate("M_InOutLine"));
+            log.saveError("ParentComplete", MsgKt.translate("M_InOutLine"));
             return false;
         }
         // Locator is mandatory if no charge is defined - teo_sarca BF [ 2757978 ]
@@ -333,7 +325,7 @@ public class MInOutLine extends X_M_InOutLine {
         //	Order/RMA Line
         if (getOrderLineId() == 0 && getRMALineId() == 0) {
             if (getParent().isSOTrx()) {
-                log.saveError("FillMandatory", Msg.translate("C_Order_ID"));
+                log.saveError("FillMandatory", MsgKt.translate("C_Order_ID"));
                 return false;
             }
         }
@@ -358,7 +350,7 @@ public class MInOutLine extends X_M_InOutLine {
          */
         if (getParent().getDocumentType().isChargeOrProductMandatory()) {
             if (getChargeId() == 0 && getProductId() == 0) {
-                log.saveError("FillMandatory", Msg.translate("ChargeOrProductMandatory"));
+                log.saveError("FillMandatory", MsgKt.translate("ChargeOrProductMandatory"));
                 return false;
             }
         }
@@ -373,7 +365,7 @@ public class MInOutLine extends X_M_InOutLine {
      */
     protected boolean beforeDelete() {
         if (getParent().getDocStatus().equals(MInOut.DOCSTATUS_Drafted)) return true;
-        log.saveError("Error", Msg.getMsg("CannotDelete"));
+        log.saveError("Error", MsgKt.getMsg("CannotDelete"));
         return false;
     } //	beforeDelete
 
