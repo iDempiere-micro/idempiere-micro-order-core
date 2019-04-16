@@ -1,8 +1,10 @@
 package org.compiere.order;
 
 import kotliquery.Row;
+import org.compiere.model.I_C_OrderLine;
 import org.compiere.model.I_M_AttributeSet;
 import org.compiere.model.I_M_InOutLine;
+import org.compiere.model.I_M_Product;
 import org.compiere.product.MAttributeSetInstance;
 import org.compiere.product.MProduct;
 import org.compiere.product.MUOM;
@@ -97,11 +99,11 @@ public class MInOutLine extends X_M_InOutLine {
      * @param M_Locator_ID locator
      * @param Qty          used only to find suitable locator
      */
-    public void setOrderLine(MOrderLine oLine, int M_Locator_ID, BigDecimal Qty) {
+    public void setOrderLine(I_C_OrderLine oLine, int M_Locator_ID, BigDecimal Qty) {
         setOrderLineId(oLine.getOrderLineId());
         setLine(oLine.getLine());
         setUOMId(oLine.getUOMId());
-        MProduct product = oLine.getProduct();
+        I_M_Product product = oLine.getProduct();
         if (product == null) {
             setValueNoCheck("M_Product_ID", null);
             setValueNoCheck("M_AttributeSetInstance_ID", null);

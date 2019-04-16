@@ -6,7 +6,9 @@ import org.compiere.bo.MCurrencyKt;
 import org.compiere.model.IDocLine;
 import org.compiere.model.I_C_Order;
 import org.compiere.model.I_C_OrderLine;
+import org.compiere.model.I_C_UOM;
 import org.compiere.orm.MRoleKt;
+import org.compiere.orm.MTable;
 import org.compiere.product.IProductPricing;
 import org.compiere.product.MAttributeSet;
 import org.compiere.product.MPriceList;
@@ -874,4 +876,10 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
     public int getTableId() {
         return I_C_OrderLine.Table_ID;
     }
+
+    public I_C_UOM getUOM()
+    {
+        return (I_C_UOM) MTable.get(I_C_UOM.Table_Name).getPO(getUOMId());
+    }
+
 } //	MOrderLine

@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  * @author iDempiere (generated)
  * @version Release 5.1 - $Id$
  */
-public class X_M_InOutLine extends PO implements I_M_InOutLine {
+public abstract class X_M_InOutLine extends PO implements I_M_InOutLine {
 
     /**
      *
@@ -26,13 +26,6 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      */
     public X_M_InOutLine(int M_InOutLine_ID) {
         super(M_InOutLine_ID);
-        /**
-         * if (M_InOutLine_ID == 0) { setUOMId (0); // @#C_UOM_ID@ setIsDescription (false); // N
-         * setIsInvoiced (false); setLine (0); // @SQL=SELECT NVL(MAX(Line),0)+10 AS DefaultValue FROM
-         * M_InOutLine WHERE M_InOut_ID=@M_InOut_ID@ setAttributeSetInstanceId (0); setInOutId
-         * (0); setInOutLineId (0); setMovementQty (Env.ZERO); // 1 setProcessed (false);
-         * setQtyEntered (Env.ZERO); // 1 }
-         */
     }
 
     /**
@@ -52,8 +45,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
     }
 
     public String toString() {
-        StringBuffer sb = new StringBuffer("X_M_InOutLine[").append(getId()).append("]");
-        return sb.toString();
+        return "X_M_InOutLine[" + getId() + "]";
     }
 
     /**
@@ -74,7 +66,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      */
     public void setTransactionOrganizationId(int AD_OrgTrx_ID) {
         if (AD_OrgTrx_ID < 1) setValue(COLUMNNAME_AD_OrgTrx_ID, null);
-        else setValue(COLUMNNAME_AD_OrgTrx_ID, Integer.valueOf(AD_OrgTrx_ID));
+        else setValue(COLUMNNAME_AD_OrgTrx_ID, AD_OrgTrx_ID);
     }
 
     /**
@@ -95,7 +87,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      */
     public void setBusinessActivityId(int C_Activity_ID) {
         if (C_Activity_ID < 1) setValue(COLUMNNAME_C_Activity_ID, null);
-        else setValue(COLUMNNAME_C_Activity_ID, Integer.valueOf(C_Activity_ID));
+        else setValue(COLUMNNAME_C_Activity_ID, C_Activity_ID);
     }
 
     /**
@@ -116,7 +108,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      */
     public void setCampaignId(int C_Campaign_ID) {
         if (C_Campaign_ID < 1) setValue(COLUMNNAME_C_Campaign_ID, null);
-        else setValue(COLUMNNAME_C_Campaign_ID, Integer.valueOf(C_Campaign_ID));
+        else setValue(COLUMNNAME_C_Campaign_ID, C_Campaign_ID);
     }
 
     /**
@@ -194,7 +186,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      */
     public void setProjectId(int C_Project_ID) {
         if (C_Project_ID < 1) setValue(COLUMNNAME_C_Project_ID, null);
-        else setValue(COLUMNNAME_C_Project_ID, Integer.valueOf(C_Project_ID));
+        else setValue(COLUMNNAME_C_Project_ID, C_Project_ID);
     }
 
     /**
@@ -215,7 +207,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      */
     public void setProjectPhaseId(int C_ProjectPhase_ID) {
         if (C_ProjectPhase_ID < 1) setValue(COLUMNNAME_C_ProjectPhase_ID, null);
-        else setValue(COLUMNNAME_C_ProjectPhase_ID, Integer.valueOf(C_ProjectPhase_ID));
+        else setValue(COLUMNNAME_C_ProjectPhase_ID, C_ProjectPhase_ID);
     }
 
     /**
@@ -236,7 +228,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      */
     public void setProjectTaskId(int C_ProjectTask_ID) {
         if (C_ProjectTask_ID < 1) setValue(COLUMNNAME_C_ProjectTask_ID, null);
-        else setValue(COLUMNNAME_C_ProjectTask_ID, Integer.valueOf(C_ProjectTask_ID));
+        else setValue(COLUMNNAME_C_ProjectTask_ID, C_ProjectTask_ID);
     }
 
     /**
@@ -257,7 +249,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      */
     public void setUOMId(int C_UOM_ID) {
         if (C_UOM_ID < 1) setValueNoCheck(COLUMNNAME_C_UOM_ID, null);
-        else setValueNoCheck(COLUMNNAME_C_UOM_ID, Integer.valueOf(C_UOM_ID));
+        else setValueNoCheck(COLUMNNAME_C_UOM_ID, C_UOM_ID);
     }
 
     /**
@@ -275,7 +267,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param IsDescription if true, the line is just description and no transaction
      */
     public void setIsDescription(boolean IsDescription) {
-        setValue(COLUMNNAME_IsDescription, Boolean.valueOf(IsDescription));
+        setValue(COLUMNNAME_IsDescription, IsDescription);
     }
 
     /**
@@ -286,7 +278,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
     public boolean isDescription() {
         Object oo = getValue(COLUMNNAME_IsDescription);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -307,7 +299,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param IsInvoiced Is this invoiced?
      */
     public void setIsInvoiced(boolean IsInvoiced) {
-        setValue(COLUMNNAME_IsInvoiced, Boolean.valueOf(IsInvoiced));
+        setValue(COLUMNNAME_IsInvoiced, IsInvoiced);
     }
 
     /**
@@ -318,7 +310,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
     public boolean isInvoiced() {
         Object oo = getValue(COLUMNNAME_IsInvoiced);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -341,7 +333,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      * @param Line Unique line for this document
      */
     public void setLine(int Line) {
-        setValue(COLUMNNAME_Line, Integer.valueOf(Line));
+        setValue(COLUMNNAME_Line, Line);
     }
 
     /**
@@ -363,7 +355,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
     public void setAttributeSetInstanceId(int M_AttributeSetInstance_ID) {
         if (M_AttributeSetInstance_ID < 0) setValue(COLUMNNAME_M_AttributeSetInstance_ID, null);
         else
-            setValue(COLUMNNAME_M_AttributeSetInstance_ID, Integer.valueOf(M_AttributeSetInstance_ID));
+            setValue(COLUMNNAME_M_AttributeSetInstance_ID, M_AttributeSetInstance_ID);
     }
 
     public org.compiere.model.I_M_InOut getInOut() throws RuntimeException {
@@ -422,7 +414,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      */
     public void setLocatorId(int M_Locator_ID) {
         if (M_Locator_ID < 1) setValue(COLUMNNAME_M_Locator_ID, null);
-        else setValue(COLUMNNAME_M_Locator_ID, Integer.valueOf(M_Locator_ID));
+        else setValue(COLUMNNAME_M_Locator_ID, M_Locator_ID);
     }
 
     /**
@@ -635,7 +627,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      */
     public void setUser1Id(int User1_ID) {
         if (User1_ID < 1) setValue(COLUMNNAME_User1_ID, null);
-        else setValue(COLUMNNAME_User1_ID, Integer.valueOf(User1_ID));
+        else setValue(COLUMNNAME_User1_ID, User1_ID);
     }
 
     /**
@@ -656,7 +648,7 @@ public class X_M_InOutLine extends PO implements I_M_InOutLine {
      */
     public void setUser2Id(int User2_ID) {
         if (User2_ID < 1) setValue(COLUMNNAME_User2_ID, null);
-        else setValue(COLUMNNAME_User2_ID, Integer.valueOf(User2_ID));
+        else setValue(COLUMNNAME_User2_ID, User2_ID);
     }
 
     @Override

@@ -36,7 +36,7 @@ public class StandardTaxProvider implements ITaxProvider {
         //	Lines
         BigDecimal totalLines = Env.ZERO;
         ArrayList<Integer> taxList = new ArrayList<>();
-        I_C_OrderLine[] lines = order.getLines();
+        I_C_OrderLine[] lines = order.getLines().toArray(new I_C_OrderLine[0]);
         for (I_C_OrderLine line : lines) {
             totalLines = totalLines.add(line.getLineNetAmt());
             Integer taxID = line.getTaxId();

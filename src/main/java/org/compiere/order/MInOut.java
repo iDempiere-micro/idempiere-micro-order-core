@@ -487,6 +487,16 @@ public class MInOut extends X_M_InOut {
         if (log.isLoggable(Level.FINE)) log.fine(processed + " - Lines=" + noLine);
     } //	setProcessed
 
+    @Override
+    public boolean voidIt() {
+        throw new Error("Use org.compiere.invoicing.MInOut if you need to voidIt()");
+    }
+
+    @Override
+    public boolean reverseCorrectIt() {
+        throw new Error("Use org.compiere.invoicing.MInOut if you need to reverseCorrectIt()");
+    }
+
     /**
      * Set Business Partner Defaults & Details
      *

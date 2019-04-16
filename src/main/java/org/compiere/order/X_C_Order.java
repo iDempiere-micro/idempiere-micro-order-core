@@ -159,23 +159,6 @@ public class X_C_Order extends PO {
      */
     public X_C_Order(int C_Order_ID) {
         super(C_Order_ID);
-        /**
-         * if (C_Order_ID == 0) { setBusinessPartnerId (0); setBusinessPartnerLocationId (0); setCurrencyId
-         * (0); // @C_Currency_ID@ setDocumentTypeId (0); // 0 setTargetDocumentTypeId (0); setOrderId
-         * (0); setPaymentTermId (0); setDateAcct (new Timestamp( System.currentTimeMillis() ));
-         * // @#Date@ setDateOrdered (new Timestamp( System.currentTimeMillis() )); // @#Date@
-         * setDatePromised (new Timestamp( System.currentTimeMillis() )); // @#Date@ setDeliveryRule
-         * (null); // F setDeliveryViaRule (null); // P setDocAction (null); // CO setDocStatus (null);
-         * // DR setDocumentNo (null); setFreightAmt (Env.ZERO); setFreightCostRule (null); // I
-         * setGrandTotal (Env.ZERO); setInvoiceRule (null); // I setIsApproved (false); // @IsApproved@
-         * setIsCreditApproved (false); setIsDelivered (false); setIsDiscountPrinted (false);
-         * setIsDropShip (false); // N setIsInvoiced (false); setIsPayScheduleValid (false); // N
-         * setIsPrinted (false); setIsPriviledgedRate (false); // N setIsSelected (false);
-         * setIsSelfService (false); setIsSOTrx (false); // @IsSOTrx@ setIsTaxIncluded (false);
-         * setIsTransferred (false); setPriceListId (0); setWarehouseId (0); setPaymentRule
-         * (null); // B setPosted (false); // N setPriorityRule (null); // 5 setProcessed (false);
-         * setSalesRepresentativeId (0); setSendEMail (false); setTotalLines (Env.ZERO); }
-         */
     }
 
     /**
@@ -195,8 +178,7 @@ public class X_C_Order extends PO {
     }
 
     public String toString() {
-        StringBuffer sb = new StringBuffer("X_C_Order[").append(getId()).append("]");
-        return sb.toString();
+        return "X_C_Order[" + getId() + "]";
     }
 
     /**
@@ -217,7 +199,7 @@ public class X_C_Order extends PO {
      */
     public void setTransactionOrganizationId(int AD_OrgTrx_ID) {
         if (AD_OrgTrx_ID < 1) setValue(I_C_Order.COLUMNNAME_AD_OrgTrx_ID, null);
-        else setValue(I_C_Order.COLUMNNAME_AD_OrgTrx_ID, Integer.valueOf(AD_OrgTrx_ID));
+        else setValue(I_C_Order.COLUMNNAME_AD_OrgTrx_ID, AD_OrgTrx_ID);
     }
 
     /**
@@ -238,7 +220,7 @@ public class X_C_Order extends PO {
      */
     public void setUserId(int AD_User_ID) {
         if (AD_User_ID < 1) setValue(I_C_Order.COLUMNNAME_AD_User_ID, null);
-        else setValue(I_C_Order.COLUMNNAME_AD_User_ID, Integer.valueOf(AD_User_ID));
+        else setValue(I_C_Order.COLUMNNAME_AD_User_ID, AD_User_ID);
     }
 
     /**
@@ -259,7 +241,7 @@ public class X_C_Order extends PO {
      */
     public void setBill_BPartnerId(int Bill_BPartner_ID) {
         if (Bill_BPartner_ID < 1) setValue(I_C_Order.COLUMNNAME_Bill_BPartner_ID, null);
-        else setValue(I_C_Order.COLUMNNAME_Bill_BPartner_ID, Integer.valueOf(Bill_BPartner_ID));
+        else setValue(I_C_Order.COLUMNNAME_Bill_BPartner_ID, Bill_BPartner_ID);
     }
 
     /**
@@ -280,7 +262,7 @@ public class X_C_Order extends PO {
      */
     public void setBusinessPartnerInvoicingLocationId(int Bill_Location_ID) {
         if (Bill_Location_ID < 1) setValue(I_C_Order.COLUMNNAME_Bill_Location_ID, null);
-        else setValue(I_C_Order.COLUMNNAME_Bill_Location_ID, Integer.valueOf(Bill_Location_ID));
+        else setValue(I_C_Order.COLUMNNAME_Bill_Location_ID, Bill_Location_ID);
     }
 
     /**
@@ -301,7 +283,7 @@ public class X_C_Order extends PO {
      */
     public void setBill_UserId(int Bill_User_ID) {
         if (Bill_User_ID < 1) setValue(I_C_Order.COLUMNNAME_Bill_User_ID, null);
-        else setValue(I_C_Order.COLUMNNAME_Bill_User_ID, Integer.valueOf(Bill_User_ID));
+        else setValue(I_C_Order.COLUMNNAME_Bill_User_ID, Bill_User_ID);
     }
 
     /**
@@ -322,7 +304,7 @@ public class X_C_Order extends PO {
      */
     public void setBusinessActivityId(int C_Activity_ID) {
         if (C_Activity_ID < 1) setValue(I_C_Order.COLUMNNAME_C_Activity_ID, null);
-        else setValue(I_C_Order.COLUMNNAME_C_Activity_ID, Integer.valueOf(C_Activity_ID));
+        else setValue(I_C_Order.COLUMNNAME_C_Activity_ID, C_Activity_ID);
     }
 
     /**
@@ -343,7 +325,7 @@ public class X_C_Order extends PO {
      */
     public void setBusinessPartnerId(int C_BPartner_ID) {
         if (C_BPartner_ID < 1) setValue(I_C_Order.COLUMNNAME_C_BPartner_ID, null);
-        else setValue(I_C_Order.COLUMNNAME_C_BPartner_ID, Integer.valueOf(C_BPartner_ID));
+        else setValue(I_C_Order.COLUMNNAME_C_BPartner_ID, C_BPartner_ID);
     }
 
     /**
@@ -366,7 +348,7 @@ public class X_C_Order extends PO {
         if (C_BPartner_Location_ID < 1) setValue(I_C_Order.COLUMNNAME_C_BPartner_Location_ID, null);
         else
             setValue(
-                    I_C_Order.COLUMNNAME_C_BPartner_Location_ID, Integer.valueOf(C_BPartner_Location_ID));
+                    I_C_Order.COLUMNNAME_C_BPartner_Location_ID, C_BPartner_Location_ID);
     }
 
     /**
@@ -387,7 +369,7 @@ public class X_C_Order extends PO {
      */
     public void setCampaignId(int C_Campaign_ID) {
         if (C_Campaign_ID < 1) setValue(I_C_Order.COLUMNNAME_C_Campaign_ID, null);
-        else setValue(I_C_Order.COLUMNNAME_C_Campaign_ID, Integer.valueOf(C_Campaign_ID));
+        else setValue(I_C_Order.COLUMNNAME_C_Campaign_ID, C_Campaign_ID);
     }
 
     /**
@@ -408,7 +390,7 @@ public class X_C_Order extends PO {
      */
     public void setCashLineId(int C_CashLine_ID) {
         if (C_CashLine_ID < 1) setValue(I_C_Order.COLUMNNAME_C_CashLine_ID, null);
-        else setValue(I_C_Order.COLUMNNAME_C_CashLine_ID, Integer.valueOf(C_CashLine_ID));
+        else setValue(I_C_Order.COLUMNNAME_C_CashLine_ID, C_CashLine_ID);
     }
 
     /**
@@ -565,7 +547,7 @@ public class X_C_Order extends PO {
      */
     public void setOrderSourceId(int C_OrderSource_ID) {
         if (C_OrderSource_ID < 1) setValue(I_C_Order.COLUMNNAME_C_OrderSource_ID, null);
-        else setValue(I_C_Order.COLUMNNAME_C_OrderSource_ID, Integer.valueOf(C_OrderSource_ID));
+        else setValue(I_C_Order.COLUMNNAME_C_OrderSource_ID, C_OrderSource_ID);
     }
 
     /**
@@ -586,7 +568,7 @@ public class X_C_Order extends PO {
      */
     public void setPaymentId(int C_Payment_ID) {
         if (C_Payment_ID < 1) setValue(I_C_Order.COLUMNNAME_C_Payment_ID, null);
-        else setValue(I_C_Order.COLUMNNAME_C_Payment_ID, Integer.valueOf(C_Payment_ID));
+        else setValue(I_C_Order.COLUMNNAME_C_Payment_ID, C_Payment_ID);
     }
 
     /**
@@ -607,7 +589,7 @@ public class X_C_Order extends PO {
      */
     public void setPaymentTermId(int C_PaymentTerm_ID) {
         if (C_PaymentTerm_ID < 1) setValue(I_C_Order.COLUMNNAME_C_PaymentTerm_ID, null);
-        else setValue(I_C_Order.COLUMNNAME_C_PaymentTerm_ID, Integer.valueOf(C_PaymentTerm_ID));
+        else setValue(I_C_Order.COLUMNNAME_C_PaymentTerm_ID, C_PaymentTerm_ID);
     }
 
     /**
@@ -639,7 +621,7 @@ public class X_C_Order extends PO {
      */
     public void setProjectId(int C_Project_ID) {
         if (C_Project_ID < 1) setValue(I_C_Order.COLUMNNAME_C_Project_ID, null);
-        else setValue(I_C_Order.COLUMNNAME_C_Project_ID, Integer.valueOf(C_Project_ID));
+        else setValue(I_C_Order.COLUMNNAME_C_Project_ID, C_Project_ID);
     }
 
     /**
@@ -836,7 +818,7 @@ public class X_C_Order extends PO {
     public void setDropShipBPartnerId(int DropShip_BPartner_ID) {
         if (DropShip_BPartner_ID < 1) setValue(I_C_Order.COLUMNNAME_DropShip_BPartner_ID, null);
         else
-            setValue(I_C_Order.COLUMNNAME_DropShip_BPartner_ID, Integer.valueOf(DropShip_BPartner_ID));
+            setValue(I_C_Order.COLUMNNAME_DropShip_BPartner_ID, DropShip_BPartner_ID);
     }
 
     /**
@@ -858,7 +840,7 @@ public class X_C_Order extends PO {
     public void setDropShipLocationId(int DropShip_Location_ID) {
         if (DropShip_Location_ID < 1) setValue(I_C_Order.COLUMNNAME_DropShip_Location_ID, null);
         else
-            setValue(I_C_Order.COLUMNNAME_DropShip_Location_ID, Integer.valueOf(DropShip_Location_ID));
+            setValue(I_C_Order.COLUMNNAME_DropShip_Location_ID, DropShip_Location_ID);
     }
 
     /**
@@ -879,7 +861,7 @@ public class X_C_Order extends PO {
      */
     public void setDropShipUserId(int DropShip_User_ID) {
         if (DropShip_User_ID < 1) setValue(I_C_Order.COLUMNNAME_DropShip_User_ID, null);
-        else setValue(I_C_Order.COLUMNNAME_DropShip_User_ID, Integer.valueOf(DropShip_User_ID));
+        else setValue(I_C_Order.COLUMNNAME_DropShip_User_ID, DropShip_User_ID);
     }
 
     /**
@@ -966,7 +948,7 @@ public class X_C_Order extends PO {
      * @param IsApproved Indicates if this document requires approval
      */
     public void setIsApproved(boolean IsApproved) {
-        setValueNoCheck(I_C_Order.COLUMNNAME_IsApproved, Boolean.valueOf(IsApproved));
+        setValueNoCheck(I_C_Order.COLUMNNAME_IsApproved, IsApproved);
     }
 
     /**
@@ -977,7 +959,7 @@ public class X_C_Order extends PO {
     public boolean isApproved() {
         Object oo = getValue(I_C_Order.COLUMNNAME_IsApproved);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -989,7 +971,7 @@ public class X_C_Order extends PO {
      * @param IsCreditApproved Credit has been approved
      */
     public void setIsCreditApproved(boolean IsCreditApproved) {
-        setValueNoCheck(I_C_Order.COLUMNNAME_IsCreditApproved, Boolean.valueOf(IsCreditApproved));
+        setValueNoCheck(I_C_Order.COLUMNNAME_IsCreditApproved, IsCreditApproved);
     }
 
     /**
@@ -998,7 +980,7 @@ public class X_C_Order extends PO {
      * @param IsDelivered Delivered
      */
     public void setIsDelivered(boolean IsDelivered) {
-        setValueNoCheck(I_C_Order.COLUMNNAME_IsDelivered, Boolean.valueOf(IsDelivered));
+        setValueNoCheck(I_C_Order.COLUMNNAME_IsDelivered, IsDelivered);
     }
 
     /**
@@ -1007,7 +989,7 @@ public class X_C_Order extends PO {
      * @param IsDiscountPrinted Print Discount on Invoice and Order
      */
     public void setIsDiscountPrinted(boolean IsDiscountPrinted) {
-        setValue(I_C_Order.COLUMNNAME_IsDiscountPrinted, Boolean.valueOf(IsDiscountPrinted));
+        setValue(I_C_Order.COLUMNNAME_IsDiscountPrinted, IsDiscountPrinted);
     }
 
     /**
@@ -1018,7 +1000,7 @@ public class X_C_Order extends PO {
     public boolean isDiscountPrinted() {
         Object oo = getValue(I_C_Order.COLUMNNAME_IsDiscountPrinted);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -1030,7 +1012,7 @@ public class X_C_Order extends PO {
      * @param IsDropShip Drop Shipments are sent from the Vendor directly to the Customer
      */
     public void setIsDropShip(boolean IsDropShip) {
-        setValue(I_C_Order.COLUMNNAME_IsDropShip, Boolean.valueOf(IsDropShip));
+        setValue(I_C_Order.COLUMNNAME_IsDropShip, IsDropShip);
     }
 
     /**
@@ -1041,7 +1023,7 @@ public class X_C_Order extends PO {
     public boolean isDropShip() {
         Object oo = getValue(I_C_Order.COLUMNNAME_IsDropShip);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -1053,7 +1035,7 @@ public class X_C_Order extends PO {
      * @param IsInvoiced Is this invoiced?
      */
     public void setIsInvoiced(boolean IsInvoiced) {
-        setValueNoCheck(I_C_Order.COLUMNNAME_IsInvoiced, Boolean.valueOf(IsInvoiced));
+        setValueNoCheck(I_C_Order.COLUMNNAME_IsInvoiced, IsInvoiced);
     }
 
     /**
@@ -1062,7 +1044,7 @@ public class X_C_Order extends PO {
      * @param IsPayScheduleValid Is the Payment Schedule is valid
      */
     public void setIsPayScheduleValid(boolean IsPayScheduleValid) {
-        setValue(I_C_Order.COLUMNNAME_IsPayScheduleValid, Boolean.valueOf(IsPayScheduleValid));
+        setValue(I_C_Order.COLUMNNAME_IsPayScheduleValid, IsPayScheduleValid);
     }
 
     /**
@@ -1073,7 +1055,7 @@ public class X_C_Order extends PO {
     public boolean isPayScheduleValid() {
         Object oo = getValue(I_C_Order.COLUMNNAME_IsPayScheduleValid);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -1085,7 +1067,7 @@ public class X_C_Order extends PO {
      * @param IsPrinted Indicates if this document / line is printed
      */
     public void setIsPrinted(boolean IsPrinted) {
-        setValueNoCheck(I_C_Order.COLUMNNAME_IsPrinted, Boolean.valueOf(IsPrinted));
+        setValueNoCheck(I_C_Order.COLUMNNAME_IsPrinted, IsPrinted);
     }
 
     /**
@@ -1096,7 +1078,7 @@ public class X_C_Order extends PO {
     public boolean isPriviledgedRate() {
         Object oo = getValue(I_C_Order.COLUMNNAME_IsPriviledgedRate);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -1108,7 +1090,7 @@ public class X_C_Order extends PO {
      * @param IsSelected Selected
      */
     public void setIsSelected(boolean IsSelected) {
-        setValue(I_C_Order.COLUMNNAME_IsSelected, Boolean.valueOf(IsSelected));
+        setValue(I_C_Order.COLUMNNAME_IsSelected, IsSelected);
     }
 
     /**
@@ -1117,7 +1099,7 @@ public class X_C_Order extends PO {
      * @param IsSelfService This is a Self-Service entry or this entry can be changed via Self-Service
      */
     public void setIsSelfService(boolean IsSelfService) {
-        setValue(I_C_Order.COLUMNNAME_IsSelfService, Boolean.valueOf(IsSelfService));
+        setValue(I_C_Order.COLUMNNAME_IsSelfService, IsSelfService);
     }
 
     /**
@@ -1128,7 +1110,7 @@ public class X_C_Order extends PO {
     public boolean isSelfService() {
         Object oo = getValue(I_C_Order.COLUMNNAME_IsSelfService);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -1140,7 +1122,7 @@ public class X_C_Order extends PO {
      * @param IsSOTrx This is a Sales Transaction
      */
     public void setIsSOTrx(boolean IsSOTrx) {
-        setValue(I_C_Order.COLUMNNAME_IsSOTrx, Boolean.valueOf(IsSOTrx));
+        setValue(I_C_Order.COLUMNNAME_IsSOTrx, IsSOTrx);
     }
 
     /**
@@ -1151,7 +1133,7 @@ public class X_C_Order extends PO {
     public boolean isSOTrx() {
         Object oo = getValue(I_C_Order.COLUMNNAME_IsSOTrx);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -1163,7 +1145,7 @@ public class X_C_Order extends PO {
      * @param IsTaxIncluded Tax is included in the price
      */
     public void setIsTaxIncluded(boolean IsTaxIncluded) {
-        setValue(I_C_Order.COLUMNNAME_IsTaxIncluded, Boolean.valueOf(IsTaxIncluded));
+        setValue(I_C_Order.COLUMNNAME_IsTaxIncluded, IsTaxIncluded);
     }
 
     /**
@@ -1174,7 +1156,7 @@ public class X_C_Order extends PO {
     public boolean isTaxIncluded() {
         Object oo = getValue(I_C_Order.COLUMNNAME_IsTaxIncluded);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -1186,7 +1168,7 @@ public class X_C_Order extends PO {
      * @param IsTransferred Transferred to General Ledger (i.e. accounted)
      */
     public void setIsTransferred(boolean IsTransferred) {
-        setValueNoCheck(I_C_Order.COLUMNNAME_IsTransferred, Boolean.valueOf(IsTransferred));
+        setValueNoCheck(I_C_Order.COLUMNNAME_IsTransferred, IsTransferred);
     }
 
     /**
@@ -1326,7 +1308,7 @@ public class X_C_Order extends PO {
     public boolean isPosted() {
         Object oo = getValue(I_C_Order.COLUMNNAME_Posted);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -1338,7 +1320,7 @@ public class X_C_Order extends PO {
      * @param Posted Posting status
      */
     public void setPosted(boolean Posted) {
-        setValue(I_C_Order.COLUMNNAME_Posted, Boolean.valueOf(Posted));
+        setValue(I_C_Order.COLUMNNAME_Posted, Posted);
     }
 
     /**
@@ -1368,7 +1350,7 @@ public class X_C_Order extends PO {
     public boolean isProcessed() {
         Object oo = getValue(I_C_Order.COLUMNNAME_Processed);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -1380,7 +1362,7 @@ public class X_C_Order extends PO {
      * @param Processed The document has been processed
      */
     public void setProcessed(boolean Processed) {
-        setValueNoCheck(I_C_Order.COLUMNNAME_Processed, Boolean.valueOf(Processed));
+        setValueNoCheck(I_C_Order.COLUMNNAME_Processed, Processed);
     }
 
     /**
@@ -1400,7 +1382,7 @@ public class X_C_Order extends PO {
      * @param Processing Process Now
      */
     public void setProcessing(boolean Processing) {
-        setValue(I_C_Order.COLUMNNAME_Processing, Boolean.valueOf(Processing));
+        setValue(I_C_Order.COLUMNNAME_Processing, Processing);
     }
 
     /**
@@ -1410,7 +1392,7 @@ public class X_C_Order extends PO {
      */
     public void setQuotationOrderId(int QuotationOrder_ID) {
         if (QuotationOrder_ID < 1) setValue(I_C_Order.COLUMNNAME_QuotationOrder_ID, null);
-        else setValue(I_C_Order.COLUMNNAME_QuotationOrder_ID, Integer.valueOf(QuotationOrder_ID));
+        else setValue(I_C_Order.COLUMNNAME_QuotationOrder_ID, QuotationOrder_ID);
     }
 
     /**
@@ -1431,7 +1413,7 @@ public class X_C_Order extends PO {
      */
     public void setRef_OrderId(int Ref_Order_ID) {
         if (Ref_Order_ID < 1) setValue(I_C_Order.COLUMNNAME_Ref_Order_ID, null);
-        else setValue(I_C_Order.COLUMNNAME_Ref_Order_ID, Integer.valueOf(Ref_Order_ID));
+        else setValue(I_C_Order.COLUMNNAME_Ref_Order_ID, Ref_Order_ID);
     }
 
     /**
@@ -1452,7 +1434,7 @@ public class X_C_Order extends PO {
      */
     public void setSalesRepresentativeId(int SalesRep_ID) {
         if (SalesRep_ID < 1) setValue(I_C_Order.COLUMNNAME_SalesRep_ID, null);
-        else setValue(I_C_Order.COLUMNNAME_SalesRep_ID, Integer.valueOf(SalesRep_ID));
+        else setValue(I_C_Order.COLUMNNAME_SalesRep_ID, SalesRep_ID);
     }
 
     /**
@@ -1463,7 +1445,7 @@ public class X_C_Order extends PO {
     public boolean isSendEMail() {
         Object oo = getValue(I_C_Order.COLUMNNAME_SendEMail);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -1475,7 +1457,7 @@ public class X_C_Order extends PO {
      * @param SendEMail Enable sending Document EMail
      */
     public void setSendEMail(boolean SendEMail) {
-        setValue(I_C_Order.COLUMNNAME_SendEMail, Boolean.valueOf(SendEMail));
+        setValue(I_C_Order.COLUMNNAME_SendEMail, SendEMail);
     }
 
     /**
@@ -1516,7 +1498,7 @@ public class X_C_Order extends PO {
      */
     public void setUser1Id(int User1_ID) {
         if (User1_ID < 1) setValue(I_C_Order.COLUMNNAME_User1_ID, null);
-        else setValue(I_C_Order.COLUMNNAME_User1_ID, Integer.valueOf(User1_ID));
+        else setValue(I_C_Order.COLUMNNAME_User1_ID, User1_ID);
     }
 
     /**
@@ -1537,7 +1519,7 @@ public class X_C_Order extends PO {
      */
     public void setUser2Id(int User2_ID) {
         if (User2_ID < 1) setValue(I_C_Order.COLUMNNAME_User2_ID, null);
-        else setValue(I_C_Order.COLUMNNAME_User2_ID, Integer.valueOf(User2_ID));
+        else setValue(I_C_Order.COLUMNNAME_User2_ID, User2_ID);
     }
 
     /**

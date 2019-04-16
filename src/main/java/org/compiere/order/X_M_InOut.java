@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @author iDempiere (generated)
  * @version Release 5.1 - $Id$
  */
-public class X_M_InOut extends PO implements I_M_InOut {
+public abstract class X_M_InOut extends PO implements I_M_InOut {
 
     /**
      * Availability = A

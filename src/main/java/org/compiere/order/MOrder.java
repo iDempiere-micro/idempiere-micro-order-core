@@ -35,6 +35,7 @@ import org.idempiere.common.util.Util;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.logging.Level;
@@ -262,9 +263,21 @@ public class MOrder extends X_C_Order implements I_C_Order {
     } //	setBusinessPartnerLocationId
 
     @Override
+    public I_C_BPartner_Location getBusinessPartnerLocation() {
+        return (I_C_BPartner_Location) MTable.get(I_C_BPartner_Location.Table_Name)
+                .getPO(getBusinessPartnerLocationId());
+    }
+
+    @Override
     public String getDateOrderedISOFormat() {
         Timestamp dateOrdered = getDateOrdered();
         return dateOrdered == null ? null : dateOrdered.toInstant().toString();
+    }
+
+    @Override
+    public String getDateAccountingISOFormat() {
+        Timestamp dateAccounting = getDateAcct();
+        return dateAccounting == null ? null : dateAccounting.toInstant().toString();
     }
 
     /**
@@ -417,9 +430,10 @@ public class MOrder extends X_C_Order implements I_C_Order {
      */
     public int copyLinesFrom(MOrder otherOrder, boolean counter, boolean copyASI) {
         if (isProcessed() || isPosted() || otherOrder == null) return 0;
-        MOrderLine[] fromLines = otherOrder.getLines(false, null);
+        I_C_OrderLine[] fromLines = otherOrder.getLines(false, null).toArray(new I_C_OrderLine[0]);
         int count = 0;
-        for (MOrderLine fromLine : fromLines) {
+        for (I_C_OrderLine fromLine1 : fromLines) {
+            MOrderLine fromLine = (MOrderLine)fromLine1;
             MOrderLine line = new MOrderLine(this);
             copyValues(fromLine, line, getClientId(), getOrgId());
             line.setOrderId(getOrderId());
@@ -535,16 +549,16 @@ public class MOrder extends X_C_Order implements I_C_Order {
      * @param orderBy optional order by column
      * @return lines
      */
-    public MOrderLine[] getLines(boolean requery, String orderBy) {
+    public List<I_C_OrderLine> getLines(boolean requery, String orderBy) {
         if (m_lines != null && !requery) {
-            return m_lines;
+            return Arrays.asList(m_lines);
         }
         //
         String orderClause = "";
         if (orderBy != null && orderBy.length() > 0) orderClause += orderBy;
         else orderClause += "Line";
         m_lines = getLines(null, orderClause);
-        return m_lines;
+        return Arrays.asList(m_lines);
     } //	getLines
 
     /**
@@ -552,7 +566,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
      *
      * @return lines
      */
-    public MOrderLine[] getLines() {
+    public List<I_C_OrderLine> getLines() {
         return getLines(false, null);
     } //	getLines
 
@@ -563,8 +577,8 @@ public class MOrder extends X_C_Order implements I_C_Order {
      */
     public void renumberLines(int step) {
         int number = step;
-        MOrderLine[] lines = getLines(true, null); // 	Line is default
-        for (MOrderLine line : lines) {
+        I_C_OrderLine[] lines = getLines(true, null).toArray(new I_C_OrderLine[0]); // 	Line is default
+        for (I_C_OrderLine line : lines) {
             line.setLine(number);
             line.saveEx();
             number += step;
@@ -638,18 +652,18 @@ public class MOrder extends X_C_Order implements I_C_Order {
      *
      * @return shipments
      */
-    public MInOut[] getShipments() {
+    public I_M_InOut[] getShipments() {
         final String whereClause =
                 "EXISTS (SELECT 1 FROM M_InOutLine iol, C_OrderLine ol"
                         + " WHERE iol.M_InOut_ID=M_InOut.M_InOut_ID"
                         + " AND iol.C_OrderLine_ID=ol.C_OrderLine_ID"
                         + " AND ol.C_Order_ID=?)";
-        List<PO> list =
+        List<I_M_InOut> list =
                 new Query(I_M_InOut.Table_Name, whereClause)
                         .setParameters(getId())
                         .setOrderBy("M_InOut_ID DESC")
                         .list();
-        return list.toArray(new MInOut[0]);
+        return list.toArray(new I_M_InOut[0]);
     } //	getShipments
 
     /**
@@ -772,8 +786,8 @@ public class MOrder extends X_C_Order implements I_C_Order {
 
         //	Reservations in Warehouse
         if (!newRecord && isValueChanged("M_Warehouse_ID")) {
-            MOrderLine[] lines = getLines(false, null);
-            for (MOrderLine line : lines) {
+            I_C_OrderLine[] lines = getLines(false, null).toArray(new I_C_OrderLine[0]);
+            for (I_C_OrderLine line : lines) {
                 if (!line.canChangeWarehouse()) return false;
             }
         }
@@ -961,8 +975,8 @@ public class MOrder extends X_C_Order implements I_C_Order {
                 || isValueChanged(COLUMNNAME_M_Warehouse_ID)
                 || isValueChanged(COLUMNNAME_M_Shipper_ID)
                 || isValueChanged(COLUMNNAME_C_Currency_ID)) {
-            MOrderLine[] lines = getLines();
-            for (MOrderLine line : lines) {
+            I_C_OrderLine[] lines = getLines().toArray(new I_C_OrderLine[0]);
+            for (I_C_OrderLine line : lines) {
                 if (isValueChanged("AD_Org_ID")) line.setOrgId(getOrgId());
                 if (isValueChanged(COLUMNNAME_C_BPartner_ID)) line.setBusinessPartnerId(getBusinessPartnerId());
                 if (isValueChanged(COLUMNNAME_C_BPartner_Location_ID))
@@ -997,14 +1011,14 @@ public class MOrder extends X_C_Order implements I_C_Order {
             return false;
         }
 
-        MOrderLine[] ols = getLines(false, MOrderLine.COLUMNNAME_Line);
+        I_C_OrderLine[] ols = getLines(false, MOrderLine.COLUMNNAME_Line).toArray(new I_C_OrderLine[0]);
         if (ols.length == 0) {
             m_processMsg = "@NoLines@";
             return false;
         }
 
-        MOrderLine freightLine = null;
-        for (MOrderLine ol : ols) {
+        I_C_OrderLine freightLine = null;
+        for (I_C_OrderLine ol : ols) {
             if ((ol.getProductId() > 0 && ol.getProductId() == ci.getProductFreightId())
                     || (ol.getChargeId() > 0 && ol.getChargeId() == ci.getChargeFreightId())) {
                 freightLine = ol;
@@ -1053,7 +1067,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
                     return false;
                 }
 
-                for (MOrderLine ol : ols) {
+                for (I_C_OrderLine ol : ols) {
                     if ((ol.getProductId() <= 0 || ol.getProductId() != ci.getProductFreightId())
                             && (ol.getChargeId() <= 0 || ol.getChargeId() != ci.getChargeFreightId())) {
                         if (ol.getProductId() > 0) {
@@ -1257,8 +1271,8 @@ public class MOrder extends X_C_Order implements I_C_Order {
      */
     public MTaxProvider[] getTaxProviders() {
         Hashtable<Integer, MTaxProvider> providers = new Hashtable<>();
-        MOrderLine[] lines = getLines();
-        for (MOrderLine line : lines) {
+        I_C_OrderLine[] lines = getLines().toArray(new I_C_OrderLine[0]);
+        for (I_C_OrderLine line : lines) {
             MTax tax = new MTax(line.getTaxId());
             MTaxProvider provider = providers.get(tax.getTaxProviderId());
             if (provider == null)
