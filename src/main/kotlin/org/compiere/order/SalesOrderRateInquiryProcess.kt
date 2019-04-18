@@ -184,7 +184,7 @@ fun createShippingTransaction(
 
     val st = MShippingTransaction(0)
     st.action = action
-    // 		st.setADClientID(m_order.getADClientID());
+    // 		st.setClientId(m_order.getADClientID());
     st.setOrgId(m_order.orgId)
     st.setUserId(m_order.userId)
     st.setBusinessPartnerInvoicingLocationId(m_order.businessPartnerInvoicingLocationId)

@@ -50,7 +50,7 @@ public class MInOut extends X_M_InOut {
     /**
      * Lines
      */
-    protected MInOutLine[] m_lines = null;
+    protected I_M_InOutLine[] m_lines = null;
     /**
      * Confirmations
      */
@@ -120,7 +120,6 @@ public class MInOut extends X_M_InOut {
         if (C_DocTypeShipment_ID == 0)
             C_DocTypeShipment_ID =
                     getSQLValue(
-                            null,
                             "SELECT C_DocTypeShipment_ID FROM C_DocType WHERE C_DocType_ID=?",
                             order.getDocumentTypeId());
         setDocumentTypeId(C_DocTypeShipment_ID);
@@ -204,7 +203,6 @@ public class MInOut extends X_M_InOut {
         if (C_DocTypeShipment_ID == 0 && order != null)
             C_DocTypeShipment_ID =
                     getSQLValue(
-                            null,
                             "SELECT C_DocTypeShipment_ID FROM C_DocType WHERE C_DocType_ID=?",
                             order.getDocumentTypeId());
         if (C_DocTypeShipment_ID != 0) setDocumentTypeId(C_DocTypeShipment_ID);
@@ -309,8 +307,7 @@ public class MInOut extends X_M_InOut {
         String desc = getDescription();
         if (desc == null) setDescription(description);
         else {
-            StringBuilder msgd = new StringBuilder(desc).append(" | ").append(description);
-            setDescription(msgd.toString());
+            setDescription(desc + " | " + description);
         }
     } //	addDescription
 
@@ -320,15 +317,13 @@ public class MInOut extends X_M_InOut {
      * @return info
      */
     public String toString() {
-        StringBuilder sb =
-                new StringBuilder("MInOut[")
-                        .append(getId())
-                        .append("-")
-                        .append(getDocumentNo())
-                        .append(",DocStatus=")
-                        .append(getDocStatus())
-                        .append("]");
-        return sb.toString();
+        return "MInOut[" +
+                getId() +
+                "-" +
+                getDocumentNo() +
+                ",DocStatus=" +
+                getDocStatus() +
+                "]";
     } //	toString
 
     /**
@@ -337,17 +332,17 @@ public class MInOut extends X_M_InOut {
      * @param requery refresh from db
      * @return lines
      */
-    public MInOutLine[] getLines(boolean requery) {
+    public I_M_InOutLine[] getLines(boolean requery) {
         if (m_lines != null && !requery) {
             return m_lines;
         }
-        List<MInOutLine> list =
-                new Query(I_M_InOutLine.Table_Name, "M_InOut_ID=?")
+        List<I_M_InOutLine> list =
+                new Query<I_M_InOutLine>(I_M_InOutLine.Table_Name, "M_InOut_ID=?")
                         .setParameters(getInOutId())
                         .setOrderBy(MInOutLine.COLUMNNAME_Line)
                         .list();
         //
-        m_lines = new MInOutLine[list.size()];
+        m_lines = new I_M_InOutLine[list.size()];
         list.toArray(m_lines);
         return m_lines;
     } //	getMInOutLines
@@ -357,7 +352,7 @@ public class MInOut extends X_M_InOut {
      *
      * @return lines
      */
-    public MInOutLine[] getLines() {
+    public I_M_InOutLine[] getLines() {
         return getLines(false);
     } //	getLines
 
@@ -390,14 +385,13 @@ public class MInOut extends X_M_InOut {
      */
     public int copyLinesFrom(MInOut otherShipment, boolean counter, boolean setOrder) {
         if (isProcessed() || isPosted() || otherShipment == null) return 0;
-        MInOutLine[] fromLines = otherShipment.getLines(false);
+        I_M_InOutLine[] fromLines = otherShipment.getLines(false);
         int count = 0;
-        for (int i = 0; i < fromLines.length; i++) {
+        for (I_M_InOutLine fromLine : fromLines) {
             MInOutLine line = new MInOutLine(this);
-            MInOutLine fromLine = fromLines[i];
             if (counter) //	header
-                PO.copyValues(fromLine, line, getClientId(), getOrgId());
-            else PO.copyValues(fromLine, line, fromLine.getClientId(), fromLine.getOrgId());
+                PO.copyValues((PO)fromLine, line, getClientId(), getOrgId());
+            else PO.copyValues((PO)fromLine, line, fromLine.getClientId(), fromLine.getOrgId());
             line.setInOutId(getInOutId());
             line.setValueNoCheck("M_InOutLine_ID", I_ZERO); // 	new
             //	Reset
@@ -477,12 +471,11 @@ public class MInOut extends X_M_InOut {
     public void setProcessed(boolean processed) {
         super.setProcessed(processed);
         if (getId() == 0) return;
-        StringBuilder sql =
-                new StringBuilder("UPDATE M_InOutLine SET Processed='")
-                        .append((processed ? "Y" : "N"))
-                        .append("' WHERE M_InOut_ID=")
-                        .append(getInOutId());
-        int noLine = executeUpdate(sql.toString());
+        String sql = "UPDATE M_InOutLine SET Processed='" +
+                (processed ? "Y" : "N") +
+                "' WHERE M_InOut_ID=" +
+                getInOutId();
+        int noLine = executeUpdate(sql);
         m_lines = null;
         if (log.isLoggable(Level.FINE)) log.fine(processed + " - Lines=" + noLine);
     } //	setProcessed

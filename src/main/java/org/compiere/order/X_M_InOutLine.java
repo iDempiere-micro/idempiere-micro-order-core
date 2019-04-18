@@ -1,10 +1,14 @@
 package org.compiere.order;
 
 import kotliquery.Row;
+import org.compiere.model.I_C_OrderLine;
+import org.compiere.model.I_M_InOut;
 import org.compiere.model.I_M_InOutLine;
-import org.compiere.orm.MTable;
+import org.compiere.model.I_M_Product;
+import org.compiere.model.I_M_RMALine;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
+import software.hsharp.core.orm.MBaseTableKt;
 
 import java.math.BigDecimal;
 
@@ -141,9 +145,9 @@ public abstract class X_M_InOutLine extends PO implements I_M_InOutLine {
         setValue(COLUMNNAME_ConfirmedQty, ConfirmedQty);
     }
 
-    public org.compiere.model.I_C_OrderLine getOrderLine() throws RuntimeException {
-        return (org.compiere.model.I_C_OrderLine)
-                MTable.get(org.compiere.model.I_C_OrderLine.Table_Name)
+    public I_C_OrderLine getOrderLine() throws RuntimeException {
+        return (I_C_OrderLine)
+                MBaseTableKt.getTable(I_C_OrderLine.Table_Name)
                         .getPO(getOrderLineId());
     }
 
@@ -358,9 +362,9 @@ public abstract class X_M_InOutLine extends PO implements I_M_InOutLine {
             setValue(COLUMNNAME_M_AttributeSetInstance_ID, M_AttributeSetInstance_ID);
     }
 
-    public org.compiere.model.I_M_InOut getInOut() throws RuntimeException {
-        return (org.compiere.model.I_M_InOut)
-                MTable.get(org.compiere.model.I_M_InOut.Table_Name)
+    public I_M_InOut getInOut() throws RuntimeException {
+        return (I_M_InOut)
+                MBaseTableKt.getTable(I_M_InOut.Table_Name)
                         .getPO(getInOutId());
     }
 
@@ -437,9 +441,9 @@ public abstract class X_M_InOutLine extends PO implements I_M_InOutLine {
         setValue(COLUMNNAME_MovementQty, MovementQty);
     }
 
-    public org.compiere.model.I_M_Product getProduct() throws RuntimeException {
-        return (org.compiere.model.I_M_Product)
-                MTable.get(org.compiere.model.I_M_Product.Table_Name)
+    public I_M_Product getProduct() throws RuntimeException {
+        return (I_M_Product)
+                MBaseTableKt.getTable(I_M_Product.Table_Name)
                         .getPO(getProductId());
     }
 
@@ -464,9 +468,9 @@ public abstract class X_M_InOutLine extends PO implements I_M_InOutLine {
         else setValue(COLUMNNAME_M_Product_ID, M_Product_ID);
     }
 
-    public org.compiere.model.I_M_RMALine getRMALine() throws RuntimeException {
-        return (org.compiere.model.I_M_RMALine)
-                MTable.get(org.compiere.model.I_M_RMALine.Table_Name)
+    public I_M_RMALine getRMALine() throws RuntimeException {
+        return (I_M_RMALine)
+                MBaseTableKt.getTable(I_M_RMALine.Table_Name)
                         .getPO(getRMALineId());
     }
 

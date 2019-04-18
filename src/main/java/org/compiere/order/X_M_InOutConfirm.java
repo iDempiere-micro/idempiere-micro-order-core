@@ -1,10 +1,11 @@
 package org.compiere.order;
 
 import kotliquery.Row;
+import org.compiere.model.I_M_InOut;
 import org.compiere.model.I_M_InOutConfirm;
-import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
+import software.hsharp.core.orm.MBaseTableKt;
 
 import java.math.BigDecimal;
 
@@ -302,9 +303,9 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
         return ii;
     }
 
-    public org.compiere.model.I_M_InOut getInOut() throws RuntimeException {
-        return (org.compiere.model.I_M_InOut)
-                MTable.get(org.compiere.model.I_M_InOut.Table_Name)
+    public I_M_InOut getInOut() throws RuntimeException {
+        return (I_M_InOut)
+                MBaseTableKt.getTable(I_M_InOut.Table_Name)
                         .getPO(getInOutId());
     }
 
@@ -347,7 +348,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
     public boolean isProcessed() {
         Object oo = getValue(COLUMNNAME_Processed);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -359,7 +360,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @param Processed The document has been processed
      */
     public void setProcessed(boolean Processed) {
-        setValue(COLUMNNAME_Processed, Boolean.valueOf(Processed));
+        setValue(COLUMNNAME_Processed, Processed);
     }
 
     /**
@@ -368,7 +369,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @param Processing Process Now
      */
     public void setProcessing(boolean Processing) {
-        setValue(COLUMNNAME_Processing, Boolean.valueOf(Processing));
+        setValue(COLUMNNAME_Processing, Processing);
     }
 
     @Override

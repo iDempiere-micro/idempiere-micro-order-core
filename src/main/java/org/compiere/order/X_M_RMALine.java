@@ -1,10 +1,11 @@
 package org.compiere.order;
 
 import kotliquery.Row;
+import org.compiere.model.I_M_InOutLine;
 import org.compiere.model.I_M_RMALine;
-import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
+import software.hsharp.core.orm.MBaseTableKt;
 
 import java.math.BigDecimal;
 
@@ -26,10 +27,6 @@ public class X_M_RMALine extends PO {
      */
     public X_M_RMALine(int M_RMALine_ID) {
         super(M_RMALine_ID);
-        /**
-         * if (M_RMALine_ID == 0) { setTaxId (0); setRMAId (0); setRMALine_ID (0); setProcessed
-         * (false); setQty (Env.ZERO); }
-         */
     }
 
     /**
@@ -49,8 +46,7 @@ public class X_M_RMALine extends PO {
     }
 
     public String toString() {
-        StringBuffer sb = new StringBuffer("X_M_RMALine[").append(getId()).append("]");
-        return sb.toString();
+        return "X_M_RMALine[" + getId() + "]";
     }
 
     /**
@@ -91,7 +87,7 @@ public class X_M_RMALine extends PO {
      */
     public void setChargeId(int C_Charge_ID) {
         if (C_Charge_ID < 1) setValue(I_M_RMALine.COLUMNNAME_C_Charge_ID, null);
-        else setValue(I_M_RMALine.COLUMNNAME_C_Charge_ID, Integer.valueOf(C_Charge_ID));
+        else setValue(I_M_RMALine.COLUMNNAME_C_Charge_ID, C_Charge_ID);
     }
 
     /**
@@ -112,7 +108,7 @@ public class X_M_RMALine extends PO {
      */
     public void setTaxId(int C_Tax_ID) {
         if (C_Tax_ID < 1) setValue(I_M_RMALine.COLUMNNAME_C_Tax_ID, null);
-        else setValue(I_M_RMALine.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
+        else setValue(I_M_RMALine.COLUMNNAME_C_Tax_ID, C_Tax_ID);
     }
 
     /**
@@ -150,7 +146,7 @@ public class X_M_RMALine extends PO {
      * @param Line Unique line for this document
      */
     public void setLine(int Line) {
-        setValue(I_M_RMALine.COLUMNNAME_Line, Integer.valueOf(Line));
+        setValue(I_M_RMALine.COLUMNNAME_Line, Line);
     }
 
     /**
@@ -173,9 +169,9 @@ public class X_M_RMALine extends PO {
         setValue(I_M_RMALine.COLUMNNAME_LineNetAmt, LineNetAmt);
     }
 
-    public org.compiere.model.I_M_InOutLine getInOutLine() throws RuntimeException {
-        return (org.compiere.model.I_M_InOutLine)
-                MTable.get(org.compiere.model.I_M_InOutLine.Table_Name)
+    public I_M_InOutLine getInOutLine() throws RuntimeException {
+        return (I_M_InOutLine)
+                MBaseTableKt.getTable(I_M_InOutLine.Table_Name)
                         .getPO(getInOutLineId());
     }
 
@@ -198,7 +194,7 @@ public class X_M_RMALine extends PO {
      */
     public void setInOutLineId(int M_InOutLine_ID) {
         if (M_InOutLine_ID < 1) setValue(I_M_RMALine.COLUMNNAME_M_InOutLine_ID, null);
-        else setValue(I_M_RMALine.COLUMNNAME_M_InOutLine_ID, Integer.valueOf(M_InOutLine_ID));
+        else setValue(I_M_RMALine.COLUMNNAME_M_InOutLine_ID, M_InOutLine_ID);
     }
 
     /**
@@ -262,7 +258,7 @@ public class X_M_RMALine extends PO {
     public boolean isProcessed() {
         Object oo = getValue(I_M_RMALine.COLUMNNAME_Processed);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -274,7 +270,7 @@ public class X_M_RMALine extends PO {
      * @param Processed The document has been processed
      */
     public void setProcessed(boolean Processed) {
-        setValue(I_M_RMALine.COLUMNNAME_Processed, Boolean.valueOf(Processed));
+        setValue(I_M_RMALine.COLUMNNAME_Processed, Processed);
     }
 
     /**
@@ -355,7 +351,7 @@ public class X_M_RMALine extends PO {
      */
     public void setRef_RMALineId(int Ref_RMALine_ID) {
         if (Ref_RMALine_ID < 1) setValue(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID, null);
-        else setValue(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID, Integer.valueOf(Ref_RMALine_ID));
+        else setValue(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID, Ref_RMALine_ID);
     }
 
     @Override

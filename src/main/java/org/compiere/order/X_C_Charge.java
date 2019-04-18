@@ -3,9 +3,10 @@ package org.compiere.order;
 import kotliquery.Row;
 import org.compiere.model.HasName;
 import org.compiere.model.I_C_Charge;
-import org.compiere.orm.MTable;
+import org.compiere.model.I_C_TaxCategory;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
+import software.hsharp.core.orm.MBaseTableKt;
 
 import java.math.BigDecimal;
 
@@ -27,11 +28,6 @@ public class X_C_Charge extends PO implements I_C_Charge {
      */
     public X_C_Charge(int C_Charge_ID) {
         super(C_Charge_ID);
-        /**
-         * if (C_Charge_ID == 0) { setChargeId (0); setChargeAmt (Env.ZERO); setTaxCategoryId (0);
-         * setIsSameCurrency (false); setIsSameTax (false); setIsTaxIncluded (false); // N setName
-         * (null); }
-         */
     }
 
     /**
@@ -51,8 +47,7 @@ public class X_C_Charge extends PO implements I_C_Charge {
     }
 
     public String toString() {
-        StringBuffer sb = new StringBuffer("X_C_Charge[").append(getId()).append("]");
-        return sb.toString();
+        return "X_C_Charge[" + getId() + "]";
     }
 
     /**
@@ -86,9 +81,9 @@ public class X_C_Charge extends PO implements I_C_Charge {
         setValue(COLUMNNAME_ChargeAmt, ChargeAmt);
     }
 
-    public org.compiere.model.I_C_TaxCategory getTaxCategory() throws RuntimeException {
-        return (org.compiere.model.I_C_TaxCategory)
-                MTable.get(org.compiere.model.I_C_TaxCategory.Table_Name)
+    public I_C_TaxCategory getTaxCategory() throws RuntimeException {
+        return (I_C_TaxCategory)
+                MBaseTableKt.getTable(I_C_TaxCategory.Table_Name)
                         .getPO(getTaxCategoryId());
     }
 

@@ -2,8 +2,9 @@ package org.compiere.order;
 
 import kotliquery.Row;
 import org.compiere.model.I_M_Shipper;
+import org.compiere.model.I_M_ShipperCfg;
 import org.compiere.orm.BasePOName;
-import org.compiere.orm.MTable;
+import software.hsharp.core.orm.MBaseTableKt;
 
 /**
  * Generated Model for M_Shipper
@@ -42,8 +43,7 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper {
     }
 
     public String toString() {
-        StringBuffer sb = new StringBuffer("X_M_Shipper[").append(getId()).append("]");
-        return sb.toString();
+        return "X_M_Shipper[" + getId() + "]";
     }
 
     /**
@@ -57,9 +57,9 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper {
         return ii;
     }
 
-    public org.compiere.model.I_M_ShipperCfg getShipperCfg() throws RuntimeException {
-        return (org.compiere.model.I_M_ShipperCfg)
-                MTable.get(org.compiere.model.I_M_ShipperCfg.Table_Name)
+    public I_M_ShipperCfg getShipperCfg() throws RuntimeException {
+        return (I_M_ShipperCfg)
+                MBaseTableKt.getTable(I_M_ShipperCfg.Table_Name)
                         .getPO(getShipperCfgId());
     }
 

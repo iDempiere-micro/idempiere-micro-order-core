@@ -11,17 +11,17 @@ import org.compiere.model.I_C_Order;
 import org.compiere.model.I_C_OrderLine;
 import org.compiere.model.I_C_OrderTax;
 import org.compiere.model.I_M_InOut;
+import org.compiere.model.I_M_PriceList;
+import org.compiere.model.I_M_PriceList_Version;
+import org.compiere.model.I_M_Product;
 import org.compiere.orm.MClientInfo;
 import org.compiere.orm.MClientInfoKt;
 import org.compiere.orm.MDocType;
 import org.compiere.orm.MDocTypeKt;
 import org.compiere.orm.MOrg;
 import org.compiere.orm.MOrgKt;
-import org.compiere.orm.MTable;
-import org.compiere.orm.PO;
 import org.compiere.orm.Query;
 import org.compiere.product.MPriceList;
-import org.compiere.product.MPriceListVersion;
 import org.compiere.product.MProduct;
 import org.compiere.product.MProductBOM;
 import org.compiere.tax.ITaxProvider;
@@ -32,6 +32,7 @@ import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.exceptions.FillMandatoryException;
 import org.idempiere.common.util.Env;
 import org.idempiere.common.util.Util;
+import software.hsharp.core.orm.MBaseTableKt;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -84,11 +85,11 @@ public class MOrder extends X_C_Order implements I_C_Order {
     /**
      * Order Lines
      */
-    protected MOrderLine[] m_lines = null;
+    protected I_C_OrderLine[] m_lines = null;
     /**
      * Tax Lines
      */
-    protected MOrderTax[] m_taxes = null;
+    protected I_C_OrderTax[] m_taxes = null;
     /**
      * Force Creation of order
      */
@@ -264,7 +265,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
 
     @Override
     public I_C_BPartner_Location getBusinessPartnerLocation() {
-        return (I_C_BPartner_Location) MTable.get(I_C_BPartner_Location.Table_Name)
+        return (I_C_BPartner_Location) MBaseTableKt.getTable(I_C_BPartner_Location.Table_Name)
                 .getPO(getBusinessPartnerLocationId());
     }
 
@@ -292,7 +293,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
 
     @Override
     public I_C_BPartner getCustomer() {
-        return (I_C_BPartner) MTable.get(I_C_BPartner.Table_Name)
+        return (I_C_BPartner) MBaseTableKt.getTable(I_C_BPartner.Table_Name)
                 .getPO(getBusinessPartnerId());
     }
 
@@ -509,7 +510,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
      * @param M_PriceList_ID price list
      */
     public void setPriceListId(int M_PriceList_ID) {
-        MPriceList pl = MPriceList.get(M_PriceList_ID);
+        I_M_PriceList pl = MPriceList.get(M_PriceList_ID);
         if (pl.getId() == M_PriceList_ID) {
             super.setPriceListId(M_PriceList_ID);
             setCurrencyId(pl.getCurrencyId());
@@ -524,22 +525,22 @@ public class MOrder extends X_C_Order implements I_C_Order {
      * @param orderClause order clause
      * @return lines
      */
-    public MOrderLine[] getLines(String whereClause, String orderClause) {
+    public I_C_OrderLine[] getLines(String whereClause, String orderClause) {
         // red1 - using new Query class from Teo / Victor's MDDOrder.java implementation
         StringBuilder whereClauseFinal = new StringBuilder(MOrderLine.COLUMNNAME_C_Order_ID + "=? ");
         if (!Util.isEmpty(whereClause, true)) whereClauseFinal.append(whereClause);
         if (orderClause.length() == 0) orderClause = MOrderLine.COLUMNNAME_Line;
         //
-        List<MOrderLine> list =
-                new Query(I_C_OrderLine.Table_Name, whereClauseFinal.toString())
+        List<I_C_OrderLine> list =
+                new Query<I_C_OrderLine>(I_C_OrderLine.Table_Name, whereClauseFinal.toString())
                         .setParameters(getId())
                         .setOrderBy(orderClause)
                         .list();
-        for (MOrderLine ol : list) {
+        for (I_C_OrderLine ol : list) {
             ol.setHeaderInfo(this);
         }
         //
-        return list.toArray(new MOrderLine[0]);
+        return list.toArray(new I_C_OrderLine[0]);
     } //	getLines
 
     /**
@@ -594,7 +595,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
      */
     public boolean isOrderLine(int C_OrderLine_ID) {
         if (m_lines == null) getLines();
-        for (MOrderLine m_line : m_lines) if (m_line.getOrderLineId() == C_OrderLine_ID) return true;
+        for (I_C_OrderLine m_line : m_lines) if (m_line.getOrderLineId() == C_OrderLine_ID) return true;
         return false;
     } //	isOrderLine
 
@@ -604,14 +605,14 @@ public class MOrder extends X_C_Order implements I_C_Order {
      * @param requery requery
      * @return array of taxes
      */
-    public MOrderTax[] getTaxes(boolean requery) {
+    public I_C_OrderTax[] getTaxes(boolean requery) {
         if (m_taxes != null && !requery) return m_taxes;
         //
-        List<MOrderTax> list =
-                new Query(I_C_OrderTax.Table_Name, "C_Order_ID=?")
+        List<I_C_OrderTax> list =
+                new Query<I_C_OrderTax>(I_C_OrderTax.Table_Name, "C_Order_ID=?")
                         .setParameters(getId())
                         .list();
-        m_taxes = list.toArray(new MOrderTax[0]);
+        m_taxes = list.toArray(new I_C_OrderTax[0]);
         return m_taxes;
     } //	getTaxes
 
@@ -626,8 +627,8 @@ public class MOrder extends X_C_Order implements I_C_Order {
                         + " WHERE il.C_Invoice_ID=C_Invoice.C_Invoice_ID"
                         + " AND il.C_OrderLine_ID=ol.C_OrderLine_ID"
                         + " AND ol.C_Order_ID=?)";
-        List<PO> list =
-                new Query(I_C_Invoice.Table_Name, whereClause)
+        List<I_C_Invoice> list =
+                new Query<I_C_Invoice>(I_C_Invoice.Table_Name, whereClause)
                         .setParameters(getId())
                         .setOrderBy("C_Invoice_ID DESC")
                         .list();
@@ -659,7 +660,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
                         + " AND iol.C_OrderLine_ID=ol.C_OrderLine_ID"
                         + " AND ol.C_Order_ID=?)";
         List<I_M_InOut> list =
-                new Query(I_M_InOut.Table_Name, whereClause)
+                new Query<I_M_InOut>(I_M_InOut.Table_Name, whereClause)
                         .setParameters(getId())
                         .setOrderBy("M_InOut_ID DESC")
                         .list();
@@ -883,10 +884,10 @@ public class MOrder extends X_C_Order implements I_C_Order {
                     return false;
                 }
                 if (isValueChanged(COLUMNNAME_DateOrdered)) {
-                    MPriceList pList = MPriceList.get(getPriceListId());
-                    MPriceListVersion plOld =
+                    I_M_PriceList pList = MPriceList.get(getPriceListId());
+                    I_M_PriceList_Version plOld =
                             pList.getPriceListVersion((Timestamp) getValueOld(COLUMNNAME_DateOrdered));
-                    MPriceListVersion plNew =
+                    I_M_PriceList_Version plNew =
                             pList.getPriceListVersion((Timestamp) getValue(COLUMNNAME_DateOrdered));
                     if (plNew == null || !plNew.equals(plOld)) {
                         log.saveError("Error", MsgKt.getMsg("CannotChangeDateOrdered"));
@@ -1145,9 +1146,9 @@ public class MOrder extends X_C_Order implements I_C_Order {
             renumberLines(1000); // 	max 999 bom items
 
             //	Order Lines with non-stocked BOMs
-            MOrderLine[] lines = getLines(where, MOrderLine.COLUMNNAME_Line);
-            for (MOrderLine line : lines) {
-                MProduct product = MProduct.get(line.getProductId());
+            I_C_OrderLine[] lines = getLines(where, MOrderLine.COLUMNNAME_Line);
+            for (I_C_OrderLine line : lines) {
+                I_M_Product product = MProduct.get(line.getProductId());
                 if (log.isLoggable(Level.FINE)) log.fine(product.getName());
                 //	New Lines
                 int lineNo = line.getLine();

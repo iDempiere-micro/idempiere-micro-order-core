@@ -1,10 +1,11 @@
 package org.compiere.order;
 
 import kotliquery.Row;
+import org.compiere.model.I_C_Order;
 import org.compiere.model.I_C_OrderLine;
-import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
+import software.hsharp.core.orm.MBaseTableKt;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -27,19 +28,6 @@ public class X_C_OrderLine extends PO {
      */
     public X_C_OrderLine(int C_OrderLine_ID) {
         super(C_OrderLine_ID);
-        /**
-         * if (C_OrderLine_ID == 0) { setBusinessPartnerLocationId (0); // @C_BPartner_Location_ID@
-         * setCurrencyId (0); // @C_Currency_ID@ setOrderId (0); setOrderLineId (0);
-         * setTaxId (0); setUOMId (0); // @#C_UOM_ID@ setDateOrdered (new Timestamp(
-         * System.currentTimeMillis() )); // @DateOrdered@ setFreightAmt (Env.ZERO); setIsDescription
-         * (false); // N setLine (0); // @SQL=SELECT COALESCE(MAX(Line),0)+10 AS DefaultValue FROM
-         * C_OrderLine WHERE C_Order_ID=@C_Order_ID@ setLineNetAmt (Env.ZERO);
-         * setAttributeSetInstanceId (0); setWarehouseId (0); // @M_Warehouse_ID@ setPriceActual
-         * (Env.ZERO); setPriceEntered (Env.ZERO); setPriceLimit (Env.ZERO); setPriceList (Env.ZERO);
-         * setProcessed (false); setQtyDelivered (Env.ZERO); setQtyEntered (Env.ZERO); // 1
-         * setQtyInvoiced (Env.ZERO); setQtyLostSales (Env.ZERO); setQtyOrdered (Env.ZERO); // 1
-         * setQtyReserved (Env.ZERO); }
-         */
     }
 
     /**
@@ -204,9 +192,9 @@ public class X_C_OrderLine extends PO {
     }
 
 
-    public org.compiere.model.I_C_Order getOrder() throws RuntimeException {
-        return (org.compiere.model.I_C_Order)
-                MTable.get(org.compiere.model.I_C_Order.Table_Name)
+    public I_C_Order getOrder() throws RuntimeException {
+        return (I_C_Order)
+                MBaseTableKt.getTable(I_C_Order.Table_Name)
                         .getPO(getOrderId());
     }
 
@@ -260,7 +248,7 @@ public class X_C_OrderLine extends PO {
      */
     public void setProjectId(int C_Project_ID) {
         if (C_Project_ID < 1) setValue(I_C_OrderLine.COLUMNNAME_C_Project_ID, null);
-        else setValue(I_C_OrderLine.COLUMNNAME_C_Project_ID, Integer.valueOf(C_Project_ID));
+        else setValue(I_C_OrderLine.COLUMNNAME_C_Project_ID, C_Project_ID);
     }
 
     /**
@@ -283,7 +271,7 @@ public class X_C_OrderLine extends PO {
         if (C_ProjectPhase_ID < 1) setValueNoCheck(I_C_OrderLine.COLUMNNAME_C_ProjectPhase_ID, null);
         else
             setValueNoCheck(
-                    I_C_OrderLine.COLUMNNAME_C_ProjectPhase_ID, Integer.valueOf(C_ProjectPhase_ID));
+                    I_C_OrderLine.COLUMNNAME_C_ProjectPhase_ID, C_ProjectPhase_ID);
     }
 
     /**
@@ -306,7 +294,7 @@ public class X_C_OrderLine extends PO {
         if (C_ProjectTask_ID < 1) setValueNoCheck(I_C_OrderLine.COLUMNNAME_C_ProjectTask_ID, null);
         else
             setValueNoCheck(
-                    I_C_OrderLine.COLUMNNAME_C_ProjectTask_ID, Integer.valueOf(C_ProjectTask_ID));
+                    I_C_OrderLine.COLUMNNAME_C_ProjectTask_ID, C_ProjectTask_ID);
     }
 
     /**
@@ -327,7 +315,7 @@ public class X_C_OrderLine extends PO {
      */
     public void setTaxId(int C_Tax_ID) {
         if (C_Tax_ID < 1) setValue(I_C_OrderLine.COLUMNNAME_C_Tax_ID, null);
-        else setValue(I_C_OrderLine.COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
+        else setValue(I_C_OrderLine.COLUMNNAME_C_Tax_ID, C_Tax_ID);
     }
 
     /**
@@ -348,7 +336,7 @@ public class X_C_OrderLine extends PO {
      */
     public void setUOMId(int C_UOM_ID) {
         if (C_UOM_ID < 1) setValueNoCheck(I_C_OrderLine.COLUMNNAME_C_UOM_ID, null);
-        else setValueNoCheck(I_C_OrderLine.COLUMNNAME_C_UOM_ID, Integer.valueOf(C_UOM_ID));
+        else setValueNoCheck(I_C_OrderLine.COLUMNNAME_C_UOM_ID, C_UOM_ID);
     }
 
     /**
@@ -449,7 +437,7 @@ public class X_C_OrderLine extends PO {
      * @param IsDescription if true, the line is just description and no transaction
      */
     public void setIsDescription(boolean IsDescription) {
-        setValue(I_C_OrderLine.COLUMNNAME_IsDescription, Boolean.valueOf(IsDescription));
+        setValue(I_C_OrderLine.COLUMNNAME_IsDescription, IsDescription);
     }
 
     /**
@@ -460,7 +448,7 @@ public class X_C_OrderLine extends PO {
     public boolean isDescription() {
         Object oo = getValue(I_C_OrderLine.COLUMNNAME_IsDescription);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -492,7 +480,7 @@ public class X_C_OrderLine extends PO {
      * @param Line Unique line for this document
      */
     public void setLine(int Line) {
-        setValue(I_C_OrderLine.COLUMNNAME_Line, Integer.valueOf(Line));
+        setValue(I_C_OrderLine.COLUMNNAME_Line, Line);
     }
 
     /**
@@ -537,7 +525,7 @@ public class X_C_OrderLine extends PO {
         if (Link_OrderLine_ID < 1) setValueNoCheck(I_C_OrderLine.COLUMNNAME_Link_OrderLine_ID, null);
         else
             setValueNoCheck(
-                    I_C_OrderLine.COLUMNNAME_Link_OrderLine_ID, Integer.valueOf(Link_OrderLine_ID));
+                    I_C_OrderLine.COLUMNNAME_Link_OrderLine_ID, Link_OrderLine_ID);
     }
 
     /**
@@ -562,7 +550,7 @@ public class X_C_OrderLine extends PO {
         else
             setValue(
                     I_C_OrderLine.COLUMNNAME_M_AttributeSetInstance_ID,
-                    Integer.valueOf(M_AttributeSetInstance_ID));
+                    M_AttributeSetInstance_ID);
     }
 
     /**
@@ -583,7 +571,7 @@ public class X_C_OrderLine extends PO {
      */
     public void setProductId(int M_Product_ID) {
         if (M_Product_ID < 1) setValue(I_C_OrderLine.COLUMNNAME_M_Product_ID, null);
-        else setValue(I_C_OrderLine.COLUMNNAME_M_Product_ID, Integer.valueOf(M_Product_ID));
+        else setValue(I_C_OrderLine.COLUMNNAME_M_Product_ID, M_Product_ID);
     }
 
     /**
@@ -593,7 +581,7 @@ public class X_C_OrderLine extends PO {
      */
     public void setShipperId(int M_Shipper_ID) {
         if (M_Shipper_ID < 1) setValue(I_C_OrderLine.COLUMNNAME_M_Shipper_ID, null);
-        else setValue(I_C_OrderLine.COLUMNNAME_M_Shipper_ID, Integer.valueOf(M_Shipper_ID));
+        else setValue(I_C_OrderLine.COLUMNNAME_M_Shipper_ID, M_Shipper_ID);
     }
 
     /**
@@ -614,7 +602,7 @@ public class X_C_OrderLine extends PO {
      */
     public void setWarehouseId(int M_Warehouse_ID) {
         if (M_Warehouse_ID < 1) setValue(I_C_OrderLine.COLUMNNAME_M_Warehouse_ID, null);
-        else setValue(I_C_OrderLine.COLUMNNAME_M_Warehouse_ID, Integer.valueOf(M_Warehouse_ID));
+        else setValue(I_C_OrderLine.COLUMNNAME_M_Warehouse_ID, M_Warehouse_ID);
     }
 
     /**
@@ -716,7 +704,7 @@ public class X_C_OrderLine extends PO {
     public boolean isProcessed() {
         Object oo = getValue(I_C_OrderLine.COLUMNNAME_Processed);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -728,7 +716,7 @@ public class X_C_OrderLine extends PO {
      * @param Processed The document has been processed
      */
     public void setProcessed(boolean Processed) {
-        setValue(I_C_OrderLine.COLUMNNAME_Processed, Boolean.valueOf(Processed));
+        setValue(I_C_OrderLine.COLUMNNAME_Processed, Processed);
     }
 
     /**
@@ -869,7 +857,7 @@ public class X_C_OrderLine extends PO {
      */
     public void setRef_OrderLineId(int Ref_OrderLine_ID) {
         if (Ref_OrderLine_ID < 1) setValue(I_C_OrderLine.COLUMNNAME_Ref_OrderLine_ID, null);
-        else setValue(I_C_OrderLine.COLUMNNAME_Ref_OrderLine_ID, Integer.valueOf(Ref_OrderLine_ID));
+        else setValue(I_C_OrderLine.COLUMNNAME_Ref_OrderLine_ID, Ref_OrderLine_ID);
     }
 
     /**
@@ -914,7 +902,7 @@ public class X_C_OrderLine extends PO {
         else
             setValue(
                     I_C_OrderLine.COLUMNNAME_S_ResourceAssignment_ID,
-                    Integer.valueOf(S_ResourceAssignment_ID));
+                    S_ResourceAssignment_ID);
     }
 
     /**

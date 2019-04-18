@@ -3,6 +3,7 @@ package org.compiere.order;
 import kotliquery.Row;
 import org.compiere.model.I_C_OrderLine;
 import org.compiere.model.I_M_AttributeSet;
+import org.compiere.model.I_M_InOut;
 import org.compiere.model.I_M_InOutLine;
 import org.compiere.model.I_M_Product;
 import org.compiere.product.MAttributeSetInstance;
@@ -10,6 +11,7 @@ import org.compiere.product.MProduct;
 import org.compiere.product.MUOM;
 import org.compiere.util.MsgKt;
 import org.idempiere.common.exceptions.FillMandatoryException;
+import org.idempiere.common.util.AdempiereSystemError;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;
@@ -33,7 +35,7 @@ public class MInOutLine extends X_M_InOutLine {
     /**
      * Product
      */
-    private MProduct m_product = null;
+    private I_M_Product m_product = null;
     /**
      * Warehouse
      */
@@ -87,7 +89,7 @@ public class MInOutLine extends X_M_InOutLine {
      *
      * @return parent
      */
-    public MInOut getParent() {
+    public I_M_InOut getParent() {
         if (m_parent == null) m_parent = new MInOut(getInOutId());
         return m_parent;
     } //	getParent
@@ -191,7 +193,7 @@ public class MInOutLine extends X_M_InOutLine {
      * @param MovementQty
      */
     public void setMovementQty(BigDecimal MovementQty) {
-        MProduct product = getProduct();
+        I_M_Product product = getProduct();
         if (MovementQty != null && product != null) {
             int precision = product.getUOMPrecision();
             MovementQty = MovementQty.setScale(precision, BigDecimal.ROUND_HALF_UP);
@@ -204,7 +206,7 @@ public class MInOutLine extends X_M_InOutLine {
      *
      * @return product or null
      */
-    public MProduct getProduct() {
+    public I_M_Product getProduct() {
         if (m_product == null && getProductId() != 0)
             m_product = MProduct.get(getProductId());
         return m_product;
@@ -396,6 +398,11 @@ public class MInOutLine extends X_M_InOutLine {
         MOrderLine oLine = new MOrderLine(getOrderLineId());
 
         return oLine.getUOMId() == getUOMId();// inout has orderline and both has the same UOM
+    }
+
+    @Override
+    public BigDecimal getBase(String landedCostDistribution) {
+        throw new Error("use org.compiere.invoicing.MInOutLine if you need to call getBase");
     }
 
     /* 	Set (default) Locator based on qty.

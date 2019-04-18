@@ -1,10 +1,11 @@
 package org.compiere.order;
 
 import kotliquery.Row;
+import org.compiere.model.I_C_OrderSource;
 import org.compiere.model.I_I_Order;
 import org.compiere.orm.BasePOName;
-import org.compiere.orm.MTable;
 import org.idempiere.common.util.Env;
+import software.hsharp.core.orm.MBaseTableKt;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -295,9 +296,9 @@ public class X_I_Order extends BasePOName implements I_I_Order {
         else setValue(COLUMNNAME_C_OrderLine_ID, C_OrderLine_ID);
     }
 
-    public org.compiere.model.I_C_OrderSource getOrderSource() throws RuntimeException {
-        return (org.compiere.model.I_C_OrderSource)
-                MTable.get(org.compiere.model.I_C_OrderSource.Table_Name)
+    public I_C_OrderSource getOrderSource() throws RuntimeException {
+        return (I_C_OrderSource)
+                MBaseTableKt.getTable(I_C_OrderSource.Table_Name)
                         .getPO(getOrderSourceId());
     }
 
@@ -363,7 +364,7 @@ public class X_I_Order extends BasePOName implements I_I_Order {
      */
     public void setTaxId(int C_Tax_ID) {
         if (C_Tax_ID < 1) setValue(COLUMNNAME_C_Tax_ID, null);
-        else setValue(COLUMNNAME_C_Tax_ID, Integer.valueOf(C_Tax_ID));
+        else setValue(COLUMNNAME_C_Tax_ID, C_Tax_ID);
     }
 
     /**
@@ -437,7 +438,7 @@ public class X_I_Order extends BasePOName implements I_I_Order {
      * @param I_IsImported Has this import been processed
      */
     public void setIsImported(boolean I_IsImported) {
-        setValue(COLUMNNAME_I_IsImported, Boolean.valueOf(I_IsImported));
+        setValue(COLUMNNAME_I_IsImported, I_IsImported);
     }
 
     /**
@@ -448,7 +449,7 @@ public class X_I_Order extends BasePOName implements I_I_Order {
     public boolean isSOTrx() {
         Object oo = getValue(COLUMNNAME_IsSOTrx);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -542,7 +543,7 @@ public class X_I_Order extends BasePOName implements I_I_Order {
      * @param Processed The document has been processed
      */
     public void setProcessed(boolean Processed) {
-        setValue(COLUMNNAME_Processed, Boolean.valueOf(Processed));
+        setValue(COLUMNNAME_Processed, Processed);
     }
 
     /**

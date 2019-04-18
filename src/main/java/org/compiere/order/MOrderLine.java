@@ -7,8 +7,9 @@ import org.compiere.model.IDocLine;
 import org.compiere.model.I_C_Order;
 import org.compiere.model.I_C_OrderLine;
 import org.compiere.model.I_C_UOM;
+import org.compiere.model.I_M_PriceList;
+import org.compiere.model.I_M_Product;
 import org.compiere.orm.MRoleKt;
-import org.compiere.orm.MTable;
 import org.compiere.product.IProductPricing;
 import org.compiere.product.MAttributeSet;
 import org.compiere.product.MPriceList;
@@ -23,6 +24,7 @@ import org.compiere.tax.Tax;
 import org.compiere.util.MsgKt;
 import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.util.Env;
+import software.hsharp.core.orm.MBaseTableKt;
 
 import java.math.BigDecimal;
 import java.util.logging.Level;
@@ -72,7 +74,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
     /**
      * Product
      */
-    protected MProduct m_product = null;
+    protected I_M_Product m_product = null;
     /**
      * Charge
      */
@@ -407,7 +409,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      *
      * @return product or null
      */
-    public MProduct getProduct() {
+    public I_M_Product getProduct() {
         if (m_product == null && getProductId() != 0)
             m_product = MProduct.get(getProductId());
         return m_product;
@@ -418,7 +420,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      *
      * @param product product
      */
-    public void setProduct(MProduct product) {
+    public void setProduct(I_M_Product product) {
         m_product = product;
         if (m_product != null) {
             setProductId(m_product.getProductId());
@@ -610,7 +612,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
                             "SELECT M_PriceList_ID FROM C_Order WHERE C_Order_ID=?",
                             getOrderId());
         }
-        MPriceList pl = MPriceList.get(m_M_PriceList_ID);
+        I_M_PriceList pl = MPriceList.get(m_M_PriceList_ID);
         return pl.isTaxIncluded();
     } //	isTaxIncluded
 
@@ -643,7 +645,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
      * @param QtyOrdered
      */
     public void setQtyOrdered(BigDecimal QtyOrdered) {
-        MProduct product = getProduct();
+        I_M_Product product = getProduct();
         if (QtyOrdered != null && product != null) {
             int precision = product.getUOMPrecision();
             QtyOrdered = QtyOrdered.setScale(precision, BigDecimal.ROUND_HALF_UP);
@@ -725,7 +727,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
                 || isValueChanged("M_Product_ID")
                 || isValueChanged("M_AttributeSetInstance_ID")
                 || isValueChanged("M_Warehouse_ID"))) {
-            MProduct product = getProduct();
+            I_M_Product product = getProduct();
             if (product.isStocked()) {
                 int M_AttributeSet_ID = product.getAttributeSetId();
                 boolean isInstance = M_AttributeSet_ID != 0;
@@ -879,7 +881,7 @@ public class MOrderLine extends X_C_OrderLine implements I_C_OrderLine, IDocLine
 
     public I_C_UOM getUOM()
     {
-        return (I_C_UOM) MTable.get(I_C_UOM.Table_Name).getPO(getUOMId());
+        return (I_C_UOM) MBaseTableKt.getTable(I_C_UOM.Table_Name).getPO(getUOMId());
     }
 
 } //	MOrderLine

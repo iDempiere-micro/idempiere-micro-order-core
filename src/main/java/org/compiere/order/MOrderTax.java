@@ -210,10 +210,6 @@ public class MOrderTax extends X_C_OrderTax implements I_C_OrderTax {
                 "]";
     } //	toString
 
-    protected void setClientOrg(IPO po) {
-        super.setClientOrg(po);
-    }
-
     @Override
     public int getTableId() {
         return I_C_OrderTax.Table_ID;

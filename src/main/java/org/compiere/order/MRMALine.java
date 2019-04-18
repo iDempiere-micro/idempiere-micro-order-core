@@ -2,6 +2,7 @@ package org.compiere.order;
 
 import kotliquery.Row;
 import org.compiere.model.I_C_Order;
+import org.compiere.model.I_M_Product;
 import org.compiere.model.I_M_RMA;
 import org.compiere.model.I_M_RMALine;
 import org.compiere.product.MProduct;
@@ -46,7 +47,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
     /**
      * Product
      */
-    private MProduct m_product = null;
+    private I_M_Product m_product = null;
     /**
      * Charge
      */
@@ -397,7 +398,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
         if (m_ioLine == null && getChargeId() != 0) // Charge
             return 100; // Each
         else if (m_ioLine == null && getProductId() != 0) {
-            MProduct product = getProduct();
+            I_M_Product product = getProduct();
             return product.getUOMId();
         }
         return m_ioLine.getUOMId();
@@ -408,7 +409,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
      *
      * @return product or null
      */
-    public MProduct getProduct() {
+    public I_M_Product getProduct() {
         if (m_product == null && getProductId() != 0)
             m_product = MProduct.get(getProductId());
         return m_product;

@@ -2,10 +2,12 @@ package org.compiere.order;
 
 import kotliquery.Row;
 import org.compiere.model.IPODoc;
+import org.compiere.model.I_C_DocType;
+import org.compiere.model.I_C_Order;
 import org.compiere.model.I_M_InOut;
-import org.compiere.orm.MTable;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
+import software.hsharp.core.orm.MBaseTableKt;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -300,9 +302,9 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
         else setValue(COLUMNNAME_C_Charge_ID, C_Charge_ID);
     }
 
-    public org.compiere.model.I_C_DocType getDocumentType() throws RuntimeException {
-        return (org.compiere.model.I_C_DocType)
-                MTable.get(org.compiere.model.I_C_DocType.Table_Name)
+    public I_C_DocType getDocumentType() throws RuntimeException {
+        return (I_C_DocType)
+                MBaseTableKt.getTable(I_C_DocType.Table_Name)
                         .getPO(getDocumentTypeId());
     }
 
@@ -368,9 +370,9 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
         else setValueNoCheck(COLUMNNAME_C_Invoice_ID, C_Invoice_ID);
     }
 
-    public org.compiere.model.I_C_Order getOrder() throws RuntimeException {
-        return (org.compiere.model.I_C_Order)
-                MTable.get(org.compiere.model.I_C_Order.Table_Name)
+    public I_C_Order getOrder() throws RuntimeException {
+        return (I_C_Order)
+                MBaseTableKt.getTable(I_C_Order.Table_Name)
                         .getPO(getOrderId());
     }
 
@@ -413,7 +415,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setProjectId(int C_Project_ID) {
         if (C_Project_ID < 1) setValue(COLUMNNAME_C_Project_ID, null);
-        else setValue(COLUMNNAME_C_Project_ID, Integer.valueOf(C_Project_ID));
+        else setValue(COLUMNNAME_C_Project_ID, C_Project_ID);
     }
 
     /**
@@ -600,7 +602,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setDropShipBPartnerId(int DropShip_BPartner_ID) {
         if (DropShip_BPartner_ID < 1) setValue(COLUMNNAME_DropShip_BPartner_ID, null);
-        else setValue(COLUMNNAME_DropShip_BPartner_ID, Integer.valueOf(DropShip_BPartner_ID));
+        else setValue(COLUMNNAME_DropShip_BPartner_ID, DropShip_BPartner_ID);
     }
 
     /**
@@ -621,7 +623,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setDropShipLocationId(int DropShip_Location_ID) {
         if (DropShip_Location_ID < 1) setValue(COLUMNNAME_DropShip_Location_ID, null);
-        else setValue(COLUMNNAME_DropShip_Location_ID, Integer.valueOf(DropShip_Location_ID));
+        else setValue(COLUMNNAME_DropShip_Location_ID, DropShip_Location_ID);
     }
 
     /**
@@ -642,7 +644,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setDropShipUserId(int DropShip_User_ID) {
         if (DropShip_User_ID < 1) setValue(COLUMNNAME_DropShip_User_ID, null);
-        else setValue(COLUMNNAME_DropShip_User_ID, Integer.valueOf(DropShip_User_ID));
+        else setValue(COLUMNNAME_DropShip_User_ID, DropShip_User_ID);
     }
 
     /**
@@ -690,7 +692,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @param IsApproved Indicates if this document requires approval
      */
     public void setIsApproved(boolean IsApproved) {
-        setValue(COLUMNNAME_IsApproved, Boolean.valueOf(IsApproved));
+        setValue(COLUMNNAME_IsApproved, IsApproved);
     }
 
     /**
@@ -701,7 +703,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
     public boolean isApproved() {
         Object oo = getValue(COLUMNNAME_IsApproved);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -713,7 +715,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @param IsDropShip Drop Shipments are sent from the Vendor directly to the Customer
      */
     public void setIsDropShip(boolean IsDropShip) {
-        setValue(COLUMNNAME_IsDropShip, Boolean.valueOf(IsDropShip));
+        setValue(COLUMNNAME_IsDropShip, IsDropShip);
     }
 
     /**
@@ -724,7 +726,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
     public boolean isDropShip() {
         Object oo = getValue(COLUMNNAME_IsDropShip);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -736,7 +738,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @param IsInDispute Document is in dispute
      */
     public void setIsInDispute(boolean IsInDispute) {
-        setValue(COLUMNNAME_IsInDispute, Boolean.valueOf(IsInDispute));
+        setValue(COLUMNNAME_IsInDispute, IsInDispute);
     }
 
     /**
@@ -745,7 +747,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @param IsInTransit Movement is in transit
      */
     public void setIsInTransit(boolean IsInTransit) {
-        setValue(COLUMNNAME_IsInTransit, Boolean.valueOf(IsInTransit));
+        setValue(COLUMNNAME_IsInTransit, IsInTransit);
     }
 
     /**
@@ -754,7 +756,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @param IsPrinted Indicates if this document / line is printed
      */
     public void setIsPrinted(boolean IsPrinted) {
-        setValue(COLUMNNAME_IsPrinted, Boolean.valueOf(IsPrinted));
+        setValue(COLUMNNAME_IsPrinted, IsPrinted);
     }
 
     /**
@@ -763,7 +765,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @param IsSOTrx This is a Sales Transaction
      */
     public void setIsSOTrx(boolean IsSOTrx) {
-        setValue(COLUMNNAME_IsSOTrx, Boolean.valueOf(IsSOTrx));
+        setValue(COLUMNNAME_IsSOTrx, IsSOTrx);
     }
 
     /**
@@ -774,7 +776,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
     public boolean isSOTrx() {
         Object oo = getValue(COLUMNNAME_IsSOTrx);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -846,7 +848,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setRMAId(int M_RMA_ID) {
         if (M_RMA_ID < 1) setValue(COLUMNNAME_M_RMA_ID, null);
-        else setValue(COLUMNNAME_M_RMA_ID, Integer.valueOf(M_RMA_ID));
+        else setValue(COLUMNNAME_M_RMA_ID, M_RMA_ID);
     }
 
     /**
@@ -867,7 +869,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setShipperId(int M_Shipper_ID) {
         if (M_Shipper_ID < 1) setValue(COLUMNNAME_M_Shipper_ID, null);
-        else setValue(COLUMNNAME_M_Shipper_ID, Integer.valueOf(M_Shipper_ID));
+        else setValue(COLUMNNAME_M_Shipper_ID, M_Shipper_ID);
     }
 
     /**
@@ -888,7 +890,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setWarehouseId(int M_Warehouse_ID) {
         if (M_Warehouse_ID < 1) setValueNoCheck(COLUMNNAME_M_Warehouse_ID, null);
-        else setValueNoCheck(COLUMNNAME_M_Warehouse_ID, Integer.valueOf(M_Warehouse_ID));
+        else setValueNoCheck(COLUMNNAME_M_Warehouse_ID, M_Warehouse_ID);
     }
 
     /**
@@ -908,7 +910,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @param NoPackages Number of packages shipped
      */
     public void setNoPackages(int NoPackages) {
-        setValue(COLUMNNAME_NoPackages, Integer.valueOf(NoPackages));
+        setValue(COLUMNNAME_NoPackages, NoPackages);
     }
 
     /**
@@ -947,7 +949,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
     public boolean isPosted() {
         Object oo = getValue(COLUMNNAME_Posted);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -959,7 +961,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @param Posted Posting status
      */
     public void setPosted(boolean Posted) {
-        setValue(COLUMNNAME_Posted, Boolean.valueOf(Posted));
+        setValue(COLUMNNAME_Posted, Posted);
     }
 
     /**
@@ -980,7 +982,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
     public boolean isProcessed() {
         Object oo = getValue(COLUMNNAME_Processed);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -992,7 +994,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @param Processed The document has been processed
      */
     public void setProcessed(boolean Processed) {
-        setValue(COLUMNNAME_Processed, Boolean.valueOf(Processed));
+        setValue(COLUMNNAME_Processed, Processed);
     }
 
     /**
@@ -1001,7 +1003,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @param Processing Process Now
      */
     public void setProcessing(boolean Processing) {
-        setValue(COLUMNNAME_Processing, Boolean.valueOf(Processing));
+        setValue(COLUMNNAME_Processing, Processing);
     }
 
     /**
@@ -1022,7 +1024,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setReferencedInOutId(int Ref_InOut_ID) {
         if (Ref_InOut_ID < 1) setValue(COLUMNNAME_Ref_InOut_ID, null);
-        else setValue(COLUMNNAME_Ref_InOut_ID, Integer.valueOf(Ref_InOut_ID));
+        else setValue(COLUMNNAME_Ref_InOut_ID, Ref_InOut_ID);
     }
 
     /**
@@ -1043,7 +1045,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setReversalId(int Reversal_ID) {
         if (Reversal_ID < 1) setValue(COLUMNNAME_Reversal_ID, null);
-        else setValue(COLUMNNAME_Reversal_ID, Integer.valueOf(Reversal_ID));
+        else setValue(COLUMNNAME_Reversal_ID, Reversal_ID);
     }
 
     /**
@@ -1064,7 +1066,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setSalesRepresentativeId(int SalesRep_ID) {
         if (SalesRep_ID < 1) setValue(COLUMNNAME_SalesRep_ID, null);
-        else setValue(COLUMNNAME_SalesRep_ID, Integer.valueOf(SalesRep_ID));
+        else setValue(COLUMNNAME_SalesRep_ID, SalesRep_ID);
     }
 
     /**
@@ -1075,7 +1077,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
     public boolean isSendEMail() {
         Object oo = getValue(COLUMNNAME_SendEMail);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -1087,7 +1089,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @param SendEMail Enable sending Document EMail
      */
     public void setSendEMail(boolean SendEMail) {
-        setValue(COLUMNNAME_SendEMail, Boolean.valueOf(SendEMail));
+        setValue(COLUMNNAME_SendEMail, SendEMail);
     }
 
     /**
@@ -1126,7 +1128,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setUser1Id(int User1_ID) {
         if (User1_ID < 1) setValue(COLUMNNAME_User1_ID, null);
-        else setValue(COLUMNNAME_User1_ID, Integer.valueOf(User1_ID));
+        else setValue(COLUMNNAME_User1_ID, User1_ID);
     }
 
     /**
@@ -1147,7 +1149,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setUser2Id(int User2_ID) {
         if (User2_ID < 1) setValue(COLUMNNAME_User2_ID, null);
-        else setValue(COLUMNNAME_User2_ID, Integer.valueOf(User2_ID));
+        else setValue(COLUMNNAME_User2_ID, User2_ID);
     }
 
     /**

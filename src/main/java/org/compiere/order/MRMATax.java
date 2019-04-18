@@ -216,10 +216,6 @@ public class MRMATax extends X_M_RMATax implements I_M_RMATax {
         return sb.toString();
     } //	toString
 
-    protected void setClientOrg(IPO po) {
-        super.setClientOrg(po);
-    }
-
     @Override
     public int getTableId() {
         return I_M_RMATax.Table_ID;

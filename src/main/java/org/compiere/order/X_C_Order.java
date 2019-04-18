@@ -1,10 +1,13 @@
 package org.compiere.order;
 
 import kotliquery.Row;
+import org.compiere.model.I_C_Currency;
+import org.compiere.model.I_C_DocType;
 import org.compiere.model.I_C_Order;
-import org.compiere.orm.MTable;
+import org.compiere.model.I_M_PriceList;
 import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
+import software.hsharp.core.orm.MBaseTableKt;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -426,9 +429,9 @@ public class X_C_Order extends PO {
         return ii;
     }
 
-    public org.compiere.model.I_C_Currency getCurrency() throws RuntimeException {
-        return (org.compiere.model.I_C_Currency)
-                MTable.get(org.compiere.model.I_C_Currency.Table_Name)
+    public I_C_Currency getCurrency() throws RuntimeException {
+        return (I_C_Currency)
+                MBaseTableKt.getTable(I_C_Currency.Table_Name)
                         .getPO(getCurrencyId());
     }
 
@@ -454,9 +457,9 @@ public class X_C_Order extends PO {
         else setValueNoCheck(I_C_Order.COLUMNNAME_C_Currency_ID, C_Currency_ID);
     }
 
-    public org.compiere.model.I_C_DocType getDocumentType() throws RuntimeException {
-        return (org.compiere.model.I_C_DocType)
-                MTable.get(org.compiere.model.I_C_DocType.Table_Name)
+    public I_C_DocType getDocumentType() throws RuntimeException {
+        return (I_C_DocType)
+                MBaseTableKt.getTable(I_C_DocType.Table_Name)
                         .getPO(getDocumentTypeId());
     }
 
@@ -482,9 +485,9 @@ public class X_C_Order extends PO {
     }
 
 
-    public org.compiere.model.I_C_DocType getTargetDocumentType() throws RuntimeException {
-        return (org.compiere.model.I_C_DocType)
-                MTable.get(org.compiere.model.I_C_DocType.Table_Name)
+    public I_C_DocType getTargetDocumentType() throws RuntimeException {
+        return (I_C_DocType)
+                MBaseTableKt.getTable(I_C_DocType.Table_Name)
                         .getPO(getTargetDocumentTypeId());
     }
 
@@ -1193,9 +1196,9 @@ public class X_C_Order extends PO {
         else setValueNoCheck(I_C_Order.COLUMNNAME_Link_Order_ID, Link_Order_ID);
     }
 
-    public org.compiere.model.I_M_PriceList getPriceList() throws RuntimeException {
-        return (org.compiere.model.I_M_PriceList)
-                MTable.get(org.compiere.model.I_M_PriceList.Table_Name)
+    public I_M_PriceList getPriceList() throws RuntimeException {
+        return (I_M_PriceList)
+                MBaseTableKt.getTable(I_M_PriceList.Table_Name)
                         .getPO(getPriceListId());
     }
 

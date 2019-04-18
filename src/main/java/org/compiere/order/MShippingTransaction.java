@@ -95,9 +95,4 @@ public class MShippingTransaction extends X_M_ShippingTransaction {
     public X_M_CommodityShipment getCommodityShipment(int M_Product_ID) {
         return MBaseShippingTransactionKt.getCommodityShipment(M_Product_ID, getClientId(), getOrgId());
     }
-
-    public void setADClientID(int AD_Client_ID) {
-        super.setADClientID(AD_Client_ID);
-    }
-
 }
