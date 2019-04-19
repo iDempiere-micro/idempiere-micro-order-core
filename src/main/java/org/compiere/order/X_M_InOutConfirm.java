@@ -15,7 +15,7 @@ import java.math.BigDecimal;
  * @author iDempiere (generated)
  * @version Release 5.1 - $Id$
  */
-public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
+public abstract class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
 
     /**
      * ConfirmType AD_Reference_ID=320
@@ -103,12 +103,6 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      */
     public X_M_InOutConfirm(int M_InOutConfirm_ID) {
         super(M_InOutConfirm_ID);
-        /**
-         * if (M_InOutConfirm_ID == 0) { setConfirmType (null); setDocAction (null); // CO setDocStatus
-         * (null); // DR setDocumentNo (null); setIsApproved (false); setIsCancelled (false);
-         * setIsInDispute (false); // N setInOutConfirmId (0); setInOutId (0); setProcessed
-         * (false); }
-         */
     }
 
     /**
@@ -128,8 +122,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
     }
 
     public String toString() {
-        StringBuffer sb = new StringBuffer("X_M_InOutConfirm[").append(getId()).append("]");
-        return sb.toString();
+        return "X_M_InOutConfirm[" + getId() + "]";
     }
 
     /**
@@ -138,7 +131,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @return Document Approval Amount
      */
     public BigDecimal getApprovalAmt() {
-        BigDecimal bd = (BigDecimal) getValue(COLUMNNAME_ApprovalAmt);
+        BigDecimal bd = getValue(COLUMNNAME_ApprovalAmt);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -150,7 +143,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      */
     public void setInvoiceId(int C_Invoice_ID) {
         if (C_Invoice_ID < 1) setValue(COLUMNNAME_C_Invoice_ID, null);
-        else setValue(COLUMNNAME_C_Invoice_ID, Integer.valueOf(C_Invoice_ID));
+        else setValue(COLUMNNAME_C_Invoice_ID, C_Invoice_ID);
     }
 
     /**
@@ -243,7 +236,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @param IsApproved Indicates if this document requires approval
      */
     public void setIsApproved(boolean IsApproved) {
-        setValue(COLUMNNAME_IsApproved, Boolean.valueOf(IsApproved));
+        setValue(COLUMNNAME_IsApproved, IsApproved);
     }
 
     /**
@@ -254,7 +247,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
     public boolean isApproved() {
         Object oo = getValue(COLUMNNAME_IsApproved);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -266,7 +259,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @param IsCancelled The transaction was cancelled
      */
     public void setIsCancelled(boolean IsCancelled) {
-        setValue(COLUMNNAME_IsCancelled, Boolean.valueOf(IsCancelled));
+        setValue(COLUMNNAME_IsCancelled, IsCancelled);
     }
 
     /**
@@ -275,7 +268,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @param IsInDispute Document is in dispute
      */
     public void setIsInDispute(boolean IsInDispute) {
-        setValue(COLUMNNAME_IsInDispute, Boolean.valueOf(IsInDispute));
+        setValue(COLUMNNAME_IsInDispute, IsInDispute);
     }
 
     /**
@@ -286,7 +279,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
     public boolean isInDispute() {
         Object oo = getValue(COLUMNNAME_IsInDispute);
         if (oo != null) {
-            if (oo instanceof Boolean) return ((Boolean) oo).booleanValue();
+            if (oo instanceof Boolean) return (Boolean) oo;
             return "Y".equals(oo);
         }
         return false;
@@ -298,7 +291,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @return Material Shipment or Receipt Confirmation
      */
     public int getInOutConfirmId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_M_InOutConfirm_ID);
+        Integer ii = getValue(COLUMNNAME_M_InOutConfirm_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -315,7 +308,7 @@ public class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @return Material Shipment Document
      */
     public int getInOutId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_M_InOut_ID);
+        Integer ii = getValue(COLUMNNAME_M_InOut_ID);
         if (ii == null) return 0;
         return ii;
     }

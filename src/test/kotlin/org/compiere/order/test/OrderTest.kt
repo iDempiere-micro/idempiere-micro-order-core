@@ -5,7 +5,7 @@ import org.compiere.model.I_C_Order
 import org.compiere.order.MOrder
 import org.compiere.order.SalesOrderServiceImpl
 import org.compiere.orm.DefaultModelFactory
-import org.compiere.orm.IModelFactory
+import org.compiere.orm.ModelFactory
 import org.idempiere.common.util.EnvironmentServiceImpl
 import org.junit.Test
 import software.hsharp.core.modules.BaseModuleImpl
@@ -37,7 +37,7 @@ class OrderTest {
             DB.run {
                 val order_id = 104
 
-                val modelFactory: IModelFactory = DefaultModelFactory()
+                val modelFactory: ModelFactory = DefaultModelFactory()
                 val order: MOrder = modelFactory.getPO(I_C_Order.Table_Name, order_id)
                 println(order)
                 assertNotNull(order)

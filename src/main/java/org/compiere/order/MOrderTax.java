@@ -7,7 +7,6 @@ import org.compiere.model.I_C_Tax;
 import org.compiere.tax.MTax;
 import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.Env;
-import org.idempiere.icommon.model.IPO;
 
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;

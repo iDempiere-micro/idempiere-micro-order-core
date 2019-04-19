@@ -2,7 +2,7 @@ package org.compiere.order;
 
 import kotliquery.Row;
 import org.compiere.model.IPODoc;
-import org.compiere.model.I_C_DocType;
+import org.compiere.model.DocumentType;
 import org.compiere.model.I_C_Order;
 import org.compiere.model.I_M_InOut;
 import org.compiere.orm.PO;
@@ -302,9 +302,9 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
         else setValue(COLUMNNAME_C_Charge_ID, C_Charge_ID);
     }
 
-    public I_C_DocType getDocumentType() throws RuntimeException {
-        return (I_C_DocType)
-                MBaseTableKt.getTable(I_C_DocType.Table_Name)
+    public DocumentType getDocumentType() throws RuntimeException {
+        return (DocumentType)
+                MBaseTableKt.getTable(DocumentType.Table_Name)
                         .getPO(getDocumentTypeId());
     }
 

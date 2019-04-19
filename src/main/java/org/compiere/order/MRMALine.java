@@ -13,7 +13,7 @@ import org.compiere.tax.MTaxProvider;
 import org.compiere.util.MsgKt;
 import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.util.Env;
-import org.idempiere.icommon.model.IPO;
+import org.idempiere.icommon.model.PersistentObject;
 import software.hsharp.core.util.Environment;
 
 import java.math.BigDecimal;
@@ -530,7 +530,7 @@ public class MRMALine extends X_M_RMALine implements I_M_RMALine {
         this.m_parent = null;
     }
 
-    public void setClientOrg(IPO po) {
+    public void setClientOrg(PersistentObject po) {
         super.setClientOrg(po);
     }
 

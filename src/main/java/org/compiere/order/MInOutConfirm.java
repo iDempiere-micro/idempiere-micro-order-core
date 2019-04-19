@@ -3,6 +3,7 @@ package org.compiere.order;
 import kotliquery.Row;
 import org.compiere.crm.MUser;
 import org.compiere.crm.MUserKt;
+import org.compiere.model.I_M_InOutLineConfirm;
 import org.compiere.orm.MRefListKt;
 import org.compiere.util.MsgKt;
 import org.idempiere.common.util.CLogger;
@@ -99,6 +100,21 @@ public class MInOutConfirm extends X_M_InOutConfirm {
         return MRefListKt.getListName(
                 X_M_InOutConfirm.CONFIRMTYPE_AD_Reference_ID, getConfirmType());
     } //	getConfirmTypeName
+
+    @Override
+    public boolean processIt(String docaction_void) {
+        throw new Error("You need to use the MInOutConfirm from invoicing");
+    }
+
+    @Override
+    public String getProcessMsg() {
+        throw new Error("You need to use the MInOutConfirm from invoicing");
+    }
+
+    @Override
+    public I_M_InOutLineConfirm[] getLines(boolean b) {
+        throw new Error("You need to use the MInOutConfirm from invoicing");
+    }
 
     /**
      * Set Approved

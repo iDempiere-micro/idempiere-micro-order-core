@@ -2,7 +2,7 @@ package org.compiere.order;
 
 import kotliquery.Row;
 import org.compiere.crm.MBPartner;
-import org.compiere.model.I_AD_User;
+import org.compiere.model.User;
 import org.compiere.model.I_C_BPartner_Location;
 import org.compiere.model.I_C_Invoice;
 import org.compiere.model.I_M_InOutConfirm;
@@ -54,7 +54,7 @@ public class MInOut extends X_M_InOut {
     /**
      * Confirmations
      */
-    protected MInOutConfirm[] m_confirms = null;
+    protected I_M_InOutConfirm[] m_confirms = null;
     /**
      * Reversal Flag
      */
@@ -362,15 +362,15 @@ public class MInOut extends X_M_InOut {
      * @param requery requery
      * @return array of Confirmations
      */
-    public MInOutConfirm[] getConfirmations(boolean requery) {
+    public I_M_InOutConfirm[] getConfirmations(boolean requery) {
         if (m_confirms != null && !requery) {
             return m_confirms;
         }
-        List<MInOutConfirm> list =
-                new Query(I_M_InOutConfirm.Table_Name, "M_InOut_ID=?")
+        List<I_M_InOutConfirm> list =
+                new Query<I_M_InOutConfirm>(I_M_InOutConfirm.Table_Name, "M_InOut_ID=?")
                         .setParameters(getInOutId())
                         .list();
-        m_confirms = new MInOutConfirm[list.size()];
+        m_confirms = new I_M_InOutConfirm[list.size()];
         list.toArray(m_confirms);
         return m_confirms;
     } //	getConfirmations
@@ -514,7 +514,7 @@ public class MInOut extends X_M_InOut {
         if (getBusinessPartnerLocationId() == 0) log.log(Level.SEVERE, "Has no To Address: " + bp);
 
         //	Set Contact
-        List<I_AD_User> contacts = bp.getContacts(false);
+        List<User> contacts = bp.getContacts(false);
         if (contacts != null && contacts.size() == 1) setUserId(contacts.get(0).getUserId());
     } //	setBPartner
 

@@ -3,7 +3,7 @@ package org.compiere.order;
 import kotliquery.Row;
 import org.compiere.bo.MCurrencyKt;
 import org.compiere.crm.MBPartner;
-import org.compiere.model.I_AD_User;
+import org.compiere.model.User;
 import org.compiere.model.I_C_BPartner;
 import org.compiere.model.I_C_BPartner_Location;
 import org.compiere.model.I_C_Invoice;
@@ -417,7 +417,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
         }
 
         //	Set Contact
-        List<I_AD_User> contacts = bp.getContacts();
+        List<User> contacts = bp.getContacts();
         if (contacts != null && contacts.size() == 1) setUserId(contacts.get(0).getUserId());
     } //	setBPartner
 
