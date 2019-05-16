@@ -2,7 +2,6 @@ package org.compiere.order;
 
 import kotliquery.Row;
 import org.compiere.bo.MCurrencyKt;
-import org.compiere.crm.MBPartner;
 import org.compiere.model.User;
 import org.compiere.model.I_C_BPartner;
 import org.compiere.model.I_C_BPartner_Location;
@@ -115,15 +114,15 @@ public class MOrder extends X_C_Order implements I_C_Order {
         super(null, C_Order_ID);
         //  New
         if (C_Order_ID == 0) {
-            setDocStatus(DOCSTATUS_Drafted);
-            setDocAction(DOCACTION_Prepare);
+            setDocStatus(OrderConstants.DOCSTATUS_Drafted);
+            setDocAction(OrderConstants.DOCACTION_Prepare);
             //
-            setDeliveryRule(DELIVERYRULE_Availability);
-            setFreightCostRule(FREIGHTCOSTRULE_FreightIncluded);
-            setInvoiceRule(INVOICERULE_Immediate);
-            setPaymentRule(PAYMENTRULE_OnCredit);
-            setPriorityRule(PRIORITYRULE_Medium);
-            setDeliveryViaRule(DELIVERYVIARULE_Pickup);
+            setDeliveryRule(OrderConstants.DELIVERYRULE_Availability);
+            setFreightCostRule(OrderConstants.FREIGHTCOSTRULE_FreightIncluded);
+            setInvoiceRule(OrderConstants.INVOICERULE_Immediate);
+            setPaymentRule(OrderConstants.PAYMENTRULE_OnCredit);
+            setPriorityRule(OrderConstants.PRIORITYRULE_Medium);
+            setDeliveryViaRule(OrderConstants.DELIVERYVIARULE_Pickup);
             //
             setIsDiscountPrinted(false);
             setIsSelected(false);
@@ -177,8 +176,8 @@ public class MOrder extends X_C_Order implements I_C_Order {
         to.setValueNoCheck("C_Order_ID", I_ZERO);
         to.setValueNoCheck("DocumentNo", null);
         //
-        to.setDocStatus(DOCSTATUS_Drafted); // 	Draft
-        to.setDocAction(DOCACTION_Complete);
+        to.setDocStatus(OrderConstants.DOCSTATUS_Drafted); // 	Draft
+        to.setDocAction(OrderConstants.DOCACTION_Complete);
         //
         to.setDocumentTypeId(0);
         to.setTargetDocumentTypeId(C_DocTypeTarget_ID);
@@ -784,9 +783,9 @@ public class MOrder extends X_C_Order implements I_C_Order {
 
         boolean disallowNegInv = true;
         String DeliveryRule = getDeliveryRule();
-        if ((disallowNegInv && DELIVERYRULE_Force.equals(DeliveryRule))
+        if ((disallowNegInv && OrderConstants.DELIVERYRULE_Force.equals(DeliveryRule))
                 || (DeliveryRule == null || DeliveryRule.length() == 0))
-            setDeliveryRule(DELIVERYRULE_Availability);
+            setDeliveryRule(OrderConstants.DELIVERYRULE_Availability);
 
         //	Reservations in Warehouse
         if (!newRecord && isValueChanged("M_Warehouse_ID")) {
@@ -1031,7 +1030,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
         }
 
         switch (getFreightCostRule()) {
-            case FREIGHTCOSTRULE_FreightIncluded:
+            case OrderConstants.FREIGHTCOSTRULE_FreightIncluded:
                 if (freightLine != null) {
                     boolean deleted = freightLine.delete(false);
                     if (!deleted) {
@@ -1043,7 +1042,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
                     }
                 }
                 break;
-            case FREIGHTCOSTRULE_FixPrice:
+            case OrderConstants.FREIGHTCOSTRULE_FixPrice:
                 if (freightLine == null) {
                     freightLine = new MOrderLine(this);
 
@@ -1061,7 +1060,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
                 freightLine.setPrice(getFreightAmt());
                 freightLine.saveEx();
                 break;
-            case FREIGHTCOSTRULE_Calculated:
+            case OrderConstants.FREIGHTCOSTRULE_Calculated:
                 if (ci.getUOMWeightId() == 0) {
                     m_processMsg = "UOM for Weight is not defined at Client window > Client Info tab";
                     return false;
@@ -1263,9 +1262,9 @@ public class MOrder extends X_C_Order implements I_C_Order {
      */
     public boolean isComplete() {
         String ds = getDocStatus();
-        return DOCSTATUS_Completed.equals(ds)
-                || DOCSTATUS_Closed.equals(ds)
-                || DOCSTATUS_Reversed.equals(ds);
+        return OrderConstants.DOCSTATUS_Completed.equals(ds)
+                || OrderConstants.DOCSTATUS_Closed.equals(ds)
+                || OrderConstants.DOCSTATUS_Reversed.equals(ds);
     } //	isComplete
 
     /**

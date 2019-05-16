@@ -99,8 +99,8 @@ public class MPaymentTerm extends MBasePaymentTerm implements I_C_PaymentTerm {
         }
 
         // do not apply payment term if the order is not on credit or if total is zero
-        if ((!(MOrder.PAYMENTRULE_OnCredit.equals(order.getPaymentRule())
-                || MOrder.PAYMENTRULE_DirectDebit.equals(order.getPaymentRule())))
+        if ((!(OrderConstants.PAYMENTRULE_OnCredit.equals(order.getPaymentRule())
+                || OrderConstants.PAYMENTRULE_DirectDebit.equals(order.getPaymentRule())))
                 || order.getGrandTotal().signum() == 0) return false;
 
         if (!isValid()) return applyOrderNoSchedule(order);
