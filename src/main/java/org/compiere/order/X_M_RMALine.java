@@ -55,7 +55,7 @@ public class X_M_RMALine extends PO {
      * @return Amount
      */
     public BigDecimal getAmt() {
-        BigDecimal bd = (BigDecimal) getValue(I_M_RMALine.COLUMNNAME_Amt);
+        BigDecimal bd = getValue(I_M_RMALine.COLUMNNAME_Amt);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -75,7 +75,7 @@ public class X_M_RMALine extends PO {
      * @return Additional document charges
      */
     public int getChargeId() {
-        Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_C_Charge_ID);
+        Integer ii = getValue(I_M_RMALine.COLUMNNAME_C_Charge_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -96,7 +96,7 @@ public class X_M_RMALine extends PO {
      * @return Tax identifier
      */
     public int getTaxId() {
-        Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_C_Tax_ID);
+        Integer ii = getValue(I_M_RMALine.COLUMNNAME_C_Tax_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -117,7 +117,7 @@ public class X_M_RMALine extends PO {
      * @return Optional short description of the record
      */
     public String getDescription() {
-        return (String) getValue(I_M_RMALine.COLUMNNAME_Description);
+        return getValue(I_M_RMALine.COLUMNNAME_Description);
     }
 
     /**
@@ -135,7 +135,7 @@ public class X_M_RMALine extends PO {
      * @return Unique line for this document
      */
     public int getLine() {
-        Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_Line);
+        Integer ii = getValue(I_M_RMALine.COLUMNNAME_Line);
         if (ii == null) return 0;
         return ii;
     }
@@ -155,7 +155,7 @@ public class X_M_RMALine extends PO {
      * @return Line Extended Amount (Quantity * Actual Price) without Freight and Charges
      */
     public BigDecimal getLineNetAmt() {
-        BigDecimal bd = (BigDecimal) getValue(I_M_RMALine.COLUMNNAME_LineNetAmt);
+        BigDecimal bd = getValue(I_M_RMALine.COLUMNNAME_LineNetAmt);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -182,7 +182,7 @@ public class X_M_RMALine extends PO {
      * @return Line on Shipment or Receipt document
      */
     public int getInOutLineId() {
-        Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_M_InOutLine_ID);
+        Integer ii = getValue(I_M_RMALine.COLUMNNAME_M_InOutLine_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -203,7 +203,7 @@ public class X_M_RMALine extends PO {
      * @return Product, Service, Item
      */
     public int getProductId() {
-        Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_M_Product_ID);
+        Integer ii = getValue(I_M_RMALine.COLUMNNAME_M_Product_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -224,7 +224,7 @@ public class X_M_RMALine extends PO {
      * @return Return Material Authorization
      */
     public int getRMAId() {
-        Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_M_RMA_ID);
+        Integer ii = getValue(I_M_RMALine.COLUMNNAME_M_RMA_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -245,7 +245,7 @@ public class X_M_RMALine extends PO {
      * @return Return Material Authorization Line
      */
     public int getRMALineId() {
-        Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_M_RMALine_ID);
+        Integer ii = getValue(I_M_RMALine.COLUMNNAME_M_RMALine_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -279,7 +279,7 @@ public class X_M_RMALine extends PO {
      * @return Quantity
      */
     public BigDecimal getQty() {
-        BigDecimal bd = (BigDecimal) getValue(I_M_RMALine.COLUMNNAME_Qty);
+        BigDecimal bd = getValue(I_M_RMALine.COLUMNNAME_Qty);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -299,7 +299,7 @@ public class X_M_RMALine extends PO {
      * @return Delivered Quantity
      */
     public BigDecimal getQtyDelivered() {
-        BigDecimal bd = (BigDecimal) getValue(I_M_RMALine.COLUMNNAME_QtyDelivered);
+        BigDecimal bd = getValue(I_M_RMALine.COLUMNNAME_QtyDelivered);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -319,7 +319,7 @@ public class X_M_RMALine extends PO {
      * @return Invoiced Quantity
      */
     public BigDecimal getQtyInvoiced() {
-        BigDecimal bd = (BigDecimal) getValue(I_M_RMALine.COLUMNNAME_QtyInvoiced);
+        BigDecimal bd = getValue(I_M_RMALine.COLUMNNAME_QtyInvoiced);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -339,7 +339,7 @@ public class X_M_RMALine extends PO {
      * @return Referenced RMA Line
      */
     public int getRef_RMALineId() {
-        Integer ii = (Integer) getValue(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID);
+        Integer ii = getValue(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -349,7 +349,7 @@ public class X_M_RMALine extends PO {
      *
      * @param Ref_RMALine_ID Referenced RMA Line
      */
-    public void setRef_RMALineId(int Ref_RMALine_ID) {
+    public void setRefRMALineId(int Ref_RMALine_ID) {
         if (Ref_RMALine_ID < 1) setValue(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID, null);
         else setValue(I_M_RMALine.COLUMNNAME_Ref_RMALine_ID, Ref_RMALine_ID);
     }

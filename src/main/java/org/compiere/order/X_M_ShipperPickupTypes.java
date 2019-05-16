@@ -52,7 +52,7 @@ public class X_M_ShipperPickupTypes extends BasePOName
      * @return Shipper Pickup Types Configuration
      */
     public int getShipperPickupTypesCfgId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_M_ShipperPickupTypesCfg_ID);
+        Integer ii = getValue(COLUMNNAME_M_ShipperPickupTypesCfg_ID);
         if (ii == null) return 0;
         return ii;
     }

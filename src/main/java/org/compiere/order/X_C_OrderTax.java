@@ -58,7 +58,7 @@ public class X_C_OrderTax extends PO {
      * @return Order
      */
     public int getOrderId() {
-        Integer ii = (Integer) getValue(I_C_OrderTax.COLUMNNAME_C_Order_ID);
+        Integer ii = getValue(I_C_OrderTax.COLUMNNAME_C_Order_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -79,7 +79,7 @@ public class X_C_OrderTax extends PO {
      * @return Tax identifier
      */
     public int getTaxId() {
-        Integer ii = (Integer) getValue(I_C_OrderTax.COLUMNNAME_C_Tax_ID);
+        Integer ii = getValue(I_C_OrderTax.COLUMNNAME_C_Tax_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -100,7 +100,7 @@ public class X_C_OrderTax extends PO {
      * @return Tax Provider
      */
     public int getTaxProviderId() {
-        Integer ii = (Integer) getValue(I_C_OrderTax.COLUMNNAME_C_TaxProvider_ID);
+        Integer ii = getValue(I_C_OrderTax.COLUMNNAME_C_TaxProvider_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -134,7 +134,7 @@ public class X_C_OrderTax extends PO {
      * @return Tax Amount for a document
      */
     public BigDecimal getTaxAmt() {
-        BigDecimal bd = (BigDecimal) getValue(I_C_OrderTax.COLUMNNAME_TaxAmt);
+        BigDecimal bd = getValue(I_C_OrderTax.COLUMNNAME_TaxAmt);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -154,7 +154,7 @@ public class X_C_OrderTax extends PO {
      * @return Base for calculating the tax amount
      */
     public BigDecimal getTaxBaseAmt() {
-        BigDecimal bd = (BigDecimal) getValue(I_C_OrderTax.COLUMNNAME_TaxBaseAmt);
+        BigDecimal bd = getValue(I_C_OrderTax.COLUMNNAME_TaxBaseAmt);
         if (bd == null) return Env.ZERO;
         return bd;
     }

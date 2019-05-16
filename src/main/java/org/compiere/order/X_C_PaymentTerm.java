@@ -61,7 +61,7 @@ public class X_C_PaymentTerm extends BasePONameValue {
      * @return The terms of Payment (timing, discount)
      */
     public int getPaymentTermId() {
-        Integer ii = (Integer) getValue(I_C_PaymentTerm.COLUMNNAME_C_PaymentTerm_ID);
+        Integer ii = getValue(I_C_PaymentTerm.COLUMNNAME_C_PaymentTerm_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -108,7 +108,7 @@ public class X_C_PaymentTerm extends BasePONameValue {
      * @return Last day to include for next due date
      */
     public int getFixMonthCutoff() {
-        Integer ii = (Integer) getValue(I_C_PaymentTerm.COLUMNNAME_FixMonthCutoff);
+        Integer ii = getValue(I_C_PaymentTerm.COLUMNNAME_FixMonthCutoff);
         if (ii == null) return 0;
         return ii;
     }
@@ -119,7 +119,7 @@ public class X_C_PaymentTerm extends BasePONameValue {
      * @return Day of the month of the due date
      */
     public int getFixMonthDay() {
-        Integer ii = (Integer) getValue(I_C_PaymentTerm.COLUMNNAME_FixMonthDay);
+        Integer ii = getValue(I_C_PaymentTerm.COLUMNNAME_FixMonthDay);
         if (ii == null) return 0;
         return ii;
     }
@@ -185,7 +185,7 @@ public class X_C_PaymentTerm extends BasePONameValue {
      * @return Net Days in which payment is due
      */
     public int getNetDays() {
-        Integer ii = (Integer) getValue(I_C_PaymentTerm.COLUMNNAME_NetDays);
+        Integer ii = getValue(I_C_PaymentTerm.COLUMNNAME_NetDays);
         if (ii == null) return 0;
         return ii;
     }

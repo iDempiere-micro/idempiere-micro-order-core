@@ -4,11 +4,8 @@ import mu.KotlinLogging
 import org.compiere.model.I_C_Order
 import org.compiere.order.MOrder
 import org.compiere.order.SalesOrderServiceImpl
-import org.compiere.orm.DefaultModelFactory
-import org.compiere.orm.ModelFactory
 import org.idempiere.common.util.EnvironmentServiceImpl
 import org.junit.Test
-import software.hsharp.core.modules.BaseModuleImpl
 import software.hsharp.core.util.DB
 import software.hsharp.core.util.Environment
 import software.hsharp.core.util.HikariCPI
@@ -23,7 +20,13 @@ internal const val clientId = 11
 
 internal val environmentService = EnvironmentServiceImpl(clientId, 0, 0)
 internal val salesOrderService = SalesOrderServiceImpl(environmentService)
-internal val baseModule = BaseModuleImpl(environmentService = environmentService, modelFactory = DefaultModelFactory())
+private val mainLogicModule = MainLogicModule()
+private val mainEnvironmentModule = MainEnvironmentModule()
+internal val baseModule = ModuleImpl(
+    environment = mainEnvironmentModule,
+    logic = mainLogicModule,
+    data = MainDataModule(mainEnvironmentModule)
+)
 
 class OrderTest {
     init {
@@ -33,12 +36,11 @@ class OrderTest {
 
     @Test
     fun getUsingDefaultModelFactoryById() {
-        Environment.run(baseModule) {
+        Environment(baseModule).run {
             DB.run {
                 val order_id = 104
 
-                val modelFactory: ModelFactory = DefaultModelFactory()
-                val order: MOrder = modelFactory.getPO(I_C_Order.Table_Name, order_id)
+                val order: MOrder = simpleModelFactory.getPO(I_C_Order.Table_Name, order_id)
                 println(order)
                 assertNotNull(order)
                 assertEquals(order_id, order.id)
@@ -51,7 +53,7 @@ class OrderTest {
 
     @Test
     fun `get sales orders works`() {
-        Environment.run(baseModule) {
+        Environment(baseModule).run {
             DB.run {
                 val salesOrders = salesOrderService.getAll()
                 assertFalse { salesOrders.isEmpty() }

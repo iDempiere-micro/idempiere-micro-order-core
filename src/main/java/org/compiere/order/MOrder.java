@@ -32,7 +32,10 @@ import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.exceptions.FillMandatoryException;
 import org.idempiere.common.util.Env;
 import org.idempiere.common.util.Util;
+import org.jetbrains.annotations.NotNull;
 import software.hsharp.core.orm.MBaseTableKt;
+import software.hsharp.core.util.Environment;
+import software.hsharp.modules.Module;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -109,7 +112,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
      * @param C_Order_ID order to load, (0 create new order)
      */
     public MOrder(int C_Order_ID) {
-        super(C_Order_ID);
+        super(null, C_Order_ID);
         //  New
         if (C_Order_ID == 0) {
             setDocStatus(DOCSTATUS_Drafted);
@@ -156,7 +159,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
      * Load Constructor
      */
     public MOrder(Row row) {
-        super(row);
+        super(row, -1);
     } //	MOrder
 
     /**
@@ -207,7 +210,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
             MOrg org = MOrgKt.getOrg(from.getOrgId());
             int counterC_BPartner_ID = org.getLinkedBusinessPartnerId();
             if (counterC_BPartner_ID == 0) return null;
-            to.setBPartner(MBPartner.get(counterC_BPartner_ID));
+            to.setBPartner(to.getBusinessPartnerService().getById(counterC_BPartner_ID));
         } else to.setRef_OrderId(0);
         //
         if (!to.save()) throw new IllegalStateException("Could not create Order");
@@ -794,9 +797,9 @@ public class MOrder extends X_C_Order implements I_C_Order {
         }
 
         //	No Partner Info - set Template
-        if (getBusinessPartnerId() == 0) setBPartner(MBPartner.getTemplate(getClientId()));
+        if (getBusinessPartnerId() == 0) setBPartner(new Environment<Module>().getModule().getBusinessPartnerService().getTemplate());
         if (getBusinessPartnerLocationId() == 0)
-            setBPartner(new MBPartner(getBusinessPartnerId()));
+            setBPartner(getBusinessPartnerService().getById(getBusinessPartnerId()));
         //	No Bill - get from Ship
         if (getBill_BPartnerId() == 0) {
             setBill_BPartnerId(getBusinessPartnerId());
@@ -1290,5 +1293,43 @@ public class MOrder extends X_C_Order implements I_C_Order {
     @Override
     public int getTableId() {
         return I_C_Order.Table_ID;
+    }
+
+    @NotNull
+    @Override
+    /**
+     * *********************************************************************** Get Summary
+     *
+     * @return Summary of Document
+     */
+    public String getSummary() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getDocumentNo());
+        //	: Grand Total = 123.00 (#1)
+        sb.append(": ")
+                .append(MsgKt.translate("GrandTotal"))
+                .append("=")
+                .append(getGrandTotal());
+        if (m_lines != null) sb.append(" (#").append(m_lines.length).append(")");
+        //	 - Description
+        if (getDescription() != null && getDescription().length() > 0)
+            sb.append(" - ").append(getDescription());
+        return sb.toString();
+    } //	getSummary
+
+    /**
+     * Get Document Owner (Responsible)
+     *
+     * @return AD_User_ID
+     */
+    @Override
+    public int getDocumentUserId() {
+        return getSalesRepresentativeId();
+    } //	getDoc_User_ID
+
+    @NotNull
+    @Override
+    public BigDecimal getApprovalAmt() {
+        return getGrandTotal();
     }
 } //	MOrder

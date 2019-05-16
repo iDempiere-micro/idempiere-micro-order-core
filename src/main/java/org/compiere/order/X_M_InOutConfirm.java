@@ -152,7 +152,7 @@ public abstract class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @return Type of confirmation
      */
     public String getConfirmType() {
-        return (String) getValue(COLUMNNAME_ConfirmType);
+        return getValue(COLUMNNAME_ConfirmType);
     }
 
     /**
@@ -171,7 +171,7 @@ public abstract class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @return Optional short description of the record
      */
     public String getDescription() {
-        return (String) getValue(COLUMNNAME_Description);
+        return getValue(COLUMNNAME_Description);
     }
 
     /**
@@ -189,7 +189,7 @@ public abstract class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @return The targeted status of the document
      */
     public String getDocAction() {
-        return (String) getValue(COLUMNNAME_DocAction);
+        return getValue(COLUMNNAME_DocAction);
     }
 
     /**
@@ -208,7 +208,7 @@ public abstract class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @return The current status of the document
      */
     public String getDocStatus() {
-        return (String) getValue(COLUMNNAME_DocStatus);
+        return getValue(COLUMNNAME_DocStatus);
     }
 
     /**
@@ -227,7 +227,7 @@ public abstract class X_M_InOutConfirm extends PO implements I_M_InOutConfirm {
      * @return Document sequence number of the document
      */
     public String getDocumentNo() {
-        return (String) getValue(COLUMNNAME_DocumentNo);
+        return getValue(COLUMNNAME_DocumentNo);
     }
 
     /**

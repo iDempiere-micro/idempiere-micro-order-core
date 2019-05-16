@@ -58,7 +58,7 @@ public class X_M_RMATax extends PO {
      * @return Tax identifier
      */
     public int getTaxId() {
-        Integer ii = (Integer) getValue(I_M_RMATax.COLUMNNAME_C_Tax_ID);
+        Integer ii = getValue(I_M_RMATax.COLUMNNAME_C_Tax_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -79,7 +79,7 @@ public class X_M_RMATax extends PO {
      * @return Tax Provider
      */
     public int getTaxProviderId() {
-        Integer ii = (Integer) getValue(I_M_RMATax.COLUMNNAME_C_TaxProvider_ID);
+        Integer ii = getValue(I_M_RMATax.COLUMNNAME_C_TaxProvider_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -113,7 +113,7 @@ public class X_M_RMATax extends PO {
      * @return Return Material Authorization
      */
     public int getRMAId() {
-        Integer ii = (Integer) getValue(I_M_RMATax.COLUMNNAME_M_RMA_ID);
+        Integer ii = getValue(I_M_RMATax.COLUMNNAME_M_RMA_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -134,7 +134,7 @@ public class X_M_RMATax extends PO {
      * @return Tax Amount for a document
      */
     public BigDecimal getTaxAmt() {
-        BigDecimal bd = (BigDecimal) getValue(I_M_RMATax.COLUMNNAME_TaxAmt);
+        BigDecimal bd = getValue(I_M_RMATax.COLUMNNAME_TaxAmt);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -154,7 +154,7 @@ public class X_M_RMATax extends PO {
      * @return Base for calculating the tax amount
      */
     public BigDecimal getTaxBaseAmt() {
-        BigDecimal bd = (BigDecimal) getValue(I_M_RMATax.COLUMNNAME_TaxBaseAmt);
+        BigDecimal bd = getValue(I_M_RMATax.COLUMNNAME_TaxBaseAmt);
         if (bd == null) return Env.ZERO;
         return bd;
     }

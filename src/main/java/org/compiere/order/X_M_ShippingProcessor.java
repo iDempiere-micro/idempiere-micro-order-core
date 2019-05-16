@@ -60,7 +60,7 @@ public class X_M_ShippingProcessor extends BasePOName
      * @return Shipping Processor Configuration
      */
     public int getShippingProcessorCfgId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_M_ShippingProcessorCfg_ID);
+        Integer ii = getValue(COLUMNNAME_M_ShippingProcessorCfg_ID);
         if (ii == null) return 0;
         return ii;
     }

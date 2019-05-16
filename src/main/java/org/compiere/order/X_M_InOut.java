@@ -5,7 +5,6 @@ import org.compiere.model.IPODoc;
 import org.compiere.model.DocumentType;
 import org.compiere.model.I_C_Order;
 import org.compiere.model.I_M_InOut;
-import org.compiere.orm.PO;
 import org.idempiere.common.util.Env;
 import software.hsharp.core.orm.MBaseTableKt;
 
@@ -19,7 +18,7 @@ import java.util.ArrayList;
  * @author iDempiere (generated)
  * @version Release 5.1 - $Id$
  */
-public abstract class X_M_InOut extends PO implements I_M_InOut {
+public abstract class X_M_InOut extends OrderPO implements I_M_InOut {
 
     /**
      * Availability = A
@@ -120,25 +119,14 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * Standard Constructor
      */
     public X_M_InOut(int M_InOut_ID) {
-        super(M_InOut_ID);
-        /**
-         * if (M_InOut_ID == 0) { setBusinessPartnerId (0); setBusinessPartnerLocationId (0); setDocumentTypeId
-         * (0); setDateAcct (new Timestamp( System.currentTimeMillis() )); // @#Date@ setDeliveryRule
-         * (null); // A setDeliveryViaRule (null); // P setDocAction (null); // CO setDocStatus (null);
-         * // DR setDocumentNo (null); setFreightCostRule (null); // I setIsAlternateReturnAddress
-         * (false); // N setIsApproved (false); setIsInDispute (false); setIsInTransit (false);
-         * setIsPrinted (false); setIsSOTrx (false); // @IsSOTrx@ setInOutId (0); setMovementDate
-         * (new Timestamp( System.currentTimeMillis() )); // @#Date@ setMovementType (null);
-         * setWarehouseId (0); setPosted (false); setPriorityRule (null); // 5 setProcessed (false);
-         * setSendEMail (false); }
-         */
+        super(null, M_InOut_ID);
     }
 
     /**
      * Load Constructor
      */
     public X_M_InOut(Row row) {
-        super(row);
+        super(row, -1);
     }
 
     /**
@@ -151,8 +139,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
     }
 
     public String toString() {
-        StringBuffer sb = new StringBuffer("X_M_InOut[").append(getId()).append("]");
-        return sb.toString();
+        return "X_M_InOut[" + getId() + "]";
     }
 
     /**
@@ -161,7 +148,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Performing or initiating organization
      */
     public int getTransactionOrganizationId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_AD_OrgTrx_ID);
+        Integer ii = getValue(COLUMNNAME_AD_OrgTrx_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -173,7 +160,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setTransactionOrganizationId(int AD_OrgTrx_ID) {
         if (AD_OrgTrx_ID < 1) setValue(COLUMNNAME_AD_OrgTrx_ID, null);
-        else setValue(COLUMNNAME_AD_OrgTrx_ID, Integer.valueOf(AD_OrgTrx_ID));
+        else setValue(COLUMNNAME_AD_OrgTrx_ID, AD_OrgTrx_ID);
     }
 
     /**
@@ -182,7 +169,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return User within the system - Internal or Business Partner Contact
      */
     public int getUserId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_AD_User_ID);
+        Integer ii = getValue(COLUMNNAME_AD_User_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -194,7 +181,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setUserId(int AD_User_ID) {
         if (AD_User_ID < 1) setValue(COLUMNNAME_AD_User_ID, null);
-        else setValue(COLUMNNAME_AD_User_ID, Integer.valueOf(AD_User_ID));
+        else setValue(COLUMNNAME_AD_User_ID, AD_User_ID);
     }
 
     /**
@@ -203,7 +190,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Business Activity
      */
     public int getBusinessActivityId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_C_Activity_ID);
+        Integer ii = getValue(COLUMNNAME_C_Activity_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -215,7 +202,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setBusinessActivityId(int C_Activity_ID) {
         if (C_Activity_ID < 1) setValue(COLUMNNAME_C_Activity_ID, null);
-        else setValue(COLUMNNAME_C_Activity_ID, Integer.valueOf(C_Activity_ID));
+        else setValue(COLUMNNAME_C_Activity_ID, C_Activity_ID);
     }
 
     /**
@@ -224,7 +211,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Identifies a Business Partner
      */
     public int getBusinessPartnerId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_C_BPartner_ID);
+        Integer ii = getValue(COLUMNNAME_C_BPartner_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -236,7 +223,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setBusinessPartnerId(int C_BPartner_ID) {
         if (C_BPartner_ID < 1) setValue(COLUMNNAME_C_BPartner_ID, null);
-        else setValue(COLUMNNAME_C_BPartner_ID, Integer.valueOf(C_BPartner_ID));
+        else setValue(COLUMNNAME_C_BPartner_ID, C_BPartner_ID);
     }
 
     /**
@@ -245,7 +232,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Identifies the (ship to) address for this Business Partner
      */
     public int getBusinessPartnerLocationId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_C_BPartner_Location_ID);
+        Integer ii = getValue(COLUMNNAME_C_BPartner_Location_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -257,7 +244,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setBusinessPartnerLocationId(int C_BPartner_Location_ID) {
         if (C_BPartner_Location_ID < 1) setValue(COLUMNNAME_C_BPartner_Location_ID, null);
-        else setValue(COLUMNNAME_C_BPartner_Location_ID, Integer.valueOf(C_BPartner_Location_ID));
+        else setValue(COLUMNNAME_C_BPartner_Location_ID, C_BPartner_Location_ID);
     }
 
     /**
@@ -266,7 +253,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Marketing Campaign
      */
     public int getCampaignId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_C_Campaign_ID);
+        Integer ii = getValue(COLUMNNAME_C_Campaign_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -278,7 +265,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      */
     public void setCampaignId(int C_Campaign_ID) {
         if (C_Campaign_ID < 1) setValue(COLUMNNAME_C_Campaign_ID, null);
-        else setValue(COLUMNNAME_C_Campaign_ID, Integer.valueOf(C_Campaign_ID));
+        else setValue(COLUMNNAME_C_Campaign_ID, C_Campaign_ID);
     }
 
     /**
@@ -287,7 +274,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Additional document charges
      */
     public int getChargeId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_C_Charge_ID);
+        Integer ii = getValue(COLUMNNAME_C_Charge_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -314,7 +301,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Document type or rules
      */
     public int getDocumentTypeId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_C_DocType_ID);
+        Integer ii = getValue(COLUMNNAME_C_DocType_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -335,7 +322,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Charge Amount
      */
     public BigDecimal getChargeAmt() {
-        BigDecimal bd = (BigDecimal) getValue(COLUMNNAME_ChargeAmt);
+        BigDecimal bd = getValue(COLUMNNAME_ChargeAmt);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -355,7 +342,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Invoice Identifier
      */
     public int getInvoiceId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_C_Invoice_ID);
+        Integer ii = getValue(COLUMNNAME_C_Invoice_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -382,7 +369,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Order
      */
     public int getOrderId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_C_Order_ID);
+        Integer ii = getValue(COLUMNNAME_C_Order_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -403,7 +390,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Financial Project
      */
     public int getProjectId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_C_Project_ID);
+        Integer ii = getValue(COLUMNNAME_C_Project_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -478,7 +465,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Defines the timing of Delivery
      */
     public String getDeliveryRule() {
-        return (String) getValue(COLUMNNAME_DeliveryRule);
+        return getValue(COLUMNNAME_DeliveryRule);
     }
 
     /**
@@ -497,7 +484,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return How the order will be delivered
      */
     public String getDeliveryViaRule() {
-        return (String) getValue(COLUMNNAME_DeliveryViaRule);
+        return getValue(COLUMNNAME_DeliveryViaRule);
     }
 
     /**
@@ -516,7 +503,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Optional short description of the record
      */
     public String getDescription() {
-        return (String) getValue(COLUMNNAME_Description);
+        return getValue(COLUMNNAME_Description);
     }
 
     /**
@@ -534,7 +521,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return The targeted status of the document
      */
     public String getDocAction() {
-        return (String) getValue(COLUMNNAME_DocAction);
+        return getValue(COLUMNNAME_DocAction);
     }
 
     /**
@@ -553,7 +540,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return The current status of the document
      */
     public String getDocStatus() {
-        return (String) getValue(COLUMNNAME_DocStatus);
+        return getValue(COLUMNNAME_DocStatus);
     }
 
     /**
@@ -572,7 +559,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Document sequence number of the document
      */
     public String getDocumentNo() {
-        return (String) getValue(COLUMNNAME_DocumentNo);
+        return getValue(COLUMNNAME_DocumentNo);
     }
 
     /**
@@ -590,7 +577,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Business Partner to ship to
      */
     public int getDropShipBPartnerId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_DropShip_BPartner_ID);
+        Integer ii = getValue(COLUMNNAME_DropShip_BPartner_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -611,7 +598,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Business Partner Location for shipping to
      */
     public int getDropShipLocationId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_DropShip_Location_ID);
+        Integer ii = getValue(COLUMNNAME_DropShip_Location_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -632,7 +619,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Business Partner Contact for drop shipment
      */
     public int getDropShipUserId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_DropShip_User_ID);
+        Integer ii = getValue(COLUMNNAME_DropShip_User_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -653,7 +640,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Freight Amount
      */
     public BigDecimal getFreightAmt() {
-        BigDecimal bd = (BigDecimal) getValue(COLUMNNAME_FreightAmt);
+        BigDecimal bd = getValue(COLUMNNAME_FreightAmt);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -673,7 +660,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Method for charging Freight
      */
     public String getFreightCostRule() {
-        return (String) getValue(COLUMNNAME_FreightCostRule);
+        return getValue(COLUMNNAME_FreightCostRule);
     }
 
     /**
@@ -788,7 +775,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Material Shipment Document
      */
     public int getInOutId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_M_InOut_ID);
+        Integer ii = getValue(COLUMNNAME_M_InOut_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -817,7 +804,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Method of moving the inventory
      */
     public String getMovementType() {
-        return (String) getValue(COLUMNNAME_MovementType);
+        return getValue(COLUMNNAME_MovementType);
     }
 
     /**
@@ -836,7 +823,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Return Material Authorization
      */
     public int getRMAId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_M_RMA_ID);
+        Integer ii = getValue(COLUMNNAME_M_RMA_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -857,7 +844,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Method or manner of product delivery
      */
     public int getShipperId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_M_Shipper_ID);
+        Integer ii = getValue(COLUMNNAME_M_Shipper_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -878,7 +865,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Storage Warehouse and Service Point
      */
     public int getWarehouseId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_M_Warehouse_ID);
+        Integer ii = getValue(COLUMNNAME_M_Warehouse_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -899,7 +886,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Number of packages shipped
      */
     public int getNoPackages() {
-        Integer ii = (Integer) getValue(COLUMNNAME_NoPackages);
+        Integer ii = getValue(COLUMNNAME_NoPackages);
         if (ii == null) return 0;
         return ii;
     }
@@ -928,7 +915,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Transaction Reference Number (Sales Order, Purchase Order) of your Business Partner
      */
     public String getPOReference() {
-        return (String) getValue(COLUMNNAME_POReference);
+        return getValue(COLUMNNAME_POReference);
     }
 
     /**
@@ -1012,7 +999,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Referenced Shipment
      */
     public int getReferencedInOutId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_Ref_InOut_ID);
+        Integer ii = getValue(COLUMNNAME_Ref_InOut_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -1033,7 +1020,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return ID of document reversal
      */
     public int getReversalId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_Reversal_ID);
+        Integer ii = getValue(COLUMNNAME_Reversal_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -1054,7 +1041,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return Sales Representative or Company Agent
      */
     public int getSalesRepresentativeId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_SalesRep_ID);
+        Integer ii = getValue(COLUMNNAME_SalesRep_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -1116,7 +1103,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return User defined list element #1
      */
     public int getUser1Id() {
-        Integer ii = (Integer) getValue(COLUMNNAME_User1_ID);
+        Integer ii = getValue(COLUMNNAME_User1_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -1137,7 +1124,7 @@ public abstract class X_M_InOut extends PO implements I_M_InOut {
      * @return User defined list element #2
      */
     public int getUser2Id() {
-        Integer ii = (Integer) getValue(COLUMNNAME_User2_ID);
+        Integer ii = getValue(COLUMNNAME_User2_ID);
         if (ii == null) return 0;
         return ii;
     }
