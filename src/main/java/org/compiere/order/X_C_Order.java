@@ -17,7 +17,7 @@ import java.sql.Timestamp;
  * @author iDempiere (generated)
  * @version Release 5.1 - $Id$
  */
-public class X_C_Order extends OrderPO {
+public class X_C_Order extends OrderGetters {
 
     /**
      * Standard Constructor
@@ -39,16 +39,6 @@ public class X_C_Order extends OrderPO {
         return "X_C_Order[" + getId() + "]";
     }
 
-    /**
-     * Get Trx Organization.
-     *
-     * @return Performing or initiating organization
-     */
-    public int getTransactionOrganizationId() {
-        Integer ii = getValue(I_C_Order.COLUMNNAME_AD_OrgTrx_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
 
     /**
      * Set Trx Organization.
@@ -58,17 +48,6 @@ public class X_C_Order extends OrderPO {
     public void setTransactionOrganizationId(int AD_OrgTrx_ID) {
         if (AD_OrgTrx_ID < 1) setValue(I_C_Order.COLUMNNAME_AD_OrgTrx_ID, null);
         else setValue(I_C_Order.COLUMNNAME_AD_OrgTrx_ID, AD_OrgTrx_ID);
-    }
-
-    /**
-     * Get User/Contact.
-     *
-     * @return User within the system - Internal or Business Partner Contact
-     */
-    public int getUserId() {
-        Integer ii = getValue(I_C_Order.COLUMNNAME_AD_User_ID);
-        if (ii == null) return 0;
-        return ii;
     }
 
     /**
@@ -82,17 +61,6 @@ public class X_C_Order extends OrderPO {
     }
 
     /**
-     * Get Invoice Partner.
-     *
-     * @return Business Partner to be invoiced
-     */
-    public int getBill_BPartnerId() {
-        Integer ii = getValue(I_C_Order.COLUMNNAME_Bill_BPartner_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
      * Set Invoice Partner.
      *
      * @param Bill_BPartner_ID Business Partner to be invoiced
@@ -103,17 +71,6 @@ public class X_C_Order extends OrderPO {
     }
 
     /**
-     * Get Invoice Location.
-     *
-     * @return Business Partner Location for invoicing
-     */
-    public int getBusinessPartnerInvoicingLocationId() {
-        Integer ii = getValue(I_C_Order.COLUMNNAME_Bill_Location_ID);
-        if (ii == null) return 0;
-        return ii;
-    }
-
-    /**
      * Set Invoice Location.
      *
      * @param Bill_Location_ID Business Partner Location for invoicing
@@ -121,17 +78,6 @@ public class X_C_Order extends OrderPO {
     public void setBusinessPartnerInvoicingLocationId(int Bill_Location_ID) {
         if (Bill_Location_ID < 1) setValue(I_C_Order.COLUMNNAME_Bill_Location_ID, null);
         else setValue(I_C_Order.COLUMNNAME_Bill_Location_ID, Bill_Location_ID);
-    }
-
-    /**
-     * Get Invoice Contact.
-     *
-     * @return Business Partner Contact for invoicing
-     */
-    public int getBill_UserId() {
-        Integer ii = getValue(I_C_Order.COLUMNNAME_Bill_User_ID);
-        if (ii == null) return 0;
-        return ii;
     }
 
     /**

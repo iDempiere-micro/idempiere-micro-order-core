@@ -800,7 +800,7 @@ public class MOrder extends X_C_Order implements I_C_Order {
         if (getBusinessPartnerLocationId() == 0)
             setBPartner(getBusinessPartnerService().getById(getBusinessPartnerId()));
         //	No Bill - get from Ship
-        if (getBill_BPartnerId() == 0) {
+        if (getInvoiceBusinessPartnerId() == 0) {
             setBill_BPartnerId(getBusinessPartnerId());
             setBusinessPartnerInvoicingLocationId(getBusinessPartnerLocationId());
         }
