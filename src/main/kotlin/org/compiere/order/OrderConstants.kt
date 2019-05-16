@@ -1,5 +1,8 @@
 package org.compiere.order
 
+/**
+ * Constants for Order columns
+ */
 object OrderConstants {
     /**
      * Availability = A
