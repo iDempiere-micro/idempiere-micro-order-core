@@ -2,7 +2,6 @@ package org.compiere.order;
 
 import kotliquery.Row;
 import org.compiere.bo.MCurrencyKt;
-import org.compiere.model.User;
 import org.compiere.model.I_C_BPartner;
 import org.compiere.model.I_C_BPartner_Location;
 import org.compiere.model.I_C_Invoice;
@@ -13,6 +12,7 @@ import org.compiere.model.I_M_InOut;
 import org.compiere.model.I_M_PriceList;
 import org.compiere.model.I_M_PriceList_Version;
 import org.compiere.model.I_M_Product;
+import org.compiere.model.User;
 import org.compiere.orm.MClientInfo;
 import org.compiere.orm.MClientInfoKt;
 import org.compiere.orm.MDocType;

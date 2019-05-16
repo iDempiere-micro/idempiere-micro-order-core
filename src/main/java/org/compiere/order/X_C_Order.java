@@ -1,8 +1,8 @@
 package org.compiere.order;
 
 import kotliquery.Row;
-import org.compiere.model.I_C_Currency;
 import org.compiere.model.DocumentType;
+import org.compiere.model.I_C_Currency;
 import org.compiere.model.I_C_Order;
 import org.compiere.model.I_M_PriceList;
 import org.idempiere.common.util.Env;

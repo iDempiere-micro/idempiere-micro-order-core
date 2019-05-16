@@ -1,13 +1,12 @@
 package org.compiere.order;
 
 import kotliquery.Row;
-import org.compiere.crm.MBPartner;
 import org.compiere.model.I_C_BPartner;
-import org.compiere.model.User;
 import org.compiere.model.I_C_BPartner_Location;
 import org.compiere.model.I_C_Invoice;
 import org.compiere.model.I_M_InOutConfirm;
 import org.compiere.model.I_M_InOutLine;
+import org.compiere.model.User;
 import org.compiere.orm.MDocType;
 import org.compiere.orm.MDocTypeKt;
 import org.compiere.orm.PO;

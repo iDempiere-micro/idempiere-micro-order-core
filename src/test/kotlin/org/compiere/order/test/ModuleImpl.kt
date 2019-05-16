@@ -4,6 +4,9 @@ import software.hsharp.modules.DataModule
 import software.hsharp.modules.EnvironmentModule
 import software.hsharp.modules.Module
 
+/**
+ * Module implementation
+ */
 class ModuleImpl(
     environment: EnvironmentModule,
     logic: LogicModule,
