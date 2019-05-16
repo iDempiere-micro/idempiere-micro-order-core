@@ -59,7 +59,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule {
      * @return The terms of Payment (timing, discount)
      */
     public int getPaymentTermId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_C_PaymentTerm_ID);
+        Integer ii = getValue(COLUMNNAME_C_PaymentTerm_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -80,7 +80,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule {
      * @return Payment Schedule Template
      */
     public int getPayScheduleId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_C_PaySchedule_ID);
+        Integer ii = getValue(COLUMNNAME_C_PaySchedule_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -91,7 +91,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule {
      * @return Discount in percent
      */
     public BigDecimal getDiscount() {
-        BigDecimal bd = (BigDecimal) getValue(COLUMNNAME_Discount);
+        BigDecimal bd = getValue(COLUMNNAME_Discount);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -111,7 +111,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule {
      * @return Number of days from invoice date to be eligible for discount
      */
     public int getDiscountDays() {
-        Integer ii = (Integer) getValue(COLUMNNAME_DiscountDays);
+        Integer ii = getValue(COLUMNNAME_DiscountDays);
         if (ii == null) return 0;
         return ii;
     }
@@ -163,7 +163,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule {
      * @return Net Days in which payment is due
      */
     public int getNetDays() {
-        Integer ii = (Integer) getValue(COLUMNNAME_NetDays);
+        Integer ii = getValue(COLUMNNAME_NetDays);
         if (ii == null) return 0;
         return ii;
     }
@@ -183,7 +183,7 @@ public class X_C_PaySchedule extends PO implements I_C_PaySchedule {
      * @return Percent of the entire amount
      */
     public BigDecimal getPercentage() {
-        BigDecimal bd = (BigDecimal) getValue(COLUMNNAME_Percentage);
+        BigDecimal bd = getValue(COLUMNNAME_Percentage);
         if (bd == null) return Env.ZERO;
         return bd;
     }

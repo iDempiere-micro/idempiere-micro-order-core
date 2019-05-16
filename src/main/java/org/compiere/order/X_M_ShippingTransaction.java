@@ -94,7 +94,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @return Indicates the Action to be performed
      */
     public String getAction() {
-        return (String) getValue(COLUMNNAME_Action);
+        return getValue(COLUMNNAME_Action);
     }
 
     /**
@@ -252,7 +252,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @return Freight Charges
      */
     public String getFreightCharges() {
-        return (String) getValue(COLUMNNAME_FreightCharges);
+        return getValue(COLUMNNAME_FreightCharges);
     }
 
     /**
@@ -312,7 +312,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @return Method or manner of product delivery
      */
     public int getShipperId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_M_Shipper_ID);
+        Integer ii = getValue(COLUMNNAME_M_Shipper_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -374,7 +374,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @return Shipping Transaction
      */
     public int getShippingTransactionId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_M_ShippingTransaction_ID);
+        Integer ii = getValue(COLUMNNAME_M_ShippingTransaction_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -415,7 +415,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @return Price
      */
     public BigDecimal getPrice() {
-        BigDecimal bd = (BigDecimal) getValue(COLUMNNAME_Price);
+        BigDecimal bd = getValue(COLUMNNAME_Price);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -463,7 +463,7 @@ public class X_M_ShippingTransaction extends PO implements I_M_ShippingTransacti
      * @return Response Message
      */
     public String getShippingRespMessage() {
-        return (String) getValue(COLUMNNAME_ShippingRespMessage);
+        return getValue(COLUMNNAME_ShippingRespMessage);
     }
 
     /**

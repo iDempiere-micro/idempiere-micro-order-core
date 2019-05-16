@@ -1,12 +1,12 @@
 package org.compiere.order;
 
 import kotliquery.Row;
-import org.compiere.crm.MBPartner;
-import org.compiere.model.User;
+import org.compiere.model.I_C_BPartner;
 import org.compiere.model.I_C_BPartner_Location;
 import org.compiere.model.I_C_Invoice;
 import org.compiere.model.I_M_InOutConfirm;
 import org.compiere.model.I_M_InOutLine;
+import org.compiere.model.User;
 import org.compiere.orm.MDocType;
 import org.compiere.orm.MDocTypeKt;
 import org.compiere.orm.PO;
@@ -495,16 +495,15 @@ public class MInOut extends X_M_InOut {
      *
      * @param bp business partner
      */
-    public void setBPartner(MBPartner bp) {
+    public void setBPartner(I_C_BPartner bp) {
         if (bp == null) return;
 
         setBusinessPartnerId(bp.getBusinessPartnerId());
 
         //	Set Locations
-        List<I_C_BPartner_Location> locs = bp.getLocations(false);
+        List<I_C_BPartner_Location> locs = bp.getLocations();
         if (locs != null) {
-            for (int i = 0; i < locs.size(); i++) {
-                I_C_BPartner_Location loc = locs.get(i);
+            for (I_C_BPartner_Location loc : locs) {
                 if (loc.getIsShipTo()) setBusinessPartnerLocationId(loc.getBusinessPartnerLocationId());
             }
             //	set to first if not set
@@ -514,7 +513,7 @@ public class MInOut extends X_M_InOut {
         if (getBusinessPartnerLocationId() == 0) log.log(Level.SEVERE, "Has no To Address: " + bp);
 
         //	Set Contact
-        List<User> contacts = bp.getContacts(false);
+        List<User> contacts = bp.getContacts();
         if (contacts != null && contacts.size() == 1) setUserId(contacts.get(0).getUserId());
     } //	setBPartner
 

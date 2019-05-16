@@ -52,7 +52,7 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper {
      * @return Identifies a Business Partner
      */
     public int getBusinessPartnerId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_C_BPartner_ID);
+        Integer ii = getValue(COLUMNNAME_C_BPartner_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -69,7 +69,7 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper {
      * @return Shipper Configuration
      */
     public int getShipperCfgId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_M_ShipperCfg_ID);
+        Integer ii = getValue(COLUMNNAME_M_ShipperCfg_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -80,7 +80,7 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper {
      * @return Method or manner of product delivery
      */
     public int getShipperId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_M_Shipper_ID);
+        Integer ii = getValue(COLUMNNAME_M_Shipper_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -91,7 +91,7 @@ public class X_M_Shipper extends BasePOName implements I_M_Shipper {
      * @return Shipping Processor
      */
     public int getShippingProcessorId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_M_ShippingProcessor_ID);
+        Integer ii = getValue(COLUMNNAME_M_ShippingProcessor_ID);
         if (ii == null) return 0;
         return ii;
     }

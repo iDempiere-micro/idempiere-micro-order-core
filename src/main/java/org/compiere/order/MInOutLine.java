@@ -11,7 +11,6 @@ import org.compiere.product.MProduct;
 import org.compiere.product.MUOM;
 import org.compiere.util.MsgKt;
 import org.idempiere.common.exceptions.FillMandatoryException;
-import org.idempiere.common.util.AdempiereSystemError;
 import org.idempiere.common.util.Env;
 
 import java.math.BigDecimal;

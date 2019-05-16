@@ -54,7 +54,7 @@ public class X_M_ShipperPackaging extends BasePOName implements I_M_ShipperPacka
      * @return Shipper Packaging Configuration
      */
     public int getShipperPackagingCfgId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_M_ShipperPackagingCfg_ID);
+        Integer ii = getValue(COLUMNNAME_M_ShipperPackagingCfg_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -65,7 +65,7 @@ public class X_M_ShipperPackaging extends BasePOName implements I_M_ShipperPacka
      * @return Weight of a product
      */
     public BigDecimal getWeight() {
-        BigDecimal bd = (BigDecimal) getValue(COLUMNNAME_Weight);
+        BigDecimal bd = getValue(COLUMNNAME_Weight);
         if (bd == null) return Env.ZERO;
         return bd;
     }

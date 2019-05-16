@@ -8,6 +8,7 @@ import org.compiere.model.I_M_RMATax;
 import org.compiere.orm.MDocType;
 import org.compiere.orm.MDocTypeKt;
 import org.compiere.orm.MSequence;
+import org.compiere.orm.PO;
 import org.compiere.orm.Query;
 import org.compiere.tax.ITaxProvider;
 import org.compiere.tax.MTax;
@@ -41,7 +42,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
     /**
      * Lines
      */
-    protected MRMALine[] m_lines = null;
+    protected I_M_RMALine[] m_lines = null;
     /**
      * The Shipment
      */
@@ -57,7 +58,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
     /**
      * Tax Lines
      */
-    private MRMATax[] m_taxes = null;
+    private I_M_RMATax[] m_taxes = null;
 
     /**
      * Standard Constructor
@@ -143,12 +144,12 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
      * @param requery requery
      * @return lines
      */
-    public MRMALine[] getLines(boolean requery) {
+    public I_M_RMALine[] getLines(boolean requery) {
         if (m_lines != null && !requery) {
             return m_lines;
         }
-        List<MRMALine> list =
-                new Query(I_M_RMALine.Table_Name, "M_RMA_ID=?")
+        List<I_M_RMALine> list =
+                new Query<I_M_RMALine>(I_M_RMALine.Table_Name, "M_RMA_ID=?")
                         .setParameters(getRMAId())
                         .setOrderBy(MRMALine.COLUMNNAME_Line)
                         .list();
@@ -164,14 +165,14 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
      * @param requery requery
      * @return array of taxes
      */
-    public MRMATax[] getTaxes(boolean requery) {
+    public I_M_RMATax[] getTaxes(boolean requery) {
         if (m_taxes != null && !requery) return m_taxes;
         //
-        List<MRMATax> list =
-                new Query(I_M_RMATax.Table_Name, "M_RMA_ID=?")
+        List<I_M_RMATax> list =
+                new Query<I_M_RMATax>(I_M_RMATax.Table_Name, "M_RMA_ID=?")
                         .setParameters(getId())
                         .list();
-        m_taxes = list.toArray(new MRMATax[0]);
+        m_taxes = list.toArray(new I_M_RMATax[0]);
         return m_taxes;
     }
 
@@ -342,17 +343,17 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
      */
     public int copyLinesFrom(MRMA otherRMA, boolean counter) {
         if (isProcessed() || otherRMA == null) return 0;
-        MRMALine[] fromLines = otherRMA.getLines(false);
+        I_M_RMALine[] fromLines = otherRMA.getLines(false);
         int count = 0;
-        for (MRMALine fromLine1 : fromLines) {
+        for (I_M_RMALine fromLine1 : fromLines) {
             MRMALine line = new MRMALine(0);
             if (counter) //	header
-                copyValues(fromLine1, line, getClientId(), getOrgId());
-            else copyValues(fromLine1, line, fromLine1.getClientId(), fromLine1.getOrgId());
+                copyValues((PO)fromLine1, line, getClientId(), getOrgId());
+            else copyValues((PO)fromLine1, line, fromLine1.getClientId(), fromLine1.getOrgId());
             line.setRMAId(getRMAId());
             line.setValueNoCheck(MRMALine.COLUMNNAME_M_RMALine_ID, I_ZERO); // 	new
             if (counter) {
-                line.setRef_RMALineId(fromLine1.getRMALineId());
+                line.setRefRMALineId(fromLine1.getRMALineId());
                 if (fromLine1.getInOutLineId() != 0) {
                     MInOutLine peer = new MInOutLine(fromLine1.getInOutLineId());
                     if (peer.getReferencedInOutLineId() != 0) line.setInOutLineId(peer.getReferencedInOutLineId());
@@ -363,7 +364,7 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
             if (line.save()) count++;
             //	Cross Link
             if (counter) {
-                fromLine1.setRef_RMALineId(line.getRMALineId());
+                fromLine1.setRefRMALineId(line.getRMALineId());
                 fromLine1.saveEx();
             }
         }
@@ -527,8 +528,8 @@ public class MRMA extends X_M_RMA implements I_M_RMA {
      */
     public MTaxProvider[] getTaxProviders() {
         Hashtable<Integer, MTaxProvider> providers = new Hashtable<>();
-        MRMALine[] lines = getLines(false);
-        for (MRMALine line : lines) {
+        I_M_RMALine[] lines = getLines(false);
+        for (I_M_RMALine line : lines) {
             MTax tax = new MTax(line.getTaxId());
             MTaxProvider provider = providers.get(tax.getTaxProviderId());
             if (provider == null)

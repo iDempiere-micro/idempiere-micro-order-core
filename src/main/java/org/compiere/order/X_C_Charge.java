@@ -56,7 +56,7 @@ public class X_C_Charge extends PO implements I_C_Charge {
      * @return Identifies a Business Partner
      */
     public int getBusinessPartnerId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_C_BPartner_ID);
+        Integer ii = getValue(COLUMNNAME_C_BPartner_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -67,7 +67,7 @@ public class X_C_Charge extends PO implements I_C_Charge {
      * @return Charge Amount
      */
     public BigDecimal getChargeAmt() {
-        BigDecimal bd = (BigDecimal) getValue(COLUMNNAME_ChargeAmt);
+        BigDecimal bd = getValue(COLUMNNAME_ChargeAmt);
         if (bd == null) return Env.ZERO;
         return bd;
     }
@@ -93,7 +93,7 @@ public class X_C_Charge extends PO implements I_C_Charge {
      * @return Tax Category
      */
     public int getTaxCategoryId() {
-        Integer ii = (Integer) getValue(COLUMNNAME_C_TaxCategory_ID);
+        Integer ii = getValue(COLUMNNAME_C_TaxCategory_ID);
         if (ii == null) return 0;
         return ii;
     }
@@ -131,7 +131,7 @@ public class X_C_Charge extends PO implements I_C_Charge {
      * @return Alphanumeric identifier of the entity
      */
     public String getName() {
-        return (String) getValue(HasName.COLUMNNAME_Name);
+        return getValue(HasName.COLUMNNAME_Name);
     }
 
     /**
